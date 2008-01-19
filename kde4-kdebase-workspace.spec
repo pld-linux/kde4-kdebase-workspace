@@ -22,7 +22,11 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+Source1:	kdebase-kdesktop.pam
 Source4:	kdebase-kdm.init
+BuildRequires:	cmake
+BuildRequires:	kdelibs4-devel
+Obsoletes:	kdebase-desktop
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -102,6 +106,19 @@ stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
 przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
 siebie.
 
+%package -n kde-decoration-kde2
+Summary:	KDE Window Decoration - kde2
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - kde2
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+Conflicts:	kdebase-desktop < 9:3.3.91
+
+%description -n kde-decoration-kde2
+KDE Window Decoration - kde2.
+
+%description -n kde-decoration-kde2 -l pl.UTF-8
+Dekoracja okna dla KDE - kde2.
+
 %package -n kde-decoration-keramik
 Summary:	KDE Window Decoration - keramik
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - keramik
@@ -141,6 +158,22 @@ window title with gray lines surronding the text of the title. Also
 with a convex resize handle on the bottom-right window corner.
 
 %description -n kde-decoration-modernsys -l pl.UTF-8
+Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
+tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
+służący do zmiany rozmiaru w prawym dolnym rogu okna.
+
+%package -n kde-decoration-oxygen
+Summary:	KDE Window Decoration - Oxygen
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Oxygen
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+
+%description -n kde-decoration-oxygen
+A window decoration with small, top-aligned window buttons and a
+window title with gray lines surronding the text of the title. Also
+with a convex resize handle on the bottom-right window corner.
+
+%description -n kde-decoration-oxygen -l pl.UTF-8
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
@@ -216,87 +249,6 @@ Tools for asking for passwords - winbind.
 %description -n kde-kgreet-winbind -l pl.UTF-8
 Narzędzia służące do zapytań o hasło - winbind.
 
-%package -n kde-kio-ldap
-Summary:	KDE LDAP protocol service
-Summary(pl.UTF-8):	Obsługa protokołu LDAP
-Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
-Conflicts:	konqueror < 9:3.2.90.040210
-
-%description -n kde-kio-ldap
-KDE LDAP protocol service.
-
-%description -n kde-kio-ldap -l pl.UTF-8
-Obsługa protokołu LDAP.
-
-%package -n kde-kio-nntp
-Summary:	KDE NNTP protocol service
-Summary(pl.UTF-8):	Obsługa protokołu NNTP
-Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
-
-%description -n kde-kio-nntp
-KDE NNTP protocol service.
-
-%description -n kde-kio-nntp -l pl.UTF-8
-Obsługa protokołu NNTP.
-
-%package -n kde-kio-pop3
-Summary:	KDE POP3 protocol service
-Summary(pl.UTF-8):	Obsługa protokołu POP3
-Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
-
-%description -n kde-kio-pop3
-KDE POP3 protocol service.
-
-%description -n kde-kio-pop3 -l pl.UTF-8
-Obsługa protokołu POP3.
-
-%package -n kde-kio-smtp
-Summary:	KDE SMTP protocol service
-Summary(pl.UTF-8):	Obsługa protokołu SMTP
-Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-mailnews
-
-%description -n kde-kio-smtp
-KDE SMTP protocol service.
-
-%description -n kde-kio-smtp -l pl.UTF-8
-Obsługa protokołu SMTP.
-
-%package -n kde-kside-default
-Summary:	Default kicker sidebar
-Summary(pl.UTF-8):	Domyślny boczny pasek do menu KDE
-Group:		Themes
-Requires:	kdebase-desktop >= 9:3.2.90.040424-2
-Provides:	kde-kside
-Obsoletes:	kde-kside
-
-%description -n kde-kside-default
-Default kicker sidebar with a gear and the K Desktop Environment text.
-
-%description -n kde-kside-default -l pl.UTF-8
-Domyślny boczny pasek do menu KDE z turbinką oraz napisem K Desktop
-Environment.
-
-%package -n kde-logoutpic-default
-Summary:	KDE "Logout" picture
-Summary(pl.UTF-8):	Obrazek okna "Wyloguj" KDE
-Group:		X11/Amusements
-Requires:	%{name}-desktop
-Provides:	kde-logoutpic
-Obsoletes:	kde-logoutpic-PLD
-
-%description -n kde-logoutpic-default
-Default "Logout" picture with a KDE logo.
-
-%description -n kde-logoutpic-default -l pl.UTF-8
-Standardowy obrazek okna "Wyloguj" z logiem KDE.
-
 %package -n kde-splash-Default
 Summary:	Default clasic KDE splashscreen
 Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
@@ -329,55 +281,6 @@ KDE SimpleSmall splashcreen.
 
 %description -n kde-splash-SimpleSmall -l pl.UTF-8
 Ekran powitalny KDE SimpleSmall.
-
-%package -n kde-splashplugin-Redmond
-Summary:	ksplash plugin Redmond
-Summary(pl.UTF-8):	Wtyczka ksplash Redmond
-Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Obsoletes:	kde-splashplugin-XpLike
-
-%description -n kde-splashplugin-Redmond
-A splash screen plugin that resembles the Windows XP post login
-animations.
-
-%description -n kde-splashplugin-Redmond -l pl.UTF-8
-Wtyczka ekranu powitalnego KDE, podobna do animacji, które w Windows
-XP mają miejsce po zalogowaniu.
-
-%package -n kde-splashplugin-Standard
-Summary:	ksplash plugin Standard
-Summary(pl.UTF-8):	Wtyczka ksplash Standard
-Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-
-%description -n kde-splashplugin-Standard
-A standard splash screen plugin for KDE. It is themable and shows
-splashscreens on the center of the screen. The splash themes for this
-plugin consist of a main picture and two icon bars that are shown
-under it. For every step of the loading process a different icon is
-highlighted.
-
-%description -n kde-splashplugin-Standard -l pl.UTF-8
-Standardowa wtyczka uruchamiana podczas startu KDE. Obsługuje motywy i
-pokazuje ekrany startowe na środku ekranu. Motywy startowe dla tej
-wtyczki składają się z głównego obrazka i dwóch pasków ikon pod nim
-pokazywanych. Dla każdego kroku procesu ładowania podświetlana jest
-inna ikona.
-
-%package common-filemanagement
-Summary:	Common Files for kate and konqueror
-Summary(pl.UTF-8):	Pliki wspólne dla kate i konquerora
-Group:		X11/Libraries
-Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-
-%description common-filemanagement
-Thumbnail and file sharing libraries for kate and konqueror.
-
-%description common-filemanagement -l pl.UTF-8
-Biblioteki służące do tworzenia podglądu i wymiany plików dla kate i
-konquerora.
 
 %package common-konsole
 Summary:	Common files for konsole and konsolepart
@@ -423,77 +326,11 @@ Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
 - Programy obsługi błędów;
 - Frontend dla programu "su" (lub "sudo").
 
-%package desktop
-Summary:	KDesktop - handling of desktop icons, popup menus etc.
-Summary(pl.UTF-8):	KDesktop - obsługa ikon na pulpicie, menu itp.
-Group:		X11/Applications
-Requires:	%{name}-desktop-libs = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kdialog = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kfind = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kjobviewer = %{epoch}:%{version}-%{release}
-Requires:	%{name}-kpager = %{epoch}:%{version}-%{release}
-Requires:	eject
-Requires:	kde-kgreet
-Requires:	kde-kside
-Requires:	kde-logoutpic
-Requires:	kde-splash-Default
-Requires:	konqueror = %{epoch}:%{version}-%{release}
-Requires:	pam >= 0.99.7.1
-Requires:	xorg-app-xmessage
-Requires:	xorg-app-xprop
-Provides:	kdebase-kicker
-Obsoletes:	kde-decoration-plastik
-Obsoletes:	kde-theme-keramik
-Obsoletes:	kdebase
-Obsoletes:	kdebase-fonts
-Obsoletes:	kdebase-kcheckpass
-Obsoletes:	kdebase-kdesktop
-Obsoletes:	kdebase-kdesktop_lock
-Obsoletes:	kdebase-khelpcenter
-Obsoletes:	kdebase-kicker
-Obsoletes:	kdebase-kioslave
-Obsoletes:	kdebase-kmenuedit
-Obsoletes:	kdebase-konqueror
-Obsoletes:	kdebase-ksystraycmd
-Obsoletes:	kdebase-kwin
-Obsoletes:	kdebase-kwin_plugin
-Obsoletes:	kdebase-kwmtheme
-Obsoletes:	kdebase-kxmlrpc
-Obsoletes:	kdebase-screensaver
-Obsoletes:	kdebase-static
-Obsoletes:	kdebase-wallpapers
-Obsoletes:	khotkeys
-Conflicts:	kdeedu-libkdeeduui < 8:3.4.0
-
-%description desktop
-KDesktop is the program that handles the desktop icons, the popup
-menus for the desktop, the mac menubar, and the screensaver system.
-
-%description desktop -l pl.UTF-8
-KDesktop to program obsługujący ikony na pulpicie, menu dla pulpitu,
-pasek menu oraz system wygaszacza ekranu.
-
-%package desktop-libs
-Summary:	KDesktop libraries
-Summary(pl.UTF-8):	Biblioteki KDesktop
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 9:3.1.92.031006
-Obsoletes:	kdebase-kicker-libs
-
-%description desktop-libs
-KDesktop libraries (taskbar, splash themes and window decorations).
-
-%description desktop-libs -l pl.UTF-8
-Biblioteki KDesktop (pasek zadań, obsługa motywów obrazków startowych
-i dekoracji okna).
-
 %package infocenter
 Summary:	KDE Info Center
 Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
 Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
+Requires:	kdebase4-infocenter-core = %{epoch}:%{version}-%{release}
 Requires:	pciutils
 
 %description infocenter
@@ -502,131 +339,10 @@ Application for displaying information about your system.
 %description infocenter -l pl.UTF-8
 Centrum informacji o systemie dla KDE.
 
-%package kappfinder
-Summary:	Menu Updating Tool
-Summary(pl.UTF-8):	Narzędzie do aktualizacji menu
-Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase =< 8:3.2-0.030418.2
-
-%description kappfinder
-The tool for finding installed application and adding them to your
-menu.
-
-%description kappfinder -l pl.UTF-8
-Narzędzie do wyszukiwania zainstalowanych aplikacji i dodawania ich do
-menu.
-
-%package kate
-Summary:	KDE Advanced Text Editor
-Summary(pl.UTF-8):	Zaawansowany edytor tekstu dla KDE
-Group:		X11/Applications/Editors
-Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Obsoletes:	kate
-Conflicts:	kttsd <= 040609
-
-%description kate
-KDE advanced text editor featuring among others:
-- fast opening/editing of files even the big ones (opens a 50MB file
-  in a few seconds)
-- powerful syntaxhighlighting engine, extensible via XML files
-- Code Folding capabilities for C++, C, PHP and more
-- Dynamic Word Wrap - long lines are wrapped at the window border on
-  the fly for better overview
-- multiple views allows you to view more instances of the same
-  document and/or more documents at one time
-- support for different encodings globally and at write time
-- built in dockable terminal emulation
-- sidebars with a list of open documents, a directory viewer with a
-  directory chooser, a filter chooser and more
-- a plugin interface to allow third party plugins
-- a "Filter" command allows you to run selected text through a shell
-  command
-
-%description kate -l pl.UTF-8
-Kate (KDE advanced text editor) to zaawansowany edytor tekstu KDE o
-możliwościach obejmujących m.in.:
-- szybkie otwieranie i edycję nawet dużych plików (otwiera plik 50MB w
-  parę sekund)
-- potężny silnik podświetlania składni, rozszerzalny za pomocą plików
-  XML
-- możliwość zwijania kodu dla C++, C, PHP i innych języków
-- dynamiczne zawijanie wierszy - długie linie są zawijane na granicy
-  okna w locie dla lepszej widoczności
-- wiele widoków pozwalających oglądać więcej instancji tego samego
-  dokumentu i/lub więcej dokumentów w tym samym czasie
-- obsługę różnych kodowań globalnie i w czasie zapisu
-- wbudowaną emulację dokowalnego terminala
-- paski z listą otwartych dokumentów, przeglądarkę katalogów z
-  możliwością wybierania katalogu i filtrów
-- interfejs wtyczek obsługujący zewnętrzne wtyczki
-- polecenie "Filtr" pozwalające przepuszczać zaznaczony tekst przez
-  polecenie powłoki
-
-%package kdeprintfax
-Summary:	KDE Fax Tool
-Summary(pl.UTF-8):	Narzędzie do faksowania dla KDE
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	efax
-Requires:	enscript
-
-%description kdeprintfax
-Support for sending faxes via the KDE print system.
-
-%description kdeprintfax -l pl.UTF-8
-Wsparcie wysyłania faksów dla systemu drukowania KDE.
-
-%package kdcop
-Summary:	Graphic DCOP browser/client
-Summary(pl.UTF-8):	Graficzna przegladarka/klient DCOP
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 9:3.1.91.030911
-
-%description kdcop
-Graphic DCOP browser/client. Actually useful only for developers and
-very advanced users.
-
-%description kdcop -l pl.UTF-8
-Graficzna przeglądarka/klient DCOP. Przydatna głównie developerom i
-bardzo zaawansowanym użytkownikom.
-
-%package kdialog
-Summary:	A KDE version of dialog
-Summary(pl.UTF-8):	Wersja KDE dialogu
-Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase < 8:3.2-0.030423.2
-
-%description kdialog
-Kdialog allows to display window dialogs with KDE widgets from shell
-scripts.
-
-%description kdialog -l pl.UTF-8
-Kdialog umożliwia wyświetlanie komunikatów w okienkach KDE z poziomu
-skryptów powłoki.
-
-%package kfind
-Summary:	KDE Find Tool
-Summary(pl.UTF-8):	Narzędzie do wyszukiwania plików dla KDE
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kfind
-
-%description kfind
-A tool for find files for KDE.
-
-%description kfind -l pl.UTF-8
-Narzędzie do wyszukiwania plików dla KDE.
-
 %package kfontinst
 Summary:	K Font Installer
 Summary(pl.UTF-8):	Instalator fontów dla KDE
 Group:		X11/Applications
-#Requires:	konqueror = %{epoch}:%{version}-%{release}
-# for /usr/share/doc/kde/HTML/en/kcontrol, probably stupid
 Requires:	kdebase-core = %{epoch}:%{version}-%{release}
 Obsoletes:	kdebase-desktop < 3.1.90.030720
 
@@ -635,18 +351,6 @@ KDE font installer.
 
 %description kfontinst -l pl.UTF-8
 Instalator czcionek dla KDE.
-
-%package kjobviewer
-Summary:	Print Job Viewer
-Summary(pl.UTF-8):	Podgląd zadań drukowania
-Group:		X11/Applications
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-
-%description kjobviewer
-KDE print queue viewer.
-
-%description kjobviewer -l pl.UTF-8
-Przeglądarka kolejki drukowania dla KDE.
 
 %package klipper
 Summary:	Clipboard Tool
@@ -662,47 +366,6 @@ a powerful computer.
 Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
 systemu.
 
-%package konsole
-Summary:	KDE Terminal Emulator
-Summary(pl.UTF-8):	Emulator terminala dla KDE
-Group:		X11/Applications
-Requires:	%{name}-common-konsole = %{epoch}:%{version}-%{release}
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Obsoletes:	konsole
-
-%description konsole
-KDE Terminal Emulator.
-
-%description konsole -l pl.UTF-8
-Emulator terminala dla KDE.
-
-%package kpager
-Summary:	Desktop Pager
-Summary(pl.UTF-8):	Przełącznik biurek
-Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase =< 8:3.2-0.030418.2
-
-%description kpager
-KDE Desktop Pager.
-
-%description kpager -l pl.UTF-8
-Przełącznik biurek dla KDE.
-
-%package kpersonalizer
-Summary:	KDE desktop settings wizard
-Summary(pl.UTF-8):	Kreator ustawień środowiska KDE
-Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Requires:	%{name}-klipper = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase < 9:3.1.92.031021
-
-%description kpersonalizer
-KDE desktop settings wizard.
-
-%description kpersonalizer -l pl.UTF-8
-Kreator ustawień środowiska KDE.
-
 %package ksysguard
 Summary:	System Guard
 Summary(pl.UTF-8):	Strażnik systemu
@@ -716,57 +379,6 @@ KDE System Guard.
 
 %description ksysguard -l pl.UTF-8
 Strażnik systemu dla KDE.
-
-%package kwrite
-Summary:	KDE Text Editor
-Summary(pl.UTF-8):	Edytor tekstu dla KDE
-Group:		X11/Applications/Editors
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libkate = %{epoch}:%{version}-%{release}
-Obsoletes:	kwrite
-
-%description kwrite
-KWrite is a simple texteditor, with syntaxhighlighting, codefolding,
-dynamic word wrap and more, it's the lightweight version of Kate,
-providing more speed for minor tasks.
-
-%description kwrite -l pl.UTF-8
-KWrite to prosty edytor tekstu z podświetlaniem składni, zwijaniem
-kodu, dynamicznym zawijaniem wierszy itp. Jest lżejszą wersją Kate,
-szybszą dla mniejszych zadań.
-
-%package kwrited
-Summary:	KDE write messaging daemon
-Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą write
-Group:		X11/Applications
-# With functional reasons
-Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase < 8:3.2-0.030423.1
-
-%description kwrited
-A kde daeomn that watches for messages from local users sent with
-write or wall.
-
-%description kwrited -l pl.UTF-8
-Demon KDE, który monitoruje wiadomości jakie lokalni użytkownicy
-wysyłają za pomocą komend write lub wall.
-
-%package libkate
-Summary:	A libraries for KDE text editors
-Summary(pl.UTF-8):	Biblioteki dla edytorów tekstu KDE
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-kate < 8:3.2-0.030423.1
-Obsoletes:	kdebase-libkmultitabbar
-
-%description libkate
-A libraries shared between KDE text editors. They provide an
-embeddable kate interface.
-
-%description libkate -l pl.UTF-8
-Biblioteki współdzielone między edytorami tekstu w KDE. Dostarczają
-interfejs kate, który można osadzać w innych aplikacjach.
 
 %package libksgrd
 Summary:	ksgrd library
@@ -800,21 +412,6 @@ Wygaszacze ekranu desktopu KDE.
 %description screensavers -l ru.UTF-8
 Некоторые 3D хранители экрана для K Desktop Environment.
 
-%package useraccount
-Summary:	User Account
-Summary(pl.UTF-8):	Konto użytkownika
-Group:		X11/Applications
-Obsoletes:	kdeutils-kdepasswd
-Obsoletes:	kdeutils-userinfo
-
-%description useraccount
-useraccount changes user account information. This module contains
-kdepasswd program functionality.
-
-%description useraccount -l pl.UTF-8
-useraccount zmienia informacje o koncie użytkownika. Ten moduł zawiera
-funkcjonalność programu kdepasswd.
-
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
@@ -837,94 +434,6 @@ Also provides graphical login method.
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
 
-%package -n konqueror
-Summary:	Konqueror - web browser and file manager
-Summary(pl.UTF-8):	Konqueror - przeglądarka WWW i zarządca plików
-Group:		X11/Applications
-Requires:	%{name}-common-filemanagement = %{epoch}:%{version}-%{release}
-Requires:	browser-plugins >= 2.0
-Requires:	konqueror-libs = %{epoch}:%{version}-%{release}
-Provides:	wwwbrowser
-Obsoletes:	kdebase-konqueror
-Obsoletes:	kdebase-libkmultitabbar
-
-%description -n konqueror
-Konqueror is the file manager for the K Desktop Environment. It
-supports basic file management on local UNIX filesystems, from simple
-cut/copy and paste operations to advanced remote and local network
-file browsing.
-
-Konqueror is the canvas for all the latest KDE technology, from KIO
-slaves (which provide mechanisms for file access) to component
-embedding via the KParts object interface, and it is one of the most
-customizable applications available.
-
-Konqueror is an Open Source web browser with HTML4.0 compliance,
-supporting Java applets, JavaScript, CSS1 and (partially) CSS2, as
-well as Netscape plugins (for example, Flash or RealVideo plugins).
-
-Konqueror is a universal viewing application, capable of embedding
-read-only viewing components in itself to view documents without ever
-launching another application.
-
-%description -n konqueror -l pl.UTF-8
-Konqueror to zarządca plików dla środowiska KDE. Obsługuje podstawowe
-zarządzanie plikami w lokalnych uniksowych systemach plików, od
-prostych operacji wycinania/kopiowania i wklejania do zaawansowanego
-przeglądania plików z sieci zdalnych i lokalnych.
-
-Konqueror to podstawa dla wszystkich nowych technologii KDE, od usług
-KIO (dostarczających mechanizmy dostępu do plików) po osadzanie
-komponentów poprzez interfejs obiektowy KParts i jest jedną z
-najbardziej poddających się dostosowaniu do własnych potrzeb
-dostępnych aplikacji.
-
-Konqueror jest także przeglądarką WWW o otwartych źródłach, zgodną z
-HTML 4.0, obsługującą aplety Javy, JavaScript, CSS1 i (częściowo)
-CSS2, a także wtyczki Netscape'a (na przykład Flash i RealAudio).
-
-Konqueror jest uniwersalną aplikacją do przeglądania, umożliwiającą
-osadzenie w niej komponentów do przeglądania aby oglądać dokumenty bez
-uruchamiania innej aplikacji.
-
-%package -n konqueror-libs
-Summary:	konqueror shared libraries
-Summary(pl.UTF-8):	Biblioteki współdzielone konquerora
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-konqueror-libs
-Obsoletes:	kdebase-libkickermain
-Obsoletes:	kdebase-libkonq
-Obsoletes:	kdebase-libkonqsidebarplugin
-Obsoletes:	konqueror < 9:3.1.92.031006
-
-%description -n konqueror-libs
-Konqueror shared libraries.
-
-%description -n konqueror-libs -l pl.UTF-8
-Biblioteki współdzielone konquerora.
-
-%package apidocs
-Summary:	API documentation
-Summary(pl.UTF-8):	Dokumentacja API
-Group:		Documentation
-Requires:	kdelibs >= 9:3.2.90
-
-%description apidocs
-Annotated reference of konqueror,kate,kicker,kcontrol and other
-kdebase programming interfaces including:
-- class lists
-- class members
-- namespaces
-
-%description apidocs -l pl.UTF-8
-Dokumentacja interfejsów programowania konquerora, kate, kickera,
-kcontrol i innych z kdebase z przypisami. Zawiera:
-- listy klas i ich składników
-- listę przestrzeni nazw (namespace)
-
-
 %prep
 %setup -q -n %{oname}-%{version}
 
@@ -946,7 +455,9 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir}
 
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+install -d $RPM_BUILD_ROOT/etc/{X11,pam.d}
 
+install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 
 %clean
@@ -1016,7 +527,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfontinst
 %attr(755,root,root) %{_bindir}/kfontview
-%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_fontinst.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_fonts.so
 %attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
@@ -1041,7 +551,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde4/services/fontinst.desktop
 %{_datadir}/kde4/services/fonts.desktop
 %{_datadir}/kde4/services/fonts.protocol
-%{_datadir}/kde4/services/fontthumbnail.desktop
 %{_datadir}/kde4/services/kfontviewpart.desktop
 
 %files klipper
@@ -1133,126 +642,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files wallpapers
 %defattr(644,root,root,755)
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Code_Poets_Dream/contents/screenshot.png
-%{_datadir}/wallpapers/Code_Poets_Dream/metadata.desktop
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Colorado_Farm/contents/screenshot.png
-%{_datadir}/wallpapers/Colorado_Farm/metadata.desktop
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Curls_on_Green/contents/screenshot.png
-%{_datadir}/wallpapers/Curls_on_Green/metadata.desktop
-%{_datadir}/wallpapers/EOS/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/EOS/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/EOS/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/EOS/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/EOS/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/EOS/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/EOS/contents/screenshot.png
-%{_datadir}/wallpapers/EOS/metadata.desktop
-%{_datadir}/wallpapers/Emotion/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Emotion/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Emotion/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Emotion/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Emotion/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Emotion/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Emotion/contents/screenshot.png
-%{_datadir}/wallpapers/Emotion/metadata.desktop
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1280x1024.JPG
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1280x800.JPG
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1440x900.JPG
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1600x1200.JPG
-%{_datadir}/wallpapers/Fields_of_Peace/contents/images/1920x1200.JPG
-%{_datadir}/wallpapers/Fields_of_Peace/contents/screenshot.png
-%{_datadir}/wallpapers/Fields_of_Peace/metadata.desktop
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/contents/screenshot.png
-%{_datadir}/wallpapers/Finally_Summer_in_Germany/metadata.desktop
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Fresh_Morning/contents/screenshot.png
-%{_datadir}/wallpapers/Fresh_Morning/metadata.desktop
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Golden_Ripples/contents/screenshot.png
-%{_datadir}/wallpapers/Golden_Ripples/metadata.desktop
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Green_Concentration/contents/screenshot.png
-%{_datadir}/wallpapers/Green_Concentration/metadata.desktop
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1600-1200.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Ladybuggin/contents/screenshot.png
-%{_datadir}/wallpapers/Ladybuggin/metadata.desktop
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Leafs_Labyrinth/contents/screenshot.png
-%{_datadir}/wallpapers/Leafs_Labyrinth/metadata.desktop
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Red_Leaf/contents/screenshot.png
-%{_datadir}/wallpapers/Red_Leaf/metadata.desktop
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/Skeeter_Hawk/contents/screenshot.png
-%{_datadir}/wallpapers/Skeeter_Hawk/metadata.desktop
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1024x768.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1280x1024.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1280x800.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1440x900.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1600x1200.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/images/1920x1200.jpg
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/contents/screenshot.png
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table/metadata.desktop
+%{_datadir}/wallpapers/Code_Poets_Dream
+%{_datadir}/wallpapers/Colorado_Farm
+%{_datadir}/wallpapers/Curls_on_Green
+%{_datadir}/wallpapers/EOS
+%{_datadir}/wallpapers/Emotion
+%{_datadir}/wallpapers/Fields_of_Peace
+%{_datadir}/wallpapers/Finally_Summer_in_Germany
+%{_datadir}/wallpapers/Fresh_Morning
+%{_datadir}/wallpapers/Golden_Ripples
+%{_datadir}/wallpapers/Green_Concentration
+%{_datadir}/wallpapers/Ladybuggin
+%{_datadir}/wallpapers/Leafs_Labyrinth
+%{_datadir}/wallpapers/Red_Leaf
+%{_datadir}/wallpapers/Skeeter_Hawk
+%{_datadir}/wallpapers/There_is_Rain_on_the_Table
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -1261,45 +665,11 @@ rm -rf $RPM_BUILD_ROOT
 %files infocenter
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_info.so
-%{_kdedocdir}/en/kinfocenter/devices/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/devices/index.docbook
-%{_kdedocdir}/en/kinfocenter/dma/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/dma/index.docbook
-%{_kdedocdir}/en/kinfocenter/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/index.docbook
-%{_kdedocdir}/en/kinfocenter/interrupts/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/interrupts/index.docbook
-%{_kdedocdir}/en/kinfocenter/ioports/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/ioports/index.docbook
-%{_kdedocdir}/en/kinfocenter/memory/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/memory/index.docbook
-%{_kdedocdir}/en/kinfocenter/nics/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/nics/index.docbook
-%{_kdedocdir}/en/kinfocenter/opengl/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/opengl/index.docbook
-%{_kdedocdir}/en/kinfocenter/partitions/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/partitions/index.docbook
-%{_kdedocdir}/en/kinfocenter/pci/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/pci/index.docbook
-%{_kdedocdir}/en/kinfocenter/pcmcia/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/pcmcia/index.docbook
-%{_kdedocdir}/en/kinfocenter/processor/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/processor/index.docbook
-%{_kdedocdir}/en/kinfocenter/protocols/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/protocols/index.docbook
-%{_kdedocdir}/en/kinfocenter/samba/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/samba/index.docbook
-%{_kdedocdir}/en/kinfocenter/scsi/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/scsi/index.docbook
-%{_kdedocdir}/en/kinfocenter/sound/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/sound/index.docbook
-%{_kdedocdir}/en/kinfocenter/usb/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/usb/index.docbook
-%{_kdedocdir}/en/kinfocenter/xserver/index.cache.bz2
-%{_kdedocdir}/en/kinfocenter/xserver/index.docbook
+%{_kdedocdir}/en/kinfocenter/*
 
-%files desktop
+%files
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
 %attr(755,root,root) %{_bindir}/kapplymousetheme
 %attr(755,root,root) %{_bindir}/kcheckrunning
 %attr(755,root,root) %{_bindir}/krdb
@@ -1455,9 +825,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde4/services/kwin/sharpen_config.desktop
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
+
+%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
+%{_datadir}/kde4/services/fontthumbnail.desktop
 %{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
+
+
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
 %{_datadir}/kde4/services/kwin/trackmouse_config.desktop
 %{_datadir}/kde4/services/kwin/zoom.desktop
@@ -1807,21 +1182,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/desktop-directories/kde-utilities-pim.directory
 %{_datadir}/desktop-directories/kde-utilities-xutils.directory
 %{_datadir}/desktop-directories/kde-utilities.directory
-%{_iconsdir}/oxygen/128x128/apps/kcmkwm.png
-%{_iconsdir}/oxygen/16x16/apps/computer.png
-%{_iconsdir}/oxygen/16x16/apps/daemon.png
-%{_iconsdir}/oxygen/16x16/apps/kcmkwm.png
-%{_iconsdir}/oxygen/16x16/apps/kdeapp.png
-%{_iconsdir}/oxygen/16x16/apps/kernel.png
-%{_iconsdir}/oxygen/16x16/apps/running.png
-%{_iconsdir}/oxygen/16x16/apps/shell.png
-%{_iconsdir}/oxygen/16x16/apps/unknownapp.png
-%{_iconsdir}/oxygen/16x16/apps/waiting.png
-%{_iconsdir}/oxygen/22x22/apps/kcmkwm.png
-%{_iconsdir}/oxygen/32x32/apps/kcmkwm.png
-%{_iconsdir}/oxygen/48x48/apps/kcmkwm.png
-%{_iconsdir}/oxygen/64x64/apps/kcmkwm.png
-%{_iconsdir}/oxygen/scalable/apps/kcmkwm.svgz
+
+%{_iconsdir}/*/*/apps/kcmkwm.png
+%{_iconsdir}/*/scalable/apps/kcmkwm.svgz
+
+%{_iconsdir}/*/*/apps/computer.png
+%{_iconsdir}/*/*/apps/daemon.png
+%{_iconsdir}/*/*/apps/kdeapp.png
+%{_iconsdir}/*/*/apps/kernel.png
+%{_iconsdir}/*/*/apps/running.png
+%{_iconsdir}/*/*/apps/shell.png
+%{_iconsdir}/*/*/apps/unknownapp.png
+%{_iconsdir}/*/*/apps/waiting.png
+
 %{_datadir}/kde4/services/accessibility.desktop
 %{_datadir}/kde4/services/bell.desktop
 %{_datadir}/kde4/services/clock.desktop
@@ -1862,7 +1235,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde4/servicetypes/weather_ion.desktop
 %{_datadir}/sounds/pop.wav
 
-
 %files devel
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so
@@ -1878,123 +1250,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/cmake/modules/FindRAW1394.cmake
 %{_datadir}/apps/cmake/modules/FindSensors.cmake
 %{_datadir}/apps/cmake/modules/UnixAuth.cmake
-%{_includedir}/KDE/Plasma/AbstractRunner
-%{_includedir}/KDE/Plasma/Animator
-%{_includedir}/KDE/Plasma/Applet
-%{_includedir}/KDE/Plasma/AppletBrowser
-%{_includedir}/KDE/Plasma/ConfigXml
-%{_includedir}/KDE/Plasma/Containment
-%{_includedir}/KDE/Plasma/Corona
-%{_includedir}/KDE/Plasma/DataContainer
-%{_includedir}/KDE/Plasma/DataEngine
-%{_includedir}/KDE/Plasma/DataEngineManager
-%{_includedir}/KDE/Plasma/Dialog
-%{_includedir}/KDE/Plasma/GLApplet
-%{_includedir}/KDE/Plasma/Package
-%{_includedir}/KDE/Plasma/PackageMetadata
-%{_includedir}/KDE/Plasma/PackageStructure
-%{_includedir}/KDE/Plasma/Phase
-%{_includedir}/KDE/Plasma/Plasma
-%{_includedir}/KDE/Plasma/ScriptEngine
-%{_includedir}/KDE/Plasma/SearchContext
-%{_includedir}/KDE/Plasma/SearchMatch
-%{_includedir}/KDE/Plasma/Svg
-%{_includedir}/KDE/Plasma/Theme
-%{_includedir}/KDE/Plasma/UiLoader
-%{_includedir}/KDE/Plasma/View
-%{_includedir}/kcommondecoration.h
-%{_includedir}/kdecoration.h
-%{_includedir}/kdecorationfactory.h
-%{_includedir}/kgreeterplugin.h
-%{_includedir}/kscreensaver.h
-%{_includedir}/kscreensaver_vroot.h
-%{_includedir}/ksgrd/SensorAgent.h
-%{_includedir}/ksgrd/SensorClient.h
-%{_includedir}/ksgrd/SensorManager.h
-%{_includedir}/ksgrd/SensorShellAgent.h
-%{_includedir}/ksgrd/SensorSocketAgent.h
-%{_includedir}/ksysguard/ProcessFilter.h
-%{_includedir}/ksysguard/ProcessModel.h
-%{_includedir}/ksysguard/ksysguardprocesslist.h
-%{_includedir}/ksysguard/process.h
-%{_includedir}/ksysguard/processes.h
-%{_includedir}/kwinconfig.h
-%{_includedir}/kwineffects.h
-%{_includedir}/kwinglobals.h
-%{_includedir}/kworkspace/kwindowlistmenu.h
-%{_includedir}/kworkspace/kworkspace.h
-%{_includedir}/plasma/abstractrunner.h
-%{_includedir}/plasma/animator.h
-%{_includedir}/plasma/applet.h
-%{_includedir}/plasma/appletbrowser.h
-%{_includedir}/plasma/configxml.h
-%{_includedir}/plasma/containment.h
-%{_includedir}/plasma/corona.h
-%{_includedir}/plasma/datacontainer.h
-%{_includedir}/plasma/dataengine.h
-%{_includedir}/plasma/dataenginemanager.h
-%{_includedir}/plasma/dialog.h
-%{_includedir}/plasma/glapplet.h
-%{_includedir}/plasma/layouts/borderlayout.h
-%{_includedir}/plasma/layouts/boxlayout.h
-%{_includedir}/plasma/layouts/fliplayout.h
-%{_includedir}/plasma/layouts/flowlayout.h
-%{_includedir}/plasma/layouts/freelayout.h
-%{_includedir}/plasma/layouts/hboxlayout.h
-%{_includedir}/plasma/layouts/layout.h
-%{_includedir}/plasma/layouts/layoutanimator.h
-%{_includedir}/plasma/layouts/layoutitem.h
-%{_includedir}/plasma/layouts/nodelayout.h
-%{_includedir}/plasma/layouts/vboxlayout.h
-%{_includedir}/plasma/package.h
-%{_includedir}/plasma/packagemetadata.h
-%{_includedir}/plasma/packagestructure.h
-%{_includedir}/plasma/phase.h
-%{_includedir}/plasma/plasma.h
-%{_includedir}/plasma/plasma_export.h
-%{_includedir}/plasma/scriptengine.h
-%{_includedir}/plasma/searchcontext.h
-%{_includedir}/plasma/searchmatch.h
-%{_includedir}/plasma/shadowitem_p.h
-%{_includedir}/plasma/svg.h
-%{_includedir}/plasma/theme.h
-%{_includedir}/plasma/uiloader.h
-%{_includedir}/plasma/view.h
-%{_includedir}/plasma/widgets/checkbox.h
-%{_includedir}/plasma/widgets/flash.h
-%{_includedir}/plasma/widgets/icon.h
-%{_includedir}/plasma/widgets/label.h
-%{_includedir}/plasma/widgets/lineedit.h
-%{_includedir}/plasma/widgets/meter.h
-%{_includedir}/plasma/widgets/progressbar.h
-%{_includedir}/plasma/widgets/pushbutton.h
-%{_includedir}/plasma/widgets/radiobutton.h
-%{_includedir}/plasma/widgets/signalplotter.h
-%{_includedir}/plasma/widgets/widget.h
-%{_includedir}/solid/control/authentication.h
-%{_includedir}/solid/control/bluetoothinputdevice.h
-%{_includedir}/solid/control/bluetoothinterface.h
-%{_includedir}/solid/control/bluetoothmanager.h
-%{_includedir}/solid/control/bluetoothremotedevice.h
-%{_includedir}/solid/control/bluetoothsecurity.h
-%{_includedir}/solid/control/ifaces/authentication.h
-%{_includedir}/solid/control/ifaces/bluetoothinputdevice.h
-%{_includedir}/solid/control/ifaces/bluetoothinterface.h
-%{_includedir}/solid/control/ifaces/bluetoothmanager.h
-%{_includedir}/solid/control/ifaces/bluetoothremotedevice.h
-%{_includedir}/solid/control/ifaces/network.h
-%{_includedir}/solid/control/ifaces/networkinterface.h
-%{_includedir}/solid/control/ifaces/networkmanager.h
-%{_includedir}/solid/control/ifaces/powermanager.h
-%{_includedir}/solid/control/ifaces/wirelessnetwork.h
-%{_includedir}/solid/control/network.h
-%{_includedir}/solid/control/networking.h
-%{_includedir}/solid/control/networkinterface.h
-%{_includedir}/solid/control/networkmanager.h
-%{_includedir}/solid/control/powermanager.h
-%{_includedir}/solid/control/singletondefs.h
-%{_includedir}/solid/control/solid_control_export.h
-%{_includedir}/solid/control/wirelessnetwork.h
-%{_includedir}/taskmanager/startup.h
-%{_includedir}/taskmanager/task.h
-%{_includedir}/taskmanager/taskmanager.h
+%{_includedir}/KDE
+%{_includedir}/*
+%{_includedir}/kworkspace
+%{_includedir}/plasma
+%{_includedir}/solid
+%{_includedir}/taskmanager
