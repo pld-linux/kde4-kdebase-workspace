@@ -733,6 +733,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libkdeinit4_kmenuedit.so
 %{_desktopdir}/kde4/kmenuedit.desktop
 %{_datadir}/apps/kmenuedit/icons/*/*/actions/menu_new.png
+%{_datadir}/apps/kmenuedit/icons/*/*/actions/menu_new_sep.png
 %{_datadir}/apps/kmenuedit/kmenueditui.rc
 %{_kdedocdir}/en/kmenuedit/done.png
 %{_kdedocdir}/en/kmenuedit/index.cache.bz2
