@@ -88,6 +88,14 @@ KDE.
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
+%package kde-decoration-libs
+Summary:	Libraries for KDE Window Decorations
+Summary(pl.UTF-8):	Biblioteki dla dekoracji okien KDE
+Group:		X11/Amusements
+
+%description kde-decoration-libs
+Libraries for KDE Window Decorations.
+
 %package -n kde-decoration-b2
 Summary:	KDE Window Decoration - B2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - B2
@@ -401,6 +409,13 @@ Group:		X11/Applications
 %description solid
 Solid.
 
+%package plasma
+Summary:	Plasma
+Group:		X11/Applications
+
+%description plasma
+Plasma.
+
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
@@ -430,6 +445,13 @@ Also provides graphical login method.
 %description wallpapers -l pl.UTF-8
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
+
+%package kwin
+Summary:	kwin
+Group:		X11/Applications
+
+%description kwin
+kwin
 
 
 %prep
@@ -461,192 +483,42 @@ install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files ksysguard
-%defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ksysguarddrc
-%attr(755,root,root) %{_bindir}/ksysguard
-%attr(755,root,root) %{_bindir}/ksysguardd
-%attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardwidgets.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_ksysguard.so
-%{_desktopdir}/kde4/ksysguard.desktop
-%{_datadir}/apps/kicker/applets/ksysguardapplet.desktop
-%{_datadir}/apps/ksysguard
-%{_iconsdir}/*/*/apps/ksysguardd.png
-%{_kdedocdir}/en/ksysguard/index.cache.bz2
-%{_kdedocdir}/en/ksysguard/index.docbook
+%post	kde-decoration-libs	-p /sbin/ldconfig
+%postun	kde-decoration-libs	-p /sbin/ldconfig
 
-%files -n kdm
-%defattr(644,root,root,755)
-%attr(754,root,root) /etc/rc.d/init.d/kdm
-%attr(755,root,root) %{_bindir}/genkdmconf
-%attr(755,root,root) %{_bindir}/kdm
-%attr(755,root,root) %{_bindir}/kdmctl
-%attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
-%attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
-%{_datadir}/apps/doc/kdm
-%{_datadir}/apps/kdm
-%{_datadir}/config/kdm.knsrc
-%{_kdedocdir}/en/kdm
-%{_datadir}/kde4/services/kdm.desktop
+%post	libksgrd	-p /sbin/ldconfig
+%postun	libksgrd	-p /sbin/ldconfig
 
-%files screensavers
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*.kss
-%attr(755,root,root) %{_libdir}/kde4/kcm_screensaver.so
-%attr(755,root,root) %{_libdir}/libkscreensaver.so.*
-%{_datadir}/config.kcfg/kscreensaversettings.kcfg
-%{_datadir}/dbus-1/interfaces/org.freedesktop.ScreenSaver.xml
-%{_datadir}/dbus-1/interfaces/org.kde.screensaver.xml
-%{_datadir}/kde4/services/ScreenSavers/kblank.desktop
-%{_datadir}/kde4/services/ScreenSavers/krandom.desktop
-%{_datadir}/kde4/services/screensaver.desktop
-%{_datadir}/kde4/servicetypes/screensaver.desktop
+%post -n kdm
+/sbin/chkconfig --add kdm
+if [ -f /var/lock/subsys/kdm ]; then
+	%banner kdm -e <<EOF
+ ***************************************************
+ *                                                 *
+ * NOTE:                                           *
+ * To make sure that new version of KDM is running *
+ * You should restart KDM with:                    *
+ * "/sbin/service kdm restart".                    *
+ *                                                 *
+ * WARNING:                                        *
+ * Restarting KDM will terminate any X session     *
+ * started by it!                                  *
+ *                                                 *
+ ***************************************************
 
-%files kfontinst
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kfontinst
-%attr(755,root,root) %{_bindir}/kfontview
-%attr(755,root,root) %{_libdir}/kde4/kcm_fontinst.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_fonts.so
-%attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
-%attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
-%attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
-%attr(755,root,root) %{_libdir}/libkfontinst.so.*
-%attr(755,root,root) %{_libdir}/libkfontinstui.so.*
-%dir %{_libdir}/strigi
-%attr(755,root,root) %{_libdir}/strigi/strigita_font.so
-%{_desktopdir}/kde4/kfontview.desktop
-%{_datadir}/apps/kfontinst
-%{_datadir}/apps/kfontview/kfontviewui.rc
-%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
-%{_iconsdir}/*/*/apps/kfontview.png
-%{_iconsdir}/*/scalable/apps/kfontview.svgz
-%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
-%{_iconsdir}/*/*/mimetypes/fonts-package.png
-%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
-%{_datadir}/kde4/services/ServiceMenus/installfont.desktop
-%{_datadir}/kde4/services/fontinst.desktop
-%{_datadir}/kde4/services/fonts.desktop
-%{_datadir}/kde4/services/fonts.protocol
-%{_datadir}/kde4/services/kfontviewpart.desktop
+EOF
+else
+	%banner kdm -e <<EOF
+Run "/sbin/service kdm start" to start kdm.
 
-%files klipper
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/klipper
-%attr(755,root,root) %{_libdir}/libkdeinit4_klipper.so
-%{_desktopdir}/kde4/klipper.desktop
-%{_datadir}/autostart/klipper.desktop
-%{_datadir}/config/klipperrc
-%{_kdedocdir}/en/klipper/index.cache.bz2
-%{_kdedocdir}/en/klipper/index.docbook
-%{_kdedocdir}/en/klipper/screenshot.png
+EOF
+fi
 
-%files -n kde-splash-Default
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/Default
-
-%files -n kde-splash-Simple
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/Simple
-
-%files -n kde-splash-SimpleSmall
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/SimpleSmall
-
-%files -n kde-kgreet-classic
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
-
-%files -n kde-kgreet-winbind
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kgreet_winbind.so
-
-%files -n kde-decoration-b2
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_b2.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_b2_config.so
-%{_datadir}/apps/kwin/b2.desktop
-
-%files -n kde-decoration-keramik
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_keramik.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_keramik_config.so
-%{_datadir}/apps/kwin/keramik.desktop
-
-%files -n kde-decoration-laptop
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_laptop.so
-%{_datadir}/apps/kwin/laptop.desktop
-
-%files -n kde-decoration-modernsys
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_modernsys.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
-%{_datadir}/apps/kwin/modernsystem.desktop
-
-%files -n kde-decoration-quartz
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_quartz.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_quartz_config.so
-%{_datadir}/apps/kwin/quartz.desktop
-
-%files -n kde-decoration-redmond
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
-%{_datadir}/apps/kwin/redmond.desktop
-
-%files -n kde-decoration-web
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_web.so
-%{_datadir}/apps/kwin/web.desktop
-
-%files -n kde-decoration-kde2
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
-%{_datadir}/apps/kwin/kde2.desktop
-
-%files -n kde-decoration-oxygen
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
-%{_datadir}/apps/kwin/oxygenclient.desktop
-
-%files -n kde-decoration-plastic
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
-%{_datadir}/apps/kwin/plastik.desktop
-
-%files wallpapers
-%defattr(644,root,root,755)
-%{_datadir}/wallpapers/Code_Poets_Dream
-%{_datadir}/wallpapers/Colorado_Farm
-%{_datadir}/wallpapers/Curls_on_Green
-%{_datadir}/wallpapers/EOS
-%{_datadir}/wallpapers/Emotion
-%{_datadir}/wallpapers/Fields_of_Peace
-%{_datadir}/wallpapers/Finally_Summer_in_Germany
-%{_datadir}/wallpapers/Fresh_Morning
-%{_datadir}/wallpapers/Golden_Ripples
-%{_datadir}/wallpapers/Green_Concentration
-%{_datadir}/wallpapers/Ladybuggin
-%{_datadir}/wallpapers/Leafs_Labyrinth
-%{_datadir}/wallpapers/Red_Leaf
-%{_datadir}/wallpapers/Skeeter_Hawk
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table
-
-%files libksgrd
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libksgrd.so.*
-
-%files infocenter
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kcm_info.so
-%{_kdedocdir}/en/kinfocenter/*
-%dir %{_datadir}/apps/kcmusb
-%{_datadir}/apps/kcmusb/usb.ids
+%preun -n kdm
+if [ "$1" = "0" ]; then
+	%service kdm stop
+	/sbin/chkconfig --del kdm
+fi
 
 %files
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
@@ -658,14 +530,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/startkde
 
-%dir %{_iconsdir}/oxygen/*/mimetypes
-%dir %{_iconsdir}/oxygen/scalable/apps
-%dir %{_datadir}/kde4/services/ServiceMenus
+%attr(755,root,root) %{_libdir}/libkworkspace.so.*
+%attr(755,root,root) %{_libdir}/libprocesscore.so.*
+%attr(755,root,root) %{_libdir}/libprocessui.so.*
+%attr(755,root,root) %{_libdir}/libtaskmanager.so.*
+%attr(755,root,root) %{_libdir}/libweather_ion.so.*
+
+%{_datadir}/apps/color-schemes
 
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_libdir}/libkdeinit4_kaccess.so
-%{_datadir}/apps/kaccess/kaccess.notifyrc
+%{_datadir}/apps/kaccess
 %{_datadir}/kde4/services/kaccess.desktop
 
 # khotkeys
@@ -675,8 +551,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_khotkeys.so
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
-%{_datadir}/apps/khotkeys/kde32b1.khotkeys
-%{_datadir}/apps/khotkeys/konqueror_gestures_kde321.khotkeys
+%{_datadir}/apps/khotkeys
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
 %{_iconsdir}/*/*/apps/khotkeys.png
@@ -687,17 +562,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kmenuedit
 %attr(755,root,root) %{_libdir}/libkdeinit4_kmenuedit.so
 %{_desktopdir}/kde4/kmenuedit.desktop
-%{_datadir}/apps/kmenuedit/icons/*/*/actions/menu_new.png
-%{_datadir}/apps/kmenuedit/icons/*/*/actions/menu_new_sep.png
-%{_datadir}/apps/kmenuedit/kmenueditui.rc
-%{_kdedocdir}/en/kmenuedit/done.png
-%{_kdedocdir}/en/kmenuedit/index.cache.bz2
-%{_kdedocdir}/en/kmenuedit/index.docbook
-%{_kdedocdir}/en/kmenuedit/itemname.png
-%{_kdedocdir}/en/kmenuedit/kmenueditmain.png
-%{_kdedocdir}/en/kmenuedit/new.png
-%{_kdedocdir}/en/kmenuedit/selecticon.png
-%{_kdedocdir}/en/kmenuedit/selectinternet.png
+%{_datadir}/apps/kmenuedit
+%{_kdedocdir}/en/kmenuedit
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
 # krandrtray
@@ -727,6 +593,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ksplashx
 %attr(755,root,root) %{_bindir}/ksplashx_scale
 %attr(755,root,root) %{_libdir}/kde4/kcm_ksplashthemes.so
+%dir %{_datadir}/apps/ksplash/Themes
+%dir %{_datadir}/apps/ksplash/Themes/None
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
 %{_iconsdir}/*/*/apps/ksplash.png
 %{_datadir}/kde4/services/ksplashthememgr.desktop
@@ -736,182 +604,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/kde4/ktip.desktop
 %{_datadir}/autostart/ktip.desktop
 
-# kwin
-%attr(755,root,root) %{_bindir}/kwin
-%attr(755,root,root) %{_bindir}/kwin_killer_helper
-%attr(755,root,root) %{_bindir}/kwin_rules_dialog
-%{_libdir}/kconf_update_bin/kwin_update_default_rules
-%{_libdir}/kconf_update_bin/kwin_update_window_settings
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
-%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
-%attr(755,root,root) %{_libdir}/libkwineffects.so.*
-%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
-%{_datadir}/apps/kwin/blur-render.frag
-%{_datadir}/apps/kwin/blur-render.vert
-%{_datadir}/apps/kwin/blur.frag
-%{_datadir}/apps/kwin/blur.vert
-%{_datadir}/apps/kwin/circle-edgy.png
-%{_datadir}/apps/kwin/circle.png
-%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
-%{_datadir}/apps/kwin/explosion-end.png
-%{_datadir}/apps/kwin/explosion-start.png
-%{_datadir}/apps/kwin/explosion.frag
-%{_datadir}/apps/kwin/explosion.vert
-%{_datadir}/apps/kwin/invert.frag
-%{_datadir}/apps/kwin/invert.vert
-%{_datadir}/apps/kwin/kwin.notifyrc
-%{_datadir}/apps/kwin/lookingglass.frag
-%{_datadir}/apps/kwin/lookingglass.vert
-%{_datadir}/apps/kwin/shadow-texture.png
-%{_datadir}/apps/kwin/sharpen.frag
-%{_datadir}/apps/kwin/sharpen.vert
-%{_datadir}/apps/kwin/trackmouse.png
-%{_datadir}/config.kcfg/kwin.kcfg
-%{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
-%{_iconsdir}/oxygen/16x16/apps/kwin.png
-%{_iconsdir}/oxygen/32x32/apps/kwin.png
-%{_iconsdir}/oxygen/48x48/apps/kwin.png
-%{_iconsdir}/oxygen/scalable/apps/kwin.svgz
-%dir %{_datadir}/kde4/services/kwin
-%{_datadir}/kde4/services/kwin/blur.desktop
-%{_datadir}/kde4/services/kwin/boxswitch.desktop
-%{_datadir}/kde4/services/kwin/desktopgrid.desktop
-%{_datadir}/kde4/services/kwin/desktopgrid_config.desktop
-%{_datadir}/kde4/services/kwin/dialogparent.desktop
-%{_datadir}/kde4/services/kwin/diminactive.desktop
-%{_datadir}/kde4/services/kwin/diminactive_config.desktop
-%{_datadir}/kde4/services/kwin/explosion.desktop
-%{_datadir}/kde4/services/kwin/fade.desktop
-%{_datadir}/kde4/services/kwin/fallapart.desktop
-%{_datadir}/kde4/services/kwin/invert.desktop
-%{_datadir}/kde4/services/kwin/invert_config.desktop
-%{_datadir}/kde4/services/kwin/login.desktop
-%{_datadir}/kde4/services/kwin/logout.desktop
-%{_datadir}/kde4/services/kwin/lookingglass.desktop
-%{_datadir}/kde4/services/kwin/lookingglass_config.desktop
-%{_datadir}/kde4/services/kwin/magnifier.desktop
-%{_datadir}/kde4/services/kwin/magnifier_config.desktop
-%{_datadir}/kde4/services/kwin/maketransparent.desktop
-%{_datadir}/kde4/services/kwin/maketransparent_config.desktop
-%{_datadir}/kde4/services/kwin/minimizeanimation.desktop
-%{_datadir}/kde4/services/kwin/mousemark.desktop
-%{_datadir}/kde4/services/kwin/mousemark_config.desktop
-%{_datadir}/kde4/services/kwin/presentwindows.desktop
-%{_datadir}/kde4/services/kwin/presentwindows_config.desktop
-%{_datadir}/kde4/services/kwin/scalein.desktop
-%{_datadir}/kde4/services/kwin/shadow.desktop
-%{_datadir}/kde4/services/kwin/shadow_config.desktop
-%{_datadir}/kde4/services/kwin/sharpen.desktop
-%{_datadir}/kde4/services/kwin/sharpen_config.desktop
-%{_datadir}/kde4/services/kwin/showfps.desktop
-%{_datadir}/kde4/services/kwin/showpaint.desktop
-
-%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
-%{_datadir}/kde4/services/fontthumbnail.desktop
-%{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
-%{_datadir}/kde4/services/kwin/thumbnailaside.desktop
-%{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
-
-
-%{_datadir}/kde4/services/kwin/trackmouse.desktop
-%{_datadir}/kde4/services/kwin/trackmouse_config.desktop
-%{_datadir}/kde4/services/kwin/zoom.desktop
-%{_datadir}/kde4/services/kwin/zoom_config.desktop
-%{_datadir}/kde4/services/kwinactions.desktop
-%{_datadir}/kde4/services/kwinadvanced.desktop
-%{_datadir}/kde4/services/kwincompositing.desktop
-%{_datadir}/kde4/services/kwindecoration.desktop
-%{_datadir}/kde4/services/kwinfocus.desktop
-%{_datadir}/kde4/services/kwinmoving.desktop
-%{_datadir}/kde4/services/kwinoptions.desktop
-%{_datadir}/kde4/services/kwinrules.desktop
 
 # kxkb
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_libdir}/libkdeinit4_kxkb.so
-%{_kdedocdir}/en/kxkb/index.cache.bz2
-%{_kdedocdir}/en/kxkb/index.docbook
+%{_kdedocdir}/en/kxkb
 %{_iconsdir}/*/*/apps/kxkb.png
-
-# plasma
-%attr(755,root,root) %{_bindir}/plasma
-%attr(755,root,root) %{_bindir}/plasmaengineexplorer
-%attr(755,root,root) %{_bindir}/plasmoidviewer
-%attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_devicenotifier.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_dig_clock.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_icon.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_launcher.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_lockout.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_pager.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_simplelauncher.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
-%attr(755,root,root) %{_libdir}/libplasma.so
-%attr(755,root,root) %{_libdir}/libplasma.so.1
-%attr(755,root,root) %{_libdir}/libplasma.so.1.0.0
-%{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
-%dir %{_datadir}/apps/plasmoidviewer/checker.png
-%{_datadir}/apps/plasmoidviewer/checker.png
-%{_datadir}/autostart/plasma.desktop
-%{_kdedocdir}/en/plasma
-%{_datadir}/kde4/services/plasma-animator-default.desktop
-%{_datadir}/kde4/services/plasma-applet-analogclock.desktop
-%{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
-%{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
-%{_datadir}/kde4/services/plasma-applet-icon.desktop
-%{_datadir}/kde4/services/plasma-applet-launcher.desktop
-%{_datadir}/kde4/services/plasma-applet-lockout.desktop
-%{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
-%{_datadir}/kde4/services/plasma-applet-systemtray.desktop
-%{_datadir}/kde4/services/plasma-battery-default.desktop
-%{_datadir}/kde4/services/plasma-containment-desktop.desktop
-%{_datadir}/kde4/services/plasma-containment-panel.desktop
-%{_datadir}/kde4/services/plasma-dataengine-dict.desktop
-%{_datadir}/kde4/services/plasma-dataengine-filebrowser.desktop
-%{_datadir}/kde4/services/plasma-dataengine-hotplug.desktop
-%{_datadir}/kde4/services/plasma-dataengine-mouse.desktop
-%{_datadir}/kde4/services/plasma-dataengine-places.desktop
-%{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
-%{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
-%{_datadir}/kde4/services/plasma-dataengine-tasks.desktop
-%{_datadir}/kde4/services/plasma-dataengine-time.desktop
-%{_datadir}/kde4/services/plasma-dataengine-weather.desktop
-%{_datadir}/kde4/services/plasma-pager-default.desktop
-%{_datadir}/kde4/services/plasma-runner-bookmarks.desktop
-%{_datadir}/kde4/services/plasma-runner-calculator.desktop
-%{_datadir}/kde4/services/plasma-runner-locations.desktop
-%{_datadir}/kde4/services/plasma-runner-webshortcuts.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-qscript.desktop
-%{_datadir}/kde4/services/plasma-tasks-default.desktop
-%{_datadir}/kde4/servicetypes/plasma-animator.desktop
-%{_datadir}/kde4/servicetypes/plasma-applet.desktop
-%{_datadir}/kde4/servicetypes/plasma-dataengine.desktop
-%{_datadir}/kde4/servicetypes/plasma-runner.desktop
-%{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
 
 # systemsettings
 %attr(755,root,root) %{_bindir}/systemsettings
@@ -948,46 +646,24 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde4/services/installktheme.desktop
 %{_datadir}/kde4/services/kthememanager.desktop
 
-%files solid
-%attr(755,root,root) %{_bindir}/solidshell
-%attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
-%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
-%attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
-%attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
-%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
-%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
-%dir %{_datadir}/apps/solid/actions
-%dir %{_datadir}/apps/solidfakebluetoothbackend
-%dir %{_datadir}/apps/solidfakenetbackend
-%{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
-%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
-%{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
-%{_datadir}/kde4/services/kcm_solid.desktop
-%{_datadir}/kde4/services/solidbackends
-%{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
-%{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
-%{_datadir}/kde4/servicetypes/solidpowermanager.desktop
+# styles
+%attr(755,root,root) %{_libdir}/kde4/kcm_style.so
+%attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
+%{_datadir}/kde4/services/style.desktop
 
 %files core
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontroledit
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
-%attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
-%{_datadir}/apps/color-schemes/Honeycomb.colors
-%{_datadir}/apps/color-schemes/Norway.colors
-%{_datadir}/apps/color-schemes/ObsidianCoast.colors
-%{_datadir}/apps/color-schemes/Oxygen.colors
-%{_datadir}/apps/color-schemes/Steel.colors
-%{_datadir}/apps/color-schemes/WontonSoup.colors
 
-# styles
-%attr(755,root,root) %{_libdir}/kde4/kcm_style.so
-%attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
-%{_datadir}/kde4/services/style.desktop
+%dir %{_datadir}/apps/kcmview1394
+%dir %{_datadir}/apps/kdewizard
+%dir %{_datadir}/apps/kcmusb
+%dir %{_iconsdir}/oxygen/*/mimetypes
 
 #
 # don't know yet == have no idea
@@ -1018,21 +694,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 %attr(755,root,root) %{_libdir}/kde4/libexec/test_kcm_xinerama
-%attr(755,root,root) %{_libdir}/libkworkspace.so
-%attr(755,root,root) %{_libdir}/libkworkspace.so.4
-%attr(755,root,root) %{_libdir}/libkworkspace.so.4.0.0
-%attr(755,root,root) %{_libdir}/libprocesscore.so
-%attr(755,root,root) %{_libdir}/libprocesscore.so.4
-%attr(755,root,root) %{_libdir}/libprocesscore.so.4.0.0
-%attr(755,root,root) %{_libdir}/libprocessui.so
-%attr(755,root,root) %{_libdir}/libprocessui.so.4
-%attr(755,root,root) %{_libdir}/libprocessui.so.4.0.0
-%attr(755,root,root) %{_libdir}/libtaskmanager.so
-%attr(755,root,root) %{_libdir}/libtaskmanager.so.4
-%attr(755,root,root) %{_libdir}/libtaskmanager.so.4.0.0
-%attr(755,root,root) %{_libdir}/libweather_ion.so
-%attr(755,root,root) %{_libdir}/libweather_ion.so.4
-%attr(755,root,root) %{_libdir}/libweather_ion.so.4.0.0
+%dir %{_datadir}/apps/kcminput
+%dir %{_datadir}/apps/kcminput/pics
 %{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
 %{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
 %{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
@@ -1043,18 +706,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kconf_update/kaccel.upd
 %{_datadir}/apps/kconf_update/kcmdisplayrc.upd
 %{_datadir}/apps/kconf_update/konqueror_gestures_kde321_update.upd
-%{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin3_plugin.pl
 %{_datadir}/apps/kconf_update/kwin3_plugin.upd
-%{_datadir}/apps/kconf_update/kwin_focus1.sh
-%{_datadir}/apps/kconf_update/kwin_focus1.upd
-%{_datadir}/apps/kconf_update/kwin_focus2.sh
-%{_datadir}/apps/kconf_update/kwin_focus2.upd
-%{_datadir}/apps/kconf_update/kwin_fsp_workarounds_1.upd
-%{_datadir}/apps/kconf_update/kwin_on_off.upd
-%{_datadir}/apps/kconf_update/kwiniconify.upd
-%{_datadir}/apps/kconf_update/kwinsticky.upd
-%{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
 %{_datadir}/apps/kconf_update/move_session_config.sh
 %{_datadir}/apps/kconf_update/on-off_to_true-false.sh
 %{_datadir}/apps/kconf_update/pluginlibFix.pl
@@ -1064,11 +717,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kcontrol/pics/logo.png
 %{_datadir}/apps/kcontrol/pics/mini-world.png
 %{_datadir}/apps/kcontrol/pics/monitor.png
-%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new.png
-%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new_sep.png
-%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new.png
-%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new_sep.png
-%{_datadir}/apps/kcontroledit/kcontroleditui.rc
+%{_datadir}/apps/kcontroledit
+#%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new.png
+#%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new_sep.png
+#%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new.png
+#%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new_sep.png
+#%{_datadir}/apps/kcontroledit/kcontroleditui.rc
 %{_datadir}/apps/kdewizard/tips
 
 %dir %{_datadir}/apps/kdisplay/app-defaults
@@ -1185,6 +839,396 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kde4/servicetypes/weather_ion.desktop
 %{_datadir}/sounds/pop.wav
 
+%files kwin
+%attr(755,root,root) %{_bindir}/kwin
+%attr(755,root,root) %{_bindir}/kwin_killer_helper
+%attr(755,root,root) %{_bindir}/kwin_rules_dialog
+%{_libdir}/kconf_update_bin/kwin_update_default_rules
+%{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
+%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
+%attr(755,root,root) %{_libdir}/libkwineffects.so.*
+%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
+%dir %{_datadir}/apps/kwin
+%{_datadir}/apps/kwin/blur-render.frag
+%{_datadir}/apps/kwin/blur-render.vert
+%{_datadir}/apps/kwin/blur.frag
+%{_datadir}/apps/kwin/blur.vert
+%{_datadir}/apps/kwin/circle-edgy.png
+%{_datadir}/apps/kwin/circle.png
+%dir %{_datadir}/apps/kwin/default_rules
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
+%{_datadir}/apps/kwin/explosion-end.png
+%{_datadir}/apps/kwin/explosion-start.png
+%{_datadir}/apps/kwin/explosion.frag
+%{_datadir}/apps/kwin/explosion.vert
+%{_datadir}/apps/kwin/invert.frag
+%{_datadir}/apps/kwin/invert.vert
+%{_datadir}/apps/kwin/kwin.notifyrc
+%{_datadir}/apps/kwin/lookingglass.frag
+%{_datadir}/apps/kwin/lookingglass.vert
+%{_datadir}/apps/kwin/shadow-texture.png
+%{_datadir}/apps/kwin/sharpen.frag
+%{_datadir}/apps/kwin/sharpen.vert
+%{_datadir}/apps/kwin/trackmouse.png
+%{_datadir}/config.kcfg/kwin.kcfg
+%{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
+%{_iconsdir}/oxygen/16x16/apps/kwin.png
+%{_iconsdir}/oxygen/32x32/apps/kwin.png
+%{_iconsdir}/oxygen/48x48/apps/kwin.png
+%{_iconsdir}/oxygen/scalable/apps/kwin.svgz
+%dir %{_datadir}/kde4/services/kwin
+%{_datadir}/kde4/services/kwin/blur.desktop
+%{_datadir}/kde4/services/kwin/boxswitch.desktop
+%{_datadir}/kde4/services/kwin/desktopgrid.desktop
+%{_datadir}/kde4/services/kwin/desktopgrid_config.desktop
+%{_datadir}/kde4/services/kwin/dialogparent.desktop
+%{_datadir}/kde4/services/kwin/diminactive.desktop
+%{_datadir}/kde4/services/kwin/diminactive_config.desktop
+%{_datadir}/kde4/services/kwin/explosion.desktop
+%{_datadir}/kde4/services/kwin/fade.desktop
+%{_datadir}/kde4/services/kwin/fallapart.desktop
+%{_datadir}/kde4/services/kwin/invert.desktop
+%{_datadir}/kde4/services/kwin/invert_config.desktop
+%{_datadir}/kde4/services/kwin/login.desktop
+%{_datadir}/kde4/services/kwin/logout.desktop
+%{_datadir}/kde4/services/kwin/lookingglass.desktop
+%{_datadir}/kde4/services/kwin/lookingglass_config.desktop
+%{_datadir}/kde4/services/kwin/magnifier.desktop
+%{_datadir}/kde4/services/kwin/magnifier_config.desktop
+%{_datadir}/kde4/services/kwin/maketransparent.desktop
+%{_datadir}/kde4/services/kwin/maketransparent_config.desktop
+%{_datadir}/kde4/services/kwin/minimizeanimation.desktop
+%{_datadir}/kde4/services/kwin/mousemark.desktop
+%{_datadir}/kde4/services/kwin/mousemark_config.desktop
+%{_datadir}/kde4/services/kwin/presentwindows.desktop
+%{_datadir}/kde4/services/kwin/presentwindows_config.desktop
+%{_datadir}/kde4/services/kwin/scalein.desktop
+%{_datadir}/kde4/services/kwin/shadow.desktop
+%{_datadir}/kde4/services/kwin/shadow_config.desktop
+%{_datadir}/kde4/services/kwin/sharpen.desktop
+%{_datadir}/kde4/services/kwin/sharpen_config.desktop
+%{_datadir}/kde4/services/kwin/showfps.desktop
+%{_datadir}/kde4/services/kwin/showpaint.desktop
+
+%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
+%{_datadir}/kde4/services/fontthumbnail.desktop
+%{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
+%{_datadir}/kde4/services/kwin/thumbnailaside.desktop
+%{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
+%{_datadir}/kde4/services/kwin/trackmouse.desktop
+%{_datadir}/kde4/services/kwin/trackmouse_config.desktop
+%{_datadir}/kde4/services/kwin/zoom.desktop
+%{_datadir}/kde4/services/kwin/zoom_config.desktop
+%{_datadir}/kde4/services/kwinactions.desktop
+%{_datadir}/kde4/services/kwinadvanced.desktop
+%{_datadir}/kde4/services/kwincompositing.desktop
+%{_datadir}/kde4/services/kwinfocus.desktop
+%{_datadir}/kde4/services/kwinmoving.desktop
+%{_datadir}/kde4/services/kwinoptions.desktop
+%{_datadir}/kde4/services/kwinrules.desktop
+%{_datadir}/apps/kconf_update/kwin.upd
+%{_datadir}/apps/kconf_update/kwin_focus1.sh
+%{_datadir}/apps/kconf_update/kwin_focus1.upd
+%{_datadir}/apps/kconf_update/kwin_focus2.sh
+%{_datadir}/apps/kconf_update/kwin_focus2.upd
+%{_datadir}/apps/kconf_update/kwin_fsp_workarounds_1.upd
+%{_datadir}/apps/kconf_update/kwin_on_off.upd
+%{_datadir}/apps/kconf_update/kwiniconify.upd
+%{_datadir}/apps/kconf_update/kwinsticky.upd
+%{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
+
+%files plasma
+%attr(755,root,root) %{_bindir}/plasma
+%attr(755,root,root) %{_bindir}/plasmaengineexplorer
+%attr(755,root,root) %{_bindir}/plasmoidviewer
+%attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_devicenotifier.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_dig_clock.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_icon.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_launcher.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_lockout.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_pager.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_simplelauncher.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
+%attr(755,root,root) %{_libdir}/libplasma.so.*
+%{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
+%dir %{_datadir}/apps/plasmoidviewer
+%{_datadir}/apps/plasmoidviewer/checker.png
+%{_datadir}/autostart/plasma.desktop
+%{_kdedocdir}/en/plasma
+%{_datadir}/kde4/services/plasma-animator-default.desktop
+%{_datadir}/kde4/services/plasma-applet-analogclock.desktop
+%{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
+%{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
+%{_datadir}/kde4/services/plasma-applet-icon.desktop
+%{_datadir}/kde4/services/plasma-applet-launcher.desktop
+%{_datadir}/kde4/services/plasma-applet-lockout.desktop
+%{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
+%{_datadir}/kde4/services/plasma-applet-systemtray.desktop
+%{_datadir}/kde4/services/plasma-battery-default.desktop
+%{_datadir}/kde4/services/plasma-containment-desktop.desktop
+%{_datadir}/kde4/services/plasma-containment-panel.desktop
+%{_datadir}/kde4/services/plasma-dataengine-dict.desktop
+%{_datadir}/kde4/services/plasma-dataengine-filebrowser.desktop
+%{_datadir}/kde4/services/plasma-dataengine-hotplug.desktop
+%{_datadir}/kde4/services/plasma-dataengine-mouse.desktop
+%{_datadir}/kde4/services/plasma-dataengine-places.desktop
+%{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
+%{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
+%{_datadir}/kde4/services/plasma-dataengine-tasks.desktop
+%{_datadir}/kde4/services/plasma-dataengine-time.desktop
+%{_datadir}/kde4/services/plasma-dataengine-weather.desktop
+%{_datadir}/kde4/services/plasma-pager-default.desktop
+%{_datadir}/kde4/services/plasma-runner-bookmarks.desktop
+%{_datadir}/kde4/services/plasma-runner-calculator.desktop
+%{_datadir}/kde4/services/plasma-runner-locations.desktop
+%{_datadir}/kde4/services/plasma-runner-webshortcuts.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-qscript.desktop
+%{_datadir}/kde4/services/plasma-tasks-default.desktop
+%{_datadir}/kde4/servicetypes/plasma-animator.desktop
+%{_datadir}/kde4/servicetypes/plasma-applet.desktop
+%{_datadir}/kde4/servicetypes/plasma-dataengine.desktop
+%{_datadir}/kde4/servicetypes/plasma-runner.desktop
+%{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
+
+%files solid
+%attr(755,root,root) %{_bindir}/solidshell
+%attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
+%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
+%attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
+%attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
+%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
+%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
+%dir %{_datadir}/apps/solid
+%dir %{_datadir}/apps/solid/actions
+%dir %{_datadir}/apps/solidfakebluetoothbackend
+%dir %{_datadir}/apps/solidfakenetbackend
+%{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
+%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
+%{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
+%{_datadir}/kde4/services/kcm_solid.desktop
+%{_datadir}/kde4/services/solidbackends
+%{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
+%{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
+%{_datadir}/kde4/servicetypes/solidpowermanager.desktop
+
+%files kde-decoration-libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
+%{_datadir}/kde4/services/kwindecoration.desktop
+%attr(755,root,root) %{_libdir}/libkdecorations.so.*
+
+%files ksysguard
+%defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ksysguarddrc
+%attr(755,root,root) %{_bindir}/ksysguard
+%attr(755,root,root) %{_bindir}/ksysguardd
+%attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardwidgets.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_ksysguard.so
+%{_desktopdir}/kde4/ksysguard.desktop
+%{_datadir}/apps/ksysguard
+%{_iconsdir}/*/*/apps/ksysguardd.png
+%{_kdedocdir}/en/ksysguard
+# it looks like kde3 remains
+%dir %{_datadir}/apps/kicker
+%dir %{_datadir}/apps/kicker/applets
+%{_datadir}/apps/kicker/applets/ksysguardapplet.desktop
+
+%files -n kdm
+%defattr(644,root,root,755)
+%attr(754,root,root) /etc/rc.d/init.d/kdm
+%attr(755,root,root) %{_bindir}/genkdmconf
+%attr(755,root,root) %{_bindir}/kdm
+%attr(755,root,root) %{_bindir}/kdmctl
+%attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
+%attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
+# move dir belowe elsewhere
+%dir %{_datadir}/apps/doc
+%{_datadir}/apps/doc/kdm
+%{_datadir}/apps/kdm/*
+%{_datadir}/config/kdm.knsrc
+%{_kdedocdir}/en/kdm
+%{_datadir}/kde4/services/kdm.desktop
+
+%files screensavers
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*.kss
+%attr(755,root,root) %{_libdir}/kde4/kcm_screensaver.so
+%attr(755,root,root) %{_libdir}/libkscreensaver.so.*
+%{_datadir}/config.kcfg/kscreensaversettings.kcfg
+%{_datadir}/dbus-1/interfaces/org.freedesktop.ScreenSaver.xml
+%{_datadir}/dbus-1/interfaces/org.kde.screensaver.xml
+%{_datadir}/kde4/services/ScreenSavers
+%{_datadir}/kde4/services/screensaver.desktop
+%{_datadir}/kde4/servicetypes/screensaver.desktop
+
+%files kfontinst
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfontinst
+%attr(755,root,root) %{_bindir}/kfontview
+%attr(755,root,root) %{_libdir}/kde4/kcm_fontinst.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_fonts.so
+%attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
+%attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
+%attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
+%attr(755,root,root) %{_libdir}/libkfontinst.so.*
+%attr(755,root,root) %{_libdir}/libkfontinstui.so.*
+%dir %{_libdir}/strigi
+%attr(755,root,root) %{_libdir}/strigi/strigita_font.so
+%{_desktopdir}/kde4/kfontview.desktop
+%{_datadir}/apps/kfontinst
+%{_datadir}/apps/kfontview
+%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%{_iconsdir}/*/*/apps/kfontview.png
+%{_iconsdir}/*/scalable/apps/kfontview.svgz
+%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
+%{_iconsdir}/*/*/mimetypes/fonts-package.png
+%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
+%{_datadir}/kde4/services/ServiceMenus/installfont.desktop
+%{_datadir}/kde4/services/fontinst.desktop
+%{_datadir}/kde4/services/fonts.desktop
+%{_datadir}/kde4/services/fonts.protocol
+%{_datadir}/kde4/services/kfontviewpart.desktop
+
+%files klipper
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/klipper
+%attr(755,root,root) %{_libdir}/libkdeinit4_klipper.so
+%{_desktopdir}/kde4/klipper.desktop
+%{_datadir}/autostart/klipper.desktop
+%{_datadir}/config/klipperrc
+%{_kdedocdir}/en/klipper
+
+%files -n kde-splash-Default
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/Themes/Default
+
+%files -n kde-splash-Simple
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/Themes/Simple
+
+%files -n kde-splash-SimpleSmall
+%defattr(644,root,root,755)
+%{_datadir}/apps/ksplash/Themes/SimpleSmall
+
+%files -n kde-kgreet-classic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
+
+%files -n kde-kgreet-winbind
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kgreet_winbind.so
+
+%files -n kde-decoration-b2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_b2.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_b2_config.so
+%{_datadir}/apps/kwin/b2.desktop
+
+%files -n kde-decoration-keramik
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_keramik.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_keramik_config.so
+%{_datadir}/apps/kwin/keramik.desktop
+
+%files -n kde-decoration-laptop
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_laptop.so
+%{_datadir}/apps/kwin/laptop.desktop
+
+%files -n kde-decoration-modernsys
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_modernsys.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
+%{_datadir}/apps/kwin/modernsystem.desktop
+
+%files -n kde-decoration-quartz
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_quartz.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_quartz_config.so
+%{_datadir}/apps/kwin/quartz.desktop
+
+%files -n kde-decoration-redmond
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
+%{_datadir}/apps/kwin/redmond.desktop
+
+%files -n kde-decoration-web
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_web.so
+%{_datadir}/apps/kwin/web.desktop
+
+%files -n kde-decoration-kde2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
+%{_datadir}/apps/kwin/kde2.desktop
+
+%files -n kde-decoration-oxygen
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
+%{_datadir}/apps/kwin/oxygenclient.desktop
+
+%files -n kde-decoration-plastic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
+%{_datadir}/apps/kwin/plastik.desktop
+
+%files wallpapers
+%defattr(644,root,root,755)
+%{_datadir}/wallpapers/Code_Poets_Dream
+%{_datadir}/wallpapers/Colorado_Farm
+%{_datadir}/wallpapers/Curls_on_Green
+%{_datadir}/wallpapers/EOS
+%{_datadir}/wallpapers/Emotion
+%{_datadir}/wallpapers/Fields_of_Peace
+%{_datadir}/wallpapers/Finally_Summer_in_Germany
+%{_datadir}/wallpapers/Fresh_Morning
+%{_datadir}/wallpapers/Golden_Ripples
+%{_datadir}/wallpapers/Green_Concentration
+%{_datadir}/wallpapers/Ladybuggin
+%{_datadir}/wallpapers/Leafs_Labyrinth
+%{_datadir}/wallpapers/Red_Leaf
+%{_datadir}/wallpapers/Skeeter_Hawk
+%{_datadir}/wallpapers/There_is_Rain_on_the_Table
+
+%files libksgrd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libksgrd.so.*
+
+%files infocenter
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kcm_info.so
+%{_kdedocdir}/en/kinfocenter/*
+%{_datadir}/apps/kcmusb/usb.ids
+
 %files devel
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so
@@ -1195,14 +1239,22 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
+%attr(755,root,root) %{_libdir}/libkworkspace.so
+%attr(755,root,root) %{_libdir}/libprocesscore.so
+%attr(755,root,root) %{_libdir}/libprocessui.so
+%attr(755,root,root) %{_libdir}/libtaskmanager.so
+%attr(755,root,root) %{_libdir}/libweather_ion.so
+%attr(755,root,root) %{_libdir}/libplasma.so
 %{_datadir}/apps/cmake/modules/FindLibXKlavier.cmake
 %{_datadir}/apps/cmake/modules/FindPAM.cmake
 %{_datadir}/apps/cmake/modules/FindRAW1394.cmake
 %{_datadir}/apps/cmake/modules/FindSensors.cmake
 %{_datadir}/apps/cmake/modules/UnixAuth.cmake
 %{_includedir}/KDE
-%{_includedir}/*
+%{_includedir}/*.h
 %{_includedir}/kworkspace
 %{_includedir}/plasma
 %{_includedir}/solid
 %{_includedir}/taskmanager
+%{_includedir}/ksgrd
+%{_includedir}/ksysguard
