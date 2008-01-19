@@ -92,7 +92,6 @@ compilar aplicativos que usem bibliotecas do kdebase.
 Summary:	KDE Window Decoration - B2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - B2
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-b2
 A Beos like window decoration with rectangular window title to the
@@ -110,8 +109,6 @@ siebie.
 Summary:	KDE Window Decoration - kde2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - kde2
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Conflicts:	kdebase-desktop < 9:3.3.91
 
 %description -n kde-decoration-kde2
 KDE Window Decoration - kde2.
@@ -123,8 +120,6 @@ Dekoracja okna dla KDE - kde2.
 Summary:	KDE Window Decoration - keramik
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - keramik
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
-Conflicts:	kdebase-desktop < 9:3.3.91
 
 %description -n kde-decoration-keramik
 KDE Window Decoration - keramik.
@@ -136,7 +131,6 @@ Dekoracja okna dla KDE - keramik.
 Summary:	KDE Window Decoration - Laptop
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Laptop
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-laptop
 A window decoration with stripped window title and lightly convex
@@ -150,7 +144,6 @@ przyciskami okna.
 Summary:	KDE Window Decoration - ModernSys
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - ModernSys
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-modernsys
 A window decoration with small, top-aligned window buttons and a
@@ -166,7 +159,6 @@ służący do zmiany rozmiaru w prawym dolnym rogu okna.
 Summary:	KDE Window Decoration - Oxygen
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Oxygen
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-oxygen
 A window decoration with small, top-aligned window buttons and a
@@ -182,7 +174,6 @@ służący do zmiany rozmiaru w prawym dolnym rogu okna.
 Summary:	KDE Window Decoration - Plastic
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Plastic
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-plastic
 A window decoration with small, top-aligned window buttons and a
@@ -198,7 +189,6 @@ służący do zmiany rozmiaru w prawym dolnym rogu okna.
 Summary:	KDE Window Decoration - Quartz
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Quartz
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-quartz
 A window decoration with solid borders. The window caption consists of
@@ -214,7 +204,6 @@ obszarami jest stylowy przejście.
 Summary:	KDE Window Decoration - Redmond
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-redmond
 A window decoration resembling the one from Windows 98.
@@ -226,7 +215,6 @@ Dekoracja okna przypominająca tę z Windows 98.
 Summary:	KDE Window Decoration - Web
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
 Group:		X11/Amusements
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description -n kde-decoration-web
 A completely flat window decoration with rounded corners and visible,
@@ -240,9 +228,7 @@ widocznymi, cienkimi krawędziami.
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
-Conflicts:	kdm <= 3.2.90.040503-1
 
 %description -n kde-kgreet-classic
 Tools for asking for passwords in the classic, default look.
@@ -255,9 +241,7 @@ wyglądu.
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Requires:	kdelibs >= %{_minlibsevr}
 Provides:	kde-kgreet
-Conflicts:	kdm <= 3.2.90.040503-1
 
 %description -n kde-kgreet-winbind
 Tools for asking for passwords - winbind.
@@ -302,10 +286,7 @@ Ekran powitalny KDE SimpleSmall.
 Summary:	Common files for konsole and konsolepart
 Summary(pl.UTF-8):	Pliki wspólne dla konsole i konsolepart
 Group:		X11/Applications
-Requires(post,postun):	fontpostinst
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase < 3.0.9-2.4
-Obsoletes:	kdebase-fonts
+#Requires(post,postun):	fontpostinst
 
 %description common-konsole
 Color schemes, icons, fonts and shell profiles for konsole.
@@ -317,14 +298,9 @@ Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
 Summary:	KDE Core Apps
 Summary(pl.UTF-8):	Podstawowe aplikacje KDE
 Group:		X11/Applications
-Requires:	kdelibs >= %{_minlibsevr}
-Requires:	xdg-menus
-Suggests:	sudo
-Obsoletes:	kdebase < 8:3.2-0.030428.1
-Obsoletes:	kdebase-helpcenter
-Obsoletes:	kdebase-kcontrol
-Obsoletes:	kdebase-khelpcenter
-Conflicts:	kttsd <= 040609
+#Requires:	xdg-menus
+#Suggests:	sudo
+#Conflicts:	kttsd <= 040609
 
 %description core
 KDE Core apps. This package contains:
@@ -346,8 +322,7 @@ Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
 Summary:	KDE Info Center
 Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
 Group:		X11/Applications
-Requires:	kdebase4-infocenter-core = %{epoch}:%{version}-%{release}
-Requires:	pciutils
+#Requires:	pciutils
 
 %description infocenter
 Application for displaying information about your system.
@@ -359,8 +334,6 @@ Centrum informacji o systemie dla KDE.
 Summary:	K Font Installer
 Summary(pl.UTF-8):	Instalator fontów dla KDE
 Group:		X11/Applications
-Requires:	kdebase-core = %{epoch}:%{version}-%{release}
-Obsoletes:	kdebase-desktop < 3.1.90.030720
 
 %description kfontinst
 KDE font installer.
@@ -372,7 +345,6 @@ Instalator czcionek dla KDE.
 Summary:	Clipboard Tool
 Summary(pl.UTF-8):	Narzędzie schowka
 Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description klipper
 A tool extending the clipboard support for KDE. Note that it requires
@@ -387,8 +359,6 @@ Summary:	System Guard
 Summary(pl.UTF-8):	Strażnik systemu
 Group:		X11/Applications
 Requires(post,postun):	/sbin/ldconfig
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	%{name}-libksgrd = %{epoch}:%{version}-%{release}
 
 %description ksysguard
 KDE System Guard.
@@ -401,9 +371,6 @@ Summary:	ksgrd library
 Summary(pl.UTF-8):	Biblioteka ksgrd
 Group:		X11/Libraries
 Requires(post,postun):	/sbin/ldconfig
-Requires:	kdelibs >= %{_minlibsevr}
-Obsoletes:	kdebase-ksysguard-libs
-Obsoletes:	ksysguard < 9:3.1.92.031012
 
 %description libksgrd
 A library containing functions for the system monitor KSysGuard.
@@ -417,7 +384,6 @@ Summary(pl.UTF-8):	Wygaszacze ekranu desktopu KDE
 Summary(ru.UTF-8):	хранители экрана для KDE
 Summary(uk.UTF-8):	зберігачі екрану для KDE
 Group:		X11/Applications
-Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
 
 %description screensavers
 KDE screensavers.
@@ -428,19 +394,21 @@ Wygaszacze ekranu desktopu KDE.
 %description screensavers -l ru.UTF-8
 Некоторые 3D хранители экрана для K Desktop Environment.
 
+%package solid
+Summary:	Solid
+Group:		X11/Applications
+
+%description solid
+Solid.
+
 %package -n kdm
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{name}-core = %{epoch}:%{version}-%{release}
-Requires:	kde-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
-Requires:	xorg-app-sessreg
 Provides:	XDM
-Obsoletes:	kdebase-kdm
-Obsoletes:	kdebase-pam
 
 %description -n kdm
 A program used for managing X11 sessions on local or remote computers.
@@ -516,28 +484,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
-%{_datadir}/apps/doc/kdm/README
-%{_datadir}/apps/doc/kdm/greeter.dtd
-%{_datadir}/apps/kdm/pics/kdelogo-crystal.png
-%{_datadir}/apps/kdm/pics/kdelogo.png
-%{_datadir}/apps/kdm/pics/shutdown.jpg
-%{_datadir}/apps/kdm/pics/users/default1.png
-%{_datadir}/apps/kdm/pics/users/default2.png
-%{_datadir}/apps/kdm/pics/users/default3.png
-%{_datadir}/apps/kdm/pics/users/root1.png
-%{_datadir}/apps/kdm/sessions/*.desktop
-%{_datadir}/apps/kdm/themes/circles/KdmGreeterTheme.desktop
-%{_datadir}/apps/kdm/themes/circles/background.svg
-%{_datadir}/apps/kdm/themes/circles/circles.xml
-%{_datadir}/apps/kdm/themes/circles/flower.png
-%{_datadir}/apps/kdm/themes/circles/help.png
-%{_datadir}/apps/kdm/themes/circles/options.png
-%{_datadir}/apps/kdm/themes/circles/screenshot.png
+%{_datadir}/apps/doc/kdm
+%{_datadir}/apps/kdm
 %{_datadir}/config/kdm.knsrc
-%{_kdedocdir}/en/kdm/index.cache.bz2
-%{_kdedocdir}/en/kdm/index.docbook
-%{_kdedocdir}/en/kdm/kdmrc-ref.docbook
-%{_kdedocdir}/en/kdm/theme-ref.docbook
+%{_kdedocdir}/en/kdm
 %{_datadir}/kde4/services/kdm.desktop
 
 %files screensavers
@@ -565,11 +515,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
 %attr(755,root,root) %{_libdir}/libkfontinst.so.*
 %attr(755,root,root) %{_libdir}/libkfontinstui.so.*
+%dir %{_libdir}/strigi
 %attr(755,root,root) %{_libdir}/strigi/strigita_font.so
 %{_desktopdir}/kde4/kfontview.desktop
-%{_datadir}/apps/kfontinst/icons/*/*/actions/*.png
-%{_datadir}/apps/kfontinst/icons/*/scalable/actions/*.svgz
-%{_datadir}/apps/kfontinst/kfontviewpart.rc
+%{_datadir}/apps/kfontinst
 %{_datadir}/apps/kfontview/kfontviewui.rc
 %{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
 %{_iconsdir}/*/*/apps/kfontview.png
@@ -696,6 +645,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_info.so
 %{_kdedocdir}/en/kinfocenter/*
+%dir %{_datadir}/apps/kcmusb
+%{_datadir}/apps/kcmusb/usb.ids
 
 %files
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
@@ -706,6 +657,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/kstartupconfig4
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/startkde
+
+%dir %{_iconsdir}/oxygen/*/mimetypes
+%dir %{_iconsdir}/oxygen/scalable/apps
+%dir %{_datadir}/kde4/services/ServiceMenus
 
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
@@ -824,6 +779,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
 %{_iconsdir}/oxygen/48x48/apps/kwin.png
 %{_iconsdir}/oxygen/scalable/apps/kwin.svgz
+%dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/kwin/blur.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid.desktop
@@ -918,10 +874,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libplasma.so.1
 %attr(755,root,root) %{_libdir}/libplasma.so.1.0.0
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
+%dir %{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
-%{_kdedocdir}/en/plasma/index.cache.bz2
-%{_kdedocdir}/en/plasma/index.docbook
+%{_kdedocdir}/en/plasma
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
@@ -960,7 +916,7 @@ rm -rf $RPM_BUILD_ROOT
 # systemsettings
 %attr(755,root,root) %{_bindir}/systemsettings
 %{_desktopdir}/kde4/systemsettings.desktop
-%{_datadir}/apps/systemsettings/systemsettingsui.rc
+%{_datadir}/apps/systemsettings
 %{_datadir}/kde4/services/settings-about-me.desktop
 %{_datadir}/kde4/services/settings-accessibility.desktop
 %{_datadir}/kde4/services/settings-advanced-user-settings.desktop
@@ -986,57 +942,37 @@ rm -rf $RPM_BUILD_ROOT
 # themes
 %attr(755,root,root) %{_bindir}/kdeinstallktheme
 %attr(755,root,root) %{_libdir}/kde4/kcm_kthememanager.so
-%{_datadir}/apps/desktoptheme/default/colors
-%{_datadir}/apps/desktoptheme/default/dialogs/background.svg
-%{_datadir}/apps/desktoptheme/default/dialogs/shutdowndialog.svg
-%{_datadir}/apps/desktoptheme/default/widgets/analog_meter.svg
-%{_datadir}/apps/desktoptheme/default/widgets/background.svg
-%{_datadir}/apps/desktoptheme/default/widgets/bar_meter_horizontal.svg
-%{_datadir}/apps/desktoptheme/default/widgets/bar_meter_vertical.svg
-%{_datadir}/apps/desktoptheme/default/widgets/battery-oxygen.svg
-%{_datadir}/apps/desktoptheme/default/widgets/battery.svg
-%{_datadir}/apps/desktoptheme/default/widgets/clock.svg
-%{_datadir}/apps/desktoptheme/default/widgets/connection-established.svg
-%{_datadir}/apps/desktoptheme/default/widgets/iconbutton.svg
-%{_datadir}/apps/desktoptheme/default/widgets/panel-background.svg
-%{_datadir}/apps/desktoptheme/default/widgets/plot-background.svg
-%{_datadir}/apps/desktoptheme/default/widgets/toolbox-button.svg
-%{_datadir}/apps/desktoptheme/metadata.desktop
+%{_datadir}/apps/desktoptheme
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
-%{_datadir}/apps/kthememanager/themes/HighContrastDark-big/HighContrastDark-big.preview.png
-%{_datadir}/apps/kthememanager/themes/HighContrastDark-big/HighContrastDark-big.xml
-%{_datadir}/apps/kthememanager/themes/HighContrastDark/HighContrastDark.preview.png
-%{_datadir}/apps/kthememanager/themes/HighContrastDark/HighContrastDark.xml
-%{_datadir}/apps/kthememanager/themes/HighContrastLight-big/HighContrastLight-big.preview.png
-%{_datadir}/apps/kthememanager/themes/HighContrastLight-big/HighContrastLight-big.xml
-%{_datadir}/apps/kthememanager/themes/HighContrastLight/HighContrastLight.preview.png
-%{_datadir}/apps/kthememanager/themes/HighContrastLight/HighContrastLight.xml
-%{_datadir}/apps/kthememanager/themes/KDE_Classic/KDE_Classic.preview.png
-%{_datadir}/apps/kthememanager/themes/KDE_Classic/KDE_Classic.xml
-%{_datadir}/apps/kthememanager/themes/Keramik/Keramik.preview.png
-%{_datadir}/apps/kthememanager/themes/Keramik/Keramik.xml
-%{_datadir}/apps/kthememanager/themes/Plastik/Plastik.preview.png
-%{_datadir}/apps/kthememanager/themes/Plastik/Plastik.xml
-%{_datadir}/apps/kthememanager/themes/Platinum/Platinum.preview.png
-%{_datadir}/apps/kthememanager/themes/Platinum/Platinum.xml
-%{_datadir}/apps/kthememanager/themes/Redmond/Redmond.preview.png
-%{_datadir}/apps/kthememanager/themes/Redmond/Redmond.xml
-%{_datadir}/apps/kthememanager/themes/Sunshine/Sunshine.preview.png
-%{_datadir}/apps/kthememanager/themes/Sunshine/Sunshine.xml
-%{_datadir}/apps/kthememanager/themes/YellowOnBlue-big/YellowOnBlue-big.preview.png
-%{_datadir}/apps/kthememanager/themes/YellowOnBlue-big/YellowOnBlue-big.xml
-%{_datadir}/apps/kthememanager/themes/YellowOnBlue/YellowOnBlue.preview.png
-%{_datadir}/apps/kthememanager/themes/YellowOnBlue/YellowOnBlue.xml
+%{_datadir}/apps/kthememanager
 %{_datadir}/kde4/services/installktheme.desktop
 %{_datadir}/kde4/services/kthememanager.desktop
 
+%files solid
+%attr(755,root,root) %{_bindir}/solidshell
+%attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
+%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
+%attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
+%attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
+%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
+%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
+%dir %{_datadir}/apps/solid/actions
+%dir %{_datadir}/apps/solidfakebluetoothbackend
+%dir %{_datadir}/apps/solidfakenetbackend
+%{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
+%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
+%{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
+%{_datadir}/kde4/services/kcm_solid.desktop
+%{_datadir}/kde4/services/solidbackends
+%{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
+%{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
+%{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 
 %files core
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kcontroledit
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
-%attr(755,root,root) %{_bindir}/solidshell
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
@@ -1052,24 +988,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/kde4/kcm_style.so
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
 %{_datadir}/kde4/services/style.desktop
-
-# solid
-%attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
-%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
-%attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
-%attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
-%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
-%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
-%{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
-%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
-%{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
-%{_datadir}/kde4/services/kcm_solid.desktop
-%{_datadir}/kde4/services/solidbackends/solid_fakebluetooth.desktop
-%{_datadir}/kde4/services/solidbackends/solid_fakenet.desktop
-%{_datadir}/kde4/services/solidbackends/solid_hal_power.desktop
-%{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
-%{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
-%{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 
 #
 # don't know yet == have no idea
@@ -1120,7 +1038,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
 %{_datadir}/apps/kcminput/pics/mouse_lh.png
 %{_datadir}/apps/kcminput/pics/mouse_rh.png
-%{_datadir}/apps/kcmusb/usb.ids
 %{_datadir}/apps/kcmview1394/oui.db
 %{_datadir}/apps/kconf_update/convertShortcuts.pl
 %{_datadir}/apps/kconf_update/kaccel.upd
@@ -1153,6 +1070,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new_sep.png
 %{_datadir}/apps/kcontroledit/kcontroleditui.rc
 %{_datadir}/apps/kdewizard/tips
+
+%dir %{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/kdisplay/app-defaults/AAAAAAGeneral.ad
 %{_datadir}/apps/kdisplay/app-defaults/AAAMotif.ad
 %{_datadir}/apps/kdisplay/app-defaults/AAATk.ad
