@@ -178,6 +178,22 @@ Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
+%package -n kde-decoration-plastic
+Summary:	KDE Window Decoration - Plastic
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Plastic
+Group:		X11/Amusements
+Requires:	%{name}-desktop = %{epoch}:%{version}-%{release}
+
+%description -n kde-decoration-plastic
+A window decoration with small, top-aligned window buttons and a
+window title with gray lines surronding the text of the title. Also
+with a convex resize handle on the bottom-right window corner.
+
+%description -n kde-decoration-plastic -l pl.UTF-8
+Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
+tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
+służący do zmiany rozmiaru w prawym dolnym rogu okna.
+
 %package -n kde-decoration-quartz
 Summary:	KDE Window Decoration - Quartz
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Quartz
@@ -433,6 +449,20 @@ Also provides graphical login method.
 %description -n kdm -l pl.UTF-8
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
+
+%package wallpapers
+Summary:	KDE4 wallpapers
+Summary(pl.UTF-8):	Tapety KDE4
+Group:		X11/Applications
+
+%description wallpapers
+A program used for managing X11 sessions on local or remote computers.
+Also provides graphical login method.
+
+%description wallpapers -l pl.UTF-8
+Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
+sesjami X11. Udostępnia także graficzny tryb logowania.
+
 
 %prep
 %setup -q -n %{oname}-%{version}
