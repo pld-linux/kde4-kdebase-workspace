@@ -22,8 +22,13 @@ Epoch:		9
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+# Source0-md5:	f3d2155ff5ff7472a8884bd3f31bff16
 Source1:	kdebase-kdesktop.pam
+Source2:	kdebase-kdm.pam
+Source3:	kdebase-kdm-np.pam
 Source4:	kdebase-kdm.init
+Source6:	kdebase-kdm_pldlogo.png
+Source7:	kdebase-kdm_pldwallpaper.png
 Source15:	%{name}-kde4.desktop
 Source16:	%{name}-kde4-session
 BuildRequires:	cmake
@@ -426,7 +431,7 @@ Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
-Requires:	kde-kgreet = %{epoch}:%{version}-%{release}
+Requires:	kde-kgreet
 Provides:	XDM
 
 %description -n kdm
@@ -485,14 +490,25 @@ rm -rf $RPM_BUILD_ROOT
 	kde_htmldir=%{_kdedocdir}
 
 install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
-install -d $RPM_BUILD_ROOT/etc/{X11,pam.d}
+install -d $RPM_BUILD_ROOT/etc/{X11,pam.d,security}
+install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
+install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
+install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+
+install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
+install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
 install %{SOURCE15} $RPM_BUILD_ROOT%{_bindir}/kde4-session
 install -d $RPM_BUILD_ROOT%{_datadir}/xsessions/
 cp %{SOURCE16} $RPM_BUILD_ROOT%{_datadir}/xsessions/kde4.desktop
+
+$RPM_BUILD_ROOT%{_bindir}/genkdmconf --in $RPM_BUILD_ROOT%{_datadir}/config/kdm
+rm $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
+
+touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -592,7 +608,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kmenuedit.so
 %{_desktopdir}/kde4/kmenuedit.desktop
 %{_datadir}/apps/kmenuedit
-%{_kdedocdir}/en/kmenuedit
+%lang(en) %{_kdedocdir}/en/kmenuedit
 %{_iconsdir}/*/*/apps/kmenuedit.png
 
 # krandrtray
@@ -637,7 +653,7 @@ fi
 # kxkb
 %attr(755,root,root) %{_bindir}/kxkb
 %attr(755,root,root) %{_libdir}/libkdeinit4_kxkb.so
-%{_kdedocdir}/en/kxkb
+%lang(en) %{_kdedocdir}/en/kxkb
 %{_iconsdir}/*/*/apps/kxkb.png
 
 # systemsettings
@@ -1016,7 +1032,7 @@ fi
 %dir %{_datadir}/apps/plasmoidviewer
 %{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
-%{_kdedocdir}/en/plasma
+%lang(en) %{_kdedocdir}/en/plasma
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
@@ -1089,7 +1105,7 @@ fi
 %{_desktopdir}/kde4/ksysguard.desktop
 %{_datadir}/apps/ksysguard
 %{_iconsdir}/*/*/apps/ksysguardd.png
-%{_kdedocdir}/en/ksysguard
+%lang(en) %{_kdedocdir}/en/ksysguard
 # it looks like kde3 remains
 %dir %{_datadir}/apps/kicker
 %dir %{_datadir}/apps/kicker/applets
@@ -1097,6 +1113,11 @@ fi
 
 %files -n kdm
 %defattr(644,root,root,755)
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
+%dir %{_datadir}/config/kdm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/*
 %attr(754,root,root) /etc/rc.d/init.d/kdm
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
@@ -1109,8 +1130,9 @@ fi
 %{_datadir}/apps/doc/kdm
 %{_datadir}/apps/kdm/*
 %{_datadir}/config/kdm.knsrc
-%{_kdedocdir}/en/kdm
 %{_datadir}/kde4/services/kdm.desktop
+%{_datadir}/wallpapers/kdm_pld.png
+%lang(en) %{_kdedocdir}/en/kdm
 
 %files screensavers
 %defattr(644,root,root,755)
@@ -1160,7 +1182,7 @@ fi
 %{_desktopdir}/kde4/klipper.desktop
 %{_datadir}/autostart/klipper.desktop
 %{_datadir}/config/klipperrc
-%{_kdedocdir}/en/klipper
+%lang(en) %{_kdedocdir}/en/klipper
 
 %files -n kde-splash-Default
 %defattr(644,root,root,755)
@@ -1263,7 +1285,7 @@ fi
 %files infocenter
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_info.so
-%{_kdedocdir}/en/kinfocenter/*
+%lang(en) %{_kdedocdir}/en/kinfocenter/*
 %{_datadir}/apps/kcmusb/usb.ids
 
 %files session
