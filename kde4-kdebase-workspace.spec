@@ -423,6 +423,7 @@ Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
+Requires:	kde-kgreet = %{epoch}:%{version}-%{release}
 Provides:	XDM
 
 %description -n kdm
