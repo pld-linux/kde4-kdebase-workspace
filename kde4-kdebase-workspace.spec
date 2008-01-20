@@ -474,7 +474,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 install -d $RPM_BUILD_ROOT/etc/{X11,pam.d}
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
