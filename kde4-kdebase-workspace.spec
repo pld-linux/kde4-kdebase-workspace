@@ -463,13 +463,6 @@ Group:		X11/Applications
 %description kwin
 kwin
 
-%package session
-Summary:	KDE 4 Session
-Group:		X11/Applications
-
-%description session
-KDE 4 Session.
-
 %prep
 %setup -q -n %{oname}-%{version}
 
@@ -503,9 +496,9 @@ install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
-install %{SOURCE15} $RPM_BUILD_ROOT%{_bindir}/kde4-session
+install %{SOURCE16} $RPM_BUILD_ROOT%{_bindir}/kde4-session
 install -d $RPM_BUILD_ROOT%{_datadir}/xsessions/
-cp %{SOURCE16} $RPM_BUILD_ROOT%{_datadir}/xsessions/kde4.desktop
+cp %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/xsessions/kde4.desktop
 
 $RPM_BUILD_ROOT%{_bindir}/genkdmconf --in $RPM_BUILD_ROOT%{_datadir}/config/kdm
 rm $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
@@ -545,7 +538,6 @@ fi
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
-
 
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
@@ -619,6 +611,7 @@ fi
 %attr(755,root,root) %{_bindir}/ksplashx
 %attr(755,root,root) %{_bindir}/ksplashx_scale
 %attr(755,root,root) %{_libdir}/kde4/kcm_ksplashthemes.so
+%dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/Themes/None
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
@@ -679,26 +672,7 @@ fi
 
 # kdisplay
 %dir %{_datadir}/apps/kdisplay/app-defaults
-%{_datadir}/apps/kdisplay/app-defaults/AAAAAAGeneral.ad
-%{_datadir}/apps/kdisplay/app-defaults/AAAMotif.ad
-%{_datadir}/apps/kdisplay/app-defaults/AAATk.ad
-%{_datadir}/apps/kdisplay/app-defaults/AAAXaw.ad
-%{_datadir}/apps/kdisplay/app-defaults/AcroRead.ad
-%{_datadir}/apps/kdisplay/app-defaults/Editres.ad
-%{_datadir}/apps/kdisplay/app-defaults/Emacs.ad
-%{_datadir}/apps/kdisplay/app-defaults/GV.ad
-%{_datadir}/apps/kdisplay/app-defaults/ML.ad
-%{_datadir}/apps/kdisplay/app-defaults/Nedit.ad
-%{_datadir}/apps/kdisplay/app-defaults/Netscape.ad
-%{_datadir}/apps/kdisplay/app-defaults/RVPlayer.ad
-%{_datadir}/apps/kdisplay/app-defaults/WPerfect.ad
-%{_datadir}/apps/kdisplay/app-defaults/XCalc.ad
-%{_datadir}/apps/kdisplay/app-defaults/XOsview.ad
-%{_datadir}/apps/kdisplay/app-defaults/XTerm.ad
-%{_datadir}/apps/kdisplay/app-defaults/XV.ad
-%{_datadir}/apps/kdisplay/app-defaults/Xawtv.ad
-%{_datadir}/apps/kdisplay/app-defaults/Xdvi.ad
-%{_datadir}/apps/kdisplay/app-defaults/Xpdf.ad
+%{_datadir}/apps/kdisplay
 %attr(755,root,root) %{_libdir}/kde4/kcm_display.so
 %{_datadir}/apps/kconf_update/kcmdisplayrc.upd
 %{_datadir}/kde4/services/display.desktop
@@ -785,6 +759,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 
+# session
+%attr(755,root,root) %{_bindir}/kde4-session
+%{_datadir}/xsessions/kde4.desktop
 
 %files core
 %dir %{_datadir}/apps/kcmview1394
@@ -1269,11 +1246,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_info.so
 %lang(en) %{_kdedocdir}/en/kinfocenter/*
 %{_datadir}/apps/kcmusb/usb.ids
-
-%files session
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kde4-session
-%{_datadir}/xsessions/kde4.desktop
 
 %files devel
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
