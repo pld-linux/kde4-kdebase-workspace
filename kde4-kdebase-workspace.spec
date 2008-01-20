@@ -529,6 +529,12 @@ fi
 %attr(755,root,root) %{_bindir}/kstartupconfig4
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/startkde
+%attr(755,root,root) %{_bindir}/kcminit
+%attr(755,root,root) %{_bindir}/kcminit_startup
+%attr(755,root,root) %{_bindir}/kdostartupconfig4
+%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
+
 
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
@@ -536,13 +542,22 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
 
-%{_datadir}/apps/color-schemes
-
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_libdir}/libkdeinit4_kaccess.so
 %{_datadir}/apps/kaccess
 %{_datadir}/kde4/services/kaccess.desktop
+
+# kcontrol
+%attr(755,root,root) %{_bindir}/kcontroledit
+%attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
+%{_datadir}/apps/kcontrol/pics/anchor.png
+%{_datadir}/apps/kcontrol/pics/energybig.png
+%{_datadir}/apps/kcontrol/pics/lo-energy.png
+%{_datadir}/apps/kcontrol/pics/logo.png
+%{_datadir}/apps/kcontrol/pics/mini-world.png
+%{_datadir}/apps/kcontrol/pics/monitor.png
+%{_datadir}/apps/kcontroledit
 
 # khotkeys
 %attr(755,root,root) %{_bindir}/khotkeys
@@ -651,80 +666,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
 %{_datadir}/kde4/services/style.desktop
 
-%files core
-%attr(755,root,root) %{_bindir}/kcminit
-%attr(755,root,root) %{_bindir}/kcminit_startup
-%attr(755,root,root) %{_bindir}/kcontroledit
-%attr(755,root,root) %{_bindir}/kdostartupconfig4
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
-
-%dir %{_datadir}/apps/kcmview1394
-%dir %{_datadir}/apps/kdewizard
-%dir %{_datadir}/apps/kcmusb
-%dir %{_iconsdir}/oxygen/*/mimetypes
-
-#
-# don't know yet == have no idea
-#
-%attr(755,root,root) %{_libdir}/kde4/ion_bbcukmet.so
-%attr(755,root,root) %{_libdir}/kde4/ion_envcan.so
-%attr(755,root,root) %{_libdir}/kde4/ion_noaa.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_access.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_accessibility.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_bell.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_colors.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_display.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_energy.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_input.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_nic.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_randr.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_smserver.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_usb.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_view1394.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_xinerama.so
-%attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
-%attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
-%attr(755,root,root) %{_libdir}/kde4/libexec/test_kcm_xinerama
-%dir %{_datadir}/apps/kcminput
-%dir %{_datadir}/apps/kcminput/pics
-%{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
-%{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
-%{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
-%{_datadir}/apps/kcminput/pics/mouse_lh.png
-%{_datadir}/apps/kcminput/pics/mouse_rh.png
-%{_datadir}/apps/kcmview1394/oui.db
-%{_datadir}/apps/kconf_update/convertShortcuts.pl
-%{_datadir}/apps/kconf_update/kaccel.upd
-%{_datadir}/apps/kconf_update/kcmdisplayrc.upd
-%{_datadir}/apps/kconf_update/konqueror_gestures_kde321_update.upd
-%{_datadir}/apps/kconf_update/kwin3_plugin.pl
-%{_datadir}/apps/kconf_update/kwin3_plugin.upd
-%{_datadir}/apps/kconf_update/move_session_config.sh
-%{_datadir}/apps/kconf_update/on-off_to_true-false.sh
-%{_datadir}/apps/kconf_update/pluginlibFix.pl
-%{_datadir}/apps/kcontrol/pics/anchor.png
-%{_datadir}/apps/kcontrol/pics/energybig.png
-%{_datadir}/apps/kcontrol/pics/lo-energy.png
-%{_datadir}/apps/kcontrol/pics/logo.png
-%{_datadir}/apps/kcontrol/pics/mini-world.png
-%{_datadir}/apps/kcontrol/pics/monitor.png
-%{_datadir}/apps/kcontroledit
-#%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new.png
-#%{_datadir}/apps/kcontroledit/icons/crystalsvg/22x22/actions/menu_new_sep.png
-#%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new.png
-#%{_datadir}/apps/kcontroledit/icons/crystalsvg/32x32/actions/menu_new_sep.png
-#%{_datadir}/apps/kcontroledit/kcontroleditui.rc
-%{_datadir}/apps/kdewizard/tips
-
+# kdisplay
 %dir %{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/kdisplay/app-defaults/AAAAAAGeneral.ad
 %{_datadir}/apps/kdisplay/app-defaults/AAAMotif.ad
@@ -746,7 +688,108 @@ fi
 %{_datadir}/apps/kdisplay/app-defaults/Xawtv.ad
 %{_datadir}/apps/kdisplay/app-defaults/Xdvi.ad
 %{_datadir}/apps/kdisplay/app-defaults/Xpdf.ad
+%attr(755,root,root) %{_libdir}/kde4/kcm_display.so
+%{_datadir}/apps/kconf_update/kcmdisplayrc.upd
+%{_datadir}/kde4/services/display.desktop
+
+# kdewizard
+%dir %{_datadir}/apps/kdewizard
+%{_datadir}/apps/kdewizard/tips
+
+# ion
+%attr(755,root,root) %{_libdir}/kde4/ion_bbcukmet.so
+%attr(755,root,root) %{_libdir}/kde4/ion_envcan.so
+%attr(755,root,root) %{_libdir}/kde4/ion_noaa.so
+%{_datadir}/kde4/services/ion-bbcukmet.desktop
+%{_datadir}/kde4/services/ion-envcan.desktop
+%{_datadir}/kde4/services/ion-noaa.desktop
+%{_datadir}/kde4/servicetypes/weather_ion.desktop
+
+# accessibility
+%attr(755,root,root) %{_libdir}/kde4/kcm_accessibility.so
+%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
+%{_datadir}/kde4/services/accessibility.desktop
+
+# launch
+%attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
 %{_datadir}/config.kcfg/klaunch.kcfg
+%{_datadir}/kde4/services/kcmlaunch.desktop
+
+# access
+%attr(755,root,root) %{_libdir}/kde4/kcm_access.so
+%{_datadir}/kde4/services/kcmaccess.desktop
+
+# bell
+%attr(755,root,root) %{_libdir}/kde4/kcm_bell.so
+%{_datadir}/kde4/services/bell.desktop
+
+# clock
+%attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
+%{_datadir}/kde4/services/clock.desktop
+
+# fontthumbnail
+%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
+%{_datadir}/kde4/services/fontthumbnail.desktop
+
+# colors
+%attr(755,root,root) %{_libdir}/kde4/kcm_colors.so
+%{_datadir}/kde4/services/colors.desktop
+%{_datadir}/apps/color-schemes
+
+# energy
+%attr(755,root,root) %{_libdir}/kde4/kcm_energy.so
+%{_datadir}/kde4/services/energy.desktop
+
+# randr
+%{_datadir}/kde4/services/randr.desktop
+%attr(755,root,root) %{_libdir}/kde4/kcm_randr.so
+
+# smserver
+%attr(755,root,root) %{_libdir}/kde4/kcm_smserver.so
+%{_datadir}/kde4/services/kcmsmserver.desktop
+
+# xinerama
+%attr(755,root,root) %{_libdir}/kde4/kcm_xinerama.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/test_kcm_xinerama
+%{_datadir}/kde4/services/xinerama.desktop
+
+# input, hw
+%attr(755,root,root) %{_libdir}/kde4/kcm_input.so
+%{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
+%{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
+%{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
+%{_datadir}/apps/kcminput/pics/mouse_lh.png
+%{_datadir}/apps/kcminput/pics/mouse_rh.png
+%attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_nic.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_usb.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_view1394.so
+%{_datadir}/apps/kcmview1394/oui.db
+
+# ?
+%attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
+%attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
+
+
+%files core
+%dir %{_datadir}/apps/kcmview1394
+%dir %{_datadir}/apps/kcmusb
+%dir %{_iconsdir}/oxygen/*/mimetypes
+%dir %{_datadir}/apps/kcminput
+%dir %{_datadir}/apps/kcminput/pics
+
+%{_datadir}/apps/kconf_update/convertShortcuts.pl
+%{_datadir}/apps/kconf_update/kaccel.upd
+%{_datadir}/apps/kconf_update/konqueror_gestures_kde321_update.upd
+%{_datadir}/apps/kconf_update/kwin3_plugin.pl
+%{_datadir}/apps/kconf_update/kwin3_plugin.upd
+%{_datadir}/apps/kconf_update/move_session_config.sh
+%{_datadir}/apps/kconf_update/on-off_to_true-false.sh
+%{_datadir}/apps/kconf_update/pluginlibFix.pl
 %{_datadir}/config/background.knsrc
 %{_datadir}/config/wallpaper.knsrc
 %{_datadir}/desktop-directories/kde-development-translation.directory
@@ -779,7 +822,6 @@ fi
 %{_datadir}/desktop-directories/kde-system.directory
 %{_datadir}/desktop-directories/kde-toys.directory
 %{_datadir}/desktop-directories/kde-unknown.directory
-%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
 %{_datadir}/desktop-directories/kde-utilities-desktop.directory
 %{_datadir}/desktop-directories/kde-utilities-file.directory
 %{_datadir}/desktop-directories/kde-utilities-peripherals.directory
@@ -789,7 +831,6 @@ fi
 
 %{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/scalable/apps/kcmkwm.svgz
-
 %{_iconsdir}/*/*/apps/computer.png
 %{_iconsdir}/*/*/apps/daemon.png
 %{_iconsdir}/*/*/apps/kdeapp.png
@@ -799,24 +840,12 @@ fi
 %{_iconsdir}/*/*/apps/unknownapp.png
 %{_iconsdir}/*/*/apps/waiting.png
 
-%{_datadir}/kde4/services/accessibility.desktop
-%{_datadir}/kde4/services/bell.desktop
-%{_datadir}/kde4/services/clock.desktop
-%{_datadir}/kde4/services/colors.desktop
 %{_datadir}/kde4/services/desktop.desktop
 %{_datadir}/kde4/services/devices.desktop
-%{_datadir}/kde4/services/display.desktop
 %{_datadir}/kde4/services/dma.desktop
-%{_datadir}/kde4/services/energy.desktop
 %{_datadir}/kde4/services/interrupts.desktop
-%{_datadir}/kde4/services/ion-bbcukmet.desktop
-%{_datadir}/kde4/services/ion-envcan.desktop
-%{_datadir}/kde4/services/ion-noaa.desktop
 %{_datadir}/kde4/services/ioports.desktop
 %{_datadir}/kde4/services/joystick.desktop
-%{_datadir}/kde4/services/kcmaccess.desktop
-%{_datadir}/kde4/services/kcmlaunch.desktop
-%{_datadir}/kde4/services/kcmsmserver.desktop
 %{_datadir}/kde4/services/kcmusb.desktop
 %{_datadir}/kde4/services/kcmview1394.desktop
 %{_datadir}/kde4/services/kded/networkstatus.desktop
@@ -830,13 +859,9 @@ fi
 %{_datadir}/kde4/services/partitions.desktop
 %{_datadir}/kde4/services/pci.desktop
 %{_datadir}/kde4/services/processor.desktop
-%{_datadir}/kde4/services/randr.desktop
 %{_datadir}/kde4/services/scsi.desktop
 %{_datadir}/kde4/services/sound.desktop
-%{_datadir}/kde4/services/xinerama.desktop
 %{_datadir}/kde4/services/xserver.desktop
-%{_datadir}/kde4/servicetypes/kwineffect.desktop
-%{_datadir}/kde4/servicetypes/weather_ion.desktop
 %{_datadir}/sounds/pop.wav
 
 %files kwin
@@ -916,9 +941,7 @@ fi
 %{_datadir}/kde4/services/kwin/sharpen_config.desktop
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
-
-%attr(755,root,root) %{_libdir}/kde4/fontthumbnail.so
-%{_datadir}/kde4/services/fontthumbnail.desktop
+%{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
