@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=XSession
+Exec=/usr/bin/kde4-session
+TryExec=/usr/bin/kde4-session
+Name=KDE 4.0
