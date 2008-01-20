@@ -673,7 +673,6 @@ fi
 %{_datadir}/kde4/services/style.desktop
 
 # kdisplay
-%dir %{_datadir}/apps/kdisplay/app-defaults
 %{_datadir}/apps/kdisplay
 %attr(755,root,root) %{_libdir}/kde4/kcm_display.so
 %{_datadir}/apps/kconf_update/kcmdisplayrc.upd
