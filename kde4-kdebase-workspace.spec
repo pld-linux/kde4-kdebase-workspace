@@ -710,6 +710,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_bell.so
 %{_datadir}/kde4/services/bell.desktop
 
+# bluez
+%attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
+
 # clock
 %attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
 %{_datadir}/kde4/services/clock.desktop
