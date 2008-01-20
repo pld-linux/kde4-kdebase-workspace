@@ -783,14 +783,14 @@ fi
 %dir %{_datadir}/apps/kcminput
 %dir %{_datadir}/apps/kcminput/pics
 
-%{_datadir}/apps/kconf_update/convertShortcuts.pl
 %{_datadir}/apps/kconf_update/kaccel.upd
 %{_datadir}/apps/kconf_update/konqueror_gestures_kde321_update.upd
-%{_datadir}/apps/kconf_update/kwin3_plugin.pl
 %{_datadir}/apps/kconf_update/kwin3_plugin.upd
-%{_datadir}/apps/kconf_update/move_session_config.sh
-%{_datadir}/apps/kconf_update/on-off_to_true-false.sh
-%{_datadir}/apps/kconf_update/pluginlibFix.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/convertShortcuts.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/kwin3_plugin.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/move_session_config.sh
+%attr(755,root,root) %{_datadir}/apps/kconf_update/on-off_to_true-false.sh
+%attr(755,root,root) %{_datadir}/apps/kconf_update/pluginlibFix.pl
 %{_datadir}/config/background.knsrc
 %{_datadir}/config/wallpaper.knsrc
 %{_datadir}/desktop-directories/kde-development-translation.directory
@@ -1091,7 +1091,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
-# move dir belowe elsewhere
+# XXX move dir below elsewhere
 %dir %{_datadir}/apps/doc
 %{_datadir}/apps/doc/kdm
 %{_datadir}/apps/kdm/*
