@@ -24,6 +24,8 @@ Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 Source1:	kdebase-kdesktop.pam
 Source4:	kdebase-kdm.init
+Source15:	%{name}-kde4.desktop
+Source16:	%{name}-kde4-session
 BuildRequires:	cmake
 BuildRequires:	kdelibs4-devel
 Obsoletes:	kdebase-desktop
@@ -454,6 +456,12 @@ Group:		X11/Applications
 %description kwin
 kwin
 
+%package session
+Summary:	KDE 4 Session
+Group:		X11/Applications
+
+%description session
+KDE 4 Session.
 
 %prep
 %setup -q -n %{oname}-%{version}
@@ -480,6 +488,10 @@ install -d $RPM_BUILD_ROOT/etc/{X11,pam.d}
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+
+install %{SOURCE14} $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_datadir}xsessions/
+cp %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/xsessions/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1252,6 +1264,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_info.so
 %{_kdedocdir}/en/kinfocenter/*
 %{_datadir}/apps/kcmusb/usb.ids
+
+%files session
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kde4-session
+%{_datadir}/xsessions/kde4.desktop
 
 %files devel
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
