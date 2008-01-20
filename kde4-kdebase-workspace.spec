@@ -32,9 +32,11 @@ Source6:	kdebase-kdm_pldlogo.png
 Source7:	kdebase-kdm_pldwallpaper.png
 Source15:	%{name}-kde4.desktop
 Source16:	%{name}-kde4-session
+BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
 BuildRequires:	kdelibs4-devel
+BuildRequires:	QtScript-devel >= 4.3
 Obsoletes:	kdebase-desktop
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
