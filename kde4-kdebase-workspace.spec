@@ -27,6 +27,7 @@ Source4:	kdebase-kdm.init
 Source15:	%{name}-kde4.desktop
 Source16:	%{name}-kde4-session
 BuildRequires:	cmake
+BuildRequires:	qimageblitz-devel
 BuildRequires:	kdelibs4-devel
 Obsoletes:	kdebase-desktop
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -489,9 +490,9 @@ install -d $RPM_BUILD_ROOT/etc/{X11,pam.d}
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 
-install %{SOURCE14} $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{_datadir}xsessions/
-cp %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/xsessions/
+install %{SOURCE15} $RPM_BUILD_ROOT%{_bindir}/kde4-session
+install -d $RPM_BUILD_ROOT%{_datadir}/xsessions/
+cp %{SOURCE16} $RPM_BUILD_ROOT%{_datadir}/xsessions/kde4.desktop
 
 %clean
 rm -rf $RPM_BUILD_ROOT
