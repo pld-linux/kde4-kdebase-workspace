@@ -27,6 +27,7 @@ Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
 Source4:	kdebase-kdm.init
+Source5:	kdebase-kdm.sysconfig
 Source6:	kdebase-kdm_pldlogo.png
 Source7:	kdebase-kdm_pldwallpaper.png
 Source15:	%{name}-kde4.desktop
@@ -489,7 +490,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 install -d $RPM_BUILD_ROOT/etc/{X11,pam.d,security}
 install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm
 
@@ -497,6 +498,7 @@ install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
+install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
 
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
@@ -521,28 +523,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post -n kdm
 /sbin/chkconfig --add kdm
-if [ -f /var/lock/subsys/kdm ]; then
-	%banner kdm -e <<EOF
- ***************************************************
- *                                                 *
- * NOTE:                                           *
- * To make sure that new version of KDM is running *
- * You should restart KDM with:                    *
- * "/sbin/service kdm restart".                    *
- *                                                 *
- * WARNING:                                        *
- * Restarting KDM will terminate any X session     *
- * started by it!                                  *
- *                                                 *
- ***************************************************
-
-EOF
-else
-	%banner kdm -e <<EOF
-Run "/sbin/service kdm start" to start kdm.
-
-EOF
-fi
+%service kdm restart
 
 %preun -n kdm
 if [ "$1" = "0" ]; then
@@ -1116,6 +1097,7 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/*
 %attr(754,root,root) /etc/rc.d/init.d/kdm
