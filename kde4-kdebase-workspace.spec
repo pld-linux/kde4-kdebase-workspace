@@ -36,6 +36,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
 BuildRequires:	kdelibs4-devel
+BuildRequires:	Mesa-libGL-devel
 BuildRequires:	QtScript-devel >= 4.3
 Obsoletes:	kdebase-desktop
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
