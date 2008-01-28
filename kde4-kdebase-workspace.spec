@@ -30,6 +30,7 @@ Source4:	kdebase-kdm.init
 Source5:	kdebase-kdm.sysconfig
 Source6:	kdebase-kdm_pldlogo.png
 Source7:	kdebase-kdm_pldwallpaper.png
+Source8:	kdebase-kde.pam
 Source15:	%{name}-kde4.desktop
 Source16:	%{name}-kde4-session
 BuildRequires:	bluez-libs-devel
@@ -493,6 +494,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
+install %{SOURCE8}	$RPM_BUILD_ROOT/etc/pam.d/kde
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
 
@@ -1078,6 +1080,7 @@ fi
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
