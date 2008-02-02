@@ -15,7 +15,7 @@ Summary(pt_BR.UTF-8):   K Desktop Environment - arquivos básicos
 Summary(ru.UTF-8):   K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):   K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):   KDE核心
-Name:		kdebase4-workspace
+Name:		kde4-kdebase-workspace
 Version:	4.0.0
 Release:	0.1
 Epoch:		0
@@ -40,6 +40,8 @@ BuildRequires:	kdelibs4-devel
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	QtScript-devel >= 4.3
 Obsoletes:	kdebase-desktop
+Obsoletes:	kdebase4-workspace
+Conflicts:	kdebase4-workspace
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
