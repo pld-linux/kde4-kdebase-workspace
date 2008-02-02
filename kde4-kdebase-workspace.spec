@@ -504,8 +504,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
 install %{SOURCE16} $RPM_BUILD_ROOT%{_bindir}/kde4-session
-install -d $RPM_BUILD_ROOT%{_datadir}/xsessions/
-cp %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/xsessions/kde4.desktop
+install %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/apps/kdm/sessions/kde4.desktop
 
 $RPM_BUILD_ROOT%{_bindir}/genkdmconf --in $RPM_BUILD_ROOT%{_datadir}/config/kdm
 rm $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
@@ -770,7 +769,6 @@ fi
 
 # session
 %attr(755,root,root) %{_bindir}/kde4-session
-%{_datadir}/xsessions/kde4.desktop
 
 %files core
 %dir %{_datadir}/apps/kcmview1394
