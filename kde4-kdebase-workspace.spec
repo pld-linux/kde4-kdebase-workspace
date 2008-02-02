@@ -31,8 +31,8 @@ Source5:	kdebase-kdm.sysconfig
 Source6:	kdebase-kdm_pldlogo.png
 Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
-Source15:	%{name}-kde4.desktop
-Source16:	%{name}-kde4-session
+Source15:	%{name}.desktop
+Source16:	%{name}-session
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
