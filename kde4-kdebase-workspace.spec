@@ -36,7 +36,7 @@ Source16:	%{name}-kde4-session
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
-BuildRequires:	kdelibs4-devel
+BuildRequires:	kde4-kdelibs-devel
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	QtScript-devel >= 4.3
 Obsoletes:	kdebase-desktop
@@ -474,7 +474,7 @@ kwin
 
 %build
 export QTDIR=%{_prefix}
-mkdir build
+install -d build
 cd build
 %cmake \
 -DCMAKE_INSTALL_PREFIX=%{_prefix} \
