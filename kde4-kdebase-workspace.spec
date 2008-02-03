@@ -32,10 +32,13 @@ Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
+BuildRequires:	NetworkManager-devel
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
 BuildRequires:	kde4-kdelibs-devel
+BuildRequires:	libtirpc-devel
+BuildRequires:	libxklavier-devel
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	QtScript-devel >= 4.3
 Obsoletes:	kdebase-desktop
@@ -422,6 +425,13 @@ Group:		X11/Applications
 
 %description solid
 Solid.
+
+%package networkmanager
+Summary:	networkmanager
+Group:		X11/Applications
+
+%description networkmanager
+Networkmanager.
 
 %package plasma
 Summary:	Plasma
@@ -1053,6 +1063,10 @@ fi
 %{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
 %{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 
+%files networkmanager
+%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager.so
+%{_iconsdir}/*/*x*/apps/networkmanager.png
+            
 %files kde-decoration-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
