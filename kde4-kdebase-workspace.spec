@@ -1083,7 +1083,14 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/*
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/kdmrc
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/backgroundrc
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xreset
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xsession
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xsetup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xstartup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xwilling
+%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xaccess
 %attr(754,root,root) /etc/rc.d/init.d/kdm
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
