@@ -16,7 +16,7 @@ Summary(uk.UTF-8):   K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):   KDE核心
 Name:		kde4-kdebase-workspace
 Version:	4.0.0
-Release:	0.1
+Release:	0.2
 Epoch:		0
 License:	GPL
 Group:		X11/Applications
