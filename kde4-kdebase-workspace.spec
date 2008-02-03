@@ -4,7 +4,6 @@
 #
 %define		oname		kdebase-workspace
 %define		_state		stable
-%define		_minlibsevr	9:4.0.0
 
 Summary:	K Desktop Environment - core files
 Summary(es.UTF-8):   K Desktop Environment - archivos básicos
