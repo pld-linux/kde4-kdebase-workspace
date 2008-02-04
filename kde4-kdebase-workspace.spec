@@ -3,7 +3,7 @@
 %bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
 #
 %define		oname		kdebase-workspace
-%define		_state		stable
+%define		_state		unstable
 
 Summary:	K Desktop Environment - core files
 Summary(es.UTF-8):   K Desktop Environment - archivos básicos
@@ -15,12 +15,12 @@ Summary(ru.UTF-8):   K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):   K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):   KDE核心
 Name:		kde4-kdebase-workspace
-Version:	4.0.0
-Release:	0.2
+Version:	4.0.60
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f3d2155ff5ff7472a8884bd3f31bff16
+# Source0-md5:	a2e11366ade39366cee569cd65b078e3
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -35,7 +35,7 @@ BuildRequires:	NetworkManager-devel
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
-BuildRequires:	kde4-kdelibs-devel
+BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	libtirpc-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	Mesa-libGL-devel
