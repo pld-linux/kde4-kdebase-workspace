@@ -17,7 +17,6 @@ Summary(zh_CN.UTF-8):   KDE核心
 Name:		kde4-kdebase-workspace
 Version:	4.0.0
 Release:	0.2
-Epoch:		0
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
