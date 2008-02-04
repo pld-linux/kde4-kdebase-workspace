@@ -558,6 +558,7 @@ fi
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
+%attr(755,root,root) %{_libdir}/libplasmaclock.so.*
 
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
@@ -604,7 +605,7 @@ fi
 
 # krunner
 %attr(755,root,root) %{_bindir}/krunner
-%attr(755,root,root) %{_bindir}/krunner_lock
+%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %attr(755,root,root) %{_libdir}/kde4/krunner_bookmarksrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
@@ -890,6 +891,7 @@ fi
 %{_datadir}/apps/kwin/blur.vert
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
+%{_datadir}/apps/kwin/snowflake.png
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
 %{_datadir}/apps/kwin/explosion-end.png
@@ -959,6 +961,10 @@ fi
 %{_datadir}/kde4/services/kwinmoving.desktop
 %{_datadir}/kde4/services/kwinoptions.desktop
 %{_datadir}/kde4/services/kwinrules.desktop
+%{_datadir}/kde4/services/kwin/flipswitch.desktop
+%{_datadir}/kde4/services/kwin/flipswitch_config.desktop
+%{_datadir}/kde4/services/kwin/snow.desktop
+%{_datadir}/kde4/services/kwin/snow_config.desktop
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
 %{_datadir}/apps/kconf_update/kwin_focus1.upd
@@ -969,6 +975,7 @@ fi
 %{_datadir}/apps/kconf_update/kwiniconify.upd
 %{_datadir}/apps/kconf_update/kwinsticky.upd
 %{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
+%{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
 
 %files plasma
 %attr(755,root,root) %{_bindir}/plasma
@@ -1263,6 +1270,8 @@ fi
 %{_datadir}/wallpapers/Red_Leaf
 %{_datadir}/wallpapers/Skeeter_Hawk
 %{_datadir}/wallpapers/There_is_Rain_on_the_Table
+%{_datadir}/wallpapers/default_blue.jpg
+%{_datadir}/wallpapers/default_blue.jpg.desktop
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -1290,6 +1299,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/libplasma.so
+%attr(755,root,root) %{_libdir}/libplasmaclock.so
 %{_datadir}/apps/cmake/modules/FindLibXKlavier.cmake
 %{_datadir}/apps/cmake/modules/FindPAM.cmake
 %{_datadir}/apps/cmake/modules/FindRAW1394.cmake
