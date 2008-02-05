@@ -137,7 +137,7 @@ Group:		X11/Amusements
 %description -n kde4-decoration-kde2
 KDE Window Decoration - kde2.
 
-%description -n kde-decoration-kde2 -l pl.UTF-8
+%description -n kde4-decoration-kde2 -l pl.UTF-8
 Dekoracja okna dla KDE - kde2.
 
 %package -n kde4-decoration-keramik
