@@ -36,6 +36,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	qimageblitz-devel
 BuildRequires:	kde4-kdelibs-devel >= %{version}
+BuildRequires:	kdelibs-shared >= %{version}
 BuildRequires:	libtirpc-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	Mesa-libGL-devel
