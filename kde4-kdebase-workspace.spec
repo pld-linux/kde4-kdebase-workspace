@@ -104,206 +104,206 @@ KDE.
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
-%package kde-decoration-libs
+%package kde4-decoration-libs
 Summary:	Libraries for KDE Window Decorations
 Summary(pl.UTF-8):	Biblioteki dla dekoracji okien KDE
 Group:		X11/Amusements
 
-%description kde-decoration-libs
+%description kde4-decoration-libs
 Libraries for KDE Window Decorations.
 
-%package -n kde-decoration-b2
+%package -n kde4-decoration-b2
 Summary:	KDE Window Decoration - B2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - B2
 Group:		X11/Amusements
 
-%description -n kde-decoration-b2
+%description -n kde4-decoration-b2
 A Beos like window decoration with rectangular window title to the
 left. The actual window decoration does not take more than 20-30% of
 the screen width and if two window titles overlap each other, they are
 aligned next to each other.
 
-%description -n kde-decoration-b2 -l pl.UTF-8
+%description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
 przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
 siebie.
 
-%package -n kde-decoration-kde2
+%package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - kde2
 Group:		X11/Amusements
 
-%description -n kde-decoration-kde2
+%description -n kde4-decoration-kde2
 KDE Window Decoration - kde2.
 
 %description -n kde-decoration-kde2 -l pl.UTF-8
 Dekoracja okna dla KDE - kde2.
 
-%package -n kde-decoration-keramik
+%package -n kde4-decoration-keramik
 Summary:	KDE Window Decoration - keramik
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - keramik
 Group:		X11/Amusements
 
-%description -n kde-decoration-keramik
+%description -n kde4-decoration-keramik
 KDE Window Decoration - keramik.
 
-%description -n kde-decoration-keramik -l pl.UTF-8
+%description -n kde4-decoration-keramik -l pl.UTF-8
 Dekoracja okna dla KDE - keramik.
 
-%package -n kde-decoration-laptop
+%package -n kde4-decoration-laptop
 Summary:	KDE Window Decoration - Laptop
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Laptop
 Group:		X11/Amusements
 
-%description -n kde-decoration-laptop
+%description -n kde4-decoration-laptop
 A window decoration with stripped window title and lightly convex
 window buttons.
 
-%description -n kde-decoration-laptop -l pl.UTF-8
+%description -n kde4-decoration-laptop -l pl.UTF-8
 Dekoracja okna z paskowanym tytułem okna oraz lekko wypukłymi
 przyciskami okna.
 
-%package -n kde-decoration-modernsys
+%package -n kde4-decoration-modernsys
 Summary:	KDE Window Decoration - ModernSys
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - ModernSys
 Group:		X11/Amusements
 
-%description -n kde-decoration-modernsys
+%description -n kde4-decoration-modernsys
 A window decoration with small, top-aligned window buttons and a
 window title with gray lines surronding the text of the title. Also
 with a convex resize handle on the bottom-right window corner.
 
-%description -n kde-decoration-modernsys -l pl.UTF-8
+%description -n kde4-decoration-modernsys -l pl.UTF-8
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
-%package -n kde-decoration-oxygen
+%package -n kde4-decoration-oxygen
 Summary:	KDE Window Decoration - Oxygen
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Oxygen
 Group:		X11/Amusements
 
-%description -n kde-decoration-oxygen
+%description -n kde4-decoration-oxygen
 A window decoration with small, top-aligned window buttons and a
 window title with gray lines surronding the text of the title. Also
 with a convex resize handle on the bottom-right window corner.
 
-%description -n kde-decoration-oxygen -l pl.UTF-8
+%description -n kde4-decoration-oxygen -l pl.UTF-8
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
-%package -n kde-decoration-plastic
+%package -n kde4-decoration-plastic
 Summary:	KDE Window Decoration - Plastic
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Plastic
 Group:		X11/Amusements
 
-%description -n kde-decoration-plastic
+%description -n kde4-decoration-plastic
 A window decoration with small, top-aligned window buttons and a
 window title with gray lines surronding the text of the title. Also
 with a convex resize handle on the bottom-right window corner.
 
-%description -n kde-decoration-plastic -l pl.UTF-8
+%description -n kde4-decoration-plastic -l pl.UTF-8
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
-%package -n kde-decoration-quartz
+%package -n kde4-decoration-quartz
 Summary:	KDE Window Decoration - Quartz
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Quartz
 Group:		X11/Amusements
 
-%description -n kde-decoration-quartz
+%description -n kde4-decoration-quartz
 A window decoration with solid borders. The window caption consists of
 a lighter area for the window title and a darker area for window
 buttons. Between the two area there is a stylish transition.
 
-%description -n kde-decoration-quartz -l pl.UTF-8
+%description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
 jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
 obszarami jest stylowy przejście.
 
-%package -n kde-decoration-redmond
+%package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
 Group:		X11/Amusements
 
-%description -n kde-decoration-redmond
+%description -n kde4-decoration-redmond
 A window decoration resembling the one from Windows 98.
 
-%description -n kde-decoration-redmond -l pl.UTF-8
+%description -n kde4-decoration-redmond -l pl.UTF-8
 Dekoracja okna przypominająca tę z Windows 98.
 
-%package -n kde-decoration-web
+%package -n kde4-decoration-web
 Summary:	KDE Window Decoration - Web
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
 Group:		X11/Amusements
 
-%description -n kde-decoration-web
+%description -n kde4-decoration-web
 A completely flat window decoration with rounded corners and visible,
 thin borders.
 
-%description -n kde-decoration-web -l pl.UTF-8
+%description -n kde4-decoration-web -l pl.UTF-8
 Zupełnie płaska dekoracja okna z zaokrąglonymi brzegami oraz
 widocznymi, cienkimi krawędziami.
 
-%package -n kde-kgreet-classic
+%package -n kde4-kgreet-classic
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Provides:	kde-kgreet
+Provides:	kde4-kgreet
 
-%description -n kde-kgreet-classic
+%description -n kde4-kgreet-classic
 Tools for asking for passwords in the classic, default look.
 
-%description -n kde-kgreet-classic -l pl.UTF-8
+%description -n kde4-kgreet-classic -l pl.UTF-8
 Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
 wyglądu.
 
-%package -n kde-kgreet-winbind
+%package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
 Group:		X11/Libraries
-Provides:	kde-kgreet
+Provides:	kde4-kgreet
 
-%description -n kde-kgreet-winbind
+%description -n kde4-kgreet-winbind
 Tools for asking for passwords - winbind.
 
-%description -n kde-kgreet-winbind -l pl.UTF-8
+%description -n kde4-kgreet-winbind -l pl.UTF-8
 Narzędzia służące do zapytań o hasło - winbind.
 
-%package -n kde-splash-Default
+%package -n kde4-splash-Default
 Summary:	Default clasic KDE splashscreen
 Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
 Group:		X11/Amusements
 
-%description -n kde-splash-Default
+%description -n kde4-splash-Default
 Default splashscreen that came with this version of KDE.
 
-%description -n kde-splash-Default -l pl.UTF-8
+%description -n kde4-splash-Default -l pl.UTF-8
 Domyślny ekran powitalny dostarczony w tej wersji KDE.
 
-%package -n kde-splash-Simple
+%package -n kde4-splash-Simple
 Summary:	KDE Simple splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE Simple
 Group:		X11/Amusements
 
-%description -n kde-splash-Simple
+%description -n kde4-splash-Simple
 KDE Simple splashcreen.
 
-%description -n kde-splash-Simple -l pl.UTF-8
+%description -n kde4-splash-Simple -l pl.UTF-8
 Ekran powitalny KDE Simple.
 
-%package -n kde-splash-SimpleSmall
+%package -n kde4-splash-SimpleSmall
 Summary:	KDE SimpleSmall splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE SimpleSmall
 Group:		X11/Amusements
 
-%description -n kde-splash-SimpleSmall
+%description -n kde4-splash-SimpleSmall
 KDE SimpleSmall splashcreen.
 
-%description -n kde-splash-SimpleSmall -l pl.UTF-8
+%description -n kde4-splash-SimpleSmall -l pl.UTF-8
 Ekran powitalny KDE SimpleSmall.
 
 %package common-konsole
@@ -446,7 +446,7 @@ Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
-Requires:	kde-kgreet
+Requires:	kde4-kgreet
 Provides:	XDM
 
 %description -n kdm
@@ -522,8 +522,8 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	kde-decoration-libs	-p /sbin/ldconfig
-%postun	kde-decoration-libs	-p /sbin/ldconfig
+%post	kde4-decoration-libs	-p /sbin/ldconfig
+%postun	kde4-decoration-libs	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
@@ -1073,7 +1073,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/solid_networkmanager.so
 %{_iconsdir}/*/*x*/apps/networkmanager.png
             
-%files kde-decoration-libs
+%files kde4-decoration-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
 %{_datadir}/kde4/services/kwindecoration.desktop
@@ -1177,77 +1177,77 @@ fi
 %{_datadir}/config/klipperrc
 %lang(en) %{_kdedocdir}/en/klipper
 
-%files -n kde-splash-Default
+%files -n kde4-splash-Default
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/Default
 
-%files -n kde-splash-Simple
+%files -n kde4-splash-Simple
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/Simple
 
-%files -n kde-splash-SimpleSmall
+%files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
 
-%files -n kde-kgreet-classic
+%files -n kde4-kgreet-classic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
 
-%files -n kde-kgreet-winbind
+%files -n kde4-kgreet-winbind
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kgreet_winbind.so
 
-%files -n kde-decoration-b2
+%files -n kde4-decoration-b2
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_b2.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
 
-%files -n kde-decoration-keramik
+%files -n kde4-decoration-keramik
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_keramik.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_keramik_config.so
 %{_datadir}/apps/kwin/keramik.desktop
 
-%files -n kde-decoration-laptop
+%files -n kde4-decoration-laptop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_laptop.so
 %{_datadir}/apps/kwin/laptop.desktop
 
-%files -n kde-decoration-modernsys
+%files -n kde4-decoration-modernsys
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_modernsys.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
 %{_datadir}/apps/kwin/modernsystem.desktop
 
-%files -n kde-decoration-quartz
+%files -n kde4-decoration-quartz
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_quartz.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_quartz_config.so
 %{_datadir}/apps/kwin/quartz.desktop
 
-%files -n kde-decoration-redmond
+%files -n kde4-decoration-redmond
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
 %{_datadir}/apps/kwin/redmond.desktop
 
-%files -n kde-decoration-web
+%files -n kde4-decoration-web
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_web.so
 %{_datadir}/apps/kwin/web.desktop
 
-%files -n kde-decoration-kde2
+%files -n kde4-decoration-kde2
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
 %{_datadir}/apps/kwin/kde2.desktop
 
-%files -n kde-decoration-oxygen
+%files -n kde4-decoration-oxygen
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
 %{_datadir}/apps/kwin/oxygenclient.desktop
 
-%files -n kde-decoration-plastic
+%files -n kde4-decoration-plastic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
