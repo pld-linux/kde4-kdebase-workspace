@@ -6,14 +6,14 @@
 %define		_state		unstable
 
 Summary:	K Desktop Environment - core files
-Summary(es.UTF-8):   K Desktop Environment - archivos básicos
-Summary(ja.UTF-8):   KDEデスクトップ環境 - 基本ファイル
-Summary(ko.UTF-8):   KDE - 기본 파일
-Summary(pl.UTF-8):   K Desktop Environment - pliki środowiska
-Summary(pt_BR.UTF-8):   K Desktop Environment - arquivos básicos
-Summary(ru.UTF-8):   K Desktop Environment - базовые файлы
-Summary(uk.UTF-8):   K Desktop Environment - базові файли
-Summary(zh_CN.UTF-8):   KDE核心
+Summary(es.UTF-8):	K Desktop Environment - archivos básicos
+Summary(ja.UTF-8):	KDEデスクトップ環境 - 基本ファイル
+Summary(ko.UTF-8):	KDE - 기본 파일
+Summary(pl.UTF-8):	K Desktop Environment - pliki środowiska
+Summary(pt_BR.UTF-8):	K Desktop Environment - arquivos básicos
+Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
+Summary(uk.UTF-8):	K Desktop Environment - базові файли
+Summary(zh_CN.UTF-8):	KDE核心
 Name:		kde4-kdebase-workspace
 Version:	4.0.60
 Release:	0.2
@@ -31,16 +31,16 @@ Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
+BuildRequires:	Mesa-libGL-devel
 BuildRequires:	NetworkManager-devel
+BuildRequires:	QtScript-devel >= 4.3
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
-BuildRequires:	qimageblitz-devel
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kdelibs-shared >= %{version}
 BuildRequires:	libtirpc-devel
 BuildRequires:	libxklavier-devel
-BuildRequires:	Mesa-libGL-devel
-BuildRequires:	QtScript-devel >= 4.3
+BuildRequires:	qimageblitz-devel
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase4-workspace
@@ -65,45 +65,53 @@ Ten pakiet zawiera podstawowe aplikacje KDE:
 - KDesktop (pulpit) i Kicker (panel)
 - menedżer okien Kwin i dekoracje
 - ekrany startowe KDE
-- obsługę podglądu plików, protokołów poczty i news oraz emulacji
-  terminala
+- obsługę podglądu plików, protokołów poczty i news oraz
+  emulacji terminala
 
 %description -l ru.UTF-8
-Базовые программы для K Desktop Environment. Включены: 
-kwin (оконный менеджер), konqueror (файловый менеджер,
-web-браузер, ftp-клиент, ...), konsole (замена xterm), kicker
-(запускалка программ и пейджер рабочего стола), kaudio (аудиосервер),
-kdehelp (программа для просмотра справочных файлов kde, файлов info и
-man), kthememgr (система для управления альтернативными пакетами тем)
-и другие компоненты KDE (kcheckpass, kikbd, kscreensaver, kcontrol,
-kfind, kfontmanager, kmenuedit, kappfinder).
+Базовые программы для K Desktop Environment.
+Включены: kwin (оконный менеджер), konqueror
+(файловый менеджер, web-браузер,
+ftp-клиент, ...), konsole (замена xterm), kicker
+(запускалка программ и пейджер
+рабочего стола), kaudio (аудиосервер), kdehelp
+(программа для просмотра справочных
+файлов kde, файлов info и man), kthememgr (система
+для управления альтернативными
+пакетами тем) и другие компоненты KDE
+(kcheckpass, kikbd, kscreensaver, kcontrol, kfind, kfontmanager,
+kmenuedit, kappfinder).
 
 %description -l uk.UTF-8
-Базові програми для K Desktop Environment. Включені: 
-kwin (віконный менеджер), konqueror (файловий менеджер, web-браузер,
-ftp-кліент, ...), konsole (заміна xterm), kicker (запускалка програм
-та пейджер робочого столу), kaudio (аудіосервер), kdehelp (програма
-для перегляду файлів довідки kde, файлів info та man), kthememgr
-(система для керування альтернативними пакетами тем) та інші
-компоненти KDE (kcheckpass, kikbd, kscreensaver, kcontrol, kfind,
-kfontmanager, kmenuedit, kappfinder).
+Базові програми для K Desktop Environment.
+Включені: kwin (віконный менеджер), konqueror
+(файловий менеджер, web-браузер,
+ftp-кліент, ...), konsole (заміна xterm), kicker
+(запускалка програм та пейджер
+робочого столу), kaudio (аудіосервер), kdehelp
+(програма для перегляду файлів
+довідки kde, файлів info та man), kthememgr
+(система для керування
+альтернативними пакетами тем) та інші
+компоненти KDE (kcheckpass, kikbd, kscreensaver, kcontrol,
+kfind, kfontmanager, kmenuedit, kappfinder).
 
 %package devel
 Summary:	Include files to develop KDE applications
-Summary(pl.UTF-8):   Pliki nagłówkowe potrzebne do tworzenia aplikacji KDE
-Summary(pt_BR.UTF-8):   Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
+Summary(pl.UTF-8):	Pliki nagłówkowe potrzebne do tworzenia aplikacji KDE
+Summary(pt_BR.UTF-8):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 
 %description devel
 This package contains header files needed to develop KDE applications.
 
 %description devel -l pl.UTF-8
-Pakiet zawiera pliki nagłówkowe niezbędne do programowania aplikacji
-KDE.
+Pakiet zawiera pliki nagłówkowe niezbędne do programowania
+aplikacji KDE.
 
 %description devel -l pt_BR.UTF-8
-Este pacote contém os arquivos de inclusão que são necessários para
-compilar aplicativos que usem bibliotecas do kdebase.
+Este pacote contém os arquivos de inclusão que são necessários
+para compilar aplicativos que usem bibliotecas do kdebase.
 
 %package kde4-decoration-libs
 Summary:	Libraries for KDE Window Decorations
@@ -127,8 +135,8 @@ aligned next to each other.
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
-siebie.
+przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
+obok siebie.
 
 %package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
@@ -222,8 +230,8 @@ buttons. Between the two area there is a stylish transition.
 
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
-obszarami jest stylowy przejście.
+jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
+Między obszarami jest stylowy przejście.
 
 %package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
@@ -259,8 +267,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the classic, default look.
 
 %description -n kde4-kgreet-classic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
-wyglądu.
+Narzędzia służące do zapytań o hasło - klasyczny, domyślny
+motyw wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries
@@ -376,8 +384,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
-systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
+szybkiego systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -417,7 +425,8 @@ KDE screensavers.
 Wygaszacze ekranu desktopu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop Environment.
+Некоторые 3D хранители экрана для K Desktop
+Environment.
 
 %package solid
 Summary:	Solid
@@ -445,9 +454,9 @@ Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
+Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
-Requires:	kde4-kgreet
 Provides:	XDM
 
 %description -n kdm
@@ -540,6 +549,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %files
+%defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
 %attr(755,root,root) %{_bindir}/kapplymousetheme
@@ -781,6 +791,7 @@ fi
 %attr(755,root,root) %{_bindir}/kde4-session
 
 %files core
+%defattr(644,root,root,755)
 %dir %{_datadir}/apps/kcmview1394
 %dir %{_datadir}/apps/kcmusb
 %dir %{_iconsdir}/oxygen/*/mimetypes
@@ -870,6 +881,7 @@ fi
 %{_datadir}/sounds/pop.wav
 
 %files kwin
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin
 %attr(755,root,root) %{_bindir}/kwin_killer_helper
 %attr(755,root,root) %{_bindir}/kwin_rules_dialog
@@ -979,6 +991,7 @@ fi
 %{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
 
 %files plasma
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/plasma
 %attr(755,root,root) %{_bindir}/plasmaengineexplorer
 %attr(755,root,root) %{_bindir}/plasmoidviewer
@@ -1050,6 +1063,7 @@ fi
 %{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
 
 %files solid
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/solidshell
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
@@ -1071,9 +1085,10 @@ fi
 %{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 
 %files networkmanager
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/solid_networkmanager.so
 %{_iconsdir}/*/*x*/apps/networkmanager.png
-            
+
 %files kde4-decoration-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
@@ -1285,6 +1300,7 @@ fi
 %{_datadir}/apps/kcmusb/usb.ids
 
 %files devel
+%defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so
 %attr(755,root,root) %{_libdir}/libkfontinstui.so
