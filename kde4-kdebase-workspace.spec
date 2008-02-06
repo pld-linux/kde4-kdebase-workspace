@@ -37,7 +37,7 @@ BuildRequires:	QtScript-devel >= 4.3
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
-BuildRequires:	kdelibs-shared >= %{version}
+BuildRequires:	kde4-kdelibs-shared >= %{version}
 BuildRequires:	libtirpc-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	qimageblitz-devel
