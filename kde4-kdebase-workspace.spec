@@ -15,12 +15,12 @@ Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
 Summary(uk.UTF-8):	K Desktop Environment - базові файли
 Summary(zh_CN.UTF-8):	KDE核心
 Name:		kde4-kdebase-workspace
-Version:	4.0.60
-Release:	0.2
+Version:	4.0.61
+Release:	0.1
 License:	GPL
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	a2e11366ade39366cee569cd65b078e3
+# Source0-md5:	86ea2e0c1aa214252981ffe17119dcad
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -350,18 +350,6 @@ Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
 - System pomocy;
 - Programy obsługi błędów;
 - Frontend dla programu "su" (lub "sudo").
-
-%package infocenter
-Summary:	KDE Info Center
-Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
-Group:		X11/Applications
-#Requires:	pciutils
-
-%description infocenter
-Application for displaying information about your system.
-
-%description infocenter -l pl.UTF-8
-Centrum informacji o systemie dla KDE.
 
 %package kfontinst
 Summary:	K Font Installer
@@ -777,11 +765,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_nic.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_usb.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_view1394.so
-%{_datadir}/apps/kcmview1394/oui.db
-
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
@@ -792,8 +775,6 @@ fi
 
 %files core
 %defattr(644,root,root,755)
-%dir %{_datadir}/apps/kcmview1394
-%dir %{_datadir}/apps/kcmusb
 %dir %{_iconsdir}/oxygen/*/mimetypes
 %dir %{_datadir}/apps/kcminput
 %dir %{_datadir}/apps/kcminput/pics
@@ -857,27 +838,12 @@ fi
 %{_iconsdir}/*/*/apps/waiting.png
 
 %{_datadir}/kde4/services/desktop.desktop
-%{_datadir}/kde4/services/devices.desktop
-%{_datadir}/kde4/services/dma.desktop
-%{_datadir}/kde4/services/interrupts.desktop
-%{_datadir}/kde4/services/ioports.desktop
 %{_datadir}/kde4/services/joystick.desktop
-%{_datadir}/kde4/services/kcmusb.desktop
-%{_datadir}/kde4/services/kcmview1394.desktop
 %{_datadir}/kde4/services/kded/networkstatus.desktop
 %{_datadir}/kde4/services/keyboard.desktop
 %{_datadir}/kde4/services/keyboard_layout.desktop
 %{_datadir}/kde4/services/keys.desktop
-%{_datadir}/kde4/services/memory.desktop
 %{_datadir}/kde4/services/mouse.desktop
-%{_datadir}/kde4/services/nic.desktop
-%{_datadir}/kde4/services/opengl.desktop
-%{_datadir}/kde4/services/partitions.desktop
-%{_datadir}/kde4/services/pci.desktop
-%{_datadir}/kde4/services/processor.desktop
-%{_datadir}/kde4/services/scsi.desktop
-%{_datadir}/kde4/services/sound.desktop
-%{_datadir}/kde4/services/xserver.desktop
 %{_datadir}/sounds/pop.wav
 
 %files kwin
@@ -978,6 +944,7 @@ fi
 %{_datadir}/kde4/services/kwin/flipswitch_config.desktop
 %{_datadir}/kde4/services/kwin/snow.desktop
 %{_datadir}/kde4/services/kwin/snow_config.desktop
+%{_datadir}/kde4/services/kwin/showfps_config.desktop
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
 %{_datadir}/apps/kconf_update/kwin_focus1.upd
@@ -1293,12 +1260,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libksgrd.so.*
 
-%files infocenter
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kcm_info.so
-%lang(en) %{_kdedocdir}/en/kinfocenter/*
-%{_datadir}/apps/kcmusb/usb.ids
-
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
@@ -1317,11 +1278,6 @@ fi
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/libplasma.so
 %attr(755,root,root) %{_libdir}/libplasmaclock.so
-%{_datadir}/apps/cmake/modules/FindLibXKlavier.cmake
-%{_datadir}/apps/cmake/modules/FindPAM.cmake
-%{_datadir}/apps/cmake/modules/FindRAW1394.cmake
-%{_datadir}/apps/cmake/modules/FindSensors.cmake
-%{_datadir}/apps/cmake/modules/UnixAuth.cmake
 %{_includedir}/KDE
 %{_includedir}/*.h
 %{_includedir}/kworkspace
