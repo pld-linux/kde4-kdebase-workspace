@@ -117,6 +117,7 @@ para compilar aplicativos que usem bibliotecas do kdebase.
 Summary:	Libraries for KDE Window Decorations
 Summary(pl.UTF-8):	Biblioteki dla dekoracji okien KDE
 Group:		X11/Amusements
+Obsoletes:	%{name}-kde-decoration-libs
 
 %description kde4-decoration-libs
 Libraries for KDE Window Decorations.
