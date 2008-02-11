@@ -1,7 +1,4 @@
-
-# Conditional build:
-%bcond_without	hidden_visibility	# pass '--fvisibility=hidden' & '--fvisibility-inlines-hidden' to g++
-#
+# TODO: missing descriptions (solid, networkmanager, plasma, kwin)
 %define		oname		kdebase-workspace
 %define		_state		unstable
 
@@ -31,6 +28,7 @@ Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
+URL:		http://www.kde.org/
 BuildRequires:	Mesa-libGL-devel
 BuildRequires:	NetworkManager-devel
 BuildRequires:	QtScript-devel >= 4.3
@@ -69,32 +67,24 @@ Ten pakiet zawiera podstawowe aplikacje KDE:
   emulacji terminala
 
 %description -l ru.UTF-8
-Базовые программы для K Desktop Environment.
-Включены: kwin (оконный менеджер), konqueror
-(файловый менеджер, web-браузер,
-ftp-клиент, ...), konsole (замена xterm), kicker
-(запускалка программ и пейджер
-рабочего стола), kaudio (аудиосервер), kdehelp
-(программа для просмотра справочных
-файлов kde, файлов info и man), kthememgr (система
-для управления альтернативными
-пакетами тем) и другие компоненты KDE
-(kcheckpass, kikbd, kscreensaver, kcontrol, kfind, kfontmanager,
-kmenuedit, kappfinder).
+Базовые программы для K Desktop Environment. Включены: kwin (оконный
+менеджер), konqueror (файловый менеджер, web-браузер, ftp-клиент,
+...), konsole (замена xterm), kicker (запускалка программ и пейджер
+рабочего стола), kaudio (аудиосервер), kdehelp (программа для
+просмотра справочных файлов kde, файлов info и man), kthememgr
+(система для управления альтернативными пакетами тем) и другие
+компоненты KDE (kcheckpass, kikbd, kscreensaver, kcontrol, kfind,
+kfontmanager, kmenuedit, kappfinder).
 
 %description -l uk.UTF-8
-Базові програми для K Desktop Environment.
-Включені: kwin (віконный менеджер), konqueror
-(файловий менеджер, web-браузер,
-ftp-кліент, ...), konsole (заміна xterm), kicker
-(запускалка програм та пейджер
-робочого столу), kaudio (аудіосервер), kdehelp
-(програма для перегляду файлів
-довідки kde, файлів info та man), kthememgr
-(система для керування
-альтернативними пакетами тем) та інші
-компоненти KDE (kcheckpass, kikbd, kscreensaver, kcontrol,
-kfind, kfontmanager, kmenuedit, kappfinder).
+Базові програми для K Desktop Environment.  Включені: kwin (віконный
+менеджер), konqueror (файловий менеджер, web-браузер, ftp-кліент,
+...), konsole (заміна xterm), kicker (запускалка програм та пейджер
+робочого столу), kaudio (аудіосервер), kdehelp (програма для перегляду
+файлів довідки kde, файлів info та man), kthememgr (система для
+керування альтернативними пакетами тем) та інші компоненти KDE
+(kcheckpass, kikbd, kscreensaver, kcontrol, kfind, kfontmanager,
+kmenuedit, kappfinder).
 
 %package devel
 Summary:	Include files to develop KDE applications
@@ -117,10 +107,13 @@ para compilar aplicativos que usem bibliotecas do kdebase.
 Summary:	Libraries for KDE Window Decorations
 Summary(pl.UTF-8):	Biblioteki dla dekoracji okien KDE
 Group:		X11/Amusements
-Obsoletes:	%{name}-kde-decoration-libs
+Obsoletes:	kde4-kdebase-kde-decoration-libs
 
 %description kde4-decoration-libs
 Libraries for KDE Window Decorations.
+
+%description kde4-decoration-libs -l pl.UTF-8
+Biblioteki dla dekoracji okien KDE.
 
 %package -n kde4-decoration-b2
 Summary:	KDE Window Decoration - B2
