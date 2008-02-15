@@ -603,6 +603,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_services.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
@@ -1015,6 +1018,9 @@ fi
 %{_datadir}/kde4/services/plasma-runner-calculator.desktop
 %{_datadir}/kde4/services/plasma-runner-locations.desktop
 %{_datadir}/kde4/services/plasma-runner-webshortcuts.desktop
+%{_datadir}/kde4/services/plasma-runner-services.desktop
+%{_datadir}/kde4/services/plasma-runner-sessions.desktop
+%{_datadir}/kde4/services/plasma-runner-shell.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-qscript.desktop
 %{_datadir}/kde4/services/plasma-tasks-default.desktop
 %{_datadir}/kde4/servicetypes/plasma-animator.desktop
