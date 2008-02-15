@@ -431,7 +431,7 @@ Group:		X11/Applications
 %description plasma
 Plasma.
 
-%package -n kdm
+%package -n kde4-kdm
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
@@ -440,12 +440,14 @@ Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Provides:	XDM
+Obsoletes:	kdm >= 4.0.0
+Obsoletes:	kdm < 9:3.0.0
 
-%description -n kdm
+%description -n kde4-kdm
 A program used for managing X11 sessions on local or remote computers.
 Also provides graphical login method.
 
-%description -n kdm -l pl.UTF-8
+%description -n kde4-kdm -l pl.UTF-8
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
 
@@ -520,11 +522,11 @@ rm -rf $RPM_BUILD_ROOT
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
 
-%post -n kdm
+%post -n kde4-kdm
 /sbin/chkconfig --add kdm
 %service kdm restart
 
-%preun -n kdm
+%preun -n kde4-kdm
 if [ "$1" = "0" ]; then
 	%service kdm stop
 	/sbin/chkconfig --del kdm
@@ -1078,7 +1080,7 @@ fi
 %dir %{_datadir}/apps/kicker/applets
 %{_datadir}/apps/kicker/applets/ksysguardapplet.desktop
 
-%files -n kdm
+%files -n -kde4-kdm
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
