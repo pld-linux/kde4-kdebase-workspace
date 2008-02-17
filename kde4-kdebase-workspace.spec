@@ -1,20 +1,15 @@
-# TODO: missing descriptions (solid, networkmanager, plasma, kwin)
+# TODO:
+# - it's real mess, split (especially -core) looks like picking random files
+# - internal deps (really FUBAR currently)
 %define		oname		kdebase-workspace
 %define		_state		unstable
 
-Summary:	K Desktop Environment - core files
-Summary(es.UTF-8):	K Desktop Environment - archivos básicos
-Summary(ja.UTF-8):	KDEデスクトップ環境 - 基本ファイル
-Summary(ko.UTF-8):	KDE - 기본 파일
-Summary(pl.UTF-8):	K Desktop Environment - pliki środowiska
-Summary(pt_BR.UTF-8):	K Desktop Environment - arquivos básicos
-Summary(ru.UTF-8):	K Desktop Environment - базовые файлы
-Summary(uk.UTF-8):	K Desktop Environment - базові файли
-Summary(zh_CN.UTF-8):	KDE核心
+Summary:	KDE 4 base workspace components
+Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.0.62
 Release:	0.1
-License:	GPL
+License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 # Source0-md5:	5f825dd3991011a0ced4f75823745ea1
@@ -29,8 +24,8 @@ Source8:	kdebase-kde.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 URL:		http://www.kde.org/
-BuildRequires:	Mesa-libGL-devel
 BuildRequires:	NetworkManager-devel
+BuildRequires:	OpenGL-devel
 BuildRequires:	QtScript-devel >= 4.3
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
@@ -47,44 +42,42 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 This package contains KDE base system which includes:
 - KDE Control Centre with modules
-- KDesktop (a desktop) and Kicker (a panel)
 - KWin window manager and several decorations
 - KDE splash themes and plugins
-- thumbnail creation, mail, news and terminal emulation support
 - many more.
-
-%description -l ja.UTF-8
-KDEデスクトップ環境用の基本アプリケーション。
-以下のようなパッケージが入っています。
 
 %description -l pl.UTF-8
 Ten pakiet zawiera podstawowe aplikacje KDE:
 - Centrum sterowania z modułami
-- KDesktop (pulpit) i Kicker (panel)
-- menedżer okien Kwin i dekoracje
+- zarządcę okien Kwin wraz z dekoracjami
 - ekrany startowe KDE
-- obsługę podglądu plików, protokołów poczty i news oraz
-  emulacji terminala
+- wiele innych elementów.
 
-%description -l ru.UTF-8
-Базовые программы для K Desktop Environment. Включены: kwin (оконный
-менеджер), konqueror (файловый менеджер, web-браузер, ftp-клиент,
-...), konsole (замена xterm), kicker (запускалка программ и пейджер
-рабочего стола), kaudio (аудиосервер), kdehelp (программа для
-просмотра справочных файлов kde, файлов info и man), kthememgr
-(система для управления альтернативными пакетами тем) и другие
-компоненты KDE (kcheckpass, kikbd, kscreensaver, kcontrol, kfind,
-kfontmanager, kmenuedit, kappfinder).
+%package core
+Summary:	KDE core applications
+Summary(pl.UTF-8):	Podstawowe aplikacje KDE
+Group:		X11/Applications
+#Requires:	xdg-menus
+#Suggests:	sudo
+#Conflicts:	kttsd <= 040609
 
-%description -l uk.UTF-8
-Базові програми для K Desktop Environment.  Включені: kwin (віконный
-менеджер), konqueror (файловий менеджер, web-браузер, ftp-кліент,
-...), konsole (заміна xterm), kicker (запускалка програм та пейджер
-робочого столу), kaudio (аудіосервер), kdehelp (програма для перегляду
-файлів довідки kde, файлів info та man), kthememgr (система для
-керування альтернативними пакетами тем) та інші компоненти KDE
-(kcheckpass, kikbd, kscreensaver, kcontrol, kfind, kfontmanager,
-kmenuedit, kappfinder).
+%description core
+Some random mess, needs fix.
+
+%description core -l pl.UTF-8
+Przypadkowy zbiór śmieci, do poprawki.
+
+%package libksgrd
+Summary:	ksgrd library
+Summary(pl.UTF-8):	Biblioteka ksgrd
+Group:		X11/Libraries
+Requires(post,postun):	/sbin/ldconfig
+
+%description libksgrd
+A library containing functions for the system monitor KSysGuard.
+
+%description libksgrd -l pl.UTF-8
+Biblioteka zawierające funkcje monitora systemu - KSysGuard.
 
 %package devel
 Summary:	Include files to develop KDE applications
@@ -96,12 +89,12 @@ Group:		X11/Development/Libraries
 This package contains header files needed to develop KDE applications.
 
 %description devel -l pl.UTF-8
-Pakiet zawiera pliki nagłówkowe niezbędne do programowania
-aplikacji KDE.
+Pakiet zawiera pliki nagłówkowe niezbędne do programowania aplikacji
+KDE.
 
 %description devel -l pt_BR.UTF-8
-Este pacote contém os arquivos de inclusão que são necessários
-para compilar aplicativos que usem bibliotecas do kdebase.
+Este pacote contém os arquivos de inclusão que são necessários para
+compilar aplicativos que usem bibliotecas do kdebase.
 
 %package kde4-decoration-libs
 Summary:	Libraries for KDE Window Decorations
@@ -114,6 +107,136 @@ Libraries for KDE Window Decorations.
 
 %description kde4-decoration-libs -l pl.UTF-8
 Biblioteki dla dekoracji okien KDE.
+
+%package kfontinst
+Summary:	K Font Installer
+Summary(pl.UTF-8):	Instalator fontów dla KDE
+Group:		X11/Applications
+
+%description kfontinst
+KDE font installer.
+
+%description kfontinst -l pl.UTF-8
+Instalator czcionek dla KDE.
+
+%package klipper
+Summary:	Clipboard Tool
+Summary(pl.UTF-8):	Narzędzie schowka
+Group:		X11/Applications
+
+%description klipper
+A tool extending the clipboard support for KDE. Note that it requires
+a powerful computer.
+
+%description klipper -l pl.UTF-8
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
+systemu.
+
+%package ksysguard
+Summary:	System Guard
+Summary(pl.UTF-8):	Strażnik systemu
+Group:		X11/Applications
+Requires(post,postun):	/sbin/ldconfig
+
+%description ksysguard
+KDE System Guard.
+
+%description ksysguard -l pl.UTF-8
+Strażnik systemu dla KDE.
+
+%package kwin
+Summary:	KWin - KDE 4 window manager
+Summary(pl.UTF-8):	KWin - zarządca okien KDE 4
+Group:		X11/Applications
+
+%description kwin
+KWin - KDE 4 window manager.
+
+%description kwin -l pl.UTF-8
+KWin - zarządca okien KDE 4.
+
+%package plasma
+Summary:	Plasma - KDE 4 panels and desktop work area
+Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
+Group:		X11/Applications
+
+%description plasma
+Plasma - KDE 4 panels and desktop work area.
+
+%description plasma -l pl.UTF-8
+Plasma - panele i pulpit KDE 4.
+
+%package screensavers
+Summary:	KDE screensavers
+Summary(pl.UTF-8):	Wygaszacze ekranu KDE
+Summary(ru.UTF-8):	хранители экрана для KDE
+Summary(uk.UTF-8):	зберігачі екрану для KDE
+Group:		X11/Applications
+
+%description screensavers
+KDE screensavers.
+
+%description screensavers -l pl.UTF-8
+Wygaszacze ekranu KDE.
+
+%description screensavers -l ru.UTF-8
+Некоторые 3D хранители экрана для K Desktop Environment.
+
+%package solid
+Summary:	Solid - KDE 4 hardware configuration
+Summary(pl.UTF-8):	Solid - konfiguracja sprzętu w KDE 4
+Group:		X11/Applications
+
+%description solid
+Solid - KDE 4 hardware configuration.
+
+%description solid -l pl.UTF-8
+Solid - konfiguracja sprzętu w KDE 4.
+
+%package networkmanager
+Summary:	Solid NetworkManager - network management using the NetworkManager daemon
+Summary(pl.UTF-8):	Solid NetworkManager - zarządzanie siecią przy użyciu demona NetworkManager
+Group:		X11/Applications
+Requires:	%{name}-solid = %{version}-%{release}
+
+%description networkmanager
+Solid NetworkManager - network management using the NetworkManager
+daemon.
+
+%description networkmanager -l pl.UTF-8
+Solid NetworkManager - zarządzanie siecią przy użyciu demona
+NetworkManager.
+
+%package wallpapers
+Summary:	KDE 4 wallpapers
+Summary(pl.UTF-8):	Tapety KDE 4
+Group:		X11/Applications
+
+%description wallpapers
+KDE 4 wallpapers.
+
+%description wallpapers -l pl.UTF-8
+Tapety KDE 4.
+
+%package -n kde4-kdm
+Summary:	KDE Display Manager
+Summary(pl.UTF-8):	Zarządca ekranów KDE
+Group:		X11/Applications
+Requires(post,preun):	/sbin/chkconfig
+Requires:	kde4-kgreet
+Requires:	pam >= 0.99.7.1
+Requires:	rc-scripts
+Provides:	XDM
+Obsoletes:	kdm < 9:3.0.0
+Obsoletes:	kdm >= 4.0.0
+
+%description -n kde4-kdm
+A program used for managing X11 sessions on local or remote computers.
+Also provides graphical login method.
+
+%description -n kde4-kdm -l pl.UTF-8
+Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
+sesjami X11. Udostępnia także graficzny tryb logowania.
 
 %package -n kde4-decoration-b2
 Summary:	KDE Window Decoration - B2
@@ -129,8 +252,8 @@ aligned next to each other.
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
-obok siebie.
+przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
+siebie.
 
 %package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
@@ -224,8 +347,8 @@ buttons. Between the two area there is a stylish transition.
 
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
-Między obszarami jest stylowy przejście.
+jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
+obszarami jest stylowy przejście.
 
 %package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
@@ -261,8 +384,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the classic, default look.
 
 %description -n kde4-kgreet-classic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - klasyczny, domyślny
-motyw wyglądu.
+Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
+wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries
@@ -309,168 +432,6 @@ KDE SimpleSmall splashcreen.
 %description -n kde4-splash-SimpleSmall -l pl.UTF-8
 Ekran powitalny KDE SimpleSmall.
 
-%package common-konsole
-Summary:	Common files for konsole and konsolepart
-Summary(pl.UTF-8):	Pliki wspólne dla konsole i konsolepart
-Group:		X11/Applications
-#Requires(post,postun):	fontpostinst
-
-%description common-konsole
-Color schemes, icons, fonts and shell profiles for konsole.
-
-%description common-konsole -l pl.UTF-8
-Schematy kolorów, ikony, czcionki oraz profile sesji dla konsole.
-
-%package core
-Summary:	KDE Core Apps
-Summary(pl.UTF-8):	Podstawowe aplikacje KDE
-Group:		X11/Applications
-#Requires:	xdg-menus
-#Suggests:	sudo
-#Conflicts:	kttsd <= 040609
-
-%description core
-KDE Core apps. This package contains:
-- Control Center;
-- Help Center;
-- Print System;
-- Crash Handlers;
-- A Frontend for "su" (or "sudo") program.
-
-%description core -l pl.UTF-8
-Podstawowe aplikacje środowiska KDE. Pakiet ten zawiera:
-- Centrum sterowania;
-- System drukowania;
-- System pomocy;
-- Programy obsługi błędów;
-- Frontend dla programu "su" (lub "sudo").
-
-%package kfontinst
-Summary:	K Font Installer
-Summary(pl.UTF-8):	Instalator fontów dla KDE
-Group:		X11/Applications
-
-%description kfontinst
-KDE font installer.
-
-%description kfontinst -l pl.UTF-8
-Instalator czcionek dla KDE.
-
-%package klipper
-Summary:	Clipboard Tool
-Summary(pl.UTF-8):	Narzędzie schowka
-Group:		X11/Applications
-
-%description klipper
-A tool extending the clipboard support for KDE. Note that it requires
-a powerful computer.
-
-%description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
-szybkiego systemu.
-
-%package ksysguard
-Summary:	System Guard
-Summary(pl.UTF-8):	Strażnik systemu
-Group:		X11/Applications
-Requires(post,postun):	/sbin/ldconfig
-
-%description ksysguard
-KDE System Guard.
-
-%description ksysguard -l pl.UTF-8
-Strażnik systemu dla KDE.
-
-%package libksgrd
-Summary:	ksgrd library
-Summary(pl.UTF-8):	Biblioteka ksgrd
-Group:		X11/Libraries
-Requires(post,postun):	/sbin/ldconfig
-
-%description libksgrd
-A library containing functions for the system monitor KSysGuard.
-
-%description libksgrd -l pl.UTF-8
-Biblioteka zawierające funkcje monitora systemu - KSysGuard.
-
-%package screensavers
-Summary:	KDE screensavers
-Summary(pl.UTF-8):	Wygaszacze ekranu desktopu KDE
-Summary(ru.UTF-8):	хранители экрана для KDE
-Summary(uk.UTF-8):	зберігачі екрану для KDE
-Group:		X11/Applications
-
-%description screensavers
-KDE screensavers.
-
-%description screensavers -l pl.UTF-8
-Wygaszacze ekranu desktopu KDE.
-
-%description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop
-Environment.
-
-%package solid
-Summary:	Solid
-Group:		X11/Applications
-
-%description solid
-Solid.
-
-%package networkmanager
-Summary:	networkmanager
-Group:		X11/Applications
-
-%description networkmanager
-Networkmanager.
-
-%package plasma
-Summary:	Plasma
-Group:		X11/Applications
-
-%description plasma
-Plasma.
-
-%package -n kde4-kdm
-Summary:	KDE Display Manager
-Summary(pl.UTF-8):	Zarządca ekranów KDE
-Group:		X11/Applications
-Requires(post,preun):	/sbin/chkconfig
-Requires:	kde4-kgreet
-Requires:	pam >= 0.99.7.1
-Requires:	rc-scripts
-Provides:	XDM
-Obsoletes:	kdm >= 4.0.0
-Obsoletes:	kdm < 9:3.0.0
-
-%description -n kde4-kdm
-A program used for managing X11 sessions on local or remote computers.
-Also provides graphical login method.
-
-%description -n kde4-kdm -l pl.UTF-8
-Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
-sesjami X11. Udostępnia także graficzny tryb logowania.
-
-%package wallpapers
-Summary:	KDE4 wallpapers
-Summary(pl.UTF-8):	Tapety KDE4
-Group:		X11/Applications
-
-%description wallpapers
-A program used for managing X11 sessions on local or remote computers.
-Also provides graphical login method.
-
-%description wallpapers -l pl.UTF-8
-Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
-sesjami X11. Udostępnia także graficzny tryb logowania.
-
-%package kwin
-Summary:	kwin
-Group:		X11/Applications
-
-%description kwin
-kwin
-
 %prep
 %setup -q -n %{oname}-%{version}
 
@@ -487,7 +448,7 @@ cd build
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C build/ install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
@@ -545,15 +506,14 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
-
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
 %attr(755,root,root) %{_libdir}/libplasmaclock.so.*
+%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
@@ -574,17 +534,17 @@ fi
 
 # khotkeys
 %attr(755,root,root) %{_bindir}/khotkeys
-%{_libdir}/kconf_update_bin/khotkeys_update
+%attr(755,root,root) %{_libdir}/libkdeinit4_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_khotkeys.so
+%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
 %{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
-%{_iconsdir}/*/*/apps/khotkeys.png
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
+%{_iconsdir}/*/*/apps/khotkeys.png
 
 # kmenuedit
 %attr(755,root,root) %{_bindir}/kmenuedit
@@ -600,7 +560,7 @@ fi
 
 # krunner
 %attr(755,root,root) %{_bindir}/krunner
-%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
+%attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_bookmarksrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
@@ -608,7 +568,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
@@ -628,14 +588,13 @@ fi
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/Themes/None
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
-%{_iconsdir}/*/*/apps/ksplash.png
 %{_datadir}/kde4/services/ksplashthememgr.desktop
+%{_iconsdir}/*/*/apps/ksplash.png
 
 # ktip
 %attr(755,root,root) %{_bindir}/ktip
-%{_desktopdir}/kde4/ktip.desktop
 %{_datadir}/autostart/ktip.desktop
-
+%{_desktopdir}/kde4/ktip.desktop
 
 # kxkb
 %attr(755,root,root) %{_bindir}/kxkb
@@ -645,7 +604,6 @@ fi
 
 # systemsettings
 %attr(755,root,root) %{_bindir}/systemsettings
-%{_desktopdir}/kde4/systemsettings.desktop
 %{_datadir}/apps/systemsettings
 %{_datadir}/kde4/services/settings-about-me.desktop
 %{_datadir}/kde4/services/settings-accessibility.desktop
@@ -668,6 +626,7 @@ fi
 %{_datadir}/kde4/services/settings-system.desktop
 %{_datadir}/kde4/services/settings-window-behaviour.desktop
 %{_datadir}/kde4/servicetypes/systemsettingscategory.desktop
+%{_desktopdir}/kde4/systemsettings.desktop
 
 # themes
 %attr(755,root,root) %{_bindir}/kdeinstallktheme
@@ -684,8 +643,8 @@ fi
 %{_datadir}/kde4/services/style.desktop
 
 # kdisplay
-%{_datadir}/apps/kdisplay
 %attr(755,root,root) %{_libdir}/kde4/kcm_display.so
+%{_datadir}/apps/kdisplay
 %{_datadir}/apps/kconf_update/kcmdisplayrc.upd
 %{_datadir}/kde4/services/display.desktop
 
@@ -720,7 +679,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_bell.so
 %{_datadir}/kde4/services/bell.desktop
 
-# bluez
+# bluez (shouldn't be in -solid???)
 %attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
 
 # clock
@@ -755,15 +714,15 @@ fi
 
 # input, hw
 %attr(755,root,root) %{_libdir}/kde4/kcm_input.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
 %{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
 %{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
 %{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
 %{_datadir}/apps/kcminput/pics/mouse_lh.png
 %{_datadir}/apps/kcminput/pics/mouse_rh.png
-%attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
@@ -845,23 +804,114 @@ fi
 %{_datadir}/kde4/services/mouse.desktop
 %{_datadir}/sounds/pop.wav
 
+%files libksgrd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libksgrd.so.*
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkdecorations.so
+%attr(755,root,root) %{_libdir}/libkfontinst.so
+%attr(755,root,root) %{_libdir}/libkfontinstui.so
+%attr(755,root,root) %{_libdir}/libkscreensaver.so
+%attr(755,root,root) %{_libdir}/libksgrd.so
+%attr(755,root,root) %{_libdir}/libkwineffects.so
+%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
+%attr(755,root,root) %{_libdir}/libkworkspace.so
+%attr(755,root,root) %{_libdir}/libplasma.so
+%attr(755,root,root) %{_libdir}/libplasmaclock.so
+%attr(755,root,root) %{_libdir}/libprocesscore.so
+%attr(755,root,root) %{_libdir}/libprocessui.so
+%attr(755,root,root) %{_libdir}/libsolidcontrol.so
+%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
+%attr(755,root,root) %{_libdir}/libtaskmanager.so
+%attr(755,root,root) %{_libdir}/libweather_ion.so
+%{_includedir}/KDE
+%{_includedir}/*.h
+%{_includedir}/kworkspace
+%{_includedir}/ksgrd
+%{_includedir}/ksysguard
+%{_includedir}/plasma
+%{_includedir}/solid
+%{_includedir}/taskmanager
+
+%files kde4-decoration-libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkdecorations.so.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
+%{_datadir}/kde4/services/kwindecoration.desktop
+
+%files kfontinst
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kfontinst
+%attr(755,root,root) %{_bindir}/kfontview
+%attr(755,root,root) %{_libdir}/libkfontinst.so.*
+%attr(755,root,root) %{_libdir}/libkfontinstui.so.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_fontinst.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_fonts.so
+%attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
+%attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
+%attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
+%dir %{_libdir}/strigi
+%attr(755,root,root) %{_libdir}/strigi/strigita_font.so
+%{_desktopdir}/kde4/kfontview.desktop
+%{_datadir}/apps/kfontinst
+%{_datadir}/apps/kfontview
+%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%{_datadir}/kde4/services/ServiceMenus/installfont.desktop
+%{_datadir}/kde4/services/fontinst.desktop
+%{_datadir}/kde4/services/fonts.desktop
+%{_datadir}/kde4/services/fonts.protocol
+%{_datadir}/kde4/services/kfontviewpart.desktop
+%{_iconsdir}/*/*/apps/kfontview.png
+%{_iconsdir}/*/scalable/apps/kfontview.svgz
+%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
+%{_iconsdir}/*/*/mimetypes/fonts-package.png
+%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
+
+%files klipper
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/klipper
+%attr(755,root,root) %{_libdir}/libkdeinit4_klipper.so
+%{_datadir}/autostart/klipper.desktop
+%{_datadir}/config/klipperrc
+%{_desktopdir}/kde4/klipper.desktop
+%lang(en) %{_kdedocdir}/en/klipper
+
+%files ksysguard
+%defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ksysguarddrc
+%attr(755,root,root) %{_bindir}/ksysguard
+%attr(755,root,root) %{_bindir}/ksysguardd
+%attr(755,root,root) %{_libdir}/libkdeinit4_ksysguard.so
+%attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardwidgets.so
+%{_desktopdir}/kde4/ksysguard.desktop
+%{_datadir}/apps/ksysguard
+%{_iconsdir}/*/*/apps/ksysguardd.png
+%lang(en) %{_kdedocdir}/en/ksysguard
+# it looks like kde3 remains
+%dir %{_datadir}/apps/kicker
+%dir %{_datadir}/apps/kicker/applets
+%{_datadir}/apps/kicker/applets/ksysguardapplet.desktop
+
 %files kwin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin
 %attr(755,root,root) %{_bindir}/kwin_killer_helper
 %attr(755,root,root) %{_bindir}/kwin_rules_dialog
-%{_libdir}/kconf_update_bin/kwin_update_default_rules
-%{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/libkwineffects.so.*
+%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
+%attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
-%attr(755,root,root) %{_libdir}/libkwineffects.so.*
-%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/blur-render.frag
 %{_datadir}/apps/kwin/blur-render.vert
@@ -887,10 +937,6 @@ fi
 %{_datadir}/apps/kwin/trackmouse.png
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
-%{_iconsdir}/oxygen/16x16/apps/kwin.png
-%{_iconsdir}/oxygen/32x32/apps/kwin.png
-%{_iconsdir}/oxygen/48x48/apps/kwin.png
-%{_iconsdir}/oxygen/scalable/apps/kwin.svgz
 %dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/kwin/blur.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
@@ -955,12 +1001,18 @@ fi
 %{_datadir}/apps/kconf_update/kwinsticky.upd
 %{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
 %{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
+%{_iconsdir}/oxygen/16x16/apps/kwin.png
+%{_iconsdir}/oxygen/32x32/apps/kwin.png
+%{_iconsdir}/oxygen/48x48/apps/kwin.png
+%{_iconsdir}/oxygen/scalable/apps/kwin.svgz
 
 %files plasma
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/plasma
 %attr(755,root,root) %{_bindir}/plasmaengineexplorer
 %attr(755,root,root) %{_bindir}/plasmoidviewer
+%attr(755,root,root) %{_libdir}/libplasma.so.*
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
@@ -986,13 +1038,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
-%attr(755,root,root) %{_libdir}/libplasma.so.*
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %dir %{_datadir}/apps/plasmoidviewer
 %{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
-%lang(en) %{_kdedocdir}/en/plasma
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
@@ -1030,16 +1079,29 @@ fi
 %{_datadir}/kde4/servicetypes/plasma-dataengine.desktop
 %{_datadir}/kde4/servicetypes/plasma-runner.desktop
 %{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
+%lang(en) %{_kdedocdir}/en/plasma
+
+%files screensavers
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*.kss
+%attr(755,root,root) %{_libdir}/libkscreensaver.so.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_screensaver.so
+%{_datadir}/config.kcfg/kscreensaversettings.kcfg
+%{_datadir}/dbus-1/interfaces/org.freedesktop.ScreenSaver.xml
+%{_datadir}/dbus-1/interfaces/org.kde.screensaver.xml
+%{_datadir}/kde4/services/ScreenSavers
+%{_datadir}/kde4/services/screensaver.desktop
+%{_datadir}/kde4/servicetypes/screensaver.desktop
 
 %files solid
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/solidshell
+%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
+%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
 %attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
-%attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
-%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
 %dir %{_datadir}/apps/solid
 %dir %{_datadir}/apps/solid/actions
 %dir %{_datadir}/apps/solidfakebluetoothbackend
@@ -1058,27 +1120,25 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/solid_networkmanager.so
 %{_iconsdir}/*/*x*/apps/networkmanager.png
 
-%files kde4-decoration-libs
+%files wallpapers
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
-%{_datadir}/kde4/services/kwindecoration.desktop
-%attr(755,root,root) %{_libdir}/libkdecorations.so.*
-
-%files ksysguard
-%defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ksysguarddrc
-%attr(755,root,root) %{_bindir}/ksysguard
-%attr(755,root,root) %{_bindir}/ksysguardd
-%attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardwidgets.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_ksysguard.so
-%{_desktopdir}/kde4/ksysguard.desktop
-%{_datadir}/apps/ksysguard
-%{_iconsdir}/*/*/apps/ksysguardd.png
-%lang(en) %{_kdedocdir}/en/ksysguard
-# it looks like kde3 remains
-%dir %{_datadir}/apps/kicker
-%dir %{_datadir}/apps/kicker/applets
-%{_datadir}/apps/kicker/applets/ksysguardapplet.desktop
+%{_datadir}/wallpapers/Code_Poets_Dream
+%{_datadir}/wallpapers/Colorado_Farm
+%{_datadir}/wallpapers/Curls_on_Green
+%{_datadir}/wallpapers/EOS
+%{_datadir}/wallpapers/Emotion
+%{_datadir}/wallpapers/Fields_of_Peace
+%{_datadir}/wallpapers/Finally_Summer_in_Germany
+%{_datadir}/wallpapers/Fresh_Morning
+%{_datadir}/wallpapers/Golden_Ripples
+%{_datadir}/wallpapers/Green_Concentration
+%{_datadir}/wallpapers/Ladybuggin
+%{_datadir}/wallpapers/Leafs_Labyrinth
+%{_datadir}/wallpapers/Red_Leaf
+%{_datadir}/wallpapers/Skeeter_Hawk
+%{_datadir}/wallpapers/There_is_Rain_on_the_Table
+%{_datadir}/wallpapers/default_blue.jpg
+%{_datadir}/wallpapers/default_blue.jpg.desktop
 
 %files -n kde4-kdm
 %defattr(644,root,root,755)
@@ -1112,81 +1172,17 @@ fi
 %{_datadir}/wallpapers/kdm_pld.png
 %lang(en) %{_kdedocdir}/en/kdm
 
-%files screensavers
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/*.kss
-%attr(755,root,root) %{_libdir}/kde4/kcm_screensaver.so
-%attr(755,root,root) %{_libdir}/libkscreensaver.so.*
-%{_datadir}/config.kcfg/kscreensaversettings.kcfg
-%{_datadir}/dbus-1/interfaces/org.freedesktop.ScreenSaver.xml
-%{_datadir}/dbus-1/interfaces/org.kde.screensaver.xml
-%{_datadir}/kde4/services/ScreenSavers
-%{_datadir}/kde4/services/screensaver.desktop
-%{_datadir}/kde4/servicetypes/screensaver.desktop
-
-%files kfontinst
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/kfontinst
-%attr(755,root,root) %{_bindir}/kfontview
-%attr(755,root,root) %{_libdir}/kde4/kcm_fontinst.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_fonts.so
-%attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
-%attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
-%attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
-%attr(755,root,root) %{_libdir}/libkfontinst.so.*
-%attr(755,root,root) %{_libdir}/libkfontinstui.so.*
-%dir %{_libdir}/strigi
-%attr(755,root,root) %{_libdir}/strigi/strigita_font.so
-%{_desktopdir}/kde4/kfontview.desktop
-%{_datadir}/apps/kfontinst
-%{_datadir}/apps/kfontview
-%{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
-%{_iconsdir}/*/*/apps/kfontview.png
-%{_iconsdir}/*/scalable/apps/kfontview.svgz
-%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
-%{_iconsdir}/*/*/mimetypes/fonts-package.png
-%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
-%{_datadir}/kde4/services/ServiceMenus/installfont.desktop
-%{_datadir}/kde4/services/fontinst.desktop
-%{_datadir}/kde4/services/fonts.desktop
-%{_datadir}/kde4/services/fonts.protocol
-%{_datadir}/kde4/services/kfontviewpart.desktop
-
-%files klipper
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/klipper
-%attr(755,root,root) %{_libdir}/libkdeinit4_klipper.so
-%{_desktopdir}/kde4/klipper.desktop
-%{_datadir}/autostart/klipper.desktop
-%{_datadir}/config/klipperrc
-%lang(en) %{_kdedocdir}/en/klipper
-
-%files -n kde4-splash-Default
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/Default
-
-%files -n kde4-splash-Simple
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/Simple
-
-%files -n kde4-splash-SimpleSmall
-%defattr(644,root,root,755)
-%{_datadir}/apps/ksplash/Themes/SimpleSmall
-
-%files -n kde4-kgreet-classic
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
-
-%files -n kde4-kgreet-winbind
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kgreet_winbind.so
-
 %files -n kde4-decoration-b2
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_b2.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
+
+%files -n kde4-decoration-kde2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
+%{_datadir}/apps/kwin/kde2.desktop
 
 %files -n kde4-decoration-keramik
 %defattr(644,root,root,755)
@@ -1205,6 +1201,17 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
 %{_datadir}/apps/kwin/modernsystem.desktop
 
+%files -n kde4-decoration-oxygen
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
+%{_datadir}/apps/kwin/oxygenclient.desktop
+
+%files -n kde4-decoration-plastic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
+%{_datadir}/apps/kwin/plastik.desktop
+
 %files -n kde4-decoration-quartz
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_quartz.so
@@ -1221,70 +1228,22 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin3_web.so
 %{_datadir}/apps/kwin/web.desktop
 
-%files -n kde4-decoration-kde2
+%files -n kde4-kgreet-classic
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
-%{_datadir}/apps/kwin/kde2.desktop
+%attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
 
-%files -n kde4-decoration-oxygen
+%files -n kde4-kgreet-winbind
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
-%{_datadir}/apps/kwin/oxygenclient.desktop
+%attr(755,root,root) %{_libdir}/kde4/kgreet_winbind.so
 
-%files -n kde4-decoration-plastic
+%files -n kde4-splash-Default
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
-%{_datadir}/apps/kwin/plastik.desktop
+%{_datadir}/apps/ksplash/Themes/Default
 
-%files wallpapers
+%files -n kde4-splash-Simple
 %defattr(644,root,root,755)
-%{_datadir}/wallpapers/Code_Poets_Dream
-%{_datadir}/wallpapers/Colorado_Farm
-%{_datadir}/wallpapers/Curls_on_Green
-%{_datadir}/wallpapers/EOS
-%{_datadir}/wallpapers/Emotion
-%{_datadir}/wallpapers/Fields_of_Peace
-%{_datadir}/wallpapers/Finally_Summer_in_Germany
-%{_datadir}/wallpapers/Fresh_Morning
-%{_datadir}/wallpapers/Golden_Ripples
-%{_datadir}/wallpapers/Green_Concentration
-%{_datadir}/wallpapers/Ladybuggin
-%{_datadir}/wallpapers/Leafs_Labyrinth
-%{_datadir}/wallpapers/Red_Leaf
-%{_datadir}/wallpapers/Skeeter_Hawk
-%{_datadir}/wallpapers/There_is_Rain_on_the_Table
-%{_datadir}/wallpapers/default_blue.jpg
-%{_datadir}/wallpapers/default_blue.jpg.desktop
+%{_datadir}/apps/ksplash/Themes/Simple
 
-%files libksgrd
+%files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libksgrd.so.*
-
-%files devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkscreensaver.so
-%attr(755,root,root) %{_libdir}/libkfontinst.so
-%attr(755,root,root) %{_libdir}/libkfontinstui.so
-%attr(755,root,root) %{_libdir}/libkwineffects.so
-%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
-%attr(755,root,root) %{_libdir}/libkdecorations.so
-%attr(755,root,root) %{_libdir}/libksgrd.so
-%attr(755,root,root) %{_libdir}/libsolidcontrol.so
-%attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
-%attr(755,root,root) %{_libdir}/libkworkspace.so
-%attr(755,root,root) %{_libdir}/libprocesscore.so
-%attr(755,root,root) %{_libdir}/libprocessui.so
-%attr(755,root,root) %{_libdir}/libtaskmanager.so
-%attr(755,root,root) %{_libdir}/libweather_ion.so
-%attr(755,root,root) %{_libdir}/libplasma.so
-%attr(755,root,root) %{_libdir}/libplasmaclock.so
-%{_includedir}/KDE
-%{_includedir}/*.h
-%{_includedir}/kworkspace
-%{_includedir}/plasma
-%{_includedir}/solid
-%{_includedir}/taskmanager
-%{_includedir}/ksgrd
-%{_includedir}/ksysguard
+%{_datadir}/apps/ksplash/Themes/SimpleSmall
