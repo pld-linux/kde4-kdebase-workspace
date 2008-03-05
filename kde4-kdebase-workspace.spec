@@ -909,11 +909,13 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_videorecord.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
+%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %dir %{_datadir}/apps/kwin
@@ -944,6 +946,8 @@ fi
 %dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/kwin/blur.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
+%{_datadir}/kde4/services/kwin/coverswitch.desktop
+%{_datadir}/kde4/services/kwin/coverswitch_config.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid_config.desktop
 %{_datadir}/kde4/services/kwin/dialogparent.desktop
@@ -974,12 +978,13 @@ fi
 %{_datadir}/kde4/services/kwin/sharpen_config.desktop
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
-%{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
 %{_datadir}/kde4/services/kwin/trackmouse_config.desktop
+%{_datadir}/kde4/services/kwin/videorecord.desktop
+%{_datadir}/kde4/services/kwin/videorecord_config.desktop
 %{_datadir}/kde4/services/kwin/zoom.desktop
 %{_datadir}/kde4/services/kwin/zoom_config.desktop
 %{_datadir}/kde4/services/kwinactions.desktop
@@ -994,6 +999,8 @@ fi
 %{_datadir}/kde4/services/kwin/snow.desktop
 %{_datadir}/kde4/services/kwin/snow_config.desktop
 %{_datadir}/kde4/services/kwin/showfps_config.desktop
+%{_datadir}/kde4/servicetypes/kwineffect.desktop
+%{_datadir}/kde4/servicetypes/plasma-packagestructure.desktop
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
 %{_datadir}/apps/kconf_update/kwin_focus1.upd
