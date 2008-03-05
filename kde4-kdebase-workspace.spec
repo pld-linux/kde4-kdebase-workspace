@@ -31,9 +31,13 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-shared >= %{version}
+BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
+BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
+BuildRequires:	lm_sensors-devel
 BuildRequires:	qimageblitz-devel
+BuildRequires:	xorg-lib-libXft-devel
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase4-workspace
