@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.62
+Version:	4.0.64
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	5f825dd3991011a0ced4f75823745ea1
+# Source0-md5:	5afa0018546eb65015930690a5704694
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -26,7 +26,7 @@ Source16:	%{name}-session
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
-BuildRequires:	QtScript-devel >= 4.3
+BuildRequires:	QtScript-devel >= 4.4.0
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
