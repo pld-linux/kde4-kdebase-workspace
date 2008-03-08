@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.64
+Version:	4.0.65
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	5afa0018546eb65015930690a5704694
+# Source0-md5:	b31f32a67a101b51fa24e2e00e0bf4d6
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -527,8 +527,8 @@ fi
 %{_datadir}/kde4/services/kaccess.desktop
 
 # kcontrol
-%attr(755,root,root) %{_bindir}/kcontroledit
-%attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
+#%attr(755,root,root) %{_bindir}/kcontroledit
+#%attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
 %{_datadir}/apps/kcontrol/pics/anchor.png
 %{_datadir}/apps/kcontrol/pics/energybig.png
 %{_datadir}/apps/kcontrol/pics/lo-energy.png
@@ -540,6 +540,7 @@ fi
 # khotkeys
 %attr(755,root,root) %{_bindir}/khotkeys
 %attr(755,root,root) %{_libdir}/libkdeinit4_khotkeys.so
+%attr(755,root,root) %{_libdir}/libkhotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
@@ -954,6 +955,7 @@ fi
 %{_datadir}/kde4/services/kwin/dialogparent.desktop
 %{_datadir}/kde4/services/kwin/diminactive.desktop
 %{_datadir}/kde4/services/kwin/diminactive_config.desktop
+%{_datadir}/kde4/services/kwin/dimscreen.desktop
 %{_datadir}/kde4/services/kwin/explosion.desktop
 %{_datadir}/kde4/services/kwin/fade.desktop
 %{_datadir}/kde4/services/kwin/fallapart.desktop
@@ -1037,6 +1039,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_simplelauncher.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
@@ -1063,6 +1066,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
+%{_datadir}/kde4/services/plasma-applet-trash.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
 %{_datadir}/kde4/services/plasma-containment-panel.desktop
@@ -1088,6 +1092,7 @@ fi
 %{_datadir}/kde4/services/plasma-tasks-default.desktop
 %{_datadir}/kde4/servicetypes/plasma-animator.desktop
 %{_datadir}/kde4/servicetypes/plasma-applet.desktop
+%{_datadir}/kde4/servicetypes/plasma-containment.desktop
 %{_datadir}/kde4/servicetypes/plasma-dataengine.desktop
 %{_datadir}/kde4/servicetypes/plasma-runner.desktop
 %{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
