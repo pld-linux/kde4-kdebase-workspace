@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.65
+Version:	4.0.66
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	b31f32a67a101b51fa24e2e00e0bf4d6
+# Source0-md5:	d834f02252acfdb62a617f805e0b8b42
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -26,7 +26,7 @@ Source16:	%{name}-session
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
-BuildRequires:	QtScript-devel >= 4.4.0
+BuildRequires:	QtScript-devel >= 4.3.0
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
@@ -544,6 +544,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
+%{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
 %{_datadir}/autostart/khotkeys.desktop
@@ -841,6 +842,8 @@ fi
 %{_includedir}/solid
 %{_includedir}/taskmanager
 
+%{_datadir}/apps/cmake/modules/*.cmake
+
 %files kde4-decoration-libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*
@@ -1054,8 +1057,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
-%dir %{_datadir}/apps/plasmoidviewer
-%{_datadir}/apps/plasmoidviewer/checker.png
+#%dir %{_datadir}/apps/plasmoidviewer
+#%{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
