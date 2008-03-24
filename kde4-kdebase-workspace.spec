@@ -38,6 +38,7 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	xorg-lib-libXft-devel
+BuildRequires:	xorg-lib-libXtst-devel
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase4-workspace
