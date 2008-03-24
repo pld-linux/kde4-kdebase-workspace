@@ -3,6 +3,7 @@
 # - internal deps (really FUBAR currently)
 %define		oname		kdebase-workspace
 %define		_state		unstable
+%define		qt4brver	4.4.0
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
@@ -26,7 +27,13 @@ Source16:	%{name}-session
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
-BuildRequires:	QtScript-devel >= 4.3.0
+BuildRequires:	Qt3Support-devel >= %{qt4brver}
+BuildRequires:	QtDesigner-devel >= %{qt4brver}
+BuildRequires:	QtGui-devel >= %{qt4brver}
+BuildRequires:	QtScript-devel >= %{qt4brver}
+BuildRequires:	QtSvg-devel >= %{qt4brver}
+BuildRequires:	QtTest-devel >= %{qt4brver}
+BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
@@ -37,6 +44,7 @@ BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	qimageblitz-devel
+BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Obsoletes:	kdebase-desktop
