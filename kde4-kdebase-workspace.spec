@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.66
+Version:	4.0.67
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	d834f02252acfdb62a617f805e0b8b42
+# Source0-md5:	8a19d0d3450c5aade52ed969f07c1cad
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -401,6 +401,15 @@ Tools for asking for passwords in the classic, default look.
 Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
 wyglądu.
 
+%package -n kde4-kgreet-generic
+Summary:        KDE greeter libraries
+Summary(pl.UTF-8):      Biblioteki s�~Buż�~Ece do zapyta�~D o has�~Bo
+Group:          X11/Libraries
+Provides:       kde4-kgreet
+
+%description -n kde4-kgreet-generic
+Tools for asking for passwords in the generic, default look.
+
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries
 Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
@@ -603,14 +612,15 @@ fi
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/Themes/None
+%{_datadir}/apps/ksplash/Themes/DefaultFullscreen
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
 %{_datadir}/kde4/services/ksplashthememgr.desktop
 %{_iconsdir}/*/*/apps/ksplash.png
 
 # ktip
-%attr(755,root,root) %{_bindir}/ktip
-%{_datadir}/autostart/ktip.desktop
-%{_desktopdir}/kde4/ktip.desktop
+#%attr(755,root,root) %{_bindir}/ktip
+#%{_datadir}/autostart/ktip.desktop
+#%{_desktopdir}/kde4/ktip.desktop
 
 # kxkb
 %attr(755,root,root) %{_bindir}/kxkb
@@ -665,8 +675,8 @@ fi
 %{_datadir}/kde4/services/display.desktop
 
 # kdewizard
-%dir %{_datadir}/apps/kdewizard
-%{_datadir}/apps/kdewizard/tips
+#%dir %{_datadir}/apps/kdewizard
+#%{_datadir}/apps/kdewizard/tips
 
 # ion
 %attr(755,root,root) %{_libdir}/kde4/ion_bbcukmet.so
@@ -1124,7 +1134,9 @@ fi
 
 %files solid
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/solidshell
+%attr(755,root,root) %{_bindir}/solid-bluetooth
+%attr(755,root,root) %{_bindir}/solid-network
+%attr(755,root,root) %{_bindir}/solid-powermanagement
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
@@ -1260,6 +1272,10 @@ fi
 %files -n kde4-kgreet-classic
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kgreet_classic.so
+
+%files -n kde4-kgreet-generic
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kgreet_generic.so
 
 %files -n kde4-kgreet-winbind
 %defattr(644,root,root,755)
