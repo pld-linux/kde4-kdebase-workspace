@@ -389,8 +389,8 @@ Zupełnie płaska dekoracja okna z zaokrąglonymi brzegami oraz
 widocznymi, cienkimi krawędziami.
 
 %package -n kde4-kgreet-classic
-Summary:	KDE greeter libraries
-Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
+Summary:	KDE greeter libraries - classic version
+Summary(pl.UTF-8):	Biblioteki KDE służące do zapytań o hasło - wersja klasyczna
 Group:		X11/Libraries
 Provides:	kde4-kgreet
 
@@ -402,25 +402,29 @@ Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
 wyglądu.
 
 %package -n kde4-kgreet-generic
-Summary:        KDE greeter libraries
-Summary(pl.UTF-8):      Biblioteki s�~Buż�~Ece do zapyta�~D o has�~Bo
+Summary:        KDE greeter libraries - generic version
+Summary(pl.UTF-8):	Biblioteki KDE służące do zapytań o hasło - wersja zwykła
 Group:          X11/Libraries
 Provides:       kde4-kgreet
 
 %description -n kde4-kgreet-generic
 Tools for asking for passwords in the generic, default look.
 
+%description -n kde4-kgreet-generic -l pl.UTF-8
+Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw
+wyglądu.
+
 %package -n kde4-kgreet-winbind
-Summary:	KDE greeter libraries
-Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło
+Summary:	KDE greeter libraries - winbind version
+Summary(pl.UTF-8):	Biblioteki służące do zapytań o hasło - wersja winbind
 Group:		X11/Libraries
 Provides:	kde4-kgreet
 
 %description -n kde4-kgreet-winbind
-Tools for asking for passwords - winbind.
+Tools for asking for passwords - winbind version.
 
 %description -n kde4-kgreet-winbind -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - winbind.
+Narzędzia służące do zapytań o hasło - wersja winbind.
 
 %package -n kde4-splash-Default
 Summary:	Default clasic KDE splashscreen
