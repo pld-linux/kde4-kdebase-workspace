@@ -542,6 +542,10 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 
+# autostart
+%attr(755,root,root) %{_libdir}/kde4/kcm_autostart.so
+%{_datadir}/kde4/services/autostart.desktop
+
 # kaccess
 %attr(755,root,root) %{_bindir}/kaccess
 %attr(755,root,root) %{_libdir}/libkdeinit4_kaccess.so
@@ -549,15 +553,12 @@ fi
 %{_datadir}/kde4/services/kaccess.desktop
 
 # kcontrol
-#%attr(755,root,root) %{_bindir}/kcontroledit
-#%attr(755,root,root) %{_libdir}/libkdeinit4_kcontroledit.so
 %{_datadir}/apps/kcontrol/pics/anchor.png
 %{_datadir}/apps/kcontrol/pics/energybig.png
 %{_datadir}/apps/kcontrol/pics/lo-energy.png
 %{_datadir}/apps/kcontrol/pics/logo.png
 %{_datadir}/apps/kcontrol/pics/mini-world.png
 %{_datadir}/apps/kcontrol/pics/monitor.png
-%{_datadir}/apps/kcontroledit
 
 # khotkeys
 %attr(755,root,root) %{_bindir}/khotkeys
@@ -692,9 +693,9 @@ fi
 %{_datadir}/kde4/servicetypes/weather_ion.desktop
 
 # accessibility
-%attr(755,root,root) %{_libdir}/kde4/kcm_accessibility.so
+#%attr(755,root,root) %{_libdir}/kde4/kcm_accessibility.so
 %{_datadir}/desktop-directories/kde-utilities-accessibility.directory
-%{_datadir}/kde4/services/accessibility.desktop
+#%{_datadir}/kde4/services/accessibility.desktop
 
 # launch
 %attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
@@ -776,6 +777,7 @@ fi
 %attr(755,root,root) %{_datadir}/apps/kconf_update/on-off_to_true-false.sh
 %attr(755,root,root) %{_datadir}/apps/kconf_update/pluginlibFix.pl
 %{_datadir}/config/background.knsrc
+%{_datadir}/config/colorschemes.knsrc
 %{_datadir}/config/wallpaper.knsrc
 %{_datadir}/desktop-directories/kde-development-translation.directory
 %{_datadir}/desktop-directories/kde-development-webdevelopment.directory
@@ -1050,6 +1052,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/plasma
 %attr(755,root,root) %{_bindir}/plasmaengineexplorer
+%attr(755,root,root) %{_bindir}/plasmapkg
 %attr(755,root,root) %{_bindir}/plasmoidviewer
 %attr(755,root,root) %{_libdir}/libplasma.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
@@ -1083,6 +1086,7 @@ fi
 #%dir %{_datadir}/apps/plasmoidviewer
 #%{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
+%{_datadir}/config/plasma-themes.knsrc
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
