@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.68
+Version:	4.0.69
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	99260d8ae96d417606a0d5668821184b
+# Source0-md5:	d188cb375607fc83c450843dd558e0ed
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -334,6 +334,17 @@ Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
+%package -n kde4-decoration-ozone
+Summary:	KDE Window Decoration - Ozone
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Ozone
+Group:		X11/Amusements
+
+%description -n kde4-decoration-ozone
+A window decoration Ozone.
+
+%description -n kde4-decoration-ozone -l pl.UTF-8
+Dekoracja okna Ozone.
+
 %package -n kde4-decoration-plastic
 Summary:	KDE Window Decoration - Plastic
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Plastic
@@ -563,7 +574,8 @@ fi
 # khotkeys
 %attr(755,root,root) %{_bindir}/khotkeys
 %attr(755,root,root) %{_libdir}/libkdeinit4_khotkeys.so
-%attr(755,root,root) %{_libdir}/libkhotkeys.so
+%attr(755,root,root) %{_libdir}/libkhotkeysprivate.so.4
+%attr(755,root,root) %{_libdir}/libkhotkeysprivate.so.4.1.0
 %attr(755,root,root) %{_libdir}/kde4/kcm_khotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
@@ -608,6 +620,10 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_ksmserver.so
 %{_datadir}/apps/kconf_update/ksmserver.upd
 %{_datadir}/dbus-1/interfaces/org.kde.KSMServerInterface.xml
+%{_datadir}/apps/ksmserver/windowmanagers/compiz-custom.desktop                                                                                                   
+%{_datadir}/apps/ksmserver/windowmanagers/compiz.desktop                                                                                                          
+%{_datadir}/apps/ksmserver/windowmanagers/metacity.desktop                                                                                                        
+%{_datadir}/apps/ksmserver/windowmanagers/openbox.desktop 
 
 # ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
@@ -692,11 +708,6 @@ fi
 %{_datadir}/kde4/services/ion-noaa.desktop
 %{_datadir}/kde4/servicetypes/weather_ion.desktop
 
-# accessibility
-#%attr(755,root,root) %{_libdir}/kde4/kcm_accessibility.so
-%{_datadir}/desktop-directories/kde-utilities-accessibility.directory
-#%{_datadir}/kde4/services/accessibility.desktop
-
 # launch
 %attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
 %{_datadir}/config.kcfg/klaunch.kcfg
@@ -779,43 +790,6 @@ fi
 %{_datadir}/config/background.knsrc
 %{_datadir}/config/colorschemes.knsrc
 %{_datadir}/config/wallpaper.knsrc
-%{_datadir}/desktop-directories/kde-development-translation.directory
-%{_datadir}/desktop-directories/kde-development-webdevelopment.directory
-%{_datadir}/desktop-directories/kde-development.directory
-%{_datadir}/desktop-directories/kde-editors.directory
-%{_datadir}/desktop-directories/kde-edu-languages.directory
-%{_datadir}/desktop-directories/kde-edu-mathematics.directory
-%{_datadir}/desktop-directories/kde-edu-miscellaneous.directory
-%{_datadir}/desktop-directories/kde-edu-science.directory
-%{_datadir}/desktop-directories/kde-edu-tools.directory
-%{_datadir}/desktop-directories/kde-education.directory
-%{_datadir}/desktop-directories/kde-games-arcade.directory
-%{_datadir}/desktop-directories/kde-games-board.directory
-%{_datadir}/desktop-directories/kde-games-card.directory
-%{_datadir}/desktop-directories/kde-games-kids.directory
-%{_datadir}/desktop-directories/kde-games-roguelikes.directory
-%{_datadir}/desktop-directories/kde-games-strategy.directory
-%{_datadir}/desktop-directories/kde-games.directory
-%{_datadir}/desktop-directories/kde-graphics.directory
-%{_datadir}/desktop-directories/kde-internet-terminal.directory
-%{_datadir}/desktop-directories/kde-internet.directory
-%{_datadir}/desktop-directories/kde-main.directory
-%{_datadir}/desktop-directories/kde-more.directory
-%{_datadir}/desktop-directories/kde-multimedia.directory
-%{_datadir}/desktop-directories/kde-office.directory
-%{_datadir}/desktop-directories/kde-science.directory
-%{_datadir}/desktop-directories/kde-settingsmenu.directory
-%{_datadir}/desktop-directories/kde-system-terminal.directory
-%{_datadir}/desktop-directories/kde-system.directory
-%{_datadir}/desktop-directories/kde-toys.directory
-%{_datadir}/desktop-directories/kde-unknown.directory
-%{_datadir}/desktop-directories/kde-utilities-desktop.directory
-%{_datadir}/desktop-directories/kde-utilities-file.directory
-%{_datadir}/desktop-directories/kde-utilities-peripherals.directory
-%{_datadir}/desktop-directories/kde-utilities-pim.directory
-%{_datadir}/desktop-directories/kde-utilities-xutils.directory
-%{_datadir}/desktop-directories/kde-utilities.directory
-
 %{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/scalable/apps/kcmkwm.svgz
 %{_iconsdir}/*/*/apps/computer.png
@@ -842,6 +816,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkhotkeysprivate.so
 %attr(755,root,root) %{_libdir}/libkdecorations.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so
 %attr(755,root,root) %{_libdir}/libkfontinstui.so
@@ -1254,6 +1229,12 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
 %{_datadir}/apps/kwin/oxygenclient.desktop
+%attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
+
+%files -n kde4-decoration-ozone
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_ozone.so                                                                                                                                     
+%{_datadir}/apps/kwin/ozoneclient.desktop
 
 %files -n kde4-decoration-plastic
 %defattr(644,root,root,755)
