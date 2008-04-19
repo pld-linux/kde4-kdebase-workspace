@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.69
+Version:	4.0.70
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	d188cb375607fc83c450843dd558e0ed
+# Source0-md5:	9ad3cc2cce14a64815243382f674b8bf
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -612,10 +612,14 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_xesam.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_runner_scriptengine_qscript.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
+%{_datadir}/kde4/services/plasma-runner-xesam.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-qscriptrunner.desktop
 
 # ksmserver
 %attr(755,root,root) %{_bindir}/ksmserver
@@ -680,13 +684,13 @@ fi
 %{_desktopdir}/kde4/systemsettings.desktop
 
 # themes
-%attr(755,root,root) %{_bindir}/kdeinstallktheme
-%attr(755,root,root) %{_libdir}/kde4/kcm_kthememanager.so
+#%attr(755,root,root) %{_bindir}/kdeinstallktheme
+#%attr(755,root,root) %{_libdir}/kde4/kcm_kthememanager.so
 %{_datadir}/apps/desktoptheme
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
 %{_datadir}/apps/kthememanager
-%{_datadir}/kde4/services/installktheme.desktop
-%{_datadir}/kde4/services/kthememanager.desktop
+#%{_datadir}/kde4/services/installktheme.desktop
+#%{_datadir}/kde4/services/kthememanager.desktop
 
 # styles
 %attr(755,root,root) %{_libdir}/kde4/kcm_style.so
@@ -1233,12 +1237,13 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
 %{_datadir}/apps/kwin/oxygenclient.desktop
-%attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
+#%attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 
 %files -n kde4-decoration-ozone
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_ozone.so                                                                                                                                     
+%attr(755,root,root) %{_libdir}/kde4/kwin3_ozone.so
 %{_datadir}/apps/kwin/ozoneclient.desktop
+%attr(755,root,root) %{_libdir}/kde4/kwin_ozone_config.so
 
 %files -n kde4-decoration-plastic
 %defattr(644,root,root,755)
