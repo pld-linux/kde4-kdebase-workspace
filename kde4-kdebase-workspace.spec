@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.70
+Version:	4.0.72
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	9ad3cc2cce14a64815243382f674b8bf
+# Source0-md5:	afab232c830d056d720c2d6fa4d7e78e
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -45,6 +45,7 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
+BuildRequires:	system-config-printer
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Obsoletes:	kdebase-desktop
@@ -632,6 +633,9 @@ fi
 %{_datadir}/apps/ksmserver/windowmanagers/compiz.desktop                                                                                                          
 %{_datadir}/apps/ksmserver/windowmanagers/metacity.desktop                                                                                                        
 %{_datadir}/apps/ksmserver/windowmanagers/openbox.desktop 
+/usr/share/config/ksplash.knsrc
+/usr/share/kde4/services/kwin/wobblywindows.desktop
+/usr/share/kde4/services/kwin/wobblywindows_config.desktop
 
 # ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
