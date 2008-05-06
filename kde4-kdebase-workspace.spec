@@ -629,13 +629,10 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.KSMServerInterface.xml
 %dir %{_datadir}/apps/ksmserver
 %dir %{_datadir}/apps/ksmserver/windowmanagers
-%{_datadir}/apps/ksmserver/windowmanagers/compiz-custom.desktop                                                                                                   
-%{_datadir}/apps/ksmserver/windowmanagers/compiz.desktop                                                                                                          
-%{_datadir}/apps/ksmserver/windowmanagers/metacity.desktop                                                                                                        
-%{_datadir}/apps/ksmserver/windowmanagers/openbox.desktop 
-/usr/share/config/ksplash.knsrc
-/usr/share/kde4/services/kwin/wobblywindows.desktop
-/usr/share/kde4/services/kwin/wobblywindows_config.desktop
+%{_datadir}/apps/ksmserver/windowmanagers/compiz-custom.desktop
+%{_datadir}/apps/ksmserver/windowmanagers/compiz.desktop
+%{_datadir}/apps/ksmserver/windowmanagers/metacity.desktop
+%{_datadir}/apps/ksmserver/windowmanagers/openbox.desktop
 
 # ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
@@ -647,6 +644,7 @@ fi
 %dir %{_datadir}/apps/ksplash/Themes/None
 %{_datadir}/apps/ksplash/Themes/DefaultFullscreen
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
+%{_datadir}/config/ksplash.knsrc
 %{_datadir}/kde4/services/ksplashthememgr.desktop
 %{_iconsdir}/*/*/apps/ksplash.png
 
@@ -1017,6 +1015,8 @@ fi
 %{_datadir}/kde4/services/kwin/snow.desktop
 %{_datadir}/kde4/services/kwin/snow_config.desktop
 %{_datadir}/kde4/services/kwin/showfps_config.desktop
+%{_datadir}/kde4/services/kwin/wobblywindows.desktop
+%{_datadir}/kde4/services/kwin/wobblywindows_config.desktop
 %{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/kde4/servicetypes/plasma-packagestructure.desktop
 %{_datadir}/apps/kconf_update/kwin.upd
