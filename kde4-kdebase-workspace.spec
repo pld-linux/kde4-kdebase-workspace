@@ -543,6 +543,7 @@ fi
 %attr(755,root,root) %{_bindir}/kstartupconfig4
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/startkde
+%attr(755,root,root) %{_bindir}/safestartkde
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
