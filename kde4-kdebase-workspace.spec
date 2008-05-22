@@ -780,6 +780,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
+%attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
 
 # session
 %attr(755,root,root) %{_bindir}/kde4-session
