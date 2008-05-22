@@ -34,6 +34,7 @@ BuildRequires:	QtScript-devel >= %{qt4brver}
 BuildRequires:	QtSvg-devel >= %{qt4brver}
 BuildRequires:	QtTest-devel >= %{qt4brver}
 BuildRequires:	QtUiTools-devel >= %{qt4brver}
+BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
@@ -480,7 +481,7 @@ export QTDIR=%{_prefix}
 install -d build
 cd build
 %cmake \
--DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	../
 
 %{__make}
@@ -782,6 +783,8 @@ fi
 
 # session
 %attr(755,root,root) %{_bindir}/kde4-session
+
+%attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
 
 %files core
 %defattr(644,root,root,755)
