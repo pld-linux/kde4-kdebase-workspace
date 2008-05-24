@@ -24,6 +24,7 @@ Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
+Patch0:		%{name}-Xtst.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
@@ -475,6 +476,7 @@ Ekran powitalny KDE SimpleSmall.
 
 %prep
 %setup -q -n %{oname}-%{version}
+%patch0 -p1
 
 %build
 export QTDIR=%{_prefix}
