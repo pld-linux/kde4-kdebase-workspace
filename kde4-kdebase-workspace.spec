@@ -38,7 +38,6 @@ BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
-BuildRequires:	kde4-kdebase-runtime-devel >= %{version}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-shared >= %{version}
 BuildRequires:	libcaptury-devel
