@@ -72,6 +72,10 @@ Ten pakiet zawiera podstawowe aplikacje KDE:
 Summary:	KDE core applications
 Summary(pl.UTF-8):	Podstawowe aplikacje KDE
 Group:		X11/Applications
+Requires:	kde4-decoration-ozone >= %{version}
+Requires:	kde4-icons-oxygen >= %{version}
+Requires:	kde4-phonon-xine >= %{version}
+Suggests:	kde4-style-oxygen >= %{version}
 #Requires:	xdg-menus
 #Suggests:	sudo
 #Conflicts:	kttsd <= 040609
