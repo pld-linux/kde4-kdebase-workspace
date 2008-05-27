@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.74
+Version:	4.0.80
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	a22e2075507f9261166c67e927e417a6
+# Source0-md5:	01a05d8830a942a54f8c92f353a24174
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -791,8 +791,6 @@ fi
 # session
 %attr(755,root,root) %{_bindir}/kde4-session
 
-%attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
-
 %files core
 %defattr(644,root,root,755)
 %dir %{_iconsdir}/oxygen/*/mimetypes
@@ -1066,6 +1064,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_folderview.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
@@ -1094,6 +1097,11 @@ fi
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
+%{_datadir}/kde4/services/plasma-applet-folderview.desktop
+%{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
+%{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
 %{_datadir}/kde4/services/plasma-containment-panel.desktop
