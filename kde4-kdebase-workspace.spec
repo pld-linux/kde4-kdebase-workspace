@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.80
+Version:	4.0.81
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	01a05d8830a942a54f8c92f353a24174
+# Source0-md5:	f58f59ec17c79d11e7a8d87e01378e49
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -521,6 +521,8 @@ rm $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
+%find_lang kcontrol --with-kde
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -540,7 +542,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
-%files
+%files -f kcontrol.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
