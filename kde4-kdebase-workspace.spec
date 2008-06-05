@@ -694,6 +694,7 @@ fi
 %{_datadir}/kde4/services/settings-window-behaviour.desktop
 %{_datadir}/kde4/servicetypes/systemsettingscategory.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
+%{_kdedocdir}/en/systemsettings
 
 # themes
 #%attr(755,root,root) %{_bindir}/kdeinstallktheme
