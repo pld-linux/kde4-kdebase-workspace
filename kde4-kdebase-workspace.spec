@@ -40,6 +40,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-shared >= %{version}
+BuildRequires:	kde4-kdesupport-phonon-devel >= %{version}
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
