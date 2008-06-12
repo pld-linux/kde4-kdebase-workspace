@@ -653,7 +653,6 @@ fi
 %dir %{_datadir}/apps/ksplash
 %dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/Themes/None
-%{_datadir}/apps/ksplash/Themes/DefaultFullscreen
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
 %{_datadir}/config/ksplash.knsrc
 %{_datadir}/kde4/services/ksplashthememgr.desktop
@@ -944,6 +943,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %dir %{_datadir}/apps/kwin
@@ -1069,7 +1069,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_folderview.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
@@ -1102,7 +1101,6 @@ fi
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
-%{_datadir}/kde4/services/plasma-applet-folderview.desktop
 %{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
