@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.81
+Version:	4.0.82
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f58f59ec17c79d11e7a8d87e01378e49
+# Source0-md5:	7ba21a11516606cd43761ab1db6ce876
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -40,7 +40,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-shared >= %{version}
-BuildRequires:	kde4-kdesupport-phonon-devel >= %{version}
+BuildRequires:	kde4-kdesupport-phonon-devel >= 4.0.81
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
