@@ -519,7 +519,8 @@ install %{SOURCE16} $RPM_BUILD_ROOT%{_bindir}/kde4-session
 install %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/apps/kdm/sessions/kde4.desktop
 
 $RPM_BUILD_ROOT%{_bindir}/genkdmconf --in $RPM_BUILD_ROOT%{_datadir}/config/kdm
-rm $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
+rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
+rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/*.bak
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
