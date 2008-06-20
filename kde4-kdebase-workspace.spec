@@ -509,7 +509,13 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 install -d $RPM_BUILD_ROOT/etc/{X11,pam.d,security}
-install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm
+install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm \
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqueror \
+	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol \
+	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol/pics \
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng \
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders \
+	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng/virtual_folders/services
 
 install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
@@ -553,6 +559,14 @@ fi
 
 %files -f kcontrol.lang
 %defattr(644,root,root,755)
+# dirs
+%dir %{_datadir}/apps/konqueror
+%dir %{_datadir}/apps/kcontrol
+%dir %{_datadir}/apps/kcontrol/pics
+%dir %{_datadir}/apps/konqsidebartng/
+%dir %{_datadir}/apps/konqsidebartng/virtual_folders
+%dir %{_datadir}/apps/konqsidebartng/virtual_folders/services
+#
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
 %attr(755,root,root) %{_bindir}/kapplymousetheme
