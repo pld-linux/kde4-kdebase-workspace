@@ -1114,6 +1114,7 @@ fi
 #%{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
+%{_datadir}/config/plasmoids.knsrc
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
