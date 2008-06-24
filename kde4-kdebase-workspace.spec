@@ -37,11 +37,12 @@ BuildRequires:	QtSvg-devel >= %{qt4brver}
 BuildRequires:	QtTest-devel >= %{qt4brver}
 BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	QtWebKit-devel >= %{qt4brver}
+BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-shared >= %{version}
-BuildRequires:	kde4-kdesupport-phonon-devel >= 4.0.81
+BuildRequires:	phonon-devel >= 4.1.83
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
