@@ -52,9 +52,9 @@ BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
-Suggests:	xorg-app-xset
-Suggests:	xorg-app-xsetroot
-Suggests:	xorg-app-xprop
+Requires:	xorg-app-xset
+Requires:	xorg-app-xsetroot
+Requires:	xorg-app-xprop
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase4-workspace
