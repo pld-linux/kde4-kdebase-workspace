@@ -879,7 +879,7 @@ fi
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
-#%{_includedir}/KDE
+%{_includedir}/KDE/Plasma
 %{_includedir}/*.h
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
