@@ -1248,6 +1248,7 @@ fi
 # XXX move dir below elsewhere
 %dir %{_datadir}/apps/doc
 %{_datadir}/apps/doc/kdm
+%dir %{_datadir}/apps/kdm
 %{_datadir}/apps/kdm/*
 %{_datadir}/config/kdm.knsrc
 %{_datadir}/kde4/services/kdm.desktop
