@@ -41,7 +41,6 @@ BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake
 BuildRequires:	kde4-kdelibs-devel >= %{version}
-BuildRequires:	kde4-kdelibs-shared >= %{version}
 BuildRequires:	phonon-devel >= 4.1.83
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
@@ -114,6 +113,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-plasma = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-screensavers = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-libksgrd = %{version}-%{release}
+Requires:	kde4-kdelibs-devel = %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -492,7 +492,6 @@ Ekran powitalny KDE SimpleSmall.
 %patch1 -p1
 
 %build
-export QTDIR=%{_prefix}
 install -d build
 cd build
 %cmake \
@@ -880,7 +879,7 @@ fi
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
-%{_includedir}/KDE
+#%{_includedir}/KDE
 %{_includedir}/*.h
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
