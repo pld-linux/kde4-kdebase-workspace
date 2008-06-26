@@ -496,6 +496,9 @@ install -d build
 cd build
 %cmake \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DKDE4_KDM_PAM_SERVICE=kdm \
+	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
+	-DKDE4_KSCREENSAVER_PAM_SERVICE=kscreensaver \
 %if "%{_lib}" == "lib64"
 	-DLIB_SUFFIX=64 \
 %endif
