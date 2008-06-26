@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.0.83
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -22,6 +22,8 @@ Source5:	kdebase-kdm.sysconfig
 Source6:	kdebase-kdm_pldlogo.png
 Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
+Source9:	%{name}-kcheckpass.pam
+Source10:	%{name}-kscreensaver.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-Xtst.patch
@@ -529,6 +531,8 @@ install %{SOURCE1}	$RPM_BUILD_ROOT/etc/pam.d/kdesktop
 install %{SOURCE2}	$RPM_BUILD_ROOT/etc/pam.d/kdm
 install %{SOURCE3}	$RPM_BUILD_ROOT/etc/pam.d/kdm-np
 install %{SOURCE8}	$RPM_BUILD_ROOT/etc/pam.d/kde
+install %{SOURCE9}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
+install %{SOURCE10}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
 
@@ -1232,6 +1236,8 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
