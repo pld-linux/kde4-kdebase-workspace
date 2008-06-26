@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.0.83
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -821,12 +821,14 @@ fi
 %{_datadir}/apps/kcminput/pics/mouse_rh.png
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
 
 # session
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
 %attr(755,root,root) %{_bindir}/kde4-session
+%attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 
 %files core
 %defattr(644,root,root,755)
@@ -1236,8 +1238,6 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
 %attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
