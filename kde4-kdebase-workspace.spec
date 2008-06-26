@@ -1235,9 +1235,9 @@ fi
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
-%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
