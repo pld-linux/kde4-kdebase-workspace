@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.84
+Version:	4.0.85
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	33a820e1f71135801ea077459f7eb249
+# Source0-md5:	269f9d19ef55f2dc4a2d432a83222653
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1042,7 +1042,6 @@ fi
 %{_datadir}/kde4/services/kwin/sharpen_config.desktop
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
-%{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
@@ -1082,6 +1081,16 @@ fi
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
 %{_iconsdir}/oxygen/48x48/apps/kwin.png
 %{_iconsdir}/oxygen/scalable/apps/kwin.svgz
+%{_iconsdir}/Oxygen_Black
+%{_iconsdir}/Oxygen_Black_Big
+%{_iconsdir}/Oxygen_Blue
+%{_iconsdir}/Oxygen_Blue_Big
+%{_iconsdir}/Oxygen_White
+%{_iconsdir}/Oxygen_White_Big
+%{_iconsdir}/Oxygen_Yellow
+%{_iconsdir}/Oxygen_Yellow_Big
+%{_iconsdir}/Oxygen_Zion
+%{_iconsdir}/Oxygen_Zion_Big
 
 %files plasma
 %defattr(644,root,root,755)
@@ -1232,6 +1241,7 @@ fi
 %{_datadir}/wallpapers/Red_Leaf
 %{_datadir}/wallpapers/Skeeter_Hawk
 %{_datadir}/wallpapers/There_is_Rain_on_the_Table
+%{_datadir}/wallpapers/Vector_Sunset
 %{_datadir}/wallpapers/default_blue.jpg
 %{_datadir}/wallpapers/default_blue.jpg.desktop
 
