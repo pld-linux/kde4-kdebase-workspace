@@ -26,9 +26,8 @@ Source9:	%{name}-kcheckpass.pam
 Source10:	%{name}-kscreensaver.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Patch0:		%{name}-Xtst.patch
-Patch1:		%{name}-consolekit-kdm.patch
-Patch2:		%{name}-rootprivs.patch
+Patch0:		%{name}-consolekit-kdm.patch
+Patch1:		%{name}-rootprivs.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
@@ -493,7 +492,6 @@ Ekran powitalny KDE SimpleSmall.
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 install -d build
