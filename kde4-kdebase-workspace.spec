@@ -979,6 +979,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
+%attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/blur-render.frag
 %{_datadir}/apps/kwin/blur-render.vert
@@ -1064,6 +1065,7 @@ fi
 %{_datadir}/kde4/services/kwin/wobblywindows_config.desktop
 %{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/kde4/servicetypes/plasma-packagestructure.desktop
+%{_datadir}/apps/kconf_update/plasma-add-shortcut-to-menu.upd
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
 %{_datadir}/apps/kconf_update/kwin_focus1.upd
