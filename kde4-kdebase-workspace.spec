@@ -115,7 +115,7 @@ Group:		X11/Development/Libraries
 Requires:	%{name}-plasma = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-screensavers = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-libksgrd = %{version}-%{release}
-Requires:	kde4-kdelibs-devel = %{version}
+Requires:	kde4-kdelibs-devel >= %{version}
 
 %description devel
 This package contains header files needed to develop KDE applications.
