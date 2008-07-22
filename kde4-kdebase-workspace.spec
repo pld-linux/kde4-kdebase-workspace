@@ -54,7 +54,7 @@ BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
-Requires:	%{name}-core = %{version}
+Requires:	%{name}-core = %{version}-%{release}
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
