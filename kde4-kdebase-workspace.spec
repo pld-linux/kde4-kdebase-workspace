@@ -2,18 +2,18 @@
 # - it's real mess, split (especially -core) looks like picking random files
 # - internal deps (really FUBAR currently)
 %define		oname		kdebase-workspace
-%define		_state		unstable
+%define		_state		stable
 %define		qt4brver	4.4.0
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.0.99
+Version:	4.1.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	eec3d9d9886a0436672007ab2568a20a
+# Source0-md5:	3b7db1a9860c68165f2cdc3d301974f6
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
