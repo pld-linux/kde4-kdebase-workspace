@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.0
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -147,6 +147,7 @@ Biblioteki dla dekoracji okien KDE.
 Summary:	K Font Installer
 Summary(pl.UTF-8):	Instalator fontów dla KDE
 Group:		X11/Applications
+Conflicts:	kdebase-kfontinst
 
 %description kfontinst
 KDE font installer.
