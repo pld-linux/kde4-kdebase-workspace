@@ -28,6 +28,7 @@ Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-consolekit-kdm.patch
 Patch1:		%{name}-rootprivs.patch
+patch2:		%{name}-kdmsession.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
@@ -496,6 +497,7 @@ Ekran powitalny KDE SimpleSmall.
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 %build
 install -d build
