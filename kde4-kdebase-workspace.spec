@@ -28,7 +28,7 @@ Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-consolekit-kdm.patch
 Patch1:		%{name}-rootprivs.patch
-patch2:		%{name}-kdmsession.patch
+Patch2:		%{name}-kdmsession.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
