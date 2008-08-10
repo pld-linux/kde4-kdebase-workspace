@@ -1,0 +1,11 @@
+--- kdm/backend/session.c.orig	2008-08-10 13:48:50.254316500 +0200
++++ kdm/backend/session.c	2008-08-10 13:55:50.576585000 +0200
+@@ -636,7 +636,7 @@
+ 		setupDisplay( td_setup );
+ 
+ #ifdef WITH_CONSOLE_KIT
+-	ck_session_cookie = open_ck_session (getpwnam(curuser), d);
++	ck_session_cookie = open_ck_session (getpwnam(curuser), td);
+ 	if (!startClient( &clientPid, ck_session_cookie )) {
+ #else
+ 	if (!startClient( &clientPid )) {
