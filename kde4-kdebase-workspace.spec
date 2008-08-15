@@ -42,7 +42,7 @@ BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
-BuildRequires:	cmake >= 2.6.0
+BuildRequires:	cmake >= 2.6.1-2
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	phonon-devel >= 4.1.83
 BuildRequires:	libcaptury-devel
@@ -504,7 +504,6 @@ install -d build
 cd build
 %cmake \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DCMAKE_AR=/usr/bin/ar \
 	-DKDE4_KDM_PAM_SERVICE=kdm \
 	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
 	-DKDE4_KSCREENSAVER_PAM_SERVICE=kscreensaver \
