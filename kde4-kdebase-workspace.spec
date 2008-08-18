@@ -565,7 +565,28 @@ rm -rf $RPM_BUILD_ROOT
 
 %post -n kde4-kdm
 /sbin/chkconfig --add kdm
-%service kdm restart
+if [ -f /var/lock/subsys/kdm ]; then
+	%banner kde4-kdm -e <<EOF
+ ***************************************************
+ *                                                 *
+ * NOTE:                                           *
+ * To make sure that new version of KDM is running *
+ * You should restart KDM with:                    *
+ * "/sbin/service kdm restart".                    *
+ *                                                 *
+ * WARNING:                                        *
+ * Restarting KDM will terminate any X session     *
+ * started by it!                                  *
+ *                                                 *
+ ***************************************************
+
+EOF
+else
+	%banner kde4-kdm -e <<EOF
+Run "/sbin/service kdm start" to start kdm.
+
+EOF
+fi
 
 %preun -n kde4-kdm
 if [ "$1" = "0" ]; then
