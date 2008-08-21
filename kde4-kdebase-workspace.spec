@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.62
+Version:	4.1.63
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f4fc3caefe06de70f7295a4e4754c274
+# Source0-md5:	1b52c1f45b01ace8c35f8325d1d79720
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -700,12 +700,6 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_ksmserver.so
 %{_datadir}/apps/kconf_update/ksmserver.upd
 %{_datadir}/dbus-1/interfaces/org.kde.KSMServerInterface.xml
-%dir %{_datadir}/apps/ksmserver
-%dir %{_datadir}/apps/ksmserver/windowmanagers
-%{_datadir}/apps/ksmserver/windowmanagers/compiz-custom.desktop
-%{_datadir}/apps/ksmserver/windowmanagers/compiz.desktop
-%{_datadir}/apps/ksmserver/windowmanagers/metacity.desktop
-%{_datadir}/apps/ksmserver/windowmanagers/openbox.desktop
 
 # ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
@@ -1048,6 +1042,7 @@ fi
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/coverswitch.desktop
 %{_datadir}/kde4/services/kwin/coverswitch_config.desktop
+%{_datadir}/kde4/services/kwin/cylinder_config.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid_config.desktop
 %{_datadir}/kde4/services/kwin/dialogparent.desktop
@@ -1080,6 +1075,7 @@ fi
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
 %{_datadir}/kde4/services/kwin/slide.desktop
+%{_datadir}/kde4/services/kwin/sphere_config.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
@@ -1178,6 +1174,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_saverdesktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_color.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_image.so
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %dir %{_datadir}/apps/plasma
 %dir %{_datadir}/apps/plasma/services
@@ -1226,6 +1223,7 @@ fi
 %{_datadir}/kde4/services/plasma-tasks-default.desktop
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
+%{_datadir}/kde4/services/plasma-wallpaper-image.desktop
 %{_datadir}/kde4/servicetypes/plasma-animator.desktop
 %{_datadir}/kde4/servicetypes/plasma-applet.desktop
 %{_datadir}/kde4/servicetypes/plasma-containment.desktop
