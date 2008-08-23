@@ -44,8 +44,7 @@ BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.1-2
 BuildRequires:	kde4-kdelibs-devel >= %{version}
-BuildRequires:	phonon-devel >= 4.1.83
-BuildRequires:	phonon-xine
+BuildRequires:	phonon-devel >= 4.2.1
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
