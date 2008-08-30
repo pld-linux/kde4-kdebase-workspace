@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.63
+Version:	4.1.64
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	1b52c1f45b01ace8c35f8325d1d79720
+# Source0-md5:	849284e268642416eefa28eca6eff829
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -626,6 +626,9 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 
+%{_datadir}/apps/nepomuk/ontologies/workspace.desktop
+%{_datadir}/apps/nepomuk/ontologies/workspace.trig
+
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
 %{_datadir}/kde4/services/standard_actions.desktop
@@ -679,6 +682,7 @@ fi
 # krunner
 %attr(755,root,root) %{_bindir}/krunner
 %attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_krunner_shell.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_bookmarksrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
@@ -692,7 +696,9 @@ fi
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
+%{_datadir}/dbus-1/services/org.kde.krunner.service
 %{_datadir}/kde4/services/plasma-runner-xesam.desktop
+%{_datadir}/kde4/services/plasma-runner-shell_config.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-qscriptrunner.desktop
 
 # ksmserver
@@ -1139,9 +1145,11 @@ fi
 %attr(755,root,root) %{_bindir}/plasmaengineexplorer
 %attr(755,root,root) %{_bindir}/plasmapkg
 %attr(755,root,root) %{_bindir}/plasmoidviewer
+%attr(755,root,root) %{_bindir}/plasma-mid
 %attr(755,root,root) %{_bindir}/plasma-overlay
 %attr(755,root,root) %{_libdir}/libplasma.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-mid.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
