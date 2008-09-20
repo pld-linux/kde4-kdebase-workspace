@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.65
+Version:	4.1.67
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	6c8551ade197953f61da744b15f59b32
+# Source0-md5:	3d640f9133895ac1093ac8fa7d88ed66
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -44,12 +44,12 @@ BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.1-2
 BuildRequires:	kde4-kdelibs-devel >= %{version}
-BuildRequires:	phonon-devel >= 4.2.1
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
+BuildRequires:	phonon-devel >= 4.2.1
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	xmms-devel
@@ -57,13 +57,13 @@ BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Requires:	%{name}-core = %{version}-%{release}
 Requires:	xorg-app-xmessage
+Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
-Requires:	xorg-app-xprop
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
-Conflicts:	kdebase-desktop
 Conflicts:	kdebase-core
+Conflicts:	kdebase-desktop
 Conflicts:	kdebase4-workspace
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -88,8 +88,8 @@ Group:		X11/Applications
 Requires:	kde4-decoration-ozone >= %{version}
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	phonon
-Suggests:	kde4-style-oxygen >= %{version}
 #Requires:	xdg-menus
+Suggests:	kde4-style-oxygen >= %{version}
 #Suggests:	sudo
 #Conflicts:	kttsd <= 040609
 
@@ -117,8 +117,8 @@ Summary(pl.UTF-8):	Pliki nagłówkowe potrzebne do tworzenia aplikacji KDE
 Summary(pt_BR.UTF-8):	Arquivos de inclusão para compilar aplicativos que usem bibliotecas do kdebase
 Group:		X11/Development/Libraries
 Requires:	%{name}-plasma = %{version}-%{release}
-Requires:	kde4-kdebase-workspace-screensavers = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-libksgrd = %{version}-%{release}
+Requires:	kde4-kdebase-workspace-screensavers = %{version}-%{release}
 Requires:	kde4-kdelibs-devel >= %{version}
 
 %description devel
@@ -436,17 +436,16 @@ Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
 wyglądu.
 
 %package -n kde4-kgreet-generic
-Summary:        KDE greeter libraries - generic version
+Summary:	KDE greeter libraries - generic version
 Summary(pl.UTF-8):	Biblioteki KDE służące do zapytań o hasło - wersja zwykła
-Group:          X11/Libraries
-Provides:       kde4-kgreet
+Group:		X11/Libraries
+Provides:	kde4-kgreet
 
 %description -n kde4-kgreet-generic
 Tools for asking for passwords in the generic, default look.
 
 %description -n kde4-kgreet-generic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw
-wyglądu.
+Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries - winbind version
@@ -626,13 +625,10 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 
-%{_datadir}/apps/nepomuk/ontologies/workspace.desktop
-%{_datadir}/apps/nepomuk/ontologies/workspace.trig
-
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
 %{_datadir}/kde4/services/standard_actions.desktop
-%{_datadir}/kde4/services/gestures.desktop
+#%{_datadir}/kde4/services/gestures.desktop
 %{_datadir}/kde4/services/settings-input-actions.desktop
 
 # autostart
@@ -662,7 +658,7 @@ fi
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
-%{_datadir}/autostart/khotkeys.desktop
+#%{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
@@ -687,6 +683,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
@@ -772,6 +769,22 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
 %{_datadir}/kde4/services/style.desktop
 
+# powerdevil
+%attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilconfig.so
+%dir %{_datadir}/apps/powerdevil
+%{_datadir}/apps/powerdevil/powerdevil.notifyrc
+%{_datadir}/kde4/services/powerdevilconfig.desktop
+%{_datadir}/dbus-1/interfaces/org.kde.PowerDevil.xml
+
+# nepomuk - FIXME
+%attr(755,root,root) %{_libdir}/libnepomukquery.so
+%attr(755,root,root) %{_libdir}/libnepomukquery.so.?
+%attr(755,root,root) %{_libdir}/libnepomukquery.so.*.*.*
+%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so
+%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so.?
+%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so.*.*.*
+
+
 # kdisplay
 %attr(755,root,root) %{_libdir}/kde4/kcm_display.so
 %{_datadir}/apps/kdisplay
@@ -850,12 +863,13 @@ fi
 %{_datadir}/apps/kcminput/pics/mouse_rh.png
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
+%attr(755,root,root) %{_libdir}/kde4/kded_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
 
 # session
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kscreensaver
 %attr(755,root,root) %{_bindir}/kde4-session
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcheckpass
 
@@ -894,6 +908,7 @@ fi
 %{_datadir}/kde4/services/desktop.desktop
 %{_datadir}/kde4/services/joystick.desktop
 %{_datadir}/kde4/services/kded/networkstatus.desktop
+%{_datadir}/kde4/services/kded/powerdevil.desktop
 %{_datadir}/kde4/services/keyboard.desktop
 %{_datadir}/kde4/services/keyboard_layout.desktop
 %{_datadir}/kde4/services/keys.desktop
@@ -1046,6 +1061,7 @@ fi
 %dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/kwin/blur.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
+%{_datadir}/kde4/services/kwin/boxswitch_config.desktop
 %{_datadir}/kde4/services/kwin/coverswitch.desktop
 %{_datadir}/kde4/services/kwin/coverswitch_config.desktop
 %{_datadir}/kde4/services/kwin/cylinder_config.desktop
@@ -1165,14 +1181,16 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_network.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
@@ -1196,6 +1214,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
 %{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
+%{_datadir}/kde4/services/plasma-applet-extenderapplet.desktop
 %{_datadir}/kde4/services/plasma-applet-icon.desktop
 %{_datadir}/kde4/services/plasma-applet-launcher.desktop
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
@@ -1204,6 +1223,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
 %{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
+%{_datadir}/kde4/services/plasma-packagestructure-web.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
@@ -1213,6 +1233,7 @@ fi
 %{_datadir}/kde4/services/plasma-dataengine-filebrowser.desktop
 %{_datadir}/kde4/services/plasma-dataengine-hotplug.desktop
 %{_datadir}/kde4/services/plasma-dataengine-mouse.desktop
+%{_datadir}/kde4/services/plasma-dataengine-network.desktop
 %{_datadir}/kde4/services/plasma-dataengine-places.desktop
 %{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
 %{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
@@ -1224,6 +1245,7 @@ fi
 %{_datadir}/kde4/services/plasma-runner-calculator.desktop
 %{_datadir}/kde4/services/plasma-runner-locations.desktop
 %{_datadir}/kde4/services/plasma-runner-webshortcuts.desktop
+%{_datadir}/kde4/services/plasma-runner-powerdevil.desktop
 %{_datadir}/kde4/services/plasma-runner-services.desktop
 %{_datadir}/kde4/services/plasma-runner-sessions.desktop
 %{_datadir}/kde4/services/plasma-runner-shell.desktop
@@ -1309,7 +1331,7 @@ fi
 %defattr(644,root,root,755)
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdm-np
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
 %dir %{_datadir}/config/kdm
