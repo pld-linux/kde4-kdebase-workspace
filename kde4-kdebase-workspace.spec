@@ -922,7 +922,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
 %attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
-%dir %{_libdir}/strigi
 %attr(755,root,root) %{_libdir}/strigi/strigita_font.so
 %{_desktopdir}/kde4/kfontview.desktop
 %{_datadir}/apps/kfontinst
