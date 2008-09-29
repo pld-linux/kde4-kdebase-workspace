@@ -56,6 +56,7 @@ BuildRequires:	soprano-devel
 BuildRequires:	strigi-devel
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
+BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXtst-devel
 BuildRequires:	xorg-lib-libXxf86misc-devel
 Requires:	%{name}-core = %{version}-%{release}
