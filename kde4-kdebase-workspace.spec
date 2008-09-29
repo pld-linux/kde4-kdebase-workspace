@@ -32,6 +32,7 @@ URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt3Support-devel >= %{qt4brver}
+BuildRequires:	QtDBus-devel >= %{qt4brver}
 BuildRequires:	QtDesigner-devel >= %{qt4brver}
 BuildRequires:	QtGui-devel >= %{qt4brver}
 BuildRequires:	QtScript-devel >= %{qt4brver}
@@ -51,6 +52,8 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
+BuildRequires:	soprano-devel
+BuildRequires:	strigi-devel
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
