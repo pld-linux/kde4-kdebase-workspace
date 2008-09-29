@@ -91,7 +91,6 @@ Group:		X11/Applications
 Requires:	kde4-decoration-ozone >= %{version}
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	kde4-phonon-xine >= %{version}
-Requires:	kde4-dolphin >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
 #Requires:	xdg-menus
 #Suggests:	sudo
