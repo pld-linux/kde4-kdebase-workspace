@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.67
+Version:	4.1.68
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	3d640f9133895ac1093ac8fa7d88ed66
+# Source0-md5:	baa76db28b36f94b2f4ec606b0578008
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -692,7 +692,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
-%{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
+#%{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
 %{_datadir}/kde4/services/plasma-runner-xesam.desktop
 %{_datadir}/kde4/services/plasma-runner-shell_config.desktop
@@ -773,6 +773,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilconfig.so
 %dir %{_datadir}/apps/powerdevil
 %{_datadir}/apps/powerdevil/powerdevil.notifyrc
+%{_datadir}/apps/powerdevil/default.powerdevilprofiles
 %{_datadir}/kde4/services/powerdevilconfig.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.PowerDevil.xml
 
@@ -1184,8 +1185,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containment_midpanel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
@@ -1193,6 +1196,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
@@ -1227,8 +1231,10 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
+%{_datadir}/kde4/services/plasma-containment-midpanel.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
 %{_datadir}/kde4/services/plasma-containment-panel.desktop
+%{_datadir}/kde4/services/plasma-dataengine-executable.desktop
 %{_datadir}/kde4/services/plasma-dataengine-dict.desktop
 %{_datadir}/kde4/services/plasma-dataengine-filebrowser.desktop
 %{_datadir}/kde4/services/plasma-dataengine-hotplug.desktop
@@ -1236,6 +1242,7 @@ fi
 %{_datadir}/kde4/services/plasma-dataengine-network.desktop
 %{_datadir}/kde4/services/plasma-dataengine-places.desktop
 %{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
+%{_datadir}/kde4/services/plasma-dataengine-rss.desktop
 %{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
 %{_datadir}/kde4/services/plasma-dataengine-tasks.desktop
 %{_datadir}/kde4/services/plasma-dataengine-time.desktop
