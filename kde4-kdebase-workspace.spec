@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.69
+Version:	4.1.70
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	a534db2df949a97becb3d66da9062364
+# Source0-md5:	c98587c2e77687b630f9926d59f5b6ff
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -948,7 +948,7 @@ fi
 %{_includedir}/plasma
 %{_includedir}/solid
 %{_includedir}/taskmanager
-
+%{_includedir}/nepomuk
 %{_datadir}/apps/cmake/modules/*.cmake
 
 %files kde4-decoration-libs
@@ -1193,10 +1193,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_network.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
+#%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
+#%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
@@ -1206,9 +1206,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_color.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_image.so
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
-%dir %{_datadir}/apps/plasma
-%dir %{_datadir}/apps/plasma/services
-%{_datadir}/apps/plasma/services/nowplaying.operations
+%{_datadir}/apps/dashboard
+#%dir %{_datadir}/apps/plasma
+#%dir %{_datadir}/apps/plasma/services
+#%{_datadir}/apps/plasma/services/nowplaying.operations
 #%{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
@@ -1225,7 +1226,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
-%{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
+#%{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-web.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
@@ -1242,7 +1243,7 @@ fi
 %{_datadir}/kde4/services/plasma-dataengine-network.desktop
 %{_datadir}/kde4/services/plasma-dataengine-places.desktop
 %{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
-%{_datadir}/kde4/services/plasma-dataengine-rss.desktop
+#%{_datadir}/kde4/services/plasma-dataengine-rss.desktop
 %{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
 %{_datadir}/kde4/services/plasma-dataengine-tasks.desktop
 %{_datadir}/kde4/services/plasma-dataengine-time.desktop
@@ -1290,15 +1291,15 @@ fi
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
-%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
+#%attr(755,root,root) %{_libdir}/kde4/solid_fakebluetooth.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
 %attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
 %dir %{_datadir}/apps/solid
 %dir %{_datadir}/apps/solid/actions
-%dir %{_datadir}/apps/solidfakebluetoothbackend
+#%dir %{_datadir}/apps/solidfakebluetoothbackend
 %dir %{_datadir}/apps/solidfakenetbackend
 %{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
-%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
+#%{_datadir}/apps/solidfakebluetoothbackend/fakebluetooth.xml
 %{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
 %{_datadir}/kde4/services/kcm_solid.desktop
 %{_datadir}/kde4/services/solidbackends
