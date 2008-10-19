@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.70
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -62,6 +62,7 @@ Requires:	kde4-decoration-ozone >= %{version}
 Requires:	kde4-icons-oxygen >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
 Obsoletes:	kde4-kdebase-workspace-core
+Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase-core
@@ -115,18 +116,6 @@ KDE.
 %description devel -l pt_BR.UTF-8
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
-
-%package kde4-decoration-libs
-Summary:	Libraries for KDE Window Decorations
-Summary(pl.UTF-8):	Biblioteki dla dekoracji okien KDE
-Group:		X11/Amusements
-Obsoletes:	kde4-kdebase-workspace-kde-decoration-libs
-
-%description kde4-decoration-libs
-Libraries for KDE Window Decorations.
-
-%description kde4-decoration-libs -l pl.UTF-8
-Biblioteki dla dekoracji okien KDE.
 
 %package kfontinst
 Summary:	K Font Installer
@@ -540,8 +529,8 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	kde4-decoration-libs	-p /sbin/ldconfig
-%postun	kde4-decoration-libs	-p /sbin/ldconfig
+%post	decoration-libs	-p /sbin/ldconfig
+%postun	decoration-libs	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
@@ -905,6 +894,10 @@ fi
 %{_datadir}/kde4/services/keys.desktop
 %{_datadir}/kde4/services/mouse.desktop
 %{_datadir}/sounds/pop.wav
+# old decoration libs
+%attr(755,root,root) %{_libdir}/libkdecorations.so.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
+%{_datadir}/kde4/services/kwindecoration.desktop
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -940,12 +933,6 @@ fi
 %{_includedir}/taskmanager
 %{_includedir}/nepomuk
 %{_datadir}/apps/cmake/modules/*.cmake
-
-%files kde4-decoration-libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libkdecorations.so.*
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
-%{_datadir}/kde4/services/kwindecoration.desktop
 
 %files kfontinst
 %defattr(644,root,root,755)
