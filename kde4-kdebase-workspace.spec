@@ -529,8 +529,8 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	decoration-libs	-p /sbin/ldconfig
-%postun	decoration-libs	-p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
