@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.70
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -54,7 +54,6 @@ BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
-Requires:	%{name}-core = %{version}-%{release}
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
@@ -746,6 +745,13 @@ fi
 #%attr(755,root,root) %{_libdir}/kde4/kcm_kthememanager.so
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
 %{_datadir}/apps/kthememanager
+%dir %{_datadir}/apps/desktoptheme
+%dir %{_datadir}/apps/desktoptheme/default
+%{_datadir}/apps/desktoptheme/default/colors
+%{_datadir}/apps/desktoptheme/default/metadata.desktop
+%{_datadir}/apps/desktoptheme/default/dialogs/
+%{_datadir}/apps/desktoptheme/default/opaque/
+%{_datadir}/apps/desktoptheme/default/widgets/
 #%{_datadir}/kde4/services/installktheme.desktop
 #%{_datadir}/kde4/services/kthememanager.desktop
 
@@ -1180,7 +1186,7 @@ fi
 #%attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
-#%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
@@ -1228,7 +1234,7 @@ fi
 %{_datadir}/kde4/services/plasma-dataengine-network.desktop
 %{_datadir}/kde4/services/plasma-dataengine-places.desktop
 %{_datadir}/kde4/services/plasma-dataengine-powermanagement.desktop
-#%{_datadir}/kde4/services/plasma-dataengine-rss.desktop
+%{_datadir}/kde4/services/plasma-dataengine-rss.desktop
 %{_datadir}/kde4/services/plasma-dataengine-soliddevice.desktop
 %{_datadir}/kde4/services/plasma-dataengine-tasks.desktop
 %{_datadir}/kde4/services/plasma-dataengine-time.desktop
