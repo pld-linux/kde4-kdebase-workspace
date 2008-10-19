@@ -759,7 +759,7 @@ fi
 # themes
 #%attr(755,root,root) %{_bindir}/kdeinstallktheme
 #%attr(755,root,root) %{_libdir}/kde4/kcm_kthememanager.so
-%{_datadir}/apps/desktoptheme
+%dir %{_datadir}/apps/desktoptheme
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
 %{_datadir}/apps/kthememanager
 #%{_datadir}/kde4/services/installktheme.desktop
