@@ -436,6 +436,7 @@ Narzędzia służące do zapytań o hasło - wersja winbind.
 Summary:	Default clasic KDE splashscreen
 Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
 Group:		X11/Amusements
+Requires:	%{name}-%{version}
 
 %description -n kde4-splash-Default
 Default splashscreen that came with this version of KDE.
@@ -447,6 +448,7 @@ Domyślny ekran powitalny dostarczony w tej wersji KDE.
 Summary:	KDE Simple splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE Simple
 Group:		X11/Amusements
+Requires:	%{name}-%{version}
 
 %description -n kde4-splash-Simple
 KDE Simple splashcreen.
@@ -458,6 +460,7 @@ Ekran powitalny KDE Simple.
 Summary:	KDE SimpleSmall splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE SimpleSmall
 Group:		X11/Amusements
+Requires:	%{name}-%{version}
 
 %description -n kde4-splash-SimpleSmall
 KDE SimpleSmall splashcreen.
@@ -575,6 +578,7 @@ fi
 %dir %{_datadir}/apps/konqsidebartng/
 %dir %{_datadir}/apps/konqsidebartng/virtual_folders
 %dir %{_datadir}/apps/konqsidebartng/virtual_folders/services
+%dir %{_datadir}/apps/ksplash/Themes
 #
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/systemsettingsrc
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kdesktop
@@ -1423,15 +1427,12 @@ fi
 
 %files -n kde4-splash-Default
 %defattr(644,root,root,755)
-%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Default
 
 %files -n kde4-splash-Simple
 %defattr(644,root,root,755)
-%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Simple
 
 %files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
-%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
