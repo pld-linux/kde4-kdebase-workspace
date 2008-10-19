@@ -1206,6 +1206,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_saverdesktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_color.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_image.so
+%dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %{_datadir}/apps/dashboard
 #%dir %{_datadir}/apps/plasma
@@ -1446,12 +1447,15 @@ fi
 
 %files -n kde4-splash-Default
 %defattr(644,root,root,755)
+%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Default
 
 %files -n kde4-splash-Simple
 %defattr(644,root,root,755)
+%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/Simple
 
 %files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
+%dir %{_datadir}/apps/ksplash/Themes
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
