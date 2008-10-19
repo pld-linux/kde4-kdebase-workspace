@@ -1,9 +1,8 @@
 # TODO:
-# - it's real mess, split (especially -core) looks like picking random files
 # - internal deps (really FUBAR currently)
 %define		oname		kdebase-workspace
 %define		_state		unstable
-%define		qt4brver	4.4.1
+%define		qt4brver	4.4.3
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
@@ -60,6 +59,10 @@ Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
+Requires:	kde4-decoration-ozone >= %{version}
+Requires:	kde4-icons-oxygen >= %{version}
+Suggests:	kde4-style-oxygen >= %{version}
+Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase-core
@@ -80,24 +83,6 @@ Ten pakiet zawiera podstawowe aplikacje KDE:
 - zarządcę okien Kwin wraz z dekoracjami
 - ekrany startowe KDE
 - wiele innych elementów.
-
-%package core
-Summary:	KDE core applications
-Summary(pl.UTF-8):	Podstawowe aplikacje KDE
-Group:		X11/Applications
-Requires:	kde4-decoration-ozone >= %{version}
-Requires:	kde4-icons-oxygen >= %{version}
-Requires:	phonon
-#Requires:	xdg-menus
-Suggests:	kde4-style-oxygen >= %{version}
-#Suggests:	sudo
-#Conflicts:	kttsd <= 040609
-
-%description core
-Some random mess, needs fix.
-
-%description core -l pl.UTF-8
-Przypadkowy zbiór śmieci, do poprawki.
 
 %package libksgrd
 Summary:	ksgrd library
@@ -879,8 +864,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so.?
 %attr(755,root,root) %{_libdir}/liblsofui.so.*.*.*
 
-%files core
-%defattr(644,root,root,755)
+#old core
 %dir %{_iconsdir}/oxygen/*/mimetypes
 %dir %{_datadir}/apps/kcminput
 %dir %{_datadir}/apps/kcminput/pics
