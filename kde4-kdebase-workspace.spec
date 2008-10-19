@@ -1189,10 +1189,6 @@ fi
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %{_datadir}/apps/dashboard
-#%dir %{_datadir}/apps/plasma
-#%dir %{_datadir}/apps/plasma/services
-#%{_datadir}/apps/plasma/services/nowplaying.operations
-#%{_datadir}/apps/plasmoidviewer/checker.png
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
 %{_datadir}/config/plasmoids.knsrc
@@ -1208,7 +1204,6 @@ fi
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
-#%{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-web.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
