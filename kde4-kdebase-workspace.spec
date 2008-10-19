@@ -637,7 +637,6 @@ fi
 %{_datadir}/apps/khotkeys
 #%{_datadir}/autostart/khotkeys.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
-%dir %{_datadir}/kde4/services/kded
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
 
