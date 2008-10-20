@@ -436,7 +436,7 @@ Narzędzia służące do zapytań o hasło - wersja winbind.
 Summary:	Default clasic KDE splashscreen
 Summary(pl.UTF-8):	Domyślny klasyczny ekran startowy KDE
 Group:		X11/Amusements
-Requires:	%{name}-%{version}
+Requires:	%{name} >= %{version}
 
 %description -n kde4-splash-Default
 Default splashscreen that came with this version of KDE.
@@ -448,7 +448,7 @@ Domyślny ekran powitalny dostarczony w tej wersji KDE.
 Summary:	KDE Simple splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE Simple
 Group:		X11/Amusements
-Requires:	%{name}-%{version}
+Requires:	%{name} >= %{version}
 
 %description -n kde4-splash-Simple
 KDE Simple splashcreen.
@@ -460,7 +460,7 @@ Ekran powitalny KDE Simple.
 Summary:	KDE SimpleSmall splashscreen
 Summary(pl.UTF-8):	Ekran powitalny KDE SimpleSmall
 Group:		X11/Amusements
-Requires:	%{name}-%{version}
+Requires:	%{name} >= %{version}
 
 %description -n kde4-splash-SimpleSmall
 KDE SimpleSmall splashcreen.
