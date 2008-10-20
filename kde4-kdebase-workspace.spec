@@ -29,7 +29,7 @@ Patch0:		%{name}-consolekit-kdm.patch
 Patch1:		%{name}-rootprivs.patch
 Patch2:		%{name}-kdmsession.patch
 URL:		http://www.kde.org/
-BuildRequires:	NetworkManager-devel
+BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
 BuildRequires:	OpenGL-devel
 BuildRequires:	Qt3Support-devel >= %{qt4brver}
 BuildRequires:	QtDesigner-devel >= %{qt4brver}
@@ -1284,8 +1284,8 @@ fi
 
 %files networkmanager
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager.so
-%{_iconsdir}/*/*x*/apps/networkmanager.png
+%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager07.so
+#%{_iconsdir}/*/*x*/apps/networkmanager.png
 
 %files wallpapers
 %defattr(644,root,root,755)
