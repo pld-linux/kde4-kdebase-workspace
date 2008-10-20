@@ -687,7 +687,6 @@ fi
 %attr(755,root,root) %{_bindir}/ksplashx_scale
 %attr(755,root,root) %{_libdir}/kde4/kcm_ksplashthemes.so
 %dir %{_datadir}/apps/ksplash
-%dir %{_datadir}/apps/ksplash/Themes
 %dir %{_datadir}/apps/ksplash/Themes/None
 %{_datadir}/apps/ksplash/Themes/None/Theme.rc
 %{_datadir}/config/ksplash.knsrc
