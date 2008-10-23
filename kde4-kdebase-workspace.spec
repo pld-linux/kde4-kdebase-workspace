@@ -217,6 +217,20 @@ daemon.
 Solid NetworkManager - zarządzanie siecią przy użyciu demona
 NetworkManager.
 
+%package kwrited
+Summary:        KDE write messaging daemon
+Summary(pl.UTF-8):      Demon do KDE obsługujący wymianę wiadomości za pomocą write
+Group:          X11/Applications
+Requires:       %{name} = %{version}-%{release}
+
+%description kwrited
+A kde daeomn that watches for messages from local users sent with
+write or wall.
+
+%description kwrited -l pl.UTF-8
+Demon KDE, który monitoruje wiadomości jakie lokalni użytkownicy
+wysyłają za pomocą komend write lub wall.
+
 %package wallpapers
 Summary:	KDE 4 wallpapers
 Summary(pl.UTF-8):	Tapety KDE 4
@@ -631,11 +645,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkhotkeysprivate.so.*.*.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_hotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
-%attr(755,root,root) %{_libdir}/kde4/kded_kwrited.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
-%dir %{_datadir}/apps/kwrited
-%{_datadir}/apps/kwrited/kwrited.notifyrc
-%{_datadir}/kde4/services/kded/kwrited.desktop
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
@@ -1330,6 +1340,13 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/solid_networkmanager07.so
 %{_iconsdir}/*/*x*/apps/networkmanager.png
+
+%files kwrited
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kded_kwrited.so
+%{_datadir}/kde4/services/kded/kwrited.desktop
+%dir %{_datadir}/apps/kwrited
+%{_datadir}/apps/kwrited/kwrited.notifyrc
 
 %files wallpapers
 %defattr(644,root,root,755)
