@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.71
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -222,6 +222,7 @@ Summary:        KDE write messaging daemon
 Summary(pl.UTF-8):      Demon do KDE obsługujący wymianę wiadomości za pomocą write
 Group:          X11/Applications
 Requires:       %{name} = %{version}-%{release}
+Obsoletes:	kde4-kdebase-kwrited
 
 %description kwrited
 A kde daeomn that watches for messages from local users sent with
