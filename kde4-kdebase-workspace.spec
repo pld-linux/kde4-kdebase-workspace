@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.71
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -49,8 +49,10 @@ BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.2.1
+BuildRequires:	qedje-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
+BuildRequires:	qzion-devel
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
@@ -1181,8 +1183,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_qedje.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_package_qedje.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
@@ -1244,6 +1248,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
 %{_datadir}/kde4/services/plasma-applet-activitybar.desktop
 %{_datadir}/kde4/services/plasma-applet-calendar.desktop
+%{_datadir}/kde4/services/plasma-appletscript-qedje.desktop
 %{_datadir}/kde4/services/plasma-applet-sm_cpu.desktop
 %{_datadir}/kde4/services/plasma-applet-sm_hdd.desktop
 %{_datadir}/kde4/services/plasma-applet-sm_hwinfo.desktop
@@ -1256,6 +1261,7 @@ fi
 %{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-dataengine-systemmonitor.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-dashboard.desktop
+%{_datadir}/kde4/services/plasma-packagestructure-qedje.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-web.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
