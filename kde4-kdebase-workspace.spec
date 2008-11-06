@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.71
-Release:	3
+Version:	4.1.72
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f1a9d3404d82a135010ceaccb904e9a6
+# Source0-md5:	35e2635ce5cdde2a2de4426094542d76
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -681,16 +681,15 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
-%attr(755,root,root) %{_libdir}/kde4/krunner_xesam.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_runner_scriptengine_qscript.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/kde4/services/recentdocuments.desktop
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
-#%{_datadir}/dbus-1/interfaces/org.kde.krunner.Interface.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
-%{_datadir}/kde4/services/plasma-runner-xesam.desktop
+%{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
 %{_datadir}/kde4/services/plasma-runner-shell_config.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-qscriptrunner.desktop
 
@@ -935,7 +934,6 @@ fi
 %attr(755,root,root) %{_libdir}/libkwineffects.so
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
 %attr(755,root,root) %{_libdir}/libkworkspace.so
-%attr(755,root,root) %{_libdir}/libplasma.so
 %attr(755,root,root) %{_libdir}/libplasmaclock.so
 %attr(755,root,root) %{_libdir}/libprocesscore.so
 %attr(755,root,root) %{_libdir}/libprocessui.so
@@ -944,12 +942,12 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-%{_includedir}/KDE/Plasma
+%{_includedir}/KDE/Plasma/Weather
+%{_includedir}/plasma/weather
 %{_includedir}/*.h
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
 %{_includedir}/ksysguard
-%{_includedir}/plasma
 %{_includedir}/solid
 %{_includedir}/taskmanager
 %{_includedir}/nepomuk
@@ -1131,7 +1129,6 @@ fi
 %{_datadir}/kde4/services/kwin/sphere.desktop
 %{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/servicetypes/kwineffect.desktop
-%{_datadir}/kde4/servicetypes/plasma-packagestructure.desktop
 %{_datadir}/apps/kconf_update/plasma-add-shortcut-to-menu.upd
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
@@ -1167,7 +1164,6 @@ fi
 %attr(755,root,root) %{_bindir}/plasmoidviewer
 %attr(755,root,root) %{_bindir}/plasma-mid
 %attr(755,root,root) %{_bindir}/plasma-overlay
-%attr(755,root,root) %{_libdir}/libplasma.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma-mid.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
@@ -1230,8 +1226,14 @@ fi
 %{_datadir}/apps/plasma/dashboard
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
-%{_datadir}/config/plasmoids.knsrc
 %{_datadir}/config/plasma-overlayrc
+%dir %{_datadir}/apps/plasma_scriptengine_ruby
+%{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
+%{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
+%{_datadir}/apps/plasma_scriptengine_ruby/package_ruboid.rb
+%{_datadir}/kde4/services/plasma-scriptengine-ruby-applet.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-ruby-package.desktop
 %dir %{_datadir}/apps/plasma/services
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
@@ -1239,7 +1241,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
 %{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
-%{_datadir}/kde4/services/plasma-applet-extenderapplet.desktop
+#%{_datadir}/kde4/services/plasma-applet-extenderapplet.desktop
 %{_datadir}/kde4/services/plasma-applet-icon.desktop
 %{_datadir}/kde4/services/plasma-applet-launcher.desktop
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
@@ -1296,13 +1298,6 @@ fi
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-image.desktop
-%{_datadir}/kde4/servicetypes/plasma-animator.desktop
-%{_datadir}/kde4/servicetypes/plasma-applet.desktop
-%{_datadir}/kde4/servicetypes/plasma-containment.desktop
-%{_datadir}/kde4/servicetypes/plasma-dataengine.desktop
-%{_datadir}/kde4/servicetypes/plasma-runner.desktop
-%{_datadir}/kde4/servicetypes/plasma-scriptengine.desktop
-%{_datadir}/kde4/servicetypes/plasma-wallpaper.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %lang(en) %{_kdedocdir}/en/plasma
