@@ -544,7 +544,7 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/*.bak
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
-%find_lang kcontrol --with-kde
+#%find_lang kcontrol --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -586,7 +586,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 
-%files -f kcontrol.lang
+%files
 %defattr(644,root,root,755)
 # dirs
 %dir %{_datadir}/apps/konqueror
@@ -642,6 +642,7 @@ fi
 %{_datadir}/apps/kcontrol/pics/logo.png
 %{_datadir}/apps/kcontrol/pics/mini-world.png
 %{_datadir}/apps/kcontrol/pics/monitor.png
+%{_kdedocdir}/en/kcontrol/*
 
 # khotkeys
 %attr(755,root,root) %{_libdir}/libkhotkeysprivate.so.?
