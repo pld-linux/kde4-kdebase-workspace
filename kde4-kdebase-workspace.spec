@@ -220,10 +220,10 @@ Solid NetworkManager - zarządzanie siecią przy użyciu demona
 NetworkManager.
 
 %package kwrited
-Summary:        KDE write messaging daemon
-Summary(pl.UTF-8):      Demon do KDE obsługujący wymianę wiadomości za pomocą write
-Group:          X11/Applications
-Requires:       %{name} = %{version}-%{release}
+Summary:	KDE write messaging daemon
+Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą write
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
 Obsoletes:	kde4-kdebase-kwrited
 
 %description kwrited
@@ -543,8 +543,6 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
 rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/*.bak
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
-
-#%find_lang kcontrol --with-kde
 
 %clean
 rm -rf $RPM_BUILD_ROOT
