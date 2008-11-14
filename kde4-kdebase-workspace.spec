@@ -650,6 +650,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_hotkeys.so
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
+%attr(755,root,root) %{_libdir}/kconf_update_bin/krdb_clearlibrarypath
 %{_datadir}/apps/kcmkeys
 %{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
@@ -678,6 +679,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_placesrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
@@ -1131,6 +1133,7 @@ fi
 %{_datadir}/kde4/services/kwin/taskbarthumbnail.desktop
 %{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/apps/kconf_update/plasma-add-shortcut-to-menu.upd
+%{_datadir}/apps/kconf_update/krdb.upd
 %{_datadir}/apps/kconf_update/kwin.upd
 %{_datadir}/apps/kconf_update/kwin_focus1.sh
 %{_datadir}/apps/kconf_update/kwin_focus1.upd
@@ -1138,6 +1141,8 @@ fi
 %{_datadir}/apps/kconf_update/kwin_focus2.upd
 %{_datadir}/apps/kconf_update/kwin_fsp_workarounds_1.upd
 %{_datadir}/apps/kconf_update/kwin_on_off.upd
+%{_datadir}/apps/kconf_update/kwin_window_shortcuts.sh
+%{_datadir}/apps/kconf_update/kwin_window_shortcuts.upd
 %{_datadir}/apps/kconf_update/kwiniconify.upd
 %{_datadir}/apps/kconf_update/kwinsticky.upd
 %{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
@@ -1216,6 +1221,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_temperature.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_system-monitor.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_webbrowser.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_applicationjobs.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_favicons.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
@@ -1236,6 +1242,7 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-package.desktop
 %dir %{_datadir}/apps/plasma/services
+%{_datadir}/apps/plasma/services/applicationjobs.operations
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
 %{_datadir}/kde4/services/plasma-animator-default.desktop
@@ -1259,6 +1266,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-sm_temperature.desktop
 %{_datadir}/kde4/services/plasma-applet-system-monitor.desktop
 %{_datadir}/kde4/services/plasma-applet-webbrowser.desktop
+%{_datadir}/kde4/services/plasma-dataengine-applicationjobs.desktop
 %{_datadir}/kde4/services/plasma-dataengine-favicons.desktop
 %{_datadir}/kde4/services/plasma-dataengine-notifications.desktop
 %{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
@@ -1290,6 +1298,7 @@ fi
 %{_datadir}/kde4/services/plasma-runner-calculator.desktop
 %{_datadir}/kde4/services/plasma-runner-locations.desktop
 %{_datadir}/kde4/services/plasma-runner-webshortcuts.desktop
+%{_datadir}/kde4/services/plasma-runner-places.desktop
 %{_datadir}/kde4/services/plasma-runner-powerdevil.desktop
 %{_datadir}/kde4/services/plasma-runner-services.desktop
 %{_datadir}/kde4/services/plasma-runner-sessions.desktop
