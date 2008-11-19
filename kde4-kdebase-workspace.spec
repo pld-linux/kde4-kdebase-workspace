@@ -43,6 +43,7 @@ BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.2
 BuildRequires:	kde4-kdelibs-devel >= %{version}
+BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
