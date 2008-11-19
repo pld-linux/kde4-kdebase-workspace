@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.73
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -42,6 +42,7 @@ BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.2
+BuildRequires:	google-gadgets-for-linux >= 0.10.3
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
@@ -1225,6 +1226,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_systemmonitor.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
+%{_datadir}/apps/plasma/plasmoids
 %{_libdir}/libplasma_applet-system-monitor.so
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
@@ -1307,6 +1311,11 @@ fi
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-image.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-analog_clock.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
+%{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %lang(en) %{_kdedocdir}/en/plasma
