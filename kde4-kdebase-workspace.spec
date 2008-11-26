@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.73
-Release:	2
+Version:	4.1.80
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	df705f20ddb5f59eca66b5370bd45d09
+# Source0-md5:	404a67541864085fbb6585afab7b95d2
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -25,9 +25,7 @@ Source9:	%{name}-kcheckpass.pam
 Source10:	%{name}-kscreensaver.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Patch0:		%{name}-consolekit-kdm.patch
-Patch1:		%{name}-rootprivs.patch
-Patch2:		%{name}-kdmsession.patch
+Patch0:		%{name}-rootprivs.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
 BuildRequires:	OpenGL-devel
@@ -42,7 +40,8 @@ BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.2
-BuildRequires:	google-gadgets-for-linux-devel >= 0.10.3
+# not yet available
+#BuildRequires:	google-gadgets-for-linux-devel >= 0.10.4
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
@@ -50,7 +49,7 @@ BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
-BuildRequires:	phonon-devel >= 4.2.1
+BuildRequires:	phonon-devel >= 4.2.80
 BuildRequires:	qedje-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
@@ -490,8 +489,6 @@ Ekran powitalny KDE SimpleSmall.
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p0
 
 %build
 install -d build
@@ -921,6 +918,12 @@ fi
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
 %{_datadir}/kde4/services/kwindecoration.desktop
+# kephal
+%attr(755,root,root) %{_libdir}/kde4/kded_kephal.so
+%attr(755,root,root) %{_libdir}/libkephal.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkephal.so.?
+%{_datadir}/kde4/services/kded/kded_kephal.desktop
+%{_datadir}/config.kcfg/plasma-shell-desktop.kcfg
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -928,6 +931,7 @@ fi
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libkephal.so
 %attr(755,root,root) %{_libdir}/libkhotkeysprivate.so
 %attr(755,root,root) %{_libdir}/libkdecorations.so
 %attr(755,root,root) %{_libdir}/libkfontinst.so
@@ -948,6 +952,7 @@ fi
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
+%{_includedir}/kephal
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
 %{_includedir}/ksysguard
@@ -1060,6 +1065,8 @@ fi
 %{_datadir}/apps/kwin/cylinder.frag
 %{_datadir}/apps/kwin/cylinder.vert
 %{_datadir}/apps/kwin/sphere.vert
+%{_datadir}/apps/kwin/snow.frag
+%{_datadir}/apps/kwin/snow.vert
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
@@ -1181,6 +1188,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_launcher.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_lockout.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_pager.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_quicklaunch.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_simplelauncher.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
@@ -1226,9 +1234,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_systemmonitor.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
-%{_datadir}/apps/plasma/plasmoids
+#%attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
+#%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
+#%{_datadir}/apps/plasma/plasmoids
 %{_libdir}/libplasma_applet-system-monitor.so
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
@@ -1256,6 +1264,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-icon.desktop
 %{_datadir}/kde4/services/plasma-applet-launcher.desktop
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
+%{_datadir}/kde4/services/plasma-applet-quicklaunch.desktop
 %{_datadir}/kde4/services/plasma-applet-simplelauncher.desktop
 %{_datadir}/kde4/services/plasma-applet-systemtray.desktop
 %{_datadir}/kde4/services/plasma-applet-trash.desktop
@@ -1311,13 +1320,14 @@ fi
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-image.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-analog_clock.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
-%{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-analog_clock.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
+#%{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
+#%{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
+%{_datadir}/apps/desktoptheme/default/systemtray/bar_meter_horizontal.svgz
 %lang(en) %{_kdedocdir}/en/plasma
 
 %files screensavers
