@@ -51,6 +51,7 @@ BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.2.80
+BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
