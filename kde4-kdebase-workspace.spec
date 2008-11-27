@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.1.80
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -26,6 +26,7 @@ Source10:	%{name}-kscreensaver.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
+Patch1:		%{name}-ggl.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
 BuildRequires:	OpenGL-devel
@@ -55,6 +56,7 @@ BuildRequires:	qedje-devel
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	qzion-devel
+BuildRequires:	rpm-pythonprov
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
@@ -490,6 +492,7 @@ Ekran powitalny KDE SimpleSmall.
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 install -d build
@@ -543,6 +546,10 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
 rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/*.bak
 
 touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
+
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1235,9 +1242,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_systemmonitor.so
-#%attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
-#%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
-#%{_datadir}/apps/plasma/plasmoids
+%attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
+%{_datadir}/apps/plasma/plasmoids
 %{_libdir}/libplasma_applet-system-monitor.so
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
@@ -1246,6 +1253,12 @@ fi
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
 %{_datadir}/config/plasma-overlayrc
+%dir %{_datadir}/apps/plasma_scriptengine_python
+%{_datadir}/apps/plasma_scriptengine_python/*.py
+%{py_sitedir}/PyKDE4/*.py[co]
+%{_datadir}/kde4/services/plasma-packagestructure-python.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
@@ -1322,10 +1335,10 @@ fi
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-image.desktop
 #%{_datadir}/kde4/services/plasma-applet-ggl-analog_clock.desktop
-#%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
-#%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
-#%{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
-#%{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
+%{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/systemtray
