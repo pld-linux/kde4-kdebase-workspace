@@ -1253,12 +1253,12 @@ fi
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
 %{_datadir}/config/plasma-overlayrc
-%dir %{_datadir}/apps/plasma_scriptengine_python
-%{_datadir}/apps/plasma_scriptengine_python/*.py
-%{py_sitedir}/PyKDE4/*.py[co]
-%{_datadir}/kde4/services/plasma-packagestructure-python.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
+#%dir %{_datadir}/apps/plasma_scriptengine_python
+#%{_datadir}/apps/plasma_scriptengine_python/*.py
+#%{py_sitedir}/PyKDE4/*.py[co]
+#%{_datadir}/kde4/services/plasma-packagestructure-python.desktop
+#%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
+#%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
