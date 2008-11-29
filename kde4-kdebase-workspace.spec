@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.80
-Release:	3
+Version:	4.1.81
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	404a67541864085fbb6585afab7b95d2
+# Source0-md5:	a9fe8c590749a6b11ef56e9ed181335d
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -26,7 +26,6 @@ Source10:	%{name}-kscreensaver.pam
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
-Patch1:		%{name}-ggl.patch
 URL:		http://www.kde.org/
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
 BuildRequires:	OpenGL-devel
@@ -175,6 +174,7 @@ KWin - zarządca okien KDE 4.
 Summary:	Plasma - KDE 4 panels and desktop work area
 Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
 Group:		X11/Applications
+Suggests:	google-gadgets-for-linux-gadgets >= 0.10.4
 
 %description plasma
 Plasma - KDE 4 panels and desktop work area.
@@ -492,7 +492,6 @@ Ekran powitalny KDE SimpleSmall.
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 install -d build
@@ -1270,6 +1269,7 @@ fi
 %{_datadir}/apps/plasma/services/applicationjobs.operations
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
+%{_datadir}/apps/plasma/services/tasks.operations
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
@@ -1343,6 +1343,8 @@ fi
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/systemtray
 %{_datadir}/apps/desktoptheme/default/systemtray/bar_meter_horizontal.svgz
+%dir %{_datadir}/apps/desktoptheme/default/calendar
+%{_datadir}/apps/desktoptheme/default/calendar/mini-calendar.svgz
 %lang(en) %{_kdedocdir}/en/plasma
 
 %files screensavers
