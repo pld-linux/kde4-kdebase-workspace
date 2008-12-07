@@ -174,7 +174,7 @@ KWin - zarządca okien KDE 4.
 Summary:	Plasma - KDE 4 panels and desktop work area
 Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
 Group:		X11/Applications
-Suggests:	google-gadgets-for-linux-gadgets >= 0.10.4
+Requires:	google-gadgets-for-linux-gadgets >= 0.10.4
 
 %description plasma
 Plasma - KDE 4 panels and desktop work area.
