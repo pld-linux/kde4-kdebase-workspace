@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.81
+Version:	4.1.82
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	a9fe8c590749a6b11ef56e9ed181335d
+# Source0-md5:	7861e031cc03e2fea65134e684eeda4b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -41,7 +41,7 @@ BuildRequires:	ConsoleKit-devel
 BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.2
-BuildRequires:	google-gadgets-for-linux-devel >= 0.10.4
+BuildRequires:	google-gadgets-for-linux-devel >= 0.10.4-0.1028.1
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
@@ -810,7 +810,7 @@ fi
 %{_datadir}/kde4/services/ion-bbcukmet.desktop
 %{_datadir}/kde4/services/ion-envcan.desktop
 %{_datadir}/kde4/services/ion-noaa.desktop
-%{_datadir}/kde4/servicetypes/weather_ion.desktop
+%{_datadir}/kde4/services/weather_ion.desktop
 
 # launch
 %attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
