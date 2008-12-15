@@ -41,7 +41,7 @@ BuildRequires:	ConsoleKit-devel
 BuildRequires:	automoc4 >= 0.9.83
 BuildRequires:	bluez-libs-devel
 BuildRequires:	cmake >= 2.6.2
-BuildRequires:	google-gadgets-for-linux-devel >= 0.10.4-0.1028.1
+BuildRequires:	google-gadgets-for-linux-devel >= 0.10.4-0.r1028.1
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
