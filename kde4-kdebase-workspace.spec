@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.82
+Version:	4.1.85
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	7861e031cc03e2fea65134e684eeda4b
+# Source0-md5:	73f8e84a4a5b5af37d85a5520daeabf1
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -956,6 +956,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
+%{_libdir}/KDE4Workspace
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
@@ -1043,8 +1044,6 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
-%dir %{_datadir}/apps/desktopthemedetails
-%{_datadir}/apps/desktopthemedetails/themeitems
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/blur-render.frag
 %{_datadir}/apps/kwin/blur-render.vert
