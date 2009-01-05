@@ -11,7 +11,7 @@ Version:	4.1.87
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.pbone.net/mirror/ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 # Source0-md5:	52e63dd551d71a0ce861a231ca6bdc44
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
