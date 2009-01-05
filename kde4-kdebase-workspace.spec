@@ -355,6 +355,7 @@ służący do zmiany rozmiaru w prawym dolnym rogu okna.
 Summary:	KDE Window Decoration - Ozone
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Ozone
 Group:		X11/Amusements
+Requires:	kde4-kdebase-workspace-kwin >= %{version}
 
 %description -n kde4-decoration-ozone
 A window decoration Ozone.
@@ -1229,7 +1230,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
 %{_datadir}/apps/plasma/plasmoids
-%{_libdir}/libplasma_applet-system-monitor.so.*
+%attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
