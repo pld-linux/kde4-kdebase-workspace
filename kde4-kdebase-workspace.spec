@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.87
-Release:	2
+Version:	4.1.96
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	52e63dd551d71a0ce861a231ca6bdc44
+# Source0-md5:	e4fd6e11f45e5099de521867797bf86b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -689,7 +689,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_runner_scriptengine_qscript.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/kde4/services/recentdocuments.desktop
 %{_datadir}/autostart/krunner.desktop
@@ -697,7 +696,6 @@ fi
 %{_datadir}/dbus-1/services/org.kde.krunner.service
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
 %{_datadir}/kde4/services/plasma-runner-shell_config.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-qscriptrunner.desktop
 
 # ksmserver
 %attr(755,root,root) %{_bindir}/ksmserver
@@ -1186,6 +1184,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_qedje.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_simple_javascript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_qedje.so
@@ -1207,7 +1206,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_qscript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_saverdesktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_color.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_image.so
@@ -1226,6 +1224,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_systemmonitor.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_runnerscript_javascript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
 %{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
@@ -1278,6 +1277,7 @@ fi
 %{_datadir}/kde4/services/plasma-packagestructure-web.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-dashboard.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-applet-simple-javascript.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
 %{_datadir}/kde4/services/plasma-containment-midpanel.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
@@ -1305,7 +1305,6 @@ fi
 %{_datadir}/kde4/services/plasma-runner-services.desktop
 %{_datadir}/kde4/services/plasma-runner-sessions.desktop
 %{_datadir}/kde4/services/plasma-runner-shell.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-qscript.desktop
 %{_datadir}/kde4/services/plasma-tasks-default.desktop
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
@@ -1314,6 +1313,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-runner-javascript.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/calendar
