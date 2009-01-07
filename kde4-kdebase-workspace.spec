@@ -490,6 +490,18 @@ KDE SimpleSmall splashcreen.
 %description -n kde4-splash-SimpleSmall -l pl.UTF-8
 Ekran powitalny KDE SimpleSmall.
 
+%package svg-icons
+Summary:        KDE SVG icons - oxygen
+Summary(pl.UTF-8):      Motyw ikon SVG do KDE - oxygen
+Group:          Themes
+Requires:	kde4-icons-oxygen-svg
+
+%description svg-icons
+KDE icons - oxygen. This package contains SVG icons.
+
+%description svg-icons -l pl.UTF-8
+Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
+
 %prep
 %setup -q -n %{oname}-%{version}
 %patch0 -p1
@@ -873,7 +885,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so.*.*.*
 
 #old core
-%dir %{_iconsdir}/oxygen/*/mimetypes
+%dir %{_iconsdir}/oxygen/[!scalable]*/mimetypes
 %dir %{_datadir}/apps/kcminput
 %dir %{_datadir}/apps/kcminput/pics
 
@@ -889,7 +901,6 @@ fi
 %{_datadir}/config/colorschemes.knsrc
 %{_datadir}/config/wallpaper.knsrc
 %{_iconsdir}/*/*/apps/kcmkwm.png
-%{_iconsdir}/*/scalable/apps/kcmkwm.svgz
 %{_iconsdir}/*/*/apps/computer.png
 %{_iconsdir}/*/*/apps/daemon.png
 %{_iconsdir}/*/*/apps/kdeapp.png
@@ -980,10 +991,7 @@ fi
 %{_datadir}/kde4/services/fonts.protocol
 %{_datadir}/kde4/services/kfontviewpart.desktop
 %{_iconsdir}/*/*/apps/kfontview.png
-%{_iconsdir}/*/scalable/apps/kfontview.svgz
-%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
 %{_iconsdir}/*/*/mimetypes/fonts-package.png
-%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
 
 %files klipper
 %defattr(644,root,root,755)
@@ -1149,7 +1157,6 @@ fi
 %{_iconsdir}/oxygen/16x16/apps/kwin.png
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
 %{_iconsdir}/oxygen/48x48/apps/kwin.png
-%{_iconsdir}/oxygen/scalable/apps/kwin.svgz
 %{_iconsdir}/Oxygen_Black
 %{_iconsdir}/Oxygen_Black_Big
 %{_iconsdir}/Oxygen_Blue
@@ -1417,6 +1424,14 @@ fi
 %{_datadir}/kde4/services/kdm.desktop
 %{_datadir}/wallpapers/kdm_pld.png
 %lang(en) %{_kdedocdir}/en/kdm
+
+%files svg-icons
+%defattr(644,root,root,755)
+%{_iconsdir}/*/scalable/apps/kcmkwm.svgz
+%{_iconsdir}/*/scalable/apps/kfontview.svgz
+%{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
+%{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
+%{_iconsdir}/*/scalable/apps/kwin.svgz
 
 %files -n kde4-decoration-b2
 %defattr(644,root,root,755)
