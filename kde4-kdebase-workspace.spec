@@ -885,7 +885,8 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so.*.*.*
 
 #old core
-%dir %{_iconsdir}/oxygen/[!scalable]*/mimetypes
+%exclude %{_iconsdir}/oxygen/scalable
+%dir %{_iconsdir}/oxygen/*/mimetypes
 %dir %{_datadir}/apps/kcminput
 %dir %{_datadir}/apps/kcminput/pics
 
