@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.1.96
-Release:	3
+Version:	4.2.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	e4fd6e11f45e5099de521867797bf86b
+# Source0-md5:	193e30b9ed0b55b0196289d9df43a904
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1377,13 +1377,13 @@ fi
 %{_datadir}/wallpapers/Air
 %{_datadir}/wallpapers/Blue_Curl
 %{_datadir}/wallpapers/Code_Poets_Dream
-%{_datadir}/wallpapers/Colorado_Farm
 %{_datadir}/wallpapers/Curls_on_Green
 %{_datadir}/wallpapers/EOS
 %{_datadir}/wallpapers/Fields_of_Peace
 %{_datadir}/wallpapers/Finally_Summer_in_Germany
 %{_datadir}/wallpapers/Flower_drops
 %{_datadir}/wallpapers/Fresh_Morning
+%{_datadir}/wallpapers/HighTide
 %{_datadir}/wallpapers/Ladybuggin
 %{_datadir}/wallpapers/Plasmalicious
 %{_datadir}/wallpapers/Red_Leaf
