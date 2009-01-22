@@ -49,7 +49,7 @@ BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
-BuildRequires:	phonon-devel >= 4.2.80
+BuildRequires:	phonon-devel >= 4.3.0
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel
 BuildRequires:	qimageblitz-devel
