@@ -1,0 +1,1 @@
+- R: xorg-app{xset,xsetroot,xprop}; used by startkde
