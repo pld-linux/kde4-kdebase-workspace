@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.0
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -1029,14 +1029,14 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_videorecord.so
+#%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_videorecord.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
-%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
+#%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
@@ -1117,8 +1117,8 @@ fi
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
 %{_datadir}/kde4/services/kwin/trackmouse_config.desktop
-%{_datadir}/kde4/services/kwin/videorecord.desktop
-%{_datadir}/kde4/services/kwin/videorecord_config.desktop
+#%{_datadir}/kde4/services/kwin/videorecord.desktop
+#%{_datadir}/kde4/services/kwin/videorecord_config.desktop
 %{_datadir}/kde4/services/kwin/zoom.desktop
 %{_datadir}/kde4/services/kwin/zoom_config.desktop
 %{_datadir}/kde4/services/kwinactions.desktop
