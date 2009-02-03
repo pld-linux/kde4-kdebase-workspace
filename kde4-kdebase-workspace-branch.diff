@@ -1,0 +1,3901 @@
+--- workspace/ksmserver/shutdowndlg.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/ksmserver/shutdowndlg.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -604,6 +604,8 @@
+         m_svg->paint(&p, QRect(0, 0, width(), height()), "background");
+         setMask(mask);
+     }
++
++    KDialog::centerOnScreen(this);
+ }
+ 
+ void KSMShutdownDlg::slotLogout()
+--- workspace/kcontrol/kfontinst/lib/FcEngine.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/kfontinst/lib/FcEngine.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1112,7 +1112,7 @@
+ 
+     XftFont *f=getFont(constQuerySize);
+ 
+-    if(!isCorrect(f, true))
++    if(f && !isCorrect(f, true))                                                           
+     {
+         XftFontClose(QX11Info::display(), f);
+         f=NULL;
+--- workspace/kcontrol/screensaver/scrnsave.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/screensaver/scrnsave.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -345,6 +345,10 @@
+     {
+         if (mPreviewProc->isRunning())
+         {
++            //Avoid triggering slotPreviewExited on close
++            disconnect(mPreviewProc, SIGNAL(processExited(K3Process *)),
++              this, SLOT(slotPreviewExited(K3Process *)));
++
+             mPreviewProc->kill( );
+             mPreviewProc->wait( );
+         }
+--- workspace/kcontrol/autostart/autostart.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/autostart/autostart.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -91,6 +91,7 @@
+ Comment[eo]=Agordilo por la administrado de aŭtomate lanĉitaj programo ĉe KDE-lanĉo.
+ Comment[es]=Una herramienta de configuración para gestionar los programas que arrancan automáticamente con KDE.
+ Comment[et]=Seadistustööriist programmide haldamiseks, mis käivituvad koos KDE-ga.
++Comment[eu]=KDErekin zein programa abiatzen diren kudeatzeko konfiguraketa tresna bat.
+ Comment[fi]=Työkalu KDE:n käynnistyksessä käynnistettävien ohjelmien hallintaan.
+ Comment[fr]=Un outil de gestion des programmes lancés au démarrage de KDE.
+ Comment[fy]=In konfiguraasjeark foar it behearen fan programma's dy't mei KDE starte.
+--- workspace/kcontrol/randr/outputgraphicsitem.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/randr/outputgraphicsitem.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -29,6 +29,8 @@
+ OutputGraphicsItem::OutputGraphicsItem(RandROutput *output)
+ 	: QGraphicsRectItem(output->rect())
+ {
++	m_output = output;
++
+ 	m_left = m_right = m_top = m_bottom = NULL;
+ 
+ 	setPen(QPen(Qt::black));
+@@ -39,26 +41,14 @@
+ 	setFlag(QGraphicsItem::ItemIsMovable, false);
+ 	setFlag(QGraphicsItem::ItemIsSelectable, true);
+ 	
+-	// An example of this description text with radeonhd on randr 1.2:
+-	// DVI-I_2/digital
+-	// 1680x1050 (60.0 Hz)
+-	int w = output->rect().width(), h = output->rect().height();
+-	QString refresh = QString::number(output->refreshRate(), 'f', 1);
+-	QString desc = output->name() + '\n' + 
+-	               QString("%1x%2 (%3 Hz)").arg(w).arg(h).arg(refresh);
+-				
+-	m_text = new QGraphicsTextItem(desc, this);
+-	
++	m_text = new QGraphicsTextItem( this );
++
+ 	QFont font = KGlobalSettings::generalFont();
+ 	font.setPixelSize(72);
+ 	m_text->setFont(font);
++    
++	updateText();
+ 
+-	QRectF textRect = m_text->boundingRect();
+-	QRect  outRect  = output->rect();
+-	
+-	// more accurate text centering
+-	m_text->setPos((outRect.width() - textRect.width()) / 2,
+-	               (outRect.height() - textRect.height()) / 2);
+ }
+ 
+ OutputGraphicsItem::~OutputGraphicsItem()
+@@ -226,6 +216,28 @@
+    }
+ }
+ 
++void OutputGraphicsItem::updateText()
++{
++	// An example of this description text with radeonhd on randr 1.2:
++	// DVI-I_2/digital
++	// 1680x1050 (60.0 Hz)
++
++	int w = m_output->rect().width(), h = m_output->rect().height();
++
++	QString refresh = QString::number(m_output->refreshRate(), 'f', 1);
++	QString desc = m_output->name() + '\n' + 
++				   QString("%1x%2 (%3 Hz)").arg(w).arg(h).arg(refresh);
++
++	m_text->setPlainText(desc);
++
++	QRectF textRect = m_text->boundingRect();
++	QRect  outRect  = m_output->rect();
++	// more accurate text centering
++	m_text->setPos((outRect.width() - textRect.width()) / 2,
++				   (outRect.height() - textRect.height()) / 2);
++
++}
++
+ void OutputGraphicsItem::disconnect()
+ {
+ 	// for now just disconnect everything
+--- workspace/kcontrol/randr/outputconfig.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/randr/outputconfig.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -124,9 +124,8 @@
+ 	if(changes & RandR::ChangeRect) {
+ 		QRect r = m_output->rect();
+ 		kDebug() << "Output rect changed:" << r;
+-		//m_item->setRect(0, 0, r.width(), r.height());
+ 		m_item->setRect(r);
+-		//m_item->setPos
++		emit updateView();
+ 	}
+ 	
+ 	if(changes & RandR::ChangeRotation) {
+@@ -152,6 +151,11 @@
+ 		//QSize modeSize = m_output->screen()->mode(m_output->mode()).size();
+ 		QSize modeSize = m_output->mode().size();
+ 		updateRateList(sizeCombo->findData(modeSize));
++        
++		//Update the text inside the OutputGraphicsItem
++		m_item->updateText();
++		m_item->setRect(m_output->rect());
++		emit updateView();
+ 	}
+ }
+ 
+--- workspace/kcontrol/randr/outputgraphicsitem.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/randr/outputgraphicsitem.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -44,6 +44,8 @@
+ 	void setBottom(OutputGraphicsItem *output);
+ 
+ 	bool isConnected();
++    
++	void updateText();
+ 
+ protected:
+ 	void disconnect();
+--- workspace/kcontrol/randr/krandrtray.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/randr/krandrtray.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -33,7 +33,7 @@
+ GenericName[eo]=Regrandigi kaj turni ekranon
+ GenericName[es]=Redimensionar y rotar pantalla
+ GenericName[et]=Ekraani suuruse muutmine ja pööramine
+-GenericName[eu]=Pantailaren tamaina aldaketa eta biraketa
++GenericName[eu]=Pantailaren neurri aldaketa eta biraketa
+ GenericName[fa]=تغییر اندازه و چرخش پرده
+ GenericName[fi]=Näytön kuvan koon muuttaminen ja kuvan kääntäminen
+ GenericName[fr]=Redimensionnement et rotation de l'écran
+@@ -106,6 +106,7 @@
+ Comment[eo]=Panela aplikaĵeto por regrandigi kaj reorienti la X ekranojn.
+ Comment[es]=Una miniaplicación del panel para redimensionar y reorientar pantallas X.
+ Comment[et]=Paneeliaplett X'i ekraanide suuruse muutmiseks ja pööramiseks
++Comment[eu]=X pantailen neurria aldatu eta biratzeko paneleko applet bat.
+ Comment[fa]=برنامک تابلویی برای تغییر اندازه و تغییر جهت پرده‌های X.
+ Comment[fi]=Panelisovelma X-ruutujen koon ja suunnan muuttamiseksi
+ Comment[fr]=Une applet du tableau de bord pour redimensionner et pivoter l'écran.
+--- workspace/kcontrol/kdm/background/patterns/triangles.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/kdm/background/patterns/triangles.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -39,6 +39,7 @@
+ Comment[lv]=Trīsstūri
+ Comment[mk]=Триаголници
+ Comment[ml]=ത്രികോണങ്ങള്‍
++Comment[ms]=Segi Tiga
+ Comment[nds]=Dre'ecks
+ Comment[nl]=Triangels
+ Comment[nn]=Trekantar
+--- workspace/kcontrol/kdm/background/patterns/fish.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kcontrol/kdm/background/patterns/fish.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -38,6 +38,7 @@
+ Comment[lv]=Zivju tīkls
+ Comment[mk]=Рибарска мрежа
+ Comment[mr]=फिश नेट
++Comment[ms]=Jala Ikan
+ Comment[nb]=Fish-nettverk
+ Comment[nds]=Fischnett
+ Comment[nl]=Visnet
+--- workspace/doc/kcontrol/powerdevil/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/powerdevil/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,7 +4,7 @@
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % English "INCLUDE">
+ ]>
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ <authorgroup>
+ <author>&Dario.Freddi;&Dario.Freddi.mail;</author>
+@@ -324,4 +324,4 @@
+ 
+ vim:tabstop=2:shiftwidth=2:expandtab
+ kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+--->
+\ No newline at end of file
++-->
+--- workspace/doc/kcontrol/autostart/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/autostart/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,7 +4,7 @@
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % English "INCLUDE">
+ ]>
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ <authorgroup>
+ <author>&Anne-Marie.Mahfouf;</author>
+@@ -157,4 +157,5 @@
+ 
+ vim:tabstop=2:shiftwidth=2:expandtab
+ kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+--->
+\ No newline at end of file
++-->
++
+--- workspace/doc/kcontrol/splashscreen/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/splashscreen/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,7 +4,7 @@
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % English "INCLUDE">
+ ]>
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ <authorgroup>
+ <author>
+@@ -113,4 +113,4 @@
+ 
+ vim:tabstop=2:shiftwidth=2:expandtab
+ kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+--->
+\ No newline at end of file
++-->
+--- workspace/doc/kcontrol/kcmaccess/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/kcmaccess/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -5,7 +5,7 @@
+ <!ENTITY % English "INCLUDE" > <!-- change language only here -->
+ ]>
+ 
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ 
+ <authorgroup>	
+--- workspace/doc/kcontrol/joystick/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/joystick/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,7 +4,7 @@
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % English "INCLUDE">
+ ]>
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ <authorgroup>
+ <author>
+@@ -133,4 +133,4 @@
+ 
+ vim:tabstop=2:shiftwidth=2:expandtab
+ kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+--->
+\ No newline at end of file
++-->
+--- workspace/doc/kcontrol/kcmdisplay/index.docbook	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/doc/kcontrol/kcmdisplay/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,7 +4,7 @@
+   <!ENTITY % addindex "IGNORE">
+   <!ENTITY % English "INCLUDE">
+ ]>
+-<article>
++<article lang="&language;">
+ <articleinfo>
+ <authorgroup>
+ <author>&Richard.Johnson;</author>
+@@ -303,4 +303,5 @@
+ 
+ vim:tabstop=2:shiftwidth=2:expandtab
+ kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+--->
+\ No newline at end of file
++-->
++
+--- workspace/systemsettings/categories/settings-general.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/systemsettings/categories/settings-general.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -50,7 +50,7 @@
+ Name[ml]=സാധാരണ
+ Name[mr]=सामान्य
+ Name[nb]=Generelt
+-Name[nds]=Allgemeen
++Name[nds]=Allmeen
+ Name[ne]=सामन्य
+ Name[nl]=Algemeen
+ Name[nn]=Generelt
+--- workspace/systemsettings/categories/settings-advanced-user-settings.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/systemsettings/categories/settings-advanced-user-settings.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -39,6 +39,7 @@
+ Name[kn]=ಪ್ರೌಢ ಬಳಕೆದಾರ ಸಂಯೋಜನೆಗಳು
+ Name[ko]=고급 사용자 설정
+ Name[ku]=Mîhengên Pêşketî ên Bikarhêner
++Name[lt]=Sudėtingesni vartotojo nustatymai
+ Name[lv]=Paplašināti lietotāja iestatījumi
+ Name[mai]=उन्नत प्रयोक्ता बिन्यास
+ Name[mk]=Напредни кориснички поставувања
+--- workspace/kwrited/kwrited.notifyrc	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwrited/kwrited.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Comment[eu]=KDEren idazketa deabrua
+ Comment[fr]=Démon Write de KDE
+ Comment[fy]=KDE Skriuwdaemon
++Comment[ga]=Deamhan scríofa KDE
+ Comment[gl]=Daemon de escritura de KDE
+ Comment[gu]=KDE રાઇટ ડેમોન
+ Comment[he]=תהליך הרקע Write של KDE
+@@ -64,6 +65,7 @@
+ Name[el]=Λήφθηκε νέο μήνυμα
+ Name[es]=Se ha recibido un nuevo mensaje
+ Name[et]=Saabus uus teade
++Name[eu]=Mezu berria jaso da
+ Name[fr]=Nouveau message reçu
+ Name[fy]=Nij berjocht is ûntfongen
+ Name[gl]=Recibiuse unha mensaxe nova
+@@ -112,6 +114,7 @@
+ Comment[el]=Ο δαίμονας έλαβε ένα νέο μήνυμα μέσω του wall(1) ή του write(1)
+ Comment[es]=El demonio recibió un nuevo mensaje enviado mediante wall(1) o write(1)
+ Comment[et]=Deemon sai uue teate, mis saadeti käsuga wall(1) või write(1)
++Comment[eu]=Deabruak hauetako batekin bidalitako mezu berri bat jaso du wall(1) edo write(1)
+ Comment[fr]=Le démon a reçu un nouveau message envoyé avec wall(1) ou write(1)
+ Comment[fy]=De daemon ûntfong in nij berjocht stjoert mei wall(1) of write(1)
+ Comment[gl]=O daemon recibiu unha mensaxe nova enviada con wall(1) ou write(1)
+--- workspace/wallpapers/HighTide/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/wallpapers/HighTide/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -21,6 +21,8 @@
+ Name[te]=హైటైడ్
+ Name[tr]=Büyük Med Cezir
+ Name[uk]=Висока хвиля
++Name[x-test]=xxHighTidexx
++Name[zh_CN]=高潮
+ Name[zh_TW]=高潮
+ 
+ X-KDE-PluginInfo-Name=HighTide
+--- workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -27,6 +27,7 @@
+ Name[fi]=Virranhallinta
+ Name[fr]=Gestion de l'énergie
+ Name[fy]=Enerzjybehear
++Name[ga]=Bainisteoireacht Cumhachta
+ Name[gl]=Xestión da enerxía
+ Name[gu]=પાવર વ્યવસ્થાપક
+ Name[he]=ניהול צריכת חשמל
+--- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[fi]=Virranhallinta
+ Name[fr]=Gestion de l'énergie
+ Name[fy]=Enerzjybehear
++Name[ga]=Bainisteoireacht Cumhachta
+ Name[gl]=Xestión da enerxía
+ Name[gu]=પાવર વ્યવસ્થાપક
+ Name[he]=ניהול צריכת חשמל
+--- workspace/krunner/screensaver/saverengine.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/screensaver/saverengine.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -46,7 +46,11 @@
+     // Save X screensaver parameters
+     XGetScreenSaver(QX11Info::display(), &mXTimeout, &mXInterval,
+                     &mXBlanking, &mXExposures);
+-    // ... and disable it
++    // And disable it. The internal X screensaver is not used at all, but we use its
++    // internal idle timer (and it is also used by DPMS support in X). This timer must not
++    // be altered by this code, since e.g. resetting the counter after activating our
++    // screensaver would prevent DPMS from activating. We use the timer merely to detect
++    // user activity.
+     XSetScreenSaver(QX11Info::display(), 0, mXInterval, mXBlanking, mXExposures);
+ 
+     mState = Waiting;
+@@ -87,7 +91,6 @@
+ 
+ void SaverEngine::Lock()
+ {
+-    bool ok = true;
+     if (mState == Waiting)
+     {
+         startLockProcess( ForceLock );
+@@ -125,6 +128,7 @@
+ 
+ void SaverEngine::SimulateUserActivity()
+ {
++    XForceScreenSaver( QX11Info::display(), ScreenSaverReset );
+     if ( mXAutoLock && mState == Waiting )
+     {
+         mXAutoLock->resetTrigger();
+@@ -323,6 +327,8 @@
+ //
+ void SaverEngine::idleTimeout()
+ {
++    if( mState != Waiting )
++        return; // already saving
+     startLockProcess( DefaultLock );
+ }
+ 
+--- workspace/krunner/screensaver/xautolock.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/screensaver/xautolock.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -83,8 +83,10 @@
+     mActive = false;
+ 
+     mTimerId = startTimer( CHECK_INTERVAL );
++    // This is an internal clock timer (in seconds), used instead of querying system time.
++    // It is incremented manually, preventing from problems with clock jumps.
++    // In other words, this is the 'now' time and the reference point for other times here.
+     mElapsed = 0;
+-
+ }
+ 
+ //---------------------------------------------------------------------------
+@@ -126,8 +128,6 @@
+ {
+     mActive = true;
+     resetTrigger();
+-    XSetScreenSaver(QX11Info::display(), mTimeout + 10, 100, PreferBlanking, DontAllowExposures); // We'll handle blanking
+-    kDebug() << "XSetScreenSaver" << mTimeout + 10;
+ }
+ 
+ //---------------------------------------------------------------------------
+@@ -138,8 +138,6 @@
+ {
+     mActive = false;
+     resetTrigger();
+-    XSetScreenSaver(QX11Info::display(), 0, 100, PreferBlanking, DontAllowExposures); // No blanking at all
+-    kDebug() << "XSetScreenSaver 0";
+ }
+ 
+ //---------------------------------------------------------------------------
+@@ -148,12 +146,15 @@
+ //
+ void XAutoLock::resetTrigger()
+ {
++    // Time of the last user activity (used only when the internal XScreensaver
++    // idle counter is not available).
+     mLastReset = mElapsed;
++    // Time when screensaver should be activated.
+     mTrigger = mElapsed + mTimeout;
+ #ifdef HAVE_XSCREENSAVER
+     mLastIdle = 0;
+ #endif
+-    XForceScreenSaver( QX11Info::display(), ScreenSaverReset );
++    // Do not reset the internal X screensaver here (no XForceScreenSaver())
+ }
+ 
+ //---------------------------------------------------------------------------
+@@ -205,6 +206,9 @@
+     if (mMitInfo)
+     {
+         Display *d = QX11Info::display();
++        // Check user idle time. If it is smaller than before, it is either
++        // clock jump or user activity, so reset the trigger time. Checking whether
++        // there is user inactivity timeout is done below using mTrigger and mElapsed.
+         XScreenSaverQueryInfo(d, DefaultRootWindow(d), mMitInfo);
+         if (mLastIdle < mMitInfo->idle)
+             mLastIdle = mMitInfo->idle;
+@@ -218,35 +222,46 @@
+ 
+     bool activate = false;
+ 
+-    // kDebug() << now << mTrigger;
++    // This is the test whether to activate screensaver. If we have reached the time
++    // and for the whole timeout period there was no activity (which would change mTrigger
++    // again), activate.
+     if (mElapsed >= mTrigger)
+-    {
+-        resetTrigger();
+         activate = true;
+-    }
+ 
+ #ifdef HAVE_DPMS
+     BOOL on;
+     CARD16 state;
++    CARD16 timeout1, timeout2, timeout3;
+     DPMSInfo( QX11Info::display(), &state, &on );
++    DPMSGetTimeouts( QX11Info::display(), &timeout1, &timeout2, &timeout3 );
+ 
+     // kDebug() << "DPMSInfo " << state << on;
+     // If DPMS is active, it makes XScreenSaverQueryInfo() report idle time
+     // that is always smaller than DPMS timeout (X bug I guess). So if DPMS
+     // saving is active, simply always activate our saving too, otherwise
+     // this could prevent locking from working.
++    // X.Org 7.4: With this version activating DPMS resets the screensaver idle timer,
++    // so keep this. It probably makes sense to always do this anyway.
+     if(state == DPMSModeStandby || state == DPMSModeSuspend || state == DPMSModeOff)
+         activate = true;
+-    if(!on && mDPMS) {
++    // If we are DPMS-dependent and either DPMS is turned off completely or all
++    // three DPMS modes are turned off, don't activate (apps use this to turn off
++    // screensavers).
++    if(mDPMS && (!on || (timeout1 == 0 && timeout2 == 0 && timeout3 == 0 ))) {
+         activate = false;
+         resetTrigger();
+     }
+ #endif
+ 
+-#ifdef HAVE_XSCREENSAVER
+-    if (mMitInfo && mMitInfo->state == ScreenSaverDisabled)
+-        activate = false;
+-#endif
++    // Do not check whether internal X screensaver is enabled or disabled, since we
++    // have disabled it ourselves. Some apps might try to disable it too to prevent
++    // screensavers, but then our logic breaks[*]. Those apps need to disable DPMS anyway,
++    // or they will still have problems, so the DPMS code above should be enough.
++    // Besides, I doubt other screensaver implementations check this either.
++    // [*] We can't run with X screensaver enabled, since then sooner or later
++    // the internal screensaver will activate instead of our screensaver and we cannot
++    // prevent its activation by resetting the idle counter since that would also
++    // reset DPMS saving.
+ 
+     if(mActive && activate)
+         emit timeout();
+--- workspace/krunner/interfaces/quicksand/qs_matchview.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/quicksand/qs_matchview.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -65,8 +65,9 @@
+              * Sets the list of items to be displayed on screen
+              * @param items The list of items to display
+              * @param popup Display the popup completion box
++             * @param append Append items to the current list instead of replacing it
+              */
+-            void setItems(const QList<MatchItem*> &items, bool popup = true);
++            void setItems(const QList<MatchItem*> &items, bool popup = true, bool append = false);
+ 
+             /**
+              * Sets the item count text on the upper right hand corner
+--- workspace/krunner/interfaces/quicksand/qs_dialog.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/quicksand/qs_dialog.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,6 +1,6 @@
+ /*
+  *   Copyright (C) 2006 by Aaron Seigo <aseigo@kde.org>
+- *   Copyright (C) 2007-2008 Ryan P. Bitanga <ryan.bitanga@gmail.com>
++ *   Copyright (C) 2007-2009 Ryan P. Bitanga <ryan.bitanga@gmail.com>
+  *   Copyright (C) 2008 by Davide Bettio <davide.bettio@kdemail.net>
+  *
+  *   This program is free software; you can redistribute it and/or modify
+@@ -108,6 +108,8 @@
+     connect(m_actionView, SIGNAL(itemActivated(MatchItem*)), this, SLOT(run(MatchItem*)));
+ 
+     m_matchView->setFocus();
++
++    m_newQuery = true;
+ }
+ 
+ QsDialog::~QsDialog()
+@@ -145,6 +147,7 @@
+         m_matchView->showLoading();
+     }
+     m_runnerManager->launchQuery(query);
++    m_newQuery = true;
+ }
+ 
+ void QsDialog::run(MatchItem *item)
+@@ -184,7 +187,28 @@
+ void QsDialog::setMatches(const QList<Plasma::QueryMatch> &matches)
+ {
+     QList<MatchItem*> items;
++    QMultiMap<QString, Plasma::QueryMatch> temp;
++    QMultiMap<QString, Plasma::QueryMatch>::iterator end = m_matches.end();
+     foreach (Plasma::QueryMatch match, matches) {
++        temp.insert(match.id(), match);
++        // Do not create new MatchItems for existing matches when the query hasn't changed
++        if (!m_newQuery && m_matches.find(match.id()) != end) {
++            // kDebug() << "A match with id " << match.id() << " already exists." << endl;
++            QList<Plasma::QueryMatch> duplicates = m_matches.values(match.id());
++            bool exists = false;
++            foreach (Plasma::QueryMatch m, duplicates) {
++                // FIXME: Matching the displayed text isn't always reliable
++                // maybe adding an operator== to QueryMatch would help
++                if (m.text() == match.text()) {
++                    exists = true;
++                    break;
++                }
++            }
++
++            if (exists) {
++                continue;
++            }
++        }
+         MatchItem *m = new QuickSand::QueryMatchItem(match);
+         switch(match.type())
+         {
+@@ -201,7 +225,11 @@
+         }
+         items.append(m);
+     }
+-    m_matchView->setItems(items);
++    // kDebug() << "Add " << items.size() << " matches. Append?" << !m_newQuery << endl;
++    m_matchView->setItems(items, true, !m_newQuery);
++    m_matches = temp;
++    // If new matches are obtained for the same query, append them to the list
++    m_newQuery = false;
+ }
+ 
+ void QsDialog::setAction(MatchItem *item)
+--- workspace/krunner/interfaces/quicksand/qs_dialog.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/quicksand/qs_dialog.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -58,6 +58,8 @@
+         void loadActions(MatchItem *item);
+         void setAction(MatchItem *item);
+     private:
++        bool m_newQuery;
++        QMultiMap<QString, Plasma::QueryMatch> m_matches;
+         QuickSand::QsMatchView *m_matchView;
+         QuickSand::QsMatchView *m_actionView;
+         QuickSand::QueryMatchItem *m_currentMatch;
+--- workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,5 +1,5 @@
+ /*
+- *   Copyright (C) 2007-2008 Ryan P. Bitanga <ryan.bitanga@gmail.com>
++ *   Copyright (C) 2007-2009 Ryan P. Bitanga <ryan.bitanga@gmail.com>
+  *
+  *   This program is free software; you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -74,6 +74,7 @@
+         bool m_hasFocus;
+         bool m_itemsRemoved;
+         bool m_listVisible;
++        bool m_selectionMade;
+ };
+ 
+ QsMatchView::QsMatchView(QWidget *parent)
+@@ -85,6 +86,7 @@
+     d->m_hasFocus = false;
+     d->m_itemsRemoved = false;
+     d->m_listVisible = true;
++    d->m_selectionMade = false; //Prevent completion box from popping up once a user chooses a match
+     //FIXME: don't hardcode black
+     setStyleSheet("QListWidget {color: black} QLineEdit {color: black}");
+ 
+@@ -157,8 +159,10 @@
+ {
+     clear(true);
+ 
++    d->m_stack->setCurrentIndex(0);
+     d->m_arrowButton->hide();
+     d->m_listVisible = true;
++    d->m_selectionMade = false;
+     d->m_hasFocus = false;
+     d->m_searchTerm = QString();
+     d->m_compBox->clear();
+@@ -172,26 +176,35 @@
+     setDescriptionText(i18n("Type to search."));
+ }
+ 
+-void QsMatchView::setItems(const QList<MatchItem*> &items, bool popup)
++void QsMatchView::setItems(const QList<MatchItem*> &items, bool popup, bool append)
+ {
++    int spacing = MatchItem::ITEM_SIZE/2;
+ 
+-    clear(true);
++    int pos = spacing;
+ 
+-    d->m_compBox->clear();
++    if (!append) {
++        clear(true);
++        d->m_compBox->clear();
+ 
+-    d->m_currentItem = -1;
+-    d->m_items = items;
++        d->m_currentItem = -1;
++        d->m_items = items;
++    } else {
++        // FIXME: This completely disregards item ranking
++        // Maybe should we just sort then scroll to previously selected item
++        if (!d->m_items.isEmpty()) {
++            pos += d->m_items.last()->pos().x();
++        }
++        d->m_items << items;
++    }
+ 
+-    int spacing = MatchItem::ITEM_SIZE/2;
+-
+-    int pos = spacing;
+-
+-    foreach(MatchItem *item, d->m_items) {
++    foreach(MatchItem *item, items) {
+         if (item) {
+             item->setPos(pos, SMALL_ICON_PADDING);
+             item->scale(0.5, 0.5);
+             pos += spacing;
+-            d->m_scene->addItem(item);
++            if (d->m_listVisible) {
++                d->m_scene->addItem(item);
++            }
+             QString description;
+             if (item->description().isEmpty()) {
+                 description = item->name();
+@@ -204,7 +217,14 @@
+     }
+     d->m_itemsRemoved = false;
+     setItemCount(d->m_items.size());
++
++    if (d->m_selectionMade) {
++        //kDebug() << "A user selection was already made" << endl;
++        return;
++    }
++
+     scrollToItem(0);
++
+     //Ensure popup is shown if desired
+     if (popup) {
+         if (items.size()) {
+@@ -262,7 +282,11 @@
+     d->m_descRect->setBrush(b);
+     d->m_descRect->setPen(p);
+ 
+-    d->m_descText = new QGraphicsTextItem(text, d->m_descRect);
++    QFontMetrics fm(font());
++
++    // Show ellipsis in the middle to distinguish between strings with identical
++    // beginnings e.g. paths
++    d->m_descText = new QGraphicsTextItem(fm.elidedText(text, Qt::ElideMiddle, WIDTH), d->m_descRect);
+     //Center text
+     d->m_descText->setPos(-(d->m_descText->boundingRect().width()/2), 60);
+ 
+@@ -306,11 +330,6 @@
+ void QsMatchView::showLoading()
+ {
+     clear(true);
+-//     QPointF pos[8];
+-//     for (int i = 0; i < 8; ++i) {
+-//         pos[i] = QPointF(std::sin((i * 6.28) / 8.0) * 25,
+-//                          std::cos((i * 6.28) / 8.0) * 25);
+-//     }
+ 
+     d->m_descText = new QGraphicsTextItem(i18n("Loading..."), d->m_descRect);
+     d->m_descText->setDefaultTextColor(QColor(Qt::white));
+@@ -319,14 +338,6 @@
+     //Center text
+     d->m_descText->setPos(-(d->m_descText->boundingRect().width()/2), (HEIGHT - fm.height())/2);
+     d->m_scene->addItem(d->m_descText);
+-
+-//     for (int i = 0; i < 8; ++i) {
+-//         QGraphicsEllipseItem *item = new QGraphicsEllipseItem(0, 30, 6, 6);
+-//         item->setPos(pos[i]);
+-//         QBrush b(QColor(0, 0, 0, 255*i/8));
+-//         item->setBrush(b);
+-//         d->m_scene->addItem(item);
+-//     }
+ }
+ 
+ void QsMatchView::showList()
+@@ -352,7 +363,9 @@
+ void QsMatchView::showSelected()
+ {
+     if (!d->m_items.size()) {
+-        reset();
++        if (d->m_searchTerm.isEmpty()) {
++            reset();
++        }
+         return;
+     }
+ 
+@@ -573,6 +586,7 @@
+         QWidget::keyPressEvent(e);
+         return;
+     }
++
+     switch (e->key()) {
+         case Qt::Key_Period:
+             //Switch to line edit
+@@ -606,6 +620,7 @@
+                        &&  d->m_currentItem < d->m_items.size()) {
+                     emit itemActivated(d->m_items[d->m_currentItem]);
+             }
++            d->m_selectionMade = true;
+             showSelected();
+             return;
+         default:
+@@ -620,6 +635,7 @@
+             } else {
+                 d->m_searchTerm += c;
+             }
++            d->m_selectionMade = false;
+         }
+     }
+     d->m_lineEdit->setText(d->m_searchTerm);
+--- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -437,8 +437,7 @@
+         resetInterface();
+         m_queryRunning = false;
+     } else {
+-        m_resultsScene->launchQuery(query);
+-        m_queryRunning = true;
++        m_queryRunning = m_resultsScene->launchQuery(query);
+     }
+ }
+ 
+--- workspace/krunner/interfaces/default/resultscene.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/default/resultscene.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -62,8 +62,8 @@
+         void previousPage();
+         void setPage(uint index);
+         void setQueryMatches(const QList<Plasma::QueryMatch> &matches);
+-        void launchQuery(const QString &term);
+-        void launchQuery(const QString &term, const QString &runner);
++        bool launchQuery(const QString &term);
++        bool launchQuery(const QString &term, const QString &runner);
+         void clearQuery();
+ 
+     signals:
+--- workspace/krunner/interfaces/default/resultscene.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/interfaces/default/resultscene.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -321,14 +321,18 @@
+ 
+ }
+ 
+-void ResultScene::launchQuery(const QString &term)
++bool ResultScene::launchQuery(const QString &term)
+ {
++    bool temp = !(term.isEmpty() || m_runnerManager->query() == term);
+     m_runnerManager->launchQuery(term);
++    return temp;
+ }
+ 
+-void ResultScene::launchQuery(const QString &term, const QString &runner)
++bool ResultScene::launchQuery(const QString &term, const QString &runner)
+ {
++    bool temp = !(term.isEmpty() || m_runnerManager->query() == term);
+     m_runnerManager->launchQuery(term, runner);
++    return temp;
+ }
+ 
+ void ResultScene::clearQuery()
+--- workspace/krunner/lock/lockprocess.cc	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/krunner/lock/lockprocess.cc	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1104,7 +1104,6 @@
+         return; // no resuming with dialog visible or when not visible
+     if( mSuspended && mHackProc.state() == QProcess::Running )
+     {
+-        XForceScreenSaver(QX11Info::display(), ScreenSaverReset );
+         QPainter p( this );
+         p.drawPixmap( 0, 0, mSavedScreen );
+         p.end();
+--- workspace/libs/kephal/xrandr12/randroutput.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/kephal/xrandr12/randroutput.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -27,16 +27,17 @@
+ 
+ RandROutput::RandROutput(RandRScreen *parent, RROutput id)
+ : QObject(parent)
+-{    
++{
+     m_screen = parent;
+     Q_ASSERT(m_screen);
+ 
+     m_id = id;
+     m_crtc = 0;
+     m_rotations = 0;
+-    
++    m_connected = false;
++
+     queryOutputInfo();
+-    
++
+     m_proposedRotation = m_originalRotation;
+     m_proposedRate = m_originalRate;
+     m_proposedRect = m_originalRect;
+--- workspace/libs/kephal/kded_kephal/kded_kephal.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/kephal/kded_kephal/kded_kephal.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[el]=Άρθρωμα KDED για τη διαχείριση οθόνης
+ Name[es]=El módulo de gestión de pantallas KDED
+ Name[et]=KDED ekraanihalduse moodul
++Name[eu]=Pantailak kudeatzeko KDED moduloa
+ Name[fr]=Module KDED pour la gestion de l'affichage
+ Name[fy]=KDED-module foar skermbehear
+ Name[gl]=Módulo de KDED para xestionar a pantalla
+--- workspace/libs/ksysguard/processcore/processes.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/ksysguard/processcore/processes.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -27,6 +27,15 @@
+ #include "process.h"
+ #include <QtCore/QHash>
+ 
++#ifdef Q_CC_MSVC
++// this workaround is needed to make krunner link under msvc
++// please keep it this way even if you port this library to have a _export.h header file
++#define KSYSGUARDCORE_EXPORT
++#else
++#define KSYSGUARDCORE_EXPORT KDE_EXPORT
++#endif
++
++
+ namespace KSysGuard
+ {
+     class AbstractProcesses;
+@@ -50,7 +59,7 @@
+      *
+      * @author John Tapsell <tapsell@kde.org>
+      */
+-    class KDE_EXPORT Processes : public QObject
++    class KSYSGUARDCORE_EXPORT Processes : public QObject
+     {
+     Q_OBJECT
+ 
+--- workspace/libs/ksysguard/processui/ProcessModel.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/ksysguard/processui/ProcessModel.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -34,7 +34,15 @@
+ }
+ 
+ class ProcessModelPrivate;
+-class KDE_EXPORT ProcessModel : public QAbstractItemModel
++#ifdef Q_CC_MSVC
++// this workaround is needed to make krunner link under msvc
++// please keep it this way even if you port this library to have a _export.h header file
++#define KSYSGUARD_EXPORT
++#else
++#define KSYSGUARD_EXPORT KDE_EXPORT
++#endif
++
++class KSYSGUARD_EXPORT ProcessModel : public QAbstractItemModel
+ {
+ 	Q_OBJECT
+ 	Q_ENUMS(Units)
+--- workspace/libs/ksysguard/processui/ksysguardprocesslist.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/ksysguard/processui/ksysguardprocesslist.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -30,6 +30,14 @@
+ #include "ProcessFilter.h"
+ #include "processes.h"
+ 
++#ifdef Q_CC_MSVC
++// this workaround is needed to make krunner link under msvc
++// please keep it this way even if you port this library to have a _export.h header file
++#define KSYSGUARD_EXPORT
++#else
++#define KSYSGUARD_EXPORT KDE_EXPORT
++#endif
++
+ class QShowEvent;
+ class QHideEvent;
+ class QLineEdit;
+@@ -44,7 +52,7 @@
+  * update rate and the process filter.  The buttons are used to force
+  * an immediate update and to kill a process.
+  */
+-class KDE_EXPORT KSysGuardProcessList : public QWidget
++class KSYSGUARD_EXPORT KSysGuardProcessList : public QWidget
+ {
+ 	Q_OBJECT
+ 	Q_PROPERTY( bool showTotalsInTree READ showTotals WRITE setShowTotals )
+--- workspace/libs/ksysguard/processui/ProcessFilter.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/libs/ksysguard/processui/ProcessFilter.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -30,7 +30,15 @@
+ 
+ class QModelIndex;
+ 
+-class KDE_EXPORT ProcessFilter : public QSortFilterProxyModel
++#ifdef Q_CC_MSVC
++// this workaround is needed to make krunner link under msvc
++// please keep it this way even if you port this library to have a _export.h header file
++#define KSYSGUARD_EXPORT
++#else
++#define KSYSGUARD_EXPORT KDE_EXPORT
++#endif
++
++class KSYSGUARD_EXPORT ProcessFilter : public QSortFilterProxyModel
+ {
+ 	Q_OBJECT
+ 	Q_ENUMS(State)
+--- workspace/khotkeys/app/khotkeys.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/khotkeys/app/khotkeys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -48,6 +48,7 @@
+ Comment[el]=Δαίμονας KHotKeys.
+ Comment[es]=Demonio de KHotKeys. Sin demonio no hay teclas de acceso directo
+ Comment[et]=KDE kiirklahvide deemon. Pole deemonit, pole ka kiirklahve.
++Comment[eu]=KHotKeys deabrua. Deabrurik ez, teka lasterbiderik ez.
+ Comment[fr]=Démon KHotKeys. Pas de démon, pas de raccourcis clavier.
+ Comment[fy]=KHotKeys daemon. Gjin daemon, gjin fluchtoetsen.
+ Comment[gl]=Daemon KHotKey. Se non funciona o daemon, non hai hotkeys.
+--- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -14,6 +14,7 @@
+ Comment[eo]=Ĉi tiu grupo enhavas diversajn ekzemplojn kiuj montras la plejmulton de la ebloj de KHotkeys. (Notu ke ĉi tiu grupo estas malebligita defaŭlte.)
+ Comment[es]=Este grupo contiene varios ejemplos que muestran la mayoría de las funciones de KHotkeys. (Observe que este grupo y todas sus acciones está inhabilitado por omisión.)
+ Comment[et]=See grupp sisaldab mitmeid näiteid, mis selgitavad enamikku KDE kiirklahvide võimalusi. (Pane tähele, et grupp ja kõik toimingud on vaikimisi välja lülitatud.)
++Comment[eu]=Talde honek KHotkeys-ren ezaugarri gehienak frogatzen dituzten adibide ugari dauzka.(Kontutan izan talde hau eta bere ekintza guztiak modu lehenetsian ezgaituta daudela)
+ Comment[fa]=این گروه شامل مثالهای مختلف نمایش بیشتر ویژگیهای KHotkeys است. )توجه کنید که این گروه و همه کنشهای آن به طور پیش‌فرض غیرفعالند.(
+ Comment[fi]=Tässä ryhmässä on joukko KHotkeys-esimerkkejä. Huomaa, että tämä ryhmä ja kaikki sen toiminnot on oletuksena asetettu pois päältä.
+ Comment[fr]=Ce groupe contient divers exemples montrant la plupart des fonctionnalités de KHotkeys (remarquez que ce groupe et toutes ses actions sont désactivés par défaut).
+@@ -153,6 +154,7 @@
+ Comment[eo]=Post premo de Ctrl+Alt+I, la KSIRC-fenestro fariĝas aktiva, se ĝi ekzistas.
+ Comment[es]=Tras pulsar Ctrl+Alt+I, se activará la ventana de KSIRC, si la hay. Sencillo.
+ Comment[et]=Klahvidele Ctrl+Alt+I vajutades aktiveeritaksse KSirci aken, kui see on olemas. Lihtne.
++Comment[eu]=Ctrl+Alt+I sakatu ondoren, KSIRC leihoa aktibatuko da, existitzen bada. Erraza.
+ Comment[fa]=پس از فشار مهار+دگرساز+I، پنجره KSIRC در صورت وجود، فعال می‌شود. ساده.
+ Comment[fi]=KSIRC-ikkuna aktivoidaan, kun painetaan Ctrl+Alt+I, jos ikkuna on olemassa. Yksinkertaista.
+ Comment[fr]=L'appui sur les touches « Ctrl+Alt+I » activera la fenêtre de KSIRC, si elle existe. Simple.
+--- workspace/kwin/effects/videorecord.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,180 +0,0 @@
+-/********************************************************************
+- KWin - the KDE window manager
+- This file is part of the KDE project.
+-
+-Copyright (C) 2006 Lubos Lunak <l.lunak@kde.org>
+-
+-This program is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 2 of the License, or
+-(at your option) any later version.
+-
+-This program is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-*********************************************************************/
+-
+-/*
+-
+- This effect allows recording a video from the session.
+-
+- Requires libcaptury:
+-
+- - git clone git://gitorious.org/capseo/mainline.git capseo
+- - you may want to remove 1.10 from AUTOMAKE_OPTIONS in Makefile.am
+- - ./autogen.sh
+- - the usual configure && make && make install procedure
+-   (you may want to pass --enable-theora --with-accel=x86 [or amd64])
+-
+- - git clone git://gitorious.org/libcaptury/mainline.git libcaptury
+- - you may want to remove 1.10 from AUTOMAKE_OPTIONS in Makefile.am
+- - ./autogen.sh
+- - the usual configure && make && make install procedure
+-
+- Video is saved to $HOME/kwin_video.cps, use
+- "cpsrecode -i kwin_video.cps  -o - | mplayer -" to play,
+- to create a video use "cpsrecode -c theora -i kwin_video.cps -o screen.ogg"
+- or use mencoder in a similar way as mplayer.
+-
+-*/
+-
+-#include "videorecord.h"
+-
+-#include <kaction.h>
+-#include <kactioncollection.h>
+-#include <kdebug.h>
+-#include <klocale.h>
+-#include <qdir.h>
+-#include <qfile.h>
+-#include <kio/netaccess.h>
+-#include <KConfigGroup>
+-#include <KGlobalSettings>
+-
+-#include <strings.h>
+-
+-namespace KWin
+-{
+-
+-KWIN_EFFECT( videorecord, VideoRecordEffect )
+-
+-VideoRecordEffect::VideoRecordEffect()
+-    : client( NULL )
+-    {
+-    KActionCollection* actionCollection = new KActionCollection( this );
+-    KAction* a = static_cast< KAction* >( actionCollection->addAction( "VideoRecord" ));
+-    a->setText( i18n("Toggle Video Recording" ));
+-    a->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_V ));
+-    connect( a, SIGNAL( triggered( bool )), this, SLOT( toggleRecording()));
+-    area = QRect( 0, 0, displayWidth(), displayHeight());
+-    }
+-
+-VideoRecordEffect::~VideoRecordEffect()
+-    {
+-    stopRecording();
+-    }
+-
+-void VideoRecordEffect::paintScreen( int mask, QRegion region, ScreenPaintData& data )
+-    {
+-    effects->paintScreen( mask, region, data );
+-    if( client != NULL )
+-        capture_region = ( mask & ( PAINT_WINDOW_TRANSFORMED | PAINT_SCREEN_TRANSFORMED ))
+-            ? QRect( 0, 0, displayWidth(), displayHeight()) : region;
+-    }
+-
+-void VideoRecordEffect::postPaintScreen()
+-    {
+-    effects->postPaintScreen();
+-    if( client != NULL )
+-        {
+-#if 1
+-        if( CapturyProcessRegionStart( client ) == CAPTURY_SUCCESS )
+-            {
+-            capture_region &= QRect( 0, 0, displayWidth(), displayHeight()); // limit to screen
+-            foreach( const QRect &r, capture_region.rects())
+-                {
+-                int gly = displayHeight() - r.y() - r.height(); // opengl coords
+-                CapturyProcessRegion( client, r.x(), gly, r.width(), r.height());
+-                }
+-            CapturyProcessRegionCommit( client );
+-            }
+-#else
+-        CapturyProcessFrame( client );
+-#endif
+-        }
+-    }
+-
+-void VideoRecordEffect::startRecording()
+-    {
+-    if( client != NULL )
+-        stopRecording();
+-    bzero( &config, sizeof( config ));
+-    config.x = area.x();
+-    config.y = area.y();
+-    config.width = area.width();
+-    config.height = area.height();
+-    config.scale = 0;
+-    config.fps = 30; // TODO
+-    config.deviceType = CAPTURY_DEVICE_GLX; // TODO
+-    config.deviceHandle = display();
+-    config.windowHandle = rootWindow(); // TODO
+-    config.cursor = true;
+-    client = CapturyOpen( &config );
+-    if( client == NULL )
+-        {
+-        kDebug( 1212 ) << "Video recording init failed";
+-        return;
+-        }
+-    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
+-    QString videoPath =conf.readEntry( "videopath", KGlobalSettings::documentPath() );
+-    QString videoName(videoPath +"/kwin_video1.cps" );
+-    while(QFile::exists( videoName )) {
+-        autoincFilename( videoName );
+-    }
+-    if( CapturySetOutputFileName( client, QFile::encodeName( videoName ).constData() ) != CAPTURY_SUCCESS )
+-        {
+-        kDebug( 1212 ) << "Video recording file open failed";
+-        return;
+-        }
+-    effects->addRepaintFull(); // trigger reading initial screen contents into buffer
+-    kDebug( 1212 ) << "Video recording start";
+-    }
+-
+-void VideoRecordEffect::autoincFilename(QString & name)
+-    {
+-        // If the name contains a number then increment it
+-        QRegExp numSearch( "(^|[^\\d])(\\d+)" ); // we want to match as far left as possible, and when the number is at the start of the name
+-        // Does it have a number?
+-        int start = numSearch.lastIndexIn( name );
+-        if (start != -1) {
+-            // It has a number, increment it
+-            start = numSearch.pos( 2 ); // we are only interested in the second group
+-            QString numAsStr = numSearch.capturedTexts()[ 2 ];
+-            QString number = QString::number( numAsStr.toInt() + 1 );
+-            number = number.rightJustified( numAsStr.length(), '0' );
+-            name.replace( start, number.length(), number );
+-        }
+-    }
+-void VideoRecordEffect::stopRecording()
+-    {
+-    if( client == NULL )
+-        return;
+-    kDebug( 1212 ) << "Video recording stop";
+-    CapturyClose( client );
+-    client = NULL;
+-    }
+-
+-void VideoRecordEffect::toggleRecording()
+-    {
+-    if( client == NULL )
+-        startRecording();
+-    else
+-        stopRecording();
+-    }
+-
+-} // namespace
+-
+-#include "videorecord.moc"
+--- workspace/kwin/effects/videorecord_config.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord_config.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,122 +0,0 @@
+-/********************************************************************
+- KWin - the KDE window manager
+- This file is part of the KDE project.
+-
+-Copyright (C) 2007 Rivo Laks <rivolaks@hot.ee>
+-
+-This program is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 2 of the License, or
+-(at your option) any later version.
+-
+-This program is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-*********************************************************************/
+-
+-#include "videorecord_config.h"
+-
+-#include <kwineffects.h>
+-
+-#include <klocale.h>
+-#include <kdebug.h>
+-#include <KActionCollection>
+-#include <kaction.h>
+-#include <KShortcutsEditor>
+-#include <KUrlRequester>
+-#include <QLabel>
+-#include <KGlobalSettings>
+-#include <KConfigGroup>
+-
+-#include <QVBoxLayout>
+-#include <QHBoxLayout>
+-#ifndef KDE_USE_FINAL
+-KWIN_EFFECT_CONFIG_FACTORY
+-#endif
+-K_PLUGIN_FACTORY_DEFINITION(EffectFactory,
+-    registerPlugin<KWin::VideoRecordEffectConfig>("videorecord");
+-    )
+-K_EXPORT_PLUGIN(EffectFactory("kwin"))
+-
+-namespace KWin
+-{
+-
+-VideoRecordEffectConfig::VideoRecordEffectConfig(QWidget* parent, const QVariantList& args) :
+-        KCModule(EffectFactory::componentData(), parent, args)
+-    {
+-    QVBoxLayout* layout = new QVBoxLayout(this);
+-    QHBoxLayout* hlayout = new QHBoxLayout( this );
+-    QLabel *label = new QLabel( i18n( "Path to save video:" ), this );
+-    hlayout->addWidget( label );
+-    saveVideo = new KUrlRequester( this );
+-    saveVideo->setMode( KFile::Directory | KFile::LocalOnly );
+-    hlayout->addWidget( saveVideo );
+-    layout->addLayout( hlayout );
+-
+-    KActionCollection* actionCollection = new KActionCollection( this, componentData() );
+-    KAction* a = static_cast<KAction*>(actionCollection->addAction( "VideoRecord" ));
+-    a->setText( i18n("Toggle Video Recording" ));
+-    a->setProperty("isConfigurationAction", true);
+-    a->setGlobalShortcut(KShortcut(Qt::CTRL + Qt::META + Qt::Key_V));
+-
+-    mShortcutEditor = new KShortcutsEditor(actionCollection, this,
+-            KShortcutsEditor::GlobalAction, KShortcutsEditor::LetterShortcutsDisallowed);
+-    layout->addWidget(mShortcutEditor);
+-
+-    connect(saveVideo, SIGNAL(textChanged(const QString&)), this, SLOT(changed()));
+-    connect(mShortcutEditor, SIGNAL(keyChange()), this, SLOT(changed()));
+-
+-    layout->addStretch();
+-
+-    load();
+-    }
+-
+-VideoRecordEffectConfig::~VideoRecordEffectConfig()
+-    {
+-    // Undo (only) unsaved changes to global key shortcuts
+-    mShortcutEditor->undoChanges();
+-    }
+-
+-void VideoRecordEffectConfig::load()
+-    {
+-    KCModule::load();
+-
+-    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
+-    saveVideo->setPath( conf.readEntry( "videopath", KGlobalSettings::documentPath() ) );
+-    emit changed(false);
+-    }
+-
+-void VideoRecordEffectConfig::save()
+-    {
+-    KCModule::save();
+-
+-    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
+-
+-    if( saveVideo->url().isEmpty() )
+-       conf.writeEntry("videopath", KGlobalSettings::documentPath());
+-    else
+-       conf.writeEntry("videopath", saveVideo->url().path());
+-
+-    conf.sync();
+-
+-    mShortcutEditor->save();    // undo() will restore to this state from now on
+-
+-    emit changed(false);
+-    EffectsHandler::sendReloadMessage( "videorecord" );
+-    }
+-
+-void VideoRecordEffectConfig::defaults()
+-    {
+-    saveVideo->setPath(KGlobalSettings::documentPath() );
+-    mShortcutEditor->allDefault();
+-    emit changed(true);
+-    }
+-
+-
+-} // namespace
+-
+-#include "videorecord_config.moc"
+--- workspace/kwin/effects/videorecord_config.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,77 +0,0 @@
+-[Desktop Entry]
+-Type=Service
+-X-KDE-ServiceTypes=KCModule
+-
+-X-KDE-Library=kcm_kwin4_effect_videorecord
+-X-KDE-ParentComponents=kwin4_effect_videorecord
+-X-KDE-PluginKeyword=videorecord
+-
+-Name=Video Record
+-Name[af]=Video-opneem
+-Name[ar]=تسجيل الفيديو
+-Name[be]=Відэазапіс
+-Name[be@latin]=Videazapis
+-Name[bg]=Запис на звук
+-Name[bn]=ভিডিও রেকর্ড
+-Name[bn_IN]=ভিডিও রেকর্ড
+-Name[ca]=Gravador de vídeo
+-Name[cs]=Nahrávání videa
+-Name[csb]=Nagranié wideò
+-Name[da]=Videooptagelse
+-Name[de]=Video-Aufnahme
+-Name[el]=Εγγραφή βίντεο
+-Name[eo]=Videoregistrilo
+-Name[es]=Grabación de vídeo
+-Name[et]=Videosalvestus
+-Name[eu]=Bideo grabazioa
+-Name[fa]=ضبط ویدیو
+-Name[fi]=Videotallennin
+-Name[fr]=Enregistre une vidéo
+-Name[fy]=Fideo rekord
+-Name[ga]=Taifead Físeanna
+-Name[gl]=Gravadora de vídeo
+-Name[gu]=વિડીઓ રેકોર્ડ
+-Name[he]=הקלטת סרט
+-Name[hi]=वीडियो रेकॉर्ड
+-Name[hu]=Videófelvevő
+-Name[is]=Vídeó upptaka
+-Name[it]=Registra video
+-Name[ja]=ビデオレコーダー
+-Name[kk]=Бейне жазып алу
+-Name[km]=កំណត់​ត្រា​វីដេអូ
+-Name[kn]=ವೀಡಿಯೋ ದಾಖಲು (ಮುದ್ರಣ)
+-Name[ko]=동영상 녹화
+-Name[lt]=Video įrašymas
+-Name[lv]=Video ieraksts
+-Name[mai]=वीडियो रेकार्ड
+-Name[mk]=Снимање видео
+-Name[ml]=വീഡിയോ റിക്കോര്‍ഡ്
+-Name[mr]=वीडियो रेकॉर्ड
+-Name[nb]=Videoopptak
+-Name[nds]=Video opnehmen
+-Name[ne]=भिडियो रेकर्ड
+-Name[nl]=Video-opname
+-Name[nn]=Videoopptak
+-Name[pa]=ਵੀਡਿਓ ਰਿਕਾਰਡ
+-Name[pl]=Nagrywanie wideo
+-Name[pt]=Gravação de Vídeo
+-Name[pt_BR]=Gravar vídeo
+-Name[ro]=Înregistrare video
+-Name[ru]=Запись видео
+-Name[se]=Videobádden
+-Name[sk]=Nahrávanie videa
+-Name[sl]=Snemanje
+-Name[sr]=Видео снимање
+-Name[sr@latin]=Video snimanje
+-Name[sv]=Videoinspelning
+-Name[ta]=பதிவொளி பதிவு
+-Name[te]=వీడియో రికార్‍డ్
+-Name[tg]=Сабти видео
+-Name[th]=เครื่องมืออัดวิดีโอ
+-Name[tr]=Video Kaydet
+-Name[uk]=Запис відео
+-Name[vi]=Thu ảnh động
+-Name[wa]=Eredjistraedje videyo
+-Name[x-test]=xxVideo Recordxx
+-Name[zh_CN]=视频录制
+-Name[zh_TW]=影像錄影
+--- workspace/kwin/effects/videorecord_config.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord_config.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,51 +0,0 @@
+-/********************************************************************
+- KWin - the KDE window manager
+- This file is part of the KDE project.
+-
+-Copyright (C) 2007 Rivo Laks <rivolaks@hot.ee>
+-
+-This program is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 2 of the License, or
+-(at your option) any later version.
+-
+-This program is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-*********************************************************************/
+-
+-#ifndef KWIN_VIDEORECORD_CONFIG_H
+-#define KWIN_VIDEORECORD_CONFIG_H
+-
+-#include <kcmodule.h>
+-
+-class KShortcutsEditor;
+-class KUrlRequester;
+-
+-namespace KWin
+-{
+-
+-class VideoRecordEffectConfig : public KCModule
+-    {
+-    Q_OBJECT
+-    public:
+-        explicit VideoRecordEffectConfig(QWidget* parent = 0, const QVariantList& args = QVariantList());
+-        ~VideoRecordEffectConfig();
+-
+-    public slots:
+-        virtual void save();
+-        virtual void load();
+-        virtual void defaults();
+-
+-    private:
+-        KShortcutsEditor* mShortcutEditor;
+-        KUrlRequester *saveVideo;
+-    };
+-
+-} // namespace
+-
+-#endif
+--- workspace/kwin/effects/videorecord.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,54 +0,0 @@
+-/********************************************************************
+- KWin - the KDE window manager
+- This file is part of the KDE project.
+-
+-Copyright (C) 2006 Lubos Lunak <l.lunak@kde.org>
+-
+-This program is free software; you can redistribute it and/or modify
+-it under the terms of the GNU General Public License as published by
+-the Free Software Foundation; either version 2 of the License, or
+-(at your option) any later version.
+-
+-This program is distributed in the hope that it will be useful,
+-but WITHOUT ANY WARRANTY; without even the implied warranty of
+-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-GNU General Public License for more details.
+-
+-You should have received a copy of the GNU General Public License
+-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-*********************************************************************/
+-
+-#ifndef KWIN_VIDEORECORD_H
+-#define KWIN_VIDEORECORD_H
+-
+-#include <kwineffects.h>
+-
+-#include <captury/captury.h>
+-
+-namespace KWin
+-{
+-
+-class VideoRecordEffect
+-    : public QObject, public Effect
+-    {
+-    Q_OBJECT
+-    public:
+-        VideoRecordEffect();
+-        virtual ~VideoRecordEffect();
+-        virtual void paintScreen( int mask, QRegion region, ScreenPaintData& data );
+-        virtual void postPaintScreen();
+-    private slots:
+-        void toggleRecording();
+-    private:
+-        void startRecording();
+-        void stopRecording();
+-        void autoincFilename(QString & url);
+-        captury_config_t config;
+-        captury_t* client;
+-        QRect area;
+-        QRegion capture_region;
+-    };
+-
+-} // namespace
+-
+-#endif // KWIN_VIDEORECORD_H
+--- workspace/kwin/effects/videorecord.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/videorecord.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,131 +0,0 @@
+-[Desktop Entry]
+-Name=Video Record
+-Name[af]=Video-opneem
+-Name[ar]=تسجيل الفيديو
+-Name[be]=Відэазапіс
+-Name[be@latin]=Videazapis
+-Name[bg]=Запис на звук
+-Name[bn]=ভিডিও রেকর্ড
+-Name[bn_IN]=ভিডিও রেকর্ড
+-Name[ca]=Gravador de vídeo
+-Name[cs]=Nahrávání videa
+-Name[csb]=Nagranié wideò
+-Name[da]=Videooptagelse
+-Name[de]=Video-Aufnahme
+-Name[el]=Εγγραφή βίντεο
+-Name[eo]=Videoregistrilo
+-Name[es]=Grabación de vídeo
+-Name[et]=Videosalvestus
+-Name[eu]=Bideo grabazioa
+-Name[fa]=ضبط ویدیو
+-Name[fi]=Videotallennin
+-Name[fr]=Enregistre une vidéo
+-Name[fy]=Fideo rekord
+-Name[ga]=Taifead Físeanna
+-Name[gl]=Gravadora de vídeo
+-Name[gu]=વિડીઓ રેકોર્ડ
+-Name[he]=הקלטת סרט
+-Name[hi]=वीडियो रेकॉर्ड
+-Name[hu]=Videófelvevő
+-Name[is]=Vídeó upptaka
+-Name[it]=Registra video
+-Name[ja]=ビデオレコーダー
+-Name[kk]=Бейне жазып алу
+-Name[km]=កំណត់​ត្រា​វីដេអូ
+-Name[kn]=ವೀಡಿಯೋ ದಾಖಲು (ಮುದ್ರಣ)
+-Name[ko]=동영상 녹화
+-Name[lt]=Video įrašymas
+-Name[lv]=Video ieraksts
+-Name[mai]=वीडियो रेकार्ड
+-Name[mk]=Снимање видео
+-Name[ml]=വീഡിയോ റിക്കോര്‍ഡ്
+-Name[mr]=वीडियो रेकॉर्ड
+-Name[nb]=Videoopptak
+-Name[nds]=Video opnehmen
+-Name[ne]=भिडियो रेकर्ड
+-Name[nl]=Video-opname
+-Name[nn]=Videoopptak
+-Name[pa]=ਵੀਡਿਓ ਰਿਕਾਰਡ
+-Name[pl]=Nagrywanie wideo
+-Name[pt]=Gravação de Vídeo
+-Name[pt_BR]=Gravar vídeo
+-Name[ro]=Înregistrare video
+-Name[ru]=Запись видео
+-Name[se]=Videobádden
+-Name[sk]=Nahrávanie videa
+-Name[sl]=Snemanje
+-Name[sr]=Видео снимање
+-Name[sr@latin]=Video snimanje
+-Name[sv]=Videoinspelning
+-Name[ta]=பதிவொளி பதிவு
+-Name[te]=వీడియో రికార్‍డ్
+-Name[tg]=Сабти видео
+-Name[th]=เครื่องมืออัดวิดีโอ
+-Name[tr]=Video Kaydet
+-Name[uk]=Запис відео
+-Name[vi]=Thu ảnh động
+-Name[wa]=Eredjistraedje videyo
+-Name[x-test]=xxVideo Recordxx
+-Name[zh_CN]=视频录制
+-Name[zh_TW]=影像錄影
+-Icon=preferences-system-windows-effect-video-record
+-Comment=Record a video of your desktop
+-Comment[ar]=تسجل فيديو لسطح مكتبك
+-Comment[be@latin]=Zapisvaje videa z rabočaha stała.
+-Comment[bg]=Запис на видео върху работния плот
+-Comment[bn_IN]=ডেস্কটপের ভিডিও রেকর্ড করুন
+-Comment[ca]=Grava un vídeo de l'escriptori
+-Comment[csb]=Nagriwô wideò na twòjim pùlce
+-Comment[da]=Optag en video af din desktop
+-Comment[de]=Zeichnet Videos von der Arbeitsfläche auf.
+-Comment[el]=Εγγραφή ενός βίντεο της επιφάνειας εργασίας σας
+-Comment[es]=Le permite grabar vídeos de su escritorio
+-Comment[et]=Võimaldab salvestada videoid töölauast
+-Comment[fr]=Enregistre des vidéos de votre bureau
+-Comment[fy]=In fideo opnimme fan jo buroblêd
+-Comment[gl]=Grava un vídeo do escritorio
+-Comment[gu]=તમારા ડેસ્કટોપનો વિડીઓ રેકોર્ડ કરો
+-Comment[he]=מקליט סרטי וידאו של שולחן העבודה שלך
+-Comment[hi]=आपके डेस्कटॉप के वीडियो को रेकॉर्ड करें
+-Comment[is]=Gerir þér kleift að taka upp vídeó af skjáborðinu
+-Comment[it]=Registra un video del desktop
+-Comment[ja]=デスクトップを動画として記録します
+-Comment[kk]=Үстеліңіздің бейнефильмін жазып алу
+-Comment[km]=​ថត​វីដេអូ​ផ្ទៃតុ​របស់​អ្នក
+-Comment[kn]=ಗಣಕತೆರೆಯ ದೃಶ್ಯಾಂಶದ (ವೀಡಿಯೋ ) ಒಂದನ್ನು ದಾಖಲು ಮಾಡು
+-Comment[ko]=데스크톱 화면을 녹화합니다
+-Comment[lv]=Ļauj ierakstīt jūsu darbvirsmu video failā
+-Comment[mk]=Снимање видеа од Вашата работна површина
+-Comment[ml]=നിങ്ങളുടെ പണിയിടത്തിന്റെ വീഡിയോ റിക്കോര്‍ഡ് ചെയ്യുക
+-Comment[mr]=डेस्कटॉपचे विडीयो रेकॉर्ड करा
+-Comment[nb]=Ta opp video av skrivebordet
+-Comment[nds]=En Video vun Dien Schriefdisch opnehmen
+-Comment[nl]=Laat u opnames maken van uw bureaublad
+-Comment[pa]=ਆਪਣੇ ਡੈਸਕਟਾਪ ਲਈ ਇੱਕ ਵੀਡਿਓ ਰਿਕਾਰਡ ਕਰੋ
+-Comment[pl]=Pozwala nagrywać Twój pulpit
+-Comment[pt]=Gravar um vídeo do seu ecrã
+-Comment[pt_BR]=Gravar um vídeo da sua área de trabalho
+-Comment[ro]=Înregistrare video a biroului
+-Comment[sk]=Nahrá video vašej plochy
+-Comment[sl]=Posnemite video posnetek svojega namizja
+-Comment[sr]=Снимајте видео записе своје површи
+-Comment[sr@latin]=Snimajte video zapise svoje površi
+-Comment[sv]=Spela in en video av skrivbordet
+-Comment[th]=บันทึกวิดีโอของพื้นที่ทำงานของคุณ
+-Comment[tr]=Masaüstünüzün videosunu kaydedin
+-Comment[uk]=Дає змогу записувати відео зі стільниці
+-Comment[x-test]=xxRecord a video of your desktopxx
+-Comment[zh_CN]=录制桌面视频
+-Comment[zh_TW]=讓您錄下您桌面的影像
+-
+-Type=Service
+-X-KDE-ServiceTypes=KWin/Effect
+-X-KDE-PluginInfo-Author=Luboš Luňák
+-X-KDE-PluginInfo-Email=l.lunak@kde.org
+-X-KDE-PluginInfo-Name=kwin4_effect_videorecord
+-X-KDE-PluginInfo-Version=0.1.0
+-X-KDE-PluginInfo-Category=Tools
+-X-KDE-PluginInfo-Depends=
+-X-KDE-PluginInfo-License=GPL
+-X-KDE-PluginInfo-EnabledByDefault=false
+-X-KDE-Library=kwin4_effect_videorecord
+--- workspace/kwin/effects/invert.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/invert.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -79,6 +79,7 @@
+ Comment[el]=Αντιστροφή του χρώματος της επιφάνειας εργασίας και των παραθύρων
+ Comment[es]=Invierte el color del escritorio y ventanas
+ Comment[et]=Muudab töölaua ja akende värvi vastupidiseks
++Comment[eu]=Mahaigain eta leihoen koloreak alderantzikatzen ditu
+ Comment[fr]=Inverse la couleur du bureau et des fenêtres
+ Comment[fy]=De kleur fan buroblêden en finster omdraaie
+ Comment[gl]=Inverte a cor do escritorio e das fiestras
+--- workspace/kwin/effects/taskbarthumbnail.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/taskbarthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -73,6 +73,7 @@
+ Comment[et]=Akende pisipiltide näitamine, kui kursor on nende tegumiriba kirje kohal
+ Comment[fr]=Affiche les aperçus des fenêtres lorsque le curseur survole leur icône dans le gestionnaire des tâches
+ Comment[fy]=Finsterrminiateuren sjen litte as it rinnerke op syn taakbalke setten wurdt
++Comment[ga]=Taispeáin mionsamhail na fuinneoige nuair atá an cúrsóir os cionn iontrála sa tascbharra
+ Comment[gl]=Mostra miniaturas das fiestras ao pasar o rato sobre a barra de tarefas
+ Comment[gu]=જ્યારે ટાસ્કબાર ઉપર કર્સર લઇ જાવ ત્યારે વિન્ડો થમ્બનીલ બતાવો
+ Comment[is]=Sýnir smámyndir glugga þegar bendill er á færslu verkefnaslárinnar
+--- workspace/kwin/effects/shadow.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/shadow.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -109,9 +109,22 @@
+                 }
+             }
+ 
++        //-------------------------
+         // Create default textures
++
+         mDefaultShadowQuadType = effects->newWindowQuadType(); // TODO: Unregister?
+-        QImage shadowImage( KGlobal::dirs()->findResource( "data", "kwin/shadow-texture.png" ));
++        QImage shadowImageSrc( KGlobal::dirs()->findResource( "data", "kwin/shadow-texture.png" ));
++
++        // Might as well process the shadow color here
++        QImage shadowImage( shadowImageSrc.width(), shadowImageSrc.height(), QImage::Format_ARGB32 );
++        QPainter painter( &shadowImage );
++        //painter.setCompositionMode( QPainter::CompositionMode_Multiply );
++        painter.setPen( Qt::NoPen );
++        painter.setBrush( shadowColor );
++        painter.drawRect( 0, 0, shadowImage.width(), shadowImage.height() );
++        painter.end();
++        shadowImage.setAlphaChannel( shadowImageSrc.alphaChannel() ); // Cheat, just use the alpha mask
++
+         int hw = shadowImage.width() / 2;
+         int hh = shadowImage.height() / 2;
+         mDefaultShadowTextures.append( new GLTexture( shadowImage.copy( 0,  0,  hw, hh )));
+@@ -611,12 +624,9 @@
+         glActiveTexture(GL_TEXTURE0 );
+         }
+     else*/ if( opacity != 1.0 || brightness != 1.0 )
+-        {
+-        // the window is additionally configured to have its opacity adjusted,
+-        // do it
+-        float opacityByBrightness = opacity * brightness;
++        { // The window is additionally configured to have its opacity adjusted
+         glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+-        glColor4f( opacityByBrightness, opacityByBrightness, opacityByBrightness, opacity);
++        glColor4f( brightness, brightness, brightness, opacity );
+         }
+ #endif
+     }
+@@ -638,7 +648,7 @@
+             glActiveTexture(GL_TEXTURE0);
+             }*/
+         glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
+-        glColor4f( 0, 0, 0, 0 );
++        glColor4f( 0.0, 0.0, 0.0, 0.0 );
+         }
+ 
+     glPopAttrib();  // ENABLE_BIT
+@@ -646,15 +656,12 @@
+     }
+ 
+ void ShadowEffect::drawShadowQuadOpenGL( GLTexture *texture, QVector<float> verts, QVector<float> texCoords,
+-    QColor color, QRegion region, float opacity, float brightness, float saturation )
++    QRegion region, float opacity, float brightness, float saturation )
+     {
+ #ifdef KWIN_HAVE_OPENGL_COMPOSITING
+-    if( color.isValid() )
+-        glColor4f( color.redF(), color.greenF(), color.blueF(), 1.0 );
+-    else
+-        glColor4f( 1.0, 1.0, 1.0, 1.0 );
+-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+-    prepareRenderStates( texture, opacity, brightness, saturation );
++    glColor4f( 1.0, 1.0, 1.0, 1.0 );
++    glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE );
++    prepareRenderStates( texture, opacity, brightness, saturation ); // Usually overrides the above
+     texture->bind();
+     texture->enableNormalizedTexCoords();
+     glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+@@ -801,7 +808,7 @@
+                         { // Decorated windows
+                         // Active shadow
+                         drawShadowQuadOpenGL( mShadowTextures.at( texture ).at( quad.id() ),
+-                            verts, texcoords, QColor(), region,
++                            verts, texcoords, region,
+                             data.opacity * window->shadowOpacity( ShadowBorderedActive ),
+                             data.brightness * window->shadowBrightness( ShadowBorderedActive ),
+                             data.saturation * window->shadowSaturation( ShadowBorderedActive ));
+@@ -809,7 +816,7 @@
+                         // Inactive shadow
+                         texture = effects->shadowTextureList( ShadowBorderedInactive );
+                         drawShadowQuadOpenGL( mShadowTextures.at( texture ).at( quad.id() ),
+-                            verts, texcoords, QColor(), region,
++                            verts, texcoords, region,
+                             data.opacity * window->shadowOpacity( ShadowBorderedInactive ),
+                             data.brightness * window->shadowBrightness( ShadowBorderedInactive ),
+                             data.saturation * window->shadowSaturation( ShadowBorderedInactive ));
+@@ -819,7 +826,7 @@
+                         if( effects->activeWindow() == window )
+                             {
+                             drawShadowQuadOpenGL( mShadowTextures.at( texture ).at( quad.id() ),
+-                                verts, texcoords, QColor(), region,
++                                verts, texcoords, region,
+                                 data.opacity * window->shadowOpacity( ShadowBorderlessActive ),
+                                 data.brightness * window->shadowBrightness( ShadowBorderlessActive ),
+                                 data.saturation * window->shadowSaturation( ShadowBorderlessActive ));
+@@ -828,7 +835,7 @@
+                             {
+                             texture = effects->shadowTextureList( ShadowBorderlessInactive );
+                             drawShadowQuadOpenGL( mShadowTextures.at( texture ).at( quad.id() ),
+-                                verts, texcoords, QColor(), region,
++                                verts, texcoords, region,
+                                 data.opacity * window->shadowOpacity( ShadowBorderlessInactive ),
+                                 data.brightness * window->shadowBrightness( ShadowBorderlessInactive ),
+                                 data.saturation * window->shadowSaturation( ShadowBorderlessInactive ));
+@@ -837,7 +844,7 @@
+                     else
+                         { // Other windows
+                         drawShadowQuadOpenGL( mShadowTextures.at( texture ).at( quad.id() ),
+-                            verts, texcoords, QColor(), region,
++                            verts, texcoords, region,
+                             data.opacity * window->shadowOpacity( ShadowOther ),
+                             data.brightness * window->shadowBrightness( ShadowOther ),
+                             data.saturation * window->shadowSaturation( ShadowOther ));
+@@ -851,7 +858,7 @@
+                     opacity = 1 - ( 1 - shadowOpacity ) * ( 1 - shadowOpacity );
+ 
+                 drawShadowQuadOpenGL( mDefaultShadowTextures.at( quad.id() ),
+-                    verts, texcoords, shadowColor, region,
++                    verts, texcoords, region,
+                     data.opacity * opacity,
+                     data.brightness,
+                     data.saturation );
+--- workspace/kwin/effects/maketransparent.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/maketransparent.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -81,6 +81,7 @@
+ Comment[el]=Εμφάνιση ημιδιαφανών παραθύρων σε διάφορες περιπτώσεις
+ Comment[es]=Hace la ventana translúcida en distintas condiciones
+ Comment[et]=Akende muutmine läbipaistvaks teatavatel tingimustel
++Comment[eu]=Leihoak zeharrargitsu egiten ditu baldintza desberdinetan
+ Comment[fr]=Affiche des fenêtres translucides en fonction de diverses conditions
+ Comment[fy]=Meitsje finsters trochsichtich ûnder oare kondysjes
+ Comment[gl]=Fai translúcidas as fiestras en diferentes casos
+--- workspace/kwin/effects/sharpen.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/sharpen.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -78,6 +78,7 @@
+ Comment[eu]=Zure mahaiagain osoa enfokatzen du
+ Comment[fr]=Fait apparaître l'ensemble du bureau plus nettement
+ Comment[fy]=Makket jo buroblêd ekstra dúdlik
++Comment[ga]=Géaraigh dealramh na deisce
+ Comment[gl]=Fai que o escritorio aparente estar máis focalizado
+ Comment[gu]=સમગ્ર ડેસ્કટોપને ચોખ્ખું દેખાતું બનાવો
+ Comment[he]=מחדד את מראה שולחן העבודה שלך
+--- workspace/kwin/effects/blur.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/blur.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -77,6 +77,7 @@
+ Comment[eu]=Lausto atzekoaldea leiho erdigardenen atzean
+ Comment[fr]=Rend flou l'arrière-plan sous les fenêtres semi-transparentes
+ Comment[fy]=Ferfaget de eftergrûn fan healtrochsichtige finsters
++Comment[ga]=Geamhaigh an cúlra taobh thiar d'fhuinneoga leath-thrédhearcacha
+ Comment[gl]=Desfocaliza o fondo tras das fiestras semitransparentes
+ Comment[gu]=પાશ્વભાગને અર્ધ-પારદર્શક વિન્ડોઝમાં ઝાંખું કરે છે
+ Comment[he]=טישטוש הרקע של חלונות שקופים למחצה
+--- workspace/kwin/effects/fallapart.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/fallapart.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -72,6 +72,7 @@
+ Comment[eo]=Fermantaj fenestroj disiĝas en pecoj
+ Comment[es]=Las ventanas cerradas caen en trozos
+ Comment[et]=Suletud aknad lagunevad tükkideks
++Comment[eu]=Itxitako leihoak zatika erortzen dira
+ Comment[fi]=Suljetut ikkunat hajoavat palasiksi.
+ Comment[fr]=Les fenêtres fermées s'effondrent
+ Comment[fy]=Sluten finsters falle útelkoar
+--- workspace/kwin/effects/explosion.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/explosion.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -79,6 +79,7 @@
+ Comment[eu]=Leihoak ixtean lehertzen ditu
+ Comment[fr]=Fait exploser les fenêtres lorsqu'elle sont fermées
+ Comment[fy]=Lit finsters eksplodearje as se sluten wurde
++Comment[ga]=Leis seo, pléascfaidh fuinneoga nuair a dhúntar iad
+ Comment[gl]=Estoupa as fiestras cando se pechan
+ Comment[gu]=જ્યારે વિન્ડો બંધ થાય છે ત્યારે તેમને ધડાકાભેર બંધ કરે છે
+ Comment[he]=פוצץ חלונות בעת סגירתם
+--- workspace/kwin/effects/shadow_config.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/shadow_config.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -54,7 +54,7 @@
+     connect( m_ui->opacitySpin, SIGNAL( valueChanged( int )), this, SLOT( changed() ));
+     connect( m_ui->fuzzinessSpin, SIGNAL( valueChanged( int )), this, SLOT( changed() ));
+     connect( m_ui->sizeSpin, SIGNAL( valueChanged( int )), this, SLOT( changed() ));
+-    connect( m_ui->colorButton, SIGNAL( changed( int )), this, SLOT( changed() ));
++    connect( m_ui->colorButton, SIGNAL( changed( QColor )), this, SLOT( changed() ));
+     connect( m_ui->strongerActiveBox, SIGNAL( stateChanged( int )), this, SLOT( changed() ));
+ 
+     connect( m_ui->forceDecoratedBox, SIGNAL( stateChanged( int )), this, SLOT( changed() ));
+--- workspace/kwin/effects/zoom.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/zoom.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -75,6 +75,7 @@
+ Comment[eu]=Handitu mahaigain osoa
+ Comment[fr]=Agrandit tout le bureau
+ Comment[fy]=It hiele buroblêd fergrutsje
++Comment[ga]=Formhéadaigh an deasc iomlán
+ Comment[gl]=Amplía todo o escritorio
+ Comment[gu]=આખા ડેસ્કટોપને મોટું કરો
+ Comment[he]=מגדיל את כל שולחן העבודה
+--- workspace/kwin/effects/thumbnailaside.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/thumbnailaside.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -73,6 +73,7 @@
+ Comment[et]=Ekraani serval näidatakse akende pisipilte
+ Comment[fr]=Affiche l'aperçu de la fenêtre sur le bord de l'écran
+ Comment[fy]=Lit fintersminiatuer sjen oan de râne fan it skerm
++Comment[ga]=Taispeáin mionsamhail na fuinneoige ag ciumhais an scáileáin
+ Comment[gl]=Mostra miniaturas das fiestras no contorno da pantalla
+ Comment[gu]=સ્ક્રિનની કિનારી પર વિન્ડોની થમ્બનીલ બતાવો
+ Comment[hi]=स्क्रीन के किनारे विंडो लघुछवि प्रदर्शित करें
+--- workspace/kwin/effects/snow.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/snow.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -98,7 +98,7 @@
+                 int size = 0;
+                 while ( size < mMinFlakeSize )
+                     size = random() % mMaxFlakeSize;
+-                SnowFlake flake = SnowFlake( random() % (displayWidth() - size), -1 * size, size, size, mMaxVSpeed, mMaxHSpeed );
++                SnowFlake flake = SnowFlake( random() % (displayWidth() - size), -size, size, size, mMaxVSpeed, mMaxHSpeed );
+                 flakes.append( flake );
+ 
+                 // calculation of next time of snowflake
+@@ -356,9 +356,9 @@
+     if(rotationSpeed == 0) rotationSpeed = 0.5;
+     rect = QRect(x, y, width, height);
+     frameCounter = 0;
+-    maxFrames = displayHeight() / vSpeed;
++    maxFrames = (displayHeight() + 2*height) / vSpeed;
+     if( hSpeed > 0 )
+-        maxFrames = qMin( maxFrames, (displayWidth() - x)/hSpeed );
++        maxFrames = qMin( maxFrames, (displayWidth() + width - x)/hSpeed );
+     else if( hSpeed < 0 )
+         maxFrames = qMin( maxFrames, (x + width)/(-hSpeed) );
+     }
+--- workspace/kwin/effects/magnifier.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/magnifier.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -85,8 +85,10 @@
+ Comment[el]=Μεγέθυνση του τμήματος της οθόνης που βρίσκεται κοντά στο ποντίκι
+ Comment[es]=Amplía la parte de la pantalla que cerca bajo el ratón
+ Comment[et]=Suurendab hiirekursori ümbruses asuvat ekraaniosa
++Comment[eu]=Handitu sagu kurtsorearen ondoan dagoen leihoaren zatia
+ Comment[fr]=Agrandit la partie de l'écran proche du pointeur de la souris
+ Comment[fy]=Fergruttet it part fan it skerm dat him ûnder de mûs befynt
++Comment[ga]=Formhéadaigh an pháirt den scáileán i ngar do chúrsóir na luiche
+ Comment[gl]=Amplía a parte da pantalla que está perto do rato
+ Comment[gu]=માઉસ કર્સર નજીકનો સ્ક્રિનનો ભાગ મોટો કરે છે
+ Comment[he]=הגדלת החלק של המסך שנמצא ליד למצביע העכבר
+--- workspace/kwin/effects/cube.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/cube.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -78,6 +78,7 @@
+ Comment[fi]=Näytä jokainen virtuaalityöpöytä kuution eri laidalla
+ Comment[fr]=Affiche chaque bureau virtuel sur la face d'un cube
+ Comment[fy]=Elts firtueel buroblêd op in side fan in kubus sjen litte
++Comment[ga]=Taispeáin gach deasc fíorúil ar thaobh de sféar
+ Comment[gl]=Mostra cada escritorio virtual nunha cara dun cubo
+ Comment[gu]=ક્યુબની બાજુએ દરેક વર્ચ્યુઅલ ડેસ્કટોપ બતાવે છે
+ Comment[he]=הצג כל שולחן עבודה וירטואלי בפיאה של קובייה
+--- workspace/kwin/effects/snow.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/snow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -85,6 +85,7 @@
+ Comment[eu]=Egin mahaigainean elurra ari balu bezala
+ Comment[fr]=Simule de la neige qui tombe sur votre bureau
+ Comment[fy]=Lit it snije op it buroblêd
++Comment[ga]=Insamhail sneachta ag titim ar an deasc
+ Comment[gl]=Simula unha nevarada no escritorio
+ Comment[gu]=ડેસ્કટોપ પર બરફ પડતો બતાવે છે
+ Comment[he]=מדמה ירידת שלג על שולחן העבודה
+--- workspace/kwin/effects/magiclamp.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/magiclamp.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -10,6 +10,7 @@
+ Name[el]=Μαγικό λυχνάρι
+ Name[es]=Lámpara mágica
+ Name[et]=Võlulatern
++Name[eu]=Lanpara magikoa
+ Name[fr]=Lampe Magique
+ Name[fy]=Magyske lamp
+ Name[gl]=Lámpada máxica
+@@ -62,6 +63,7 @@
+ Comment[el]=Εξομοίωση ενός μαγικού λυχναριού κατά την ελαχιστοποίηση παραθύρων
+ Comment[es]=Simula una lámpara mágica en la minimización de ventanas
+ Comment[et]=Võlulaterna simuleerimine akende minimeerimisel
++Comment[eu]=Lanpara magiko bat simulatu leihoak minimizatzerakoan
+ Comment[fr]=Simule une lampe magique lors de la réduction des fenêtres
+ Comment[fy]=Docht sich foar as in magyske lampe ûnder it minimalisearjen fan finsters
+ Comment[gl]=Simula unha lámpada máxica ao minimizar as fiestras
+--- workspace/kwin/effects/dimscreen.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/dimscreen.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -10,6 +10,7 @@
+ Name[eo]=Malheligi la ekranon en administra reĝimo
+ Name[es]=Aclarar la pantalla en el modo administrador
+ Name[et]=Tuhm ekraan administraatori režiimis
++Name[eu]=Ilundu leihoa administratzaile modurako
+ Name[fi]=Tummena näyttö pääkäyttäjätilassa
+ Name[fr]=Assombrir l'écran en mode administrateur
+ Name[fy]=Yn administratormodus it skerm dimme
+@@ -61,6 +62,7 @@
+ Comment[el]=Σκίαση ολόκληρης της οθόνης όταν απαιτούνται διακαιώματα ριζικού χρήστη root
+ Comment[es]=Oscurece la pantalla completa cuando se requieran privilegios de root
+ Comment[et]=Tumendab administraatori õiguste nõudmisel kogu ekraani
++Comment[eu]=Pantaila osoa iluntzen du root eskubideak eskatzerakoan
+ Comment[fr]=Noircit l'ensemble du bureau quand les privilèges administrateurs sont requis
+ Comment[fy]=It gehiele skerm donker meitsje as der om root-rjochten frege wurdt
+ Comment[gl]=Escurece toda a pantalla cando se piden os privilexios de root
+--- workspace/kwin/effects/scalein.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/scalein.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -79,6 +79,7 @@
+ Comment[eu]=Leihoen agertzea animatzen du
+ Comment[fr]=Anime l'apparition des fenêtres
+ Comment[fy]=Bringt it ferskinen fan finsters ta libben
++Comment[ga]=Déan beochan agus fuinneog á taispeáint
+ Comment[gl]=Anima a aparición das fiestras
+ Comment[gu]=વિન્ડોનો દેખાવ એનિમેટ કરો
+ Comment[he]=הנפש את ההופעה של חלונות
+--- workspace/kwin/effects/diminactive_config.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/diminactive_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[eo]=Malheligi neaktivajn
+ Name[es]=Oscurecer inactiva
+ Name[et]=Tuhm mitteaktiivne
++Name[eu]=Ilundu ez aktibo
+ Name[fi]=Himmennä passiivinen
+ Name[fr]=Estompe les inactifs
+ Name[fy]=Net aktive dimme
+--- workspace/kwin/effects/minimizeanimation.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/minimizeanimation.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -81,6 +81,7 @@
+ Comment[eu]=Leihoen minimizatzea animatzen du
+ Comment[fr]=Anime la réduction des fenêtres
+ Comment[fy]=Bringt it minimalisearjen fan finster ta libben
++Comment[ga]=Déan beochan agus fuinneog á híoslaghdú
+ Comment[gl]=Anima a minimización das fiestras
+ Comment[gu]=વિન્ડોને નાની કરતી વખતે એનિમેટ કરો
+ Comment[he]=הנפשת מיזעור חלונות
+--- workspace/kwin/effects/shadow.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/shadow.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -54,7 +54,7 @@
+         void restoreRenderStates( GLTexture *texture, double opacity, double brightness, double saturation );
+ 
+         void drawShadowQuadOpenGL( GLTexture *texture, QVector<float> verts, QVector<float> texCoords,
+-            QColor color, QRegion region, float opacity, float brightness, float saturation );
++            QRegion region, float opacity, float brightness, float saturation );
+         void drawShadowQuadXRender( XRenderPicture *picture, QRect rect, float xScale, float yScale,
+             QColor color, float opacity, float brightness, float saturation );
+ 
+--- workspace/kwin/effects/mousemark.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/mousemark.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -80,6 +80,7 @@
+ Comment[eu]=Zure mahaigainean lerroak marraztea uzten dizu
+ Comment[fr]=Vous permet de dessiner des lignes sur votre bureau
+ Comment[fy]=Lit jo streken tekenje op jo buroblêd
++Comment[ga]=Uirlis a cheadaíonn duit línte a dhearadh ar an deasc
+ Comment[gl]=Permítelle debuxar riscos no escritorio
+ Comment[gu]=તમને ડેસ્કટોપ પર લીટીઓ દોરવા દે છે
+ Comment[he]=מאפשר לך לצייר קווים על גבי שולחן העבודה שלך
+--- workspace/kwin/effects/dialogparent.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/dialogparent.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -78,6 +78,7 @@
+ Comment[eu]=Uneko elkarrizketa-koadro aktiboaren aita iluntzen du
+ Comment[fr]=Assombrit la fenêtre parente de la fenêtre active courante
+ Comment[fy]=Fertsjustert it haadfinster fan aktive dialogen
++Comment[ga]=Dorchaigh máthairfhuinneog na dialóige atá gníomhach faoi láthair
+ Comment[gl]=Escurece a fiestra pai do diálogo activo
+ Comment[gu]=સક્રિય સંવાદની મુખ્ય વિન્ડોને ઘાટી બનાવે છે
+ Comment[he]=מחשיך את חלון האב של החלון הפעיל
+--- workspace/kwin/effects/trackmouse.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/trackmouse.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -77,6 +77,7 @@
+ Comment[et]=Aktiveerimisel näidatakse hiirekursori asukohta
+ Comment[fr]=Affiche un effet indiquant la position du curseur de la souris quand activé
+ Comment[fy]=Lit de posysje fan it mûsrinnerke sjen as it aktief is
++Comment[ga]=Taispeáin leid a chabhraíonn leat an cúrsóir a aimsiú
+ Comment[gl]=Mostra un efecto de localización do cursor cando está activada
+ Comment[gu]=જ્યારે સક્રિય થાય ત્યારે માઉસ કર્સરની સ્થિતિની અસર બતાવો
+ Comment[hi]=जब सक्रिय किया जाए तो प्रभाव को इंगित करता माउस संकेतक प्रदर्शित करें
+--- workspace/kwin/effects/desktopgrid.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/desktopgrid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -76,6 +76,7 @@
+ Comment[el]=Σμίκρυνση όλων των επιφανειών εργασίας και εμφάνιση σε παράθεση σε έναν κάνναβο
+ Comment[es]=Alejarse de forma que todos los escritorios se muestren uno al lado del otro en una rejilla
+ Comment[et]=Vähendamine, et kõik töölauad oleks üksteise kõrval võrgustikus näha
++Comment[eu]=Zooma urrundu mahaigain guztiak bata bestearen ondoan sareta batean bistaratu daitezen
+ Comment[fr]=Faire un zoom arrière de manière à afficher tous les bureaux côte à côte dans une grille
+ Comment[gl]=Reduce de maneira que os escritorios son mostrados lado por lado en grella
+ Comment[gu]=નાનું કરો જેથી બધાં ડેસ્કટોપ્સ બાજુ-બાજુ પર જાળીમાં દેખાય
+--- workspace/kwin/effects/fade.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/fade.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -42,7 +42,7 @@
+ Name[nb]=Ton ut
+ Name[nds]=Utblennen
+ Name[ne]=फेड
+-Name[nl]=Vervagen
++Name[nl]=In-/uitvagen
+ Name[nn]=Ton inn/ut
+ Name[pa]=ਫਿੱਕਾ
+ Name[pl]=Znikanie/wyłanianie
+@@ -80,6 +80,7 @@
+ Comment[et]=Paneb aknad sujuvalt hääbuma või tugevnema, kui need peidetakse või nähtavale tuuakse
+ Comment[fr]=Estompe ou fait apparaître en fondu les fenêtres lorsqu'elles sont affichées ou cachées
+ Comment[fy]=Lit finters útstrutsen ferfage of opkomme as se te sjen binne of ferburgen wurde
++Comment[ga]=Leis seo, céimneoidh fuinneoga isteach agus amach agus iad á dtaispeáint nó á bhfolú
+ Comment[gl]=Esvae/Fai opacas as fiestras con suavidade ao mostralas ou acochadas
+ Comment[gu]=જ્યારે વિન્ડો બતાવવામાં અથવા છુપાવવામાં આવે છે ત્યારે તેમને સરળતાથી ઝાંખી અથવા પ્રકાશિત કરો
+ Comment[he]=חשיפה והיעלמות חלקה של חלונות בעת הצגתם או הסתרתם
+--- workspace/kwin/effects/shadow.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/shadow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -88,6 +88,7 @@
+ Comment[eu]=Leihoen azpian itzala gehitzen du
+ Comment[fr]=Dessine des ombres sous les fenêtres
+ Comment[fy]=Soarget foar skaad ûnder de finsters
++Comment[ga]=Cuir scáthanna faoi fhuinneoga
+ Comment[gl]=Debuxa sombras baixo as fiestras
+ Comment[gu]=વિન્ડોની નીચે પડછાયો ઉમેરો
+ Comment[he]=הוספת צל מתחת לחלונות
+--- workspace/kwin/effects/diminactive.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/diminactive.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -11,6 +11,7 @@
+ Name[eo]=Malheligi neaktivajn
+ Name[es]=Oscurecer inactiva
+ Name[et]=Tuhm mitteaktiivne
++Name[eu]=Ilundu ez aktibo
+ Name[fi]=Himmennä passiivinen
+ Name[fr]=Estompe les inactifs
+ Name[fy]=Net aktive dimme
+@@ -73,6 +74,7 @@
+ Comment[eu]=Ilundu leiho ez aktiboak
+ Comment[fr]=Assombrit les fenêtres inactives
+ Comment[fy]=Fertsjuster ynaktive finsters
++Comment[ga]=Dorchaigh na fuinneoga neamhghníomhacha
+ Comment[gl]=Escurece as fiestras inactivas
+ Comment[gu]=અસક્રિય વિન્ડોને ઘાટી બનાવે છે
+ Comment[he]=החשך חלונות לא פעילים
+--- workspace/kwin/effects/slide.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/slide.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -63,6 +63,7 @@
+ Comment[eu]=Mugitu leihoak diapositiba gisa pantailaren zehar laneko areaz aldatzean
+ Comment[fr]=Fait glisser les fenêtres à travers le bureau en changeant de bureaux virtuels
+ Comment[fy]=Glydet finsters oer it skerm hinne as der wiksele wurdt tusken firtuele buroblêden
++Comment[ga]=Sleamhnaigh fuinneoga trasna an scáileáin agus an deasc fhíorúil á hathrú
+ Comment[gl]=Desliza as fiestras pola pantalla ao trocar de escritorio virtual
+ Comment[gu]=વર્ચ્યુઅલ ડેસ્કટોપ્સ બદલતી વખતે વિન્ડોસને સ્લાઇડ કરો
+ Comment[he]=גרום לחלונות לגלוש במסך בעת המעבר בין שולנות עבודה וירטואלים
+--- workspace/kwin/effects/data/snow.vert	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/data/snow.vert	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -42,6 +42,6 @@
+     else
+         yCoord = float(height)*0.5;
+     vec2 vertex = vec2( xCoord, yCoord );
+-    vertex = (vertex)*rotation + vec2( float(x), 0.0 ) + vec2(hSpeed, vSpeed)*float(frames);
++    vertex = (vertex)*rotation + vec2( float(x), float(-height) ) + vec2(hSpeed, vSpeed)*float(frames);
+     gl_Position = gl_ModelViewProjectionMatrix * vec4(vertex, gl_Vertex.zw);
+ }
+--- workspace/kwin/effects/CMakeLists.txt	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -226,23 +226,3 @@
+   target_link_libraries(kwin4_effect_builtins ${X11_Xrender_LIB} ${X11_LIBRARIES} kephal)
+ endif (KWIN_HAVE_XRENDER_COMPOSITING)
+ 
+-
+-
+-
+-### videocapture plugin
+-include(UsePkgConfig)
+-PKGCONFIG(libcaptury CAPTURY_INCLUDES CAPTURY_LINK_DIR CAPTURY_LDFLAGS CAPTURY_CFLAGS)
+-if( CAPTURY_LDFLAGS )
+-    SET( CAPTURY_FOUND TRUE )
+-endif( CAPTURY_LDFLAGS )
+-
+-macro_log_feature(CAPTURY_FOUND "Captury framework library" "Realtime video capturing framework e.g. screen casts" "http://gitorious.org/projects/libcaptury" FALSE "0.3.0" "Provides for video recording desktop effects.")
+-
+-macro_bool_to_01( CAPTURY_FOUND HAVE_CAPTURY )
+-if( CAPTURY_FOUND )
+-    KWIN4_ADD_EFFECT(videorecord videorecord.cpp)
+-    KWIN4_ADD_EFFECT_CONFIG(videorecord videorecord_config.cpp)
+-    target_link_libraries(kwin4_effect_videorecord ${KDE4_KIO_LIBS} ${CAPTURY_LDFLAGS})
+-    install( FILES videorecord.desktop videorecord_config.desktop DESTINATION ${SERVICES_INSTALL_DIR}/kwin )
+-endif( CAPTURY_FOUND )
+-
+--- workspace/kwin/effects/test/demo_showpicture.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/test/demo_showpicture.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -9,6 +9,7 @@
+ Name[el]=Επίδειξη της Εμφάνισης φωτογραφίας
+ Name[eo]=Demonstro montru bildon
+ Name[es]=Demostración de ShowPicture
++Name[eu]=ShowPicture demo
+ Name[fi]=Demo "Näytä kuva"
+ Name[fr]=Démo d'affichage d'image
+ Name[ga]=Maisíocht Taispeána: Taispeáin Pictiúr
+--- workspace/kwin/effects/test/videorecord.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,54 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2006 Lubos Lunak <l.lunak@kde.org>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++#ifndef KWIN_VIDEORECORD_H
++#define KWIN_VIDEORECORD_H
++
++#include <kwineffects.h>
++
++#include <captury/captury.h>
++
++namespace KWin
++{
++
++class VideoRecordEffect
++    : public QObject, public Effect
++    {
++    Q_OBJECT
++    public:
++        VideoRecordEffect();
++        virtual ~VideoRecordEffect();
++        virtual void paintScreen( int mask, QRegion region, ScreenPaintData& data );
++        virtual void postPaintScreen();
++    private slots:
++        void toggleRecording();
++    private:
++        void startRecording();
++        void stopRecording();
++        void autoincFilename(QString & url);
++        captury_config_t config;
++        captury_t* client;
++        QRect area;
++        QRegion capture_region;
++    };
++
++} // namespace
++
++#endif // KWIN_VIDEORECORD_H
+--- workspace/kwin/effects/test/videorecord_config.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,77 @@
++[Desktop Entry]
++Type=Service
++X-KDE-ServiceTypes=KCModule
++
++X-KDE-Library=kcm_kwin4_effect_videorecord
++X-KDE-ParentComponents=kwin4_effect_videorecord
++X-KDE-PluginKeyword=videorecord
++
++Name=Video Record
++Name[af]=Video-opneem
++Name[ar]=تسجيل الفيديو
++Name[be]=Відэазапіс
++Name[be@latin]=Videazapis
++Name[bg]=Запис на звук
++Name[bn]=ভিডিও রেকর্ড
++Name[bn_IN]=ভিডিও রেকর্ড
++Name[ca]=Gravador de vídeo
++Name[cs]=Nahrávání videa
++Name[csb]=Nagranié wideò
++Name[da]=Videooptagelse
++Name[de]=Video-Aufnahme
++Name[el]=Εγγραφή βίντεο
++Name[eo]=Videoregistrilo
++Name[es]=Grabación de vídeo
++Name[et]=Videosalvestus
++Name[eu]=Bideo grabazioa
++Name[fa]=ضبط ویدیو
++Name[fi]=Videotallennin
++Name[fr]=Enregistre une vidéo
++Name[fy]=Fideo rekord
++Name[ga]=Taifead Físeanna
++Name[gl]=Gravadora de vídeo
++Name[gu]=વિડીઓ રેકોર્ડ
++Name[he]=הקלטת סרט
++Name[hi]=वीडियो रेकॉर्ड
++Name[hu]=Videófelvevő
++Name[is]=Vídeó upptaka
++Name[it]=Registra video
++Name[ja]=ビデオレコーダー
++Name[kk]=Бейне жазып алу
++Name[km]=កំណត់​ត្រា​វីដេអូ
++Name[kn]=ವೀಡಿಯೋ ದಾಖಲು (ಮುದ್ರಣ)
++Name[ko]=동영상 녹화
++Name[lt]=Video įrašymas
++Name[lv]=Video ieraksts
++Name[mai]=वीडियो रेकार्ड
++Name[mk]=Снимање видео
++Name[ml]=വീഡിയോ റിക്കോര്‍ഡ്
++Name[mr]=वीडियो रेकॉर्ड
++Name[nb]=Videoopptak
++Name[nds]=Video opnehmen
++Name[ne]=भिडियो रेकर्ड
++Name[nl]=Video-opname
++Name[nn]=Videoopptak
++Name[pa]=ਵੀਡਿਓ ਰਿਕਾਰਡ
++Name[pl]=Nagrywanie wideo
++Name[pt]=Gravação de Vídeo
++Name[pt_BR]=Gravar vídeo
++Name[ro]=Înregistrare video
++Name[ru]=Запись видео
++Name[se]=Videobádden
++Name[sk]=Nahrávanie videa
++Name[sl]=Snemanje
++Name[sr]=Видео снимање
++Name[sr@latin]=Video snimanje
++Name[sv]=Videoinspelning
++Name[ta]=பதிவொளி பதிவு
++Name[te]=వీడియో రికార్‍డ్
++Name[tg]=Сабти видео
++Name[th]=เครื่องมืออัดวิดีโอ
++Name[tr]=Video Kaydet
++Name[uk]=Запис відео
++Name[vi]=Thu ảnh động
++Name[wa]=Eredjistraedje videyo
++Name[x-test]=xxVideo Recordxx
++Name[zh_CN]=视频录制
++Name[zh_TW]=影像錄影
+--- workspace/kwin/effects/test/demo_liquid.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/test/demo_liquid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -10,6 +10,7 @@
+ Name[el]=Επίδειξη του Liquid
+ Name[eo]=Demonstro likvaĵo
+ Name[es]=Demostración de Liquid
++Name[eu]=Liquid demo
+ Name[fr]=Démo liquide
+ Name[ga]=Maisíocht Taispeána: Leacht
+ Name[gl]=Demostración de Liquid
+--- workspace/kwin/effects/test/demo_shiftworkspaceup.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/test/demo_shiftworkspaceup.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -9,6 +9,7 @@
+ Name[el]=Επίδειξη του ShiftWorkspaceUp
+ Name[eo]=Demonstro movi laborspacon supren
+ Name[es]=Demostración de ShiftWorkspaceUp
++Name[eu]=ShiftWorkspaceUp demo
+ Name[fi]=Demo "siirrä työpöytä ylös"
+ Name[fr]=Démo de changement d'espace de travail
+ Name[ga]=Maisíocht Taispeána: Bog Spás Oibre Suas
+--- workspace/kwin/effects/test/CMakeLists.txt	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/test/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -61,3 +61,20 @@
+ # add the plugin
+ KWIN4_ADD_EFFECT(tests ${kwin4_effect_tests_sources})
+ 
++
++### videocapture plugin
++include(UsePkgConfig)
++PKGCONFIG(libcaptury CAPTURY_INCLUDES CAPTURY_LINK_DIR CAPTURY_LDFLAGS CAPTURY_CFLAGS)
++if( CAPTURY_LDFLAGS )
++    SET( CAPTURY_FOUND TRUE )
++endif( CAPTURY_LDFLAGS )
++
++macro_log_feature(CAPTURY_FOUND "Captury framework library" "Realtime video capturing framework e.g. screen casts" "http://gitorious.org/projects/libcaptury" FALSE "0.3.0" "Provides for video recording desktop effects.")
++
++macro_bool_to_01( CAPTURY_FOUND HAVE_CAPTURY )
++if( CAPTURY_FOUND )
++    KWIN4_ADD_EFFECT(videorecord videorecord.cpp)
++    KWIN4_ADD_EFFECT_CONFIG(videorecord videorecord_config.cpp)
++    target_link_libraries(kwin4_effect_videorecord ${KDE4_KIO_LIBS} ${CAPTURY_LDFLAGS})
++    install( FILES videorecord.desktop videorecord_config.desktop DESTINATION ${SERVICES_INSTALL_DIR}/kwin )
++endif( CAPTURY_FOUND )
+--- workspace/kwin/effects/test/drunken.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/test/drunken.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -9,6 +9,7 @@
+ Name[eo]=Ebria
+ Name[es]=Borracho
+ Name[et]=Purjus
++Name[eu]=Mozkorra
+ Name[fi]=Juopunut
+ Name[fr]=Ivre
+ Name[fy]=Dronken
+--- workspace/kwin/effects/test/videorecord_config.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord_config.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,51 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2007 Rivo Laks <rivolaks@hot.ee>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++#ifndef KWIN_VIDEORECORD_CONFIG_H
++#define KWIN_VIDEORECORD_CONFIG_H
++
++#include <kcmodule.h>
++
++class KShortcutsEditor;
++class KUrlRequester;
++
++namespace KWin
++{
++
++class VideoRecordEffectConfig : public KCModule
++    {
++    Q_OBJECT
++    public:
++        explicit VideoRecordEffectConfig(QWidget* parent = 0, const QVariantList& args = QVariantList());
++        ~VideoRecordEffectConfig();
++
++    public slots:
++        virtual void save();
++        virtual void load();
++        virtual void defaults();
++
++    private:
++        KShortcutsEditor* mShortcutEditor;
++        KUrlRequester *saveVideo;
++    };
++
++} // namespace
++
++#endif
+--- workspace/kwin/effects/test/videorecord.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,180 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2006 Lubos Lunak <l.lunak@kde.org>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++/*
++
++ This effect allows recording a video from the session.
++
++ Requires libcaptury:
++
++ - git clone git://gitorious.org/capseo/mainline.git capseo
++ - you may want to remove 1.10 from AUTOMAKE_OPTIONS in Makefile.am
++ - ./autogen.sh
++ - the usual configure && make && make install procedure
++   (you may want to pass --enable-theora --with-accel=x86 [or amd64])
++
++ - git clone git://gitorious.org/libcaptury/mainline.git libcaptury
++ - you may want to remove 1.10 from AUTOMAKE_OPTIONS in Makefile.am
++ - ./autogen.sh
++ - the usual configure && make && make install procedure
++
++ Video is saved to $HOME/kwin_video.cps, use
++ "cpsrecode -i kwin_video.cps  -o - | mplayer -" to play,
++ to create a video use "cpsrecode -c theora -i kwin_video.cps -o screen.ogg"
++ or use mencoder in a similar way as mplayer.
++
++*/
++
++#include "videorecord.h"
++
++#include <kaction.h>
++#include <kactioncollection.h>
++#include <kdebug.h>
++#include <klocale.h>
++#include <qdir.h>
++#include <qfile.h>
++#include <kio/netaccess.h>
++#include <KConfigGroup>
++#include <KGlobalSettings>
++
++#include <strings.h>
++
++namespace KWin
++{
++
++KWIN_EFFECT( videorecord, VideoRecordEffect )
++
++VideoRecordEffect::VideoRecordEffect()
++    : client( NULL )
++    {
++    KActionCollection* actionCollection = new KActionCollection( this );
++    KAction* a = static_cast< KAction* >( actionCollection->addAction( "VideoRecord" ));
++    a->setText( i18n("Toggle Video Recording" ));
++    a->setGlobalShortcut( KShortcut( Qt::CTRL + Qt::META + Qt::Key_V ));
++    connect( a, SIGNAL( triggered( bool )), this, SLOT( toggleRecording()));
++    area = QRect( 0, 0, displayWidth(), displayHeight());
++    }
++
++VideoRecordEffect::~VideoRecordEffect()
++    {
++    stopRecording();
++    }
++
++void VideoRecordEffect::paintScreen( int mask, QRegion region, ScreenPaintData& data )
++    {
++    effects->paintScreen( mask, region, data );
++    if( client != NULL )
++        capture_region = ( mask & ( PAINT_WINDOW_TRANSFORMED | PAINT_SCREEN_TRANSFORMED ))
++            ? QRect( 0, 0, displayWidth(), displayHeight()) : region;
++    }
++
++void VideoRecordEffect::postPaintScreen()
++    {
++    effects->postPaintScreen();
++    if( client != NULL )
++        {
++#if 1
++        if( CapturyProcessRegionStart( client ) == CAPTURY_SUCCESS )
++            {
++            capture_region &= QRect( 0, 0, displayWidth(), displayHeight()); // limit to screen
++            foreach( const QRect &r, capture_region.rects())
++                {
++                int gly = displayHeight() - r.y() - r.height(); // opengl coords
++                CapturyProcessRegion( client, r.x(), gly, r.width(), r.height());
++                }
++            CapturyProcessRegionCommit( client );
++            }
++#else
++        CapturyProcessFrame( client );
++#endif
++        }
++    }
++
++void VideoRecordEffect::startRecording()
++    {
++    if( client != NULL )
++        stopRecording();
++    bzero( &config, sizeof( config ));
++    config.x = area.x();
++    config.y = area.y();
++    config.width = area.width();
++    config.height = area.height();
++    config.scale = 0;
++    config.fps = 30; // TODO
++    config.deviceType = CAPTURY_DEVICE_GLX; // TODO
++    config.deviceHandle = display();
++    config.windowHandle = rootWindow(); // TODO
++    config.cursor = true;
++    client = CapturyOpen( &config );
++    if( client == NULL )
++        {
++        kDebug( 1212 ) << "Video recording init failed";
++        return;
++        }
++    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
++    QString videoPath =conf.readEntry( "videopath", KGlobalSettings::documentPath() );
++    QString videoName(videoPath +"/kwin_video1.cps" );
++    while(QFile::exists( videoName )) {
++        autoincFilename( videoName );
++    }
++    if( CapturySetOutputFileName( client, QFile::encodeName( videoName ).constData() ) != CAPTURY_SUCCESS )
++        {
++        kDebug( 1212 ) << "Video recording file open failed";
++        return;
++        }
++    effects->addRepaintFull(); // trigger reading initial screen contents into buffer
++    kDebug( 1212 ) << "Video recording start";
++    }
++
++void VideoRecordEffect::autoincFilename(QString & name)
++    {
++        // If the name contains a number then increment it
++        QRegExp numSearch( "(^|[^\\d])(\\d+)" ); // we want to match as far left as possible, and when the number is at the start of the name
++        // Does it have a number?
++        int start = numSearch.lastIndexIn( name );
++        if (start != -1) {
++            // It has a number, increment it
++            start = numSearch.pos( 2 ); // we are only interested in the second group
++            QString numAsStr = numSearch.capturedTexts()[ 2 ];
++            QString number = QString::number( numAsStr.toInt() + 1 );
++            number = number.rightJustified( numAsStr.length(), '0' );
++            name.replace( start, number.length(), number );
++        }
++    }
++void VideoRecordEffect::stopRecording()
++    {
++    if( client == NULL )
++        return;
++    kDebug( 1212 ) << "Video recording stop";
++    CapturyClose( client );
++    client = NULL;
++    }
++
++void VideoRecordEffect::toggleRecording()
++    {
++    if( client == NULL )
++        startRecording();
++    else
++        stopRecording();
++    }
++
++} // namespace
++
++#include "videorecord.moc"
+--- workspace/kwin/effects/test/videorecord_config.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord_config.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,122 @@
++/********************************************************************
++ KWin - the KDE window manager
++ This file is part of the KDE project.
++
++Copyright (C) 2007 Rivo Laks <rivolaks@hot.ee>
++
++This program is free software; you can redistribute it and/or modify
++it under the terms of the GNU General Public License as published by
++the Free Software Foundation; either version 2 of the License, or
++(at your option) any later version.
++
++This program is distributed in the hope that it will be useful,
++but WITHOUT ANY WARRANTY; without even the implied warranty of
++MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++GNU General Public License for more details.
++
++You should have received a copy of the GNU General Public License
++along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*********************************************************************/
++
++#include "videorecord_config.h"
++
++#include <kwineffects.h>
++
++#include <klocale.h>
++#include <kdebug.h>
++#include <KActionCollection>
++#include <kaction.h>
++#include <KShortcutsEditor>
++#include <KUrlRequester>
++#include <QLabel>
++#include <KGlobalSettings>
++#include <KConfigGroup>
++
++#include <QVBoxLayout>
++#include <QHBoxLayout>
++#ifndef KDE_USE_FINAL
++KWIN_EFFECT_CONFIG_FACTORY
++#endif
++K_PLUGIN_FACTORY_DEFINITION(EffectFactory,
++    registerPlugin<KWin::VideoRecordEffectConfig>("videorecord");
++    )
++K_EXPORT_PLUGIN(EffectFactory("kwin"))
++
++namespace KWin
++{
++
++VideoRecordEffectConfig::VideoRecordEffectConfig(QWidget* parent, const QVariantList& args) :
++        KCModule(EffectFactory::componentData(), parent, args)
++    {
++    QVBoxLayout* layout = new QVBoxLayout(this);
++    QHBoxLayout* hlayout = new QHBoxLayout( this );
++    QLabel *label = new QLabel( i18n( "Path to save video:" ), this );
++    hlayout->addWidget( label );
++    saveVideo = new KUrlRequester( this );
++    saveVideo->setMode( KFile::Directory | KFile::LocalOnly );
++    hlayout->addWidget( saveVideo );
++    layout->addLayout( hlayout );
++
++    KActionCollection* actionCollection = new KActionCollection( this, componentData() );
++    KAction* a = static_cast<KAction*>(actionCollection->addAction( "VideoRecord" ));
++    a->setText( i18n("Toggle Video Recording" ));
++    a->setProperty("isConfigurationAction", true);
++    a->setGlobalShortcut(KShortcut(Qt::CTRL + Qt::META + Qt::Key_V));
++
++    mShortcutEditor = new KShortcutsEditor(actionCollection, this,
++            KShortcutsEditor::GlobalAction, KShortcutsEditor::LetterShortcutsDisallowed);
++    layout->addWidget(mShortcutEditor);
++
++    connect(saveVideo, SIGNAL(textChanged(const QString&)), this, SLOT(changed()));
++    connect(mShortcutEditor, SIGNAL(keyChange()), this, SLOT(changed()));
++
++    layout->addStretch();
++
++    load();
++    }
++
++VideoRecordEffectConfig::~VideoRecordEffectConfig()
++    {
++    // Undo (only) unsaved changes to global key shortcuts
++    mShortcutEditor->undoChanges();
++    }
++
++void VideoRecordEffectConfig::load()
++    {
++    KCModule::load();
++
++    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
++    saveVideo->setPath( conf.readEntry( "videopath", KGlobalSettings::documentPath() ) );
++    emit changed(false);
++    }
++
++void VideoRecordEffectConfig::save()
++    {
++    KCModule::save();
++
++    KConfigGroup conf = EffectsHandler::effectConfig("VideoRecord");
++
++    if( saveVideo->url().isEmpty() )
++       conf.writeEntry("videopath", KGlobalSettings::documentPath());
++    else
++       conf.writeEntry("videopath", saveVideo->url().path());
++
++    conf.sync();
++
++    mShortcutEditor->save();    // undo() will restore to this state from now on
++
++    emit changed(false);
++    EffectsHandler::sendReloadMessage( "videorecord" );
++    }
++
++void VideoRecordEffectConfig::defaults()
++    {
++    saveVideo->setPath(KGlobalSettings::documentPath() );
++    mShortcutEditor->allDefault();
++    emit changed(true);
++    }
++
++
++} // namespace
++
++#include "videorecord_config.moc"
+--- workspace/kwin/effects/test/videorecord.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 0)
++++ workspace/kwin/effects/test/videorecord.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -0,0 +1,133 @@
++[Desktop Entry]
++Name=Video Record
++Name[af]=Video-opneem
++Name[ar]=تسجيل الفيديو
++Name[be]=Відэазапіс
++Name[be@latin]=Videazapis
++Name[bg]=Запис на звук
++Name[bn]=ভিডিও রেকর্ড
++Name[bn_IN]=ভিডিও রেকর্ড
++Name[ca]=Gravador de vídeo
++Name[cs]=Nahrávání videa
++Name[csb]=Nagranié wideò
++Name[da]=Videooptagelse
++Name[de]=Video-Aufnahme
++Name[el]=Εγγραφή βίντεο
++Name[eo]=Videoregistrilo
++Name[es]=Grabación de vídeo
++Name[et]=Videosalvestus
++Name[eu]=Bideo grabazioa
++Name[fa]=ضبط ویدیو
++Name[fi]=Videotallennin
++Name[fr]=Enregistre une vidéo
++Name[fy]=Fideo rekord
++Name[ga]=Taifead Físeanna
++Name[gl]=Gravadora de vídeo
++Name[gu]=વિડીઓ રેકોર્ડ
++Name[he]=הקלטת סרט
++Name[hi]=वीडियो रेकॉर्ड
++Name[hu]=Videófelvevő
++Name[is]=Vídeó upptaka
++Name[it]=Registra video
++Name[ja]=ビデオレコーダー
++Name[kk]=Бейне жазып алу
++Name[km]=កំណត់​ត្រា​វីដេអូ
++Name[kn]=ವೀಡಿಯೋ ದಾಖಲು (ಮುದ್ರಣ)
++Name[ko]=동영상 녹화
++Name[lt]=Video įrašymas
++Name[lv]=Video ieraksts
++Name[mai]=वीडियो रेकार्ड
++Name[mk]=Снимање видео
++Name[ml]=വീഡിയോ റിക്കോര്‍ഡ്
++Name[mr]=वीडियो रेकॉर्ड
++Name[nb]=Videoopptak
++Name[nds]=Video opnehmen
++Name[ne]=भिडियो रेकर्ड
++Name[nl]=Video-opname
++Name[nn]=Videoopptak
++Name[pa]=ਵੀਡਿਓ ਰਿਕਾਰਡ
++Name[pl]=Nagrywanie wideo
++Name[pt]=Gravação de Vídeo
++Name[pt_BR]=Gravar vídeo
++Name[ro]=Înregistrare video
++Name[ru]=Запись видео
++Name[se]=Videobádden
++Name[sk]=Nahrávanie videa
++Name[sl]=Snemanje
++Name[sr]=Видео снимање
++Name[sr@latin]=Video snimanje
++Name[sv]=Videoinspelning
++Name[ta]=பதிவொளி பதிவு
++Name[te]=వీడియో రికార్‍డ్
++Name[tg]=Сабти видео
++Name[th]=เครื่องมืออัดวิดีโอ
++Name[tr]=Video Kaydet
++Name[uk]=Запис відео
++Name[vi]=Thu ảnh động
++Name[wa]=Eredjistraedje videyo
++Name[x-test]=xxVideo Recordxx
++Name[zh_CN]=视频录制
++Name[zh_TW]=影像錄影
++Icon=preferences-system-windows-effect-video-record
++Comment=Record a video of your desktop
++Comment[ar]=تسجل فيديو لسطح مكتبك
++Comment[be@latin]=Zapisvaje videa z rabočaha stała.
++Comment[bg]=Запис на видео върху работния плот
++Comment[bn_IN]=ডেস্কটপের ভিডিও রেকর্ড করুন
++Comment[ca]=Grava un vídeo de l'escriptori
++Comment[csb]=Nagriwô wideò na twòjim pùlce
++Comment[da]=Optag en video af din desktop
++Comment[de]=Zeichnet Videos von der Arbeitsfläche auf.
++Comment[el]=Εγγραφή ενός βίντεο της επιφάνειας εργασίας σας
++Comment[es]=Le permite grabar vídeos de su escritorio
++Comment[et]=Võimaldab salvestada videoid töölauast
++Comment[eu]=Zure mahaigainaren bideo bat grabatu
++Comment[fr]=Enregistre des vidéos de votre bureau
++Comment[fy]=In fideo opnimme fan jo buroblêd
++Comment[ga]=Taifead fís de do dheasc
++Comment[gl]=Grava un vídeo do escritorio
++Comment[gu]=તમારા ડેસ્કટોપનો વિડીઓ રેકોર્ડ કરો
++Comment[he]=מקליט סרטי וידאו של שולחן העבודה שלך
++Comment[hi]=आपके डेस्कटॉप के वीडियो को रेकॉर्ड करें
++Comment[is]=Gerir þér kleift að taka upp vídeó af skjáborðinu
++Comment[it]=Registra un video del desktop
++Comment[ja]=デスクトップを動画として記録します
++Comment[kk]=Үстеліңіздің бейнефильмін жазып алу
++Comment[km]=​ថត​វីដេអូ​ផ្ទៃតុ​របស់​អ្នក
++Comment[kn]=ಗಣಕತೆರೆಯ ದೃಶ್ಯಾಂಶದ (ವೀಡಿಯೋ ) ಒಂದನ್ನು ದಾಖಲು ಮಾಡು
++Comment[ko]=데스크톱 화면을 녹화합니다
++Comment[lv]=Ļauj ierakstīt jūsu darbvirsmu video failā
++Comment[mk]=Снимање видеа од Вашата работна површина
++Comment[ml]=നിങ്ങളുടെ പണിയിടത്തിന്റെ വീഡിയോ റിക്കോര്‍ഡ് ചെയ്യുക
++Comment[mr]=डेस्कटॉपचे विडीयो रेकॉर्ड करा
++Comment[nb]=Ta opp video av skrivebordet
++Comment[nds]=En Video vun Dien Schriefdisch opnehmen
++Comment[nl]=Laat u opnames maken van uw bureaublad
++Comment[pa]=ਆਪਣੇ ਡੈਸਕਟਾਪ ਲਈ ਇੱਕ ਵੀਡਿਓ ਰਿਕਾਰਡ ਕਰੋ
++Comment[pl]=Pozwala nagrywać Twój pulpit
++Comment[pt]=Gravar um vídeo do seu ecrã
++Comment[pt_BR]=Gravar um vídeo da sua área de trabalho
++Comment[ro]=Înregistrare video a biroului
++Comment[sk]=Nahrá video vašej plochy
++Comment[sl]=Posnemite video posnetek svojega namizja
++Comment[sr]=Снимајте видео записе своје површи
++Comment[sr@latin]=Snimajte video zapise svoje površi
++Comment[sv]=Spela in en video av skrivbordet
++Comment[th]=บันทึกวิดีโอของพื้นที่ทำงานของคุณ
++Comment[tr]=Masaüstünüzün videosunu kaydedin
++Comment[uk]=Дає змогу записувати відео зі стільниці
++Comment[x-test]=xxRecord a video of your desktopxx
++Comment[zh_CN]=录制桌面视频
++Comment[zh_TW]=讓您錄下您桌面的影像
++
++Type=Service
++X-KDE-ServiceTypes=KWin/Effect
++X-KDE-PluginInfo-Author=Luboš Luňák
++X-KDE-PluginInfo-Email=l.lunak@kde.org
++X-KDE-PluginInfo-Name=kwin4_effect_videorecord
++X-KDE-PluginInfo-Version=0.1.0
++X-KDE-PluginInfo-Category=Tools
++X-KDE-PluginInfo-Depends=
++X-KDE-PluginInfo-License=GPL
++X-KDE-PluginInfo-EnabledByDefault=false
++X-KDE-Library=kwin4_effect_videorecord
+--- workspace/kwin/effects/sphere.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/effects/sphere.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -69,6 +69,7 @@
+ Comment[eu]=Bistaratu laneko area bakoitza esfera baten alde batean
+ Comment[fr]=Affiche chaque bureau virtuel sur une sphère
+ Comment[fy]=Elts firtueel buroblêd op in side fan in bol sjen litte
++Comment[ga]=Taispeáin gach deasc fíorúil ar thaobh de sféar
+ Comment[gl]=Mostra os escritorios virtuais na superficie dunha esfera
+ Comment[gu]=ગોળાની બાજુ પર દરેક વર્ચ્યુઅલ ડેસ્કટોપ બતાવો
+ Comment[he]=הצג כל שולחן עבודה וירטואלי בחלק אחר של ספירה
+--- workspace/kwin/useractions.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/useractions.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -571,6 +571,10 @@
+             break;
+         case Options::MouseLower:
+             workspace()->lowerClient( this );
++            // As this most likely makes the window no longer visible change the
++            // keyboard focus to the next available window.
++            //workspace()->activateNextClient( this ); // Doesn't work when we lower a child window
++            workspace()->activateClient( workspace()->topClientOnDesktop( workspace()->currentDesktop(), -1 ));
+             break;
+         case Options::MouseShade :
+             toggleShade();
+@@ -948,7 +952,13 @@
+     {
+     Client* c = active_popup_client ? active_popup_client : active_client;
+     if ( c )
++        {
+         lowerClient( c );
++        // As this most likely makes the window no longer visible change the
++        // keyboard focus to the next available window.
++        //activateNextClient( c ); // Doesn't work when we lower a child window
++        activateClient( topClientOnDesktop( currentDesktop(), -1 ));
++        }
+     }
+ 
+ /*!
+--- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -3043,15 +3043,18 @@
+ 
+ [Event/activate]
+ Name=Activate Window
++Name[af]=Aktiveer Venster
+ Name[ar]=نشّط نافذة
+ Name[be]=Актывізаваць акно
+ Name[be@latin]=Pieraklučeńnie ŭ akno
+ Name[bg]=Активиране на прозорец
+ Name[bn]=উইণ্ডো সক্রিয় করো
+ Name[bn_IN]=উইন্ডো সক্রিয় করুন
++Name[br]=Dihuniñ ar prenestr
+ Name[ca]=Activa finestra
+ Name[cs]=Aktivace okna
+ Name[csb]=Aktiwacëjô òkna
++Name[cy]=Gweithredu Ffenestr
+ Name[da]=Aktivér vindue
+ Name[de]=Fenster aktivieren
+ Name[el]=Ενεργοποίηση παραθύρου
+@@ -3072,6 +3075,7 @@
+ Name[is]=Virkja glugga
+ Name[it]=Attiva finestra
+ Name[ja]=ウィンドウがアクティブに
++Name[ka]=ფანჯრის გააქტიურება
+ Name[kk]=Терезені белсендіру
+ Name[km]=ធ្វើ​ឲ្យ​បង្អួច​សកម្ម
+ Name[kn]=ಸಕ್ರಿಯ ಕಿಟಕಿ
+@@ -3083,6 +3087,7 @@
+ Name[mk]=Активирај прозорец
+ Name[ml]=സജീവമായ ജാലകം
+ Name[mr]=चौकट सक्रीय करा
++Name[ms]=Aktifkan Tetingkap
+ Name[nb]=Velg vindu
+ Name[nds]=Finster aktiev maken
+ Name[ne]=सञ्झ्याल सक्रिय बनाउनुहोस्
+@@ -3111,6 +3116,7 @@
+ Name[uz@cyrillic]=Ойнани активлаштириш
+ Name[wa]=Disperter purnea
+ Name[x-test]=xxActivate Windowxx
++Name[xh]=Yenza i window isebenze
+ Name[zh_CN]=激活窗口
+ Name[zh_TW]=啟動視窗
+ Comment=Another window is activated
+@@ -3274,6 +3280,7 @@
+ Comment[bg]=Нов прозорец
+ Comment[bn]=নতুন উইণ্ডো 
+ Comment[bn_IN]=নতুন উইন্ডো
++Comment[br]=Prenestr nevez
+ Comment[ca]=Finestra nova
+ Comment[cs]=Nové okno
+ Comment[csb]=Nowé òkno
+@@ -3297,6 +3304,7 @@
+ Comment[is]=Nýr gluggi
+ Comment[it]=Nuova finestra
+ Comment[ja]=新規ウィンドウ
++Comment[ka]=ახალი ფანჯარა
+ Comment[kk]=Жаңа терезе
+ Comment[km]=បង្អួច​ថ្មី
+ Comment[kn]=ಹೊಸ ಕಿಟಕಿ
+@@ -3308,6 +3316,7 @@
+ Comment[mk]=Нов прозорец
+ Comment[ml]=പുതിയ ജാലകം
+ Comment[mr]=नविन चौकट
++Comment[ms]=Tetingkap baru
+ Comment[nb]=Nytt vindu
+ Comment[nds]=Nieg Finster
+ Comment[ne]=नयाँ सञ्झ्याल
+@@ -3351,9 +3360,11 @@
+ Name[bg]=Изтриване на прозореца
+ Name[bn]=উইণ্ডো বন্ধ করো
+ Name[bn_IN]=উইন্ডো মুছে ফেলুন
++Name[br]=Lemel ur Prenestr
+ Name[ca]=Elimina finestra
+ Name[cs]=Zrušit okno
+ Name[csb]=Rëmôj òkno
++Name[cy]=Dileu Ffenestr
+ Name[da]=Slet vindue
+ Name[de]=Fenster entfernen
+ Name[el]=Διαγραφή παραθύρου
+@@ -3374,6 +3385,7 @@
+ Name[is]=Eyða glugga
+ Name[it]=Elimina finestra
+ Name[ja]=ウィンドウを削除
++Name[ka]=ფანჯრის წაშლა
+ Name[kk]=Терезені жою
+ Name[km]=លុប​បង្អួច
+ Name[kn]=ಕಿಟಕಿಯನ್ನು ಅಳಿಸಿಹಾಕು
+@@ -3384,6 +3396,7 @@
+ Name[mk]=Избриши прозорец
+ Name[ml]=ജാലകം നീക്കം ചെയ്യുക
+ Name[mr]=चौकट काढूण टाका
++Name[ms]=Hapuskan Tetingkap
+ Name[nb]=Slett vindu
+ Name[nds]=Finster wegdoon
+ Name[ne]=सञ्झ्याल मेट्नुहोस्
+@@ -3411,6 +3424,7 @@
+ Name[uz@cyrillic]=Ойнани ўчириш
+ Name[wa]=Disfacer purnea
+ Name[x-test]=xxDelete Windowxx
++Name[xh]=Cima i Window
+ Name[zh_CN]=删除窗口
+ Name[zh_TW]=刪除視窗
+ Comment=Delete window
+@@ -3501,6 +3515,7 @@
+ Name[ca]=Tanca finestra
+ Name[cs]=Zavření okna
+ Name[csb]=Zamkni òkno
++Name[cy]=Cau Ffenestr
+ Name[da]=Vindueslukning
+ Name[de]=Fenster schließen
+ Name[el]=Κλείσιμο παραθύρου
+@@ -3521,6 +3536,7 @@
+ Name[is]=Gluggi lokast
+ Name[it]=Chiusura finestra
+ Name[ja]=ウィンドウを閉じる
++Name[ka]=ფანჯრის დახურვა
+ Name[kk]=Терезені жабу
+ Name[km]=បិទ​បង្អួច
+ Name[kn]=ಕಿಟಕಿಯ ಮುಚ್ಚುವಿಕೆ
+@@ -3531,6 +3547,7 @@
+ Name[mk]=Затвори прозорец
+ Name[ml]=ജാലകം അടയ്ക്കുക
+ Name[mr]=चौकट बंद करा
++Name[ms]=Tetingkap Tutup
+ Name[nb]=Vindu lukkes
+ Name[nds]=Finster tomaken
+ Name[ne]=सञ्झ्याल बन्द गर्नुहोस्
+@@ -5849,6 +5866,7 @@
+ Name[el]=Οι επιδόσεις σύνθεσης της εικόνας είναι χαμηλές
+ Name[es]=El rendimiento de composición es lento
+ Name[et]=Komposiidi jõudlus on nõrk
++Name[eu]=Konposaketaren performantzia motela da
+ Name[fr]=La performances de composition est basse
+ Name[fy]=De prestaasje fan compositing binne traach
+ Name[gl]=O rendemento da composición é pobre
+@@ -5892,6 +5910,7 @@
+ Comment[el]=Οι επιδόσεις σύνθεσης της εικόνας ήταν πολύ χαμηλές και η σύνθεση εικόνας αναστάλθηκε
+ Comment[es]=El rendimiento de composición era tan lento que se ha suspendido
+ Comment[et]=Komposiidi jõudlus oli kesine ja komposiit peatati
++Comment[eu]=Konposaketaren performantzia motelegia zen eta konposaketa eseki egin da
+ Comment[fr]=La performance de composition était trop basse et celle-ci a due être suspendue
+ Comment[fy]=De prestaasje fan compositing wie te traach en is ûnderbrútsen
+ Comment[gl]=O rendeento da composición era baixo de máis polo que se detivo a composición
+--- workspace/kdm/config.def	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kdm/config.def	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -36,7 +36,7 @@
+ # define HALT_CMD	"/usr/sbin/shutdown -h now"
+ # define REBOOT_CMD	"/usr/sbin/shutdown -r now"
+ #elif defined(BSD)
+-# define HALT_CMD	"/sbin/shutdown -h now"
++# define HALT_CMD	"/sbin/shutdown -p now"
+ # define REBOOT_CMD	"/sbin/shutdown -r now"
+ #elif defined(__SVR4)
+ # define HALT_CMD	"/usr/sbin/halt"
+--- workspace/kdm/backend/resource.c	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kdm/backend/resource.c	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -289,7 +289,7 @@
+ {
+ 	switch (id & C_TYPE_MASK) {
+ 	case C_TYPE_INT:
+-		*(int *)dst = *(int *)src;
++		*(int *)dst = (int)((unsigned long)*src);
+ 		break;
+ 	case C_TYPE_STR:
+ 	case C_TYPE_ARGV:
+--- workspace/kdm/kfrontend/sessions/fvwm.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/kdm/kfrontend/sessions/fvwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -60,7 +60,7 @@
+ Comment[pl]=Potężny menedżer okien zgodny z ICCCM obsługujący wirtualne pulpity
+ Comment[pt]=Um gestor de janelas poderoso em conformidade com o ICCCM e que suporta vários ecrãs virtuais
+ Comment[pt_BR]=Um poderoso gerenciador de janelas compatível com o ICCM, com suporte a múltiplas áreas de trabalho virtuais
+-Comment[ro]=Un administrator de ferestre puternic compliant ICCCM ce suportă birouri virtuale
++Comment[ro]=Un gestionar de ferestre puternic, conform cu ICCCM, ce suportă birouri virtuale
+ Comment[ru]=Мощный ICCCM-совместимый оконный менеджер, поддерживающий виртуальные рабочие столы
+ Comment[se]=Fápmolaš ICCCM-heivvolaš lásegieđahalli mas lea virtuealla čállinbeavddit
+ Comment[sk]=Výkonný správca okien kompatibilný s ICCCM s podporou virtuálnych plôch
+--- workspace/plasma/dataengines/applicationjobs/plasma-dataengine-applicationjobs.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/applicationjobs/plasma-dataengine-applicationjobs.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -61,6 +61,7 @@
+ Comment[eu]=Kuiserver datuak Plasmoidentzako
+ Comment[fr]=Données de Kuiserver pour les plasmoïdes
+ Comment[fy]=Kuiserver gegevens foar Plasmoids
++Comment[ga]=Sonraí Kuiserver le haghaidh Plasmoids
+ Comment[gl]=Datos de Kuiserver para Plasmoides
+ Comment[gu]=પ્લાઝમોઇડ માટે Kuiserver માહિતી
+ Comment[hi]=प्लाज्माइड्स के लिए के-यूआई-सर्वर
+--- workspace/plasma/dataengines/executable/plasma-dataengine-executable.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/executable/plasma-dataengine-executable.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Suorita komentoja
+ Name[fr]=Chercher des définitions de mots
+ Name[fy]=Rin kommando's
++Name[ga]=Rith Orduithe
+ Name[gl]=Executar comandos
+ Name[gu]=આદેશ ચલાવો
+ Name[he]=הרצת פקודה
+--- workspace/plasma/dataengines/dict/plasma-dataengine-dict.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/dict/plasma-dataengine-dict.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Sanakirja
+ Name[fr]=Dictionnaire
+ Name[fy]=Wurdboek
++Name[ga]=Foclóir
+ Name[gl]=Dicionario
+ Name[gu]=ડિક્શનરી
+ Name[he]=מילון
+--- workspace/plasma/dataengines/filebrowser/plasma-dataengine-filebrowser.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/filebrowser/plasma-dataengine-filebrowser.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Name[fi]=Tiedostot ja kansiot
+ Name[fr]=Fichiers et dossiers
+ Name[fy]=triemmen en triemtafels
++Name[ga]=Comhaid agus Comhadlanna
+ Name[gl]=Ficheiros e cartafoles
+ Name[gu]=ફાઇલો અને ડિરેક્ટરીઓ
+ Name[he]=קבצים ותיקיות
+--- workspace/plasma/dataengines/nowplaying/plasma-dataengine-nowplaying.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/nowplaying/plasma-dataengine-nowplaying.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[eu]=Orain erreproduzitzen
+ Name[fr]=En cours de lecture
+ Name[fy]=Spilet ôf
++Name[ga]=Á Sheinm Anois
+ Name[gl]=A reproducir
+ Name[gu]=અત્યારે વગાડે છે
+ Name[he]=מנגן כעת
+--- workspace/plasma/dataengines/network/plasma-dataengine-network.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/network/plasma-dataengine-network.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Verkko
+ Name[fr]=Réseau
+ Name[fy]=netwurkjen
++Name[ga]=Líonrú
+ Name[gl]=Rede
+ Name[gu]=નેટવર્કિંગ
+ Name[hi]=नेटवर्किंग
+--- workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[fi]=Virranhallinta
+ Name[fr]=Gestion de l'énergie
+ Name[fy]=Enerzjybehear
++Name[ga]=Bainisteoireacht Cumhachta
+ Name[gl]=Xestión da enerxía
+ Name[gu]=પાવર વ્યવસ્થાપક
+ Name[he]=ניהול צריכת חשמל
+--- workspace/plasma/dataengines/soliddevice/plasma-dataengine-soliddevice.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/soliddevice/plasma-dataengine-soliddevice.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Name[fi]=Laitetiedot
+ Name[fr]=Informations sur les périphériques
+ Name[fy]=Apparaatynformaasje
++Name[ga]=Eolas faoi Ghléas
+ Name[gl]=Información de dispositivos
+ Name[gu]=ઉપકરણ માહિતી
+ Name[he]=מידע על התקנים
+--- workspace/plasma/dataengines/systemmonitor/plasma-dataengine-systemmonitor.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/systemmonitor/plasma-dataengine-systemmonitor.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -87,6 +87,7 @@
+ Comment[eu]=Sistemari buruzko informazioa Plasmoidentzako
+ Comment[fr]=Informations système pour les plasmoïdes
+ Comment[fy]=Systeem ynformaasje foar Plasmoids
++Comment[ga]=Eolas faoin Chóras le haghaidh Plasmoids
+ Comment[gl]=Información do sistema para os Plasmoides
+ Comment[gu]=પ્લાઝમોઇડ માટે સિસ્ટમ માહિતી
+ Comment[he]=מידע של המערכת עבור פלסמואידים
+--- workspace/plasma/dataengines/time/plasma-dataengine-time.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/time/plasma-dataengine-time.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Päivämäärä ja aika
+ Name[fr]=Date et Heure
+ Name[fy]=Datum en tiid
++Name[ga]=Dáta agus Am
+ Name[gl]=Data e hora
+ Name[gu]=તારીખ અને સમય
+ Name[he]=תאריך ושעה
+--- workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[eu]=Lekuak
+ Name[fi]=Sijainnit
+ Name[fr]=Lieux
++Name[ga]=Áiteanna
+ Name[gl]=Lugares
+ Name[gu]=જગ્યાઓ
+ Name[he]=מקומות
+--- workspace/plasma/dataengines/notifications/plasma-dataengine-notifications.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/dataengines/notifications/plasma-dataengine-notifications.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -15,6 +15,7 @@
+ Name[fi]=Huomautukset
+ Name[fr]=Notifications des applications
+ Name[fy]=Applikaasje ntifikaasjes
++Name[ga]=Fógairtí Feidhmchláir
+ Name[gl]=Notificacións dos programas
+ Name[gu]=કાર્યક્રમ નોંધણીઓ
+ Name[he]=הודעות מערכת
+--- workspace/plasma/shells/desktop/desktopview.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/shells/desktop/desktopview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -222,7 +222,7 @@
+             if (corona) {
+                 QList<Plasma::Containment*> containments = corona->containments();
+                 foreach (Plasma::Containment *c, containments) {
+-                    if (c == containment() || c->containmentType() == Plasma::Containment::PanelContainment) {
++                    if (c == containment() || PlasmaApp::isPanelContainment(c)) {
+                         continue;
+                     }
+                     disconnect(c, 0, this, 0);
+@@ -316,7 +316,7 @@
+ void DesktopView::screenOwnerChanged(int wasScreen, int isScreen, Plasma::Containment* containment)
+ {
+     kDebug() << "was:" << wasScreen << "is:" << isScreen << "my screen:" << screen() << "containment:" << (QObject*)containment << "myself:" << (QObject*)this;
+-    if (containment->containmentType() == Plasma::Containment::PanelContainment) {
++    if (PlasmaApp::isPanelContainment(containment)) {
+         // we don't care about panel containments changing screens on us
+         return;
+     }
+@@ -337,10 +337,11 @@
+     int i = (start + 1) % containments.size();
+     //FIXME this is a *horrible* way of choosing a "next" containment.
+     while (i != start) {
+-        if (containments.at(i)->containmentType() != Plasma::Containment::PanelContainment &&
++        if (!PlasmaApp::isPanelContainment(containments.at(i)) &&
+             containments.at(i)->screen() == -1) {
+             break;
+         }
++
+         i = (i + 1) % containments.size();
+     }
+ 
+@@ -357,12 +358,14 @@
+     if (i < 0) {
+         i += containments.size();
+     }
++
+     //FIXME this is a *horrible* way of choosing a "previous" containment.
+     while (i != start) {
+-        if (containments.at(i)->containmentType() != Plasma::Containment::PanelContainment &&
++        if (!PlasmaApp::isPanelContainment(containments.at(i)) &&
+             containments.at(i)->screen() == -1) {
+             break;
+         }
++
+         if (--i < 0) {
+             i += containments.size();
+         }
+--- workspace/plasma/shells/desktop/plasmaapp.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/shells/desktop/plasmaapp.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -590,6 +590,15 @@
+     }
+ }
+ 
++bool PlasmaApp::isPanelContainment(Plasma::Containment *containment)
++{
++    Plasma::Containment::Type t = containment->containmentType();
++
++    return t == Plasma::Containment::PanelContainment ||
++           t == Plasma::Containment::CustomPanelContainment;
++
++}
++
+ void PlasmaApp::createView(Plasma::Containment *containment)
+ {
+     kDebug() << "Containment name:" << containment->name()
+@@ -606,41 +615,34 @@
+ 
+     WId viewWindow = 0;
+ 
+-    switch (containment->containmentType()) {
+-        case Plasma::Containment::PanelContainment: {
+-            PanelView *panelView = new PanelView(containment, id);
+-            viewWindow = panelView->winId();
+-            connect(panelView, SIGNAL(destroyed(QObject*)), this, SLOT(panelRemoved(QObject*)));
+-            m_panels << panelView;
+-            panelView->show();
+-            break;
++    if (isPanelContainment(containment)) {
++        PanelView *panelView = new PanelView(containment, id);
++        viewWindow = panelView->winId();
++        connect(panelView, SIGNAL(destroyed(QObject*)), this, SLOT(panelRemoved(QObject*)));
++        m_panels << panelView;
++        panelView->show();
++    } else if (containment->screen() > -1 &&
++               containment->screen() < Kephal::ScreenUtils::numScreens()) {
++        DesktopView *view = viewForScreen(containment->screen(), containment->desktop());
++        if (view) {
++            kDebug() << "had a view for" << containment->screen() << containment->desktop();
++            // we already have a view for this screen
++            return;
+         }
+-        default:
+-            if (containment->screen() > -1 &&
+-                containment->screen() < Kephal::ScreenUtils::numScreens()) {
+-                DesktopView *view = viewForScreen(containment->screen(), containment->desktop());
+-                if (view) {
+-                    kDebug() << "had a view for" << containment->screen() << containment->desktop();
+-                    // we already have a view for this screen
+-                    return;
+-                }
+ 
+-                kDebug() << "creating a new view for" << containment->screen() << containment->desktop()
+-                         << "and we have" << Kephal::ScreenUtils::numScreens() << "screens";
++        kDebug() << "creating a new view for" << containment->screen() << containment->desktop()
++            << "and we have" << Kephal::ScreenUtils::numScreens() << "screens";
+ 
++        // we have a new screen. neat.
++        view = new DesktopView(containment, id, 0);
++        viewWindow = view->winId();
++        if (m_corona) {
++            connect(m_corona, SIGNAL(screenOwnerChanged(int,int,Plasma::Containment*)),
++                    view, SLOT(screenOwnerChanged(int,int,Plasma::Containment*)));
++        }
+ 
+-                // we have a new screen. neat.
+-                view = new DesktopView(containment, id, 0);
+-                viewWindow = view->winId();
+-                if (m_corona) {
+-                    connect(m_corona, SIGNAL(screenOwnerChanged(int,int,Plasma::Containment*)),
+-                            view, SLOT(screenOwnerChanged(int,int,Plasma::Containment*)));
+-                }
+-
+-                m_desktops.append(view);
+-                view->show();
+-            }
+-            break;
++        m_desktops.append(view);
++        view->show();
+     }
+ 
+ #ifdef Q_WS_X11
+@@ -666,7 +668,7 @@
+     connect(containment, SIGNAL(configureRequested(Plasma::Containment*)),
+             this, SLOT(configureContainment(Plasma::Containment*)));
+ 
+-    if (containment->containmentType() != Plasma::Containment::PanelContainment) {
++    if (!isPanelContainment(containment)) {
+         connect(containment, SIGNAL(addSiblingContainment(Plasma::Containment *)),
+                 this, SLOT(addContainment(Plasma::Containment *)));
+     }
+@@ -777,7 +779,7 @@
+ 
+     //make sure everybody can zoom out again
+     foreach (Plasma::Containment *c, m_corona->containments()) {
+-        if (c->containmentType() == Plasma::Containment::PanelContainment) {
++        if (isPanelContainment(c)) {
+             continue;
+         }
+ 
+@@ -809,7 +811,7 @@
+ 
+     //make sure everybody can zoom out again
+     foreach (Plasma::Containment *c, m_corona->containments()) {
+-        if (c->containmentType() == Plasma::Containment::PanelContainment) {
++        if (isPanelContainment(c)) {
+             continue;
+         }
+ 
+--- workspace/plasma/shells/desktop/plasmaapp.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/shells/desktop/plasmaapp.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -79,6 +79,8 @@
+      */
+     QList<PanelView*> panelViews() const;
+ 
++    static bool isPanelContainment(Plasma::Containment *containment);
++
+ #ifdef Q_WS_X11
+     Atom m_XdndAwareAtom;
+     Atom m_XdndEnterAtom;
+--- workspace/plasma/runners/places/plasma-runner-places.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/runners/places/plasma-runner-places.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[eu]=Lekuak
+ Name[fi]=Sijainnit
+ Name[fr]=Lieux
++Name[ga]=Áiteanna
+ Name[gl]=Lugares
+ Name[gu]=જગ્યાઓ
+ Name[he]=מקומות
+--- workspace/plasma/applets/webbrowser/webbrowser.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/webbrowser/webbrowser.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -214,7 +214,6 @@
+ WebBrowser::~WebBrowser()
+ {
+     delete m_completion;
+-    delete m_bookmarkManager;
+     delete m_bookmarkModel;
+ }
+ 
+--- workspace/plasma/applets/webbrowser/plasma-applet-webbrowser.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/webbrowser/plasma-applet-webbrowser.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -98,6 +98,7 @@
+ Comment[fi]=Yksinkertainen selain
+ Comment[fr]=Un navigateur Web simple
+ Comment[fy]=In ienfâldige webblêder
++Comment[ga]=Brabhsálaí simplí
+ Comment[gl]=Un navegador web simples
+ Comment[gu]=સરળ વેબ બ્રાઉઝર
+ Comment[hi]=एक सादा वेब ब्राउज़र
+--- workspace/plasma/applets/systemtray/core/job.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/systemtray/core/job.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -31,6 +31,7 @@
+ {
+ public:
+     Private() :
++        state(Running),
+         percentage(0),
+         timerId(0),
+         killable(false),
+--- workspace/plasma/applets/icon/plasma-applet-icon.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/icon/plasma-applet-icon.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -89,6 +89,7 @@
+ Comment[fi]=Yleinen kuvake
+ Comment[fr]=Une icône générique
+ Comment[fy]=In algemien byldkaike
++Comment[ga]=Deilbhín ginearálta
+ Comment[gl]=Unha icona xenérica
+ Comment[gu]=સામાન્ય ચિહ્ન
+ Comment[he]=סמל כללי
+--- workspace/plasma/applets/devicenotifier/plasma-applet-devicenotifier.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/devicenotifier/plasma-applet-devicenotifier.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Name[fi]=Laitehuomautin
+ Name[fr]=Notification de nouveau périphérique
+ Name[fy]=Apparaat meidieler
++Name[ga]=Fógróir Gléis
+ Name[gl]=Notificador de dispositivos
+ Name[gu]=ઉપકરણ નોંધ કરનાર
+ Name[hi]=उपकरण सूचक
+--- workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -58,6 +58,7 @@
+ Comment[eu]=Abiarazi zure gogoko aplikazioak
+ Comment[fr]=Lanceur pour vos applications favorites
+ Comment[fy]=Jo favorite programma's starte
++Comment[ga]=Tosaigh na Feidhmchláir is ansa leat
+ Comment[gl]=Inicia os seus programas favoritos
+ Comment[gu]=તમને ગમતાં કાર્યક્રમો શરૂ કરો
+ Comment[he]=הפעל את היישומים האהובים עליך
+--- workspace/plasma/applets/calendar/plasma-applet-calendar.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/calendar/plasma-applet-calendar.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Name[fi]=Kalenteri
+ Name[fr]=Calendrier
+ Name[fy]=Aginda
++Name[ga]=Féilire
+ Name[gl]=Calendario
+ Name[gu]=કેલેન્ડર
+ Name[he]=לוח שנה
+--- workspace/plasma/applets/system-monitor/plasma-applet-sm_cpu.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/system-monitor/plasma-applet-sm_cpu.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Järjestelmän valvonta - Prosessori
+ Name[fr]=Surveillance du système - Processeur
+ Name[fy]=Systeemmonitor - CPU
++Name[ga]=Monatóir an Chórais - LAP
+ Name[gl]=Vixiante do sistema - CPU
+ Name[gu]=સિસ્ટમ દેખરેખ - સીપીયુ
+ Name[he]=צג מערכת - מעבד
+--- workspace/plasma/applets/system-monitor/plasma-applet-sm_hwinfo.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/system-monitor/plasma-applet-sm_hwinfo.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Järjestelmän valvonta - Laitteistotiedot
+ Name[fr]=Surveillance du système - Informations sur le matériel
+ Name[fy]=Systeemmonitor - Hardware ynfo
++Name[ga]=Monatóir an Chórais - Eolas Crua-Earraí
+ Name[gl]=Vixiante do sistema - Información do hardware
+ Name[gu]=સિસ્ટમ દેખરેખ - હાર્ડવેર માહિતી
+ Name[he]=צג מערכת - מידע אודות החומרה
+--- workspace/plasma/applets/system-monitor/plasma-applet-sm_temperature.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/system-monitor/plasma-applet-sm_temperature.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Järjestelmän valvonta - Lämpötila
+ Name[fr]=Surveillance du système - Température
+ Name[fy]=Systeemmonitor - Tempratuer
++Name[ga]=Monatóir an Chórais - Teocht
+ Name[gl]=Vixiante do sistema - Temperatura
+ Name[gu]=સિસ્ટમ મોનિટર - તાપમાન
+ Name[he]=צג מערכת - טמפרטורה
+--- workspace/plasma/applets/system-monitor/plasma-applet-sm_net.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/system-monitor/plasma-applet-sm_net.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Järjestelmän valvonta - Verkko
+ Name[fr]=Surveillance du système - Réseau
+ Name[fy]=Systeemmonitor - Netwurk
++Name[ga]=Monatóir an Chórais - Líonra
+ Name[gl]=Vixiante do sistema - Rede
+ Name[gu]=સિસ્ટમ દેખરેખ - નેટવર્ક
+ Name[he]=צג מערכת - רשת
+--- workspace/plasma/applets/system-monitor/plasma-applet-sm_hdd.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/system-monitor/plasma-applet-sm_hdd.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Järjestelmän valvonta - Kiintolevy
+ Name[fr]=Surveillance du système - Disque dur
+ Name[fy]=Systeemmonitor - Fêste skiif
++Name[ga]=Monatóir an Chórais - Diosca Crua
+ Name[gl]=Vixiante do sistema - Disco duro
+ Name[gu]=સિસ્ટમ દેખરેખ - હાર્ડ ડિસ્ક
+ Name[he]=צג מערכת - כונן
+--- workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -372,8 +372,7 @@
+     if (!d->menuview) {
+         d->menuview = new Kickoff::MenuView();
+         connect(d->menuview, SIGNAL(triggered(QAction*)), this, SLOT(actionTriggered(QAction*)));
+-        connect(d->menuview, SIGNAL(aboutToHide()), d->icon, SLOT(setUnpressed()));
+-        connect(d->menuview, SIGNAL(aboutToHide()), d->menuview, SLOT(deleteLater()));
++        connect(d->menuview, SIGNAL(aboutToHide()), this, SLOT(aboutToHideMenu()));
+ 
+         switch (d->viewtype) {
+         case Combined: {
+@@ -441,6 +440,19 @@
+     d->icon->setPressed();
+ }
+ 
++void MenuLauncherApplet::aboutToHideMenu()
++{
++    d->icon->setUnpressed();
++    if(d->menuview) {
++        //sebsauer, 2009-01-21; another dirty hack; delay destruction else it crashes in the KIconLoader
++        //dtor for whatever reason (rather hard to reproduce). Solution for this and the other hacks
++        //would be to finally get right of the way we build the menu by providing a model that does
++        //handle merging of the other models und updating the menus if content changes.
++        QTimer::singleShot(100, d->menuview, SLOT(delayedDestruct()));
++        d->menuview = 0;
++    }
++}
++
+ void MenuLauncherApplet::actionTriggered(QAction *action)
+ {
+     KUrl url = action->data().value<KUrl>();
+--- workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.h	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.h	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -110,6 +110,7 @@
+     void configAccepted();
+     void toggleMenu(bool pressed);
+     void toggleMenu();
++    void aboutToHideMenu();
+     void actionTriggered(QAction *action);
+ 
+ private:
+--- workspace/plasma/applets/kickoff/core/applicationmodel.cpp	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/applets/kickoff/core/applicationmodel.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -172,9 +172,18 @@
+                     continue;
+                 } else {
+                     // find and remove the existing entry with the same name
+-                    for (int i = 0 ; i < node->children.count() ; i++) {
++                    for (int i = node->children.count() - 1; i >= 0; --i) {
+                         if (node->children[i]->appName == appName) {
+-                            delete node->children.takeAt(i);
++                            AppNode* n = node->children.takeAt(i);
++                            const QString s = n->genericName.toLower();
++                            if(genericNames.contains(s)) {
++                                QList<AppNode*> l = genericNames[s];
++                                for(int j = l.count() - 1; j >= 0; --j)
++                                    if(l[j] == n)
++                                        l.takeAt(j);
++                                genericNames[s] = l;
++                            }
++                            delete n;
+                         }
+                     }
+                 }
+@@ -225,11 +234,9 @@
+ 
+         if (p->isType(KST_KService)) {
+             const QString s = genericName.toLower();
+-            if (genericNames.contains(s)) {
+-                genericNames[s].append(newnode);
+-            } else {
+-                genericNames[s] = QList<AppNode*>() << newnode;
+-            }
++            QList<AppNode*> list = genericNames.contains(s) ? genericNames[s] : QList<AppNode*>();
++            list.append(newnode);
++            genericNames[s] = list;
+         }
+     }
+ 
+--- workspace/plasma/scriptengines/python/pydataengine.py	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/python/pydataengine.py	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,3 +1,4 @@
++# -*- coding: utf-8 -*-
+ #
+ # Copyright 2008 Simon Edwards <simon@simonzone.com>
+ #
+@@ -22,27 +23,23 @@
+ import plasma_importer
+ 
+ class PythonDataEngineScript(Plasma.DataEngineScript):
++    importer = None
++
+     def __init__(self, parent):
+         Plasma.DataEngineScript.__init__(self,parent)
+-        self.importer = plasma_importer.PlasmaImporter()
++        if PythonDataEngineScript.importer is None:
++            PythonDataEngineScript.importer = plasma_importer.PlasmaImporter()
+         self.initialized = False
+ 
+     def init(self):
+-        print("Script Name: " + self.dataEngine().name())
+-
+         self.m_moduleName = str(self.dataEngine().pluginName())
+-        print("pluginname: " + str(self.dataEngine().pluginName()))
+         self.plugin_name = str(self.dataEngine().pluginName()).replace('-','_')
+ 
+-        self.importer.register_top_level(self.plugin_name, str(self.dataEngine().package().path()))
++        PythonDataEngineScript.importer.register_top_level(self.plugin_name, str(self.dataEngine().package().path()))
+ 
+-        print("mainscript: " + str(self.dataEngine().package().filePath("mainscript")))
+-        print("package path: " + str(self.dataEngine().package().path()))
+-
+         # import the code at the file name reported by mainScript()
+         self.module = __import__(self.plugin_name+'.main')
+         self.pydataengine = self.module.main.CreateDataEngine(None)
+-        #self.pydataengine.setDataEngine(self.dataEngine())
+         self.pydataengine.setDataEngineScript(self)
+         self.pydataengine.init()
+ 
+@@ -50,7 +47,6 @@
+         return True
+ 
+     def __dtor__(self):
+-        print("~PythonDataEngineScript()")
+         PythonAppletScript.importer.unregister_top_level(self.plugin_name)
+         self.pydataengine = None
+ 
+--- workspace/plasma/scriptengines/python/plasma_importer.py	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/python/plasma_importer.py	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -1,3 +1,4 @@
++# -*- coding: utf-8 -*-
+ #
+ # Copyright 2008 Simon Edwards <simon@simonzone.com>
+ #
+@@ -25,13 +26,12 @@
+     def __init__(self):
+         self.toplevel = {}
+         self.toplevelcount = {}
+-        sys.path.append('<plasma>')
++        self.marker = '<plasma>' + str(id(self))
++        sys.path.append(self.marker)
+         sys.path_hooks.append(self.hook)
+-        #print("PlasmaImporter.__init__: sys.path:" + repr(sys.path))
+ 
+     def hook(self,path):
+-      if path=='<plasma>':
+-          #print("plasma_thingy:"+ path)
++      if path==self.marker:
+           return self
+       else:
+           raise ImportError()
+@@ -54,11 +54,8 @@
+                     del sys.modules[key]
+ 
+     def find_module(self,fullname, path=None):
+-        #print('find_module(%s,%s)' % (fullname,path) )
+-
+         location = self.find_pymod(fullname)
+         if location is not None:
+-            #print("Found in " + location[0])
+             return self
+         else:
+             return None
+@@ -91,27 +88,21 @@
+         return open(location).read()
+ 
+     def load_module(self, fullname):
+-        #print('load_module fullname: '+fullname)
+-
+         location,ispkg = self.find_pymod(fullname)
+-        #print("Location:"+location)
+         if ispkg:   # Package dir.
+             initlocation = os.path.join(location,'__init__.py')
+             code = None
+             if os.path.isfile(initlocation):
+-                #code = self._get_code(initlocation)
+                 code = open(initlocation)
+         else:
+-            #code = self._get_code(location)
+             code = open(location)
+ 
+         mod = sys.modules.setdefault(fullname, imp.new_module(fullname))
+         mod.__file__ = location #"<%s>" % self.__class__.__name__
+         mod.__loader__ = self
+         if ispkg:
+-            mod.__path__ = ["<plasma>"]
++            mod.__path__ = [self.marker]
+         if code is not None:
+-            #print("code is:"+code)
+             try:
+                 exec code in mod.__dict__
+             finally:
+--- workspace/plasma/scriptengines/python/plasma-scriptengine-dataengine-python.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/python/plasma-scriptengine-dataengine-python.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -79,6 +79,7 @@
+ Comment[pl]=Obsługa silnika danych Plazmy w Pythonie
+ Comment[pt]=Suporte para os motores de dados do Plasma em Python
+ Comment[pt_BR]=Suporte aos mecanismos de dados em Python
++Comment[ro]=Suport motor de date Plasma pentru Python
+ Comment[sk]=Podpora plasma data engine pre Python
+ Comment[sl]=Podpora za podatkovne vire napisane v Pythonu
+ Comment[sr]=Подршка Плазма датомотора за питон
+--- workspace/plasma/scriptengines/python/examples/dataengines/pytime/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/python/examples/dataengines/pytime/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[fi]=Päivämäärä ja aika Pythonilla
+ Name[fr]=Date et heure Python
+ Name[fy]=Python Datum en tiid
++Name[ga]=Dáta agus Am Python
+ Name[gl]=Data e hora en Python
+ Name[gu]=પાયથોન તારીખ અને સમય
+ Name[he]=תאריך ושעה של פייתון
+--- workspace/plasma/scriptengines/python/examples/applets/pyclock/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/python/examples/applets/pyclock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -17,6 +17,7 @@
+ Name[fi]=Python-kello
+ Name[fr]=Horloge Python
+ Name[fy]=Python klok
++Name[ga]=Clog Python
+ Name[gl]=Reloxo en Python
+ Name[gu]=પાયથોન ઘડિયાળ
+ Name[he]=שעון של פייתון
+--- workspace/plasma/scriptengines/ruby/examples/dataengines/dbpedia_albums/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/ruby/examples/dataengines/dbpedia_albums/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -11,6 +11,7 @@
+ Name[et]=DBpedia päringud
+ Name[eu]=DBpedia kontsultak
+ Name[fr]=Requêtes DBpedia
++Name[ga]=Iarratais DBpedia
+ Name[gl]=Procuras na DBpedia
+ Name[gu]=DBpedia પ્રશ્નો
+ Name[hi]=डीबीपीडिया क्वैरी
+--- workspace/plasma/scriptengines/ruby/examples/dataengines/time/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/ruby/examples/dataengines/time/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -18,6 +18,7 @@
+ Name[fi]=Päivämäärä ja aika
+ Name[fr]=Date et Heure
+ Name[fy]=Datum en tiid
++Name[ga]=Dáta agus Am
+ Name[gl]=Data e hora
+ Name[gu]=તારીખ અને સમય
+ Name[he]=תאריך ושעה
+--- workspace/plasma/scriptengines/ruby/examples/applets/webapplet/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/ruby/examples/applets/webapplet/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -15,6 +15,7 @@
+ Name[eu]=Ruby web arakatzailea
+ Name[fr]=Navigateur Web Ruby
+ Name[fy]=Ruby webblêder
++Name[ga]=Brabhsálaí Gréasáin Ruby
+ Name[gl]=Navegador web escrito en Ruby
+ Name[gu]=રૂબી વેબ બ્રાઉઝર
+ Name[he]=דפדפן רשת הכתוב ב־Ruby
+--- workspace/plasma/scriptengines/ruby/examples/applets/clock/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/ruby/examples/applets/clock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -13,6 +13,7 @@
+ Name[eu]=Ruby erloju analogikoa
+ Name[fr]=Horloge analogique Ruby
+ Name[fy]=Ruby analoge klok
++Name[ga]=Clog Analógach Ruby
+ Name[gl]=Reloxo analóxico escrito en Ruby
+ Name[gu]=રૂબી સાદી ઘડિયાળ
+ Name[he]=שעון אנלוגי ברובי
+--- workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -32,6 +32,7 @@
+ Name[pl]=Element interfejsu na tablicy z MacOS
+ Name[pt]=Elementos do Painel do MacOS
+ Name[pt_BR]=Widgets do painel do MacOS
++Name[ro]=Controale ale tabloului de bord MacOS
+ Name[ru]=Виджеты приборной доски MacOS Dashboard
+ Name[sk]=MacOS Dashboard Widgety
+ Name[sl]=Gradniki za Mac OS Dashboard
+@@ -84,6 +85,7 @@
+ Comment[pl]=Element interfejsu przypominający tablicę z MacOS
+ Comment[pt]=Elemento do Painel do MacOS
+ Comment[pt_BR]=Widget do painel do MacOS
++Comment[ro]=Control al tabloului de bord MacOS
+ Comment[ru]=Виджет приборной доски MacOS Dashboard
+ Comment[sl]=Gradnik za Mac OS Dashboard
+ Comment[sr]=Виџет инструмент-табле као у МекОС‑у
+--- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -75,6 +75,7 @@
+ Comment[pl]=Element interfejsu przypominający tablicę z MacOS X
+ Comment[pt]=Elemento gráfico do painel do MacOS X
+ Comment[pt_BR]=Widget do painel do MacOS X
++Comment[ro]=Control al tabloului de bord MacOS X
+ Comment[ru]=Виджет MacOS X Dashboard
+ Comment[sl]=Gradnik za Mac OS X Dashboard
+ Comment[sr]=Инструмент-табла МекОС‑а X
+--- workspace/plasma/scriptengines/webkit/plasma-packagestructure-web.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-web.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -16,6 +16,7 @@
+ Name[eu]=Web widget-ak
+ Name[fi]=Web-sovelmat
+ Name[fr]=Plasmoïdes Web
++Name[ga]=Giuirléidí Gréasáin
+ Name[gl]=Widgets web
+ Name[gu]=વેબ વિજેટ્સ
+ Name[he]=וידג'טים אינטרנטיים
+@@ -68,6 +69,7 @@
+ Comment[eu]=HTML widget-a
+ Comment[fi]=HTML-sovelma
+ Comment[fr]=Plasmoïde HTML
++Comment[ga]=Giuirléid HTML
+ Comment[gl]=Widget HTML
+ Comment[gu]=HTML વિજેટ
+ Comment[hi]=एचटीएमएल विज़ेट
+--- workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -5,6 +5,8 @@
+ Name[nds]=JavaScript-Instellen-Test
+ Name[sv]=Javascript-inställningstest
+ Name[tr]=javascript-yapılandırma-testi
++Name[x-test]=xxjavascript-config-testxx
++Name[zh_CN]=JavaScript-配置测试
+ Comment=Javascript config object test widget
+ Comment[ca]=Eina de proves de configuració d'objectes de Javascript
+ Comment[da]=Widget til test af Javascript config-objekt
+@@ -31,6 +33,8 @@
+ Comment[te]=జావాస్క్రిప్‍ట్ కాన్ఫిగ్ ఆబ్జక్‍ట్ టెస్‍ట్ విడ్జట్
+ Comment[tr]=Javascript yapılandırma nesnesi deneme parçacığı
+ Comment[uk]=Віджет перевірки налаштувань об’єктів Javascript
++Comment[x-test]=xxJavascript config object test widgetxx
++Comment[zh_CN]=JavaScript 配置对象测试部件
+ Comment[zh_TW]=Javascript 設定物件測試元件
+ Icon=configure
+ Type=Service
+--- workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -8,8 +8,11 @@
+ Name[nds]=Skript-Digitaalklock
+ Name[nl]=script-digitale-klok
+ Name[pt_BR]=script-relógio-digital
++Name[ro]=script-ceas-digital
+ Name[sv]=Skript med digitalklocka
+ Name[tr]=betik-dijital-saat
++Name[x-test]=xxscript-digital-clockxx
++Name[zh_CN]=脚本-数字钟
+ Comment=Javascript digital clock
+ Comment[ca]=Rellotge digital en Javascript
+ Comment[da]=Digitalt ur i Javascript
+@@ -17,7 +20,9 @@
+ Comment[el]=Ψηφιακό ρολόι Javascript
+ Comment[es]=Reloj javascript digital
+ Comment[et]=Javascripti digikell
++Comment[eu]=JavaScript ordulari digitala
+ Comment[fr]=Horloge numérique JavaScript
++Comment[ga]=Clog digiteach Javascript
+ Comment[gl]=Reloxo dixital escrito en JavaScript
+ Comment[is]=JavaScript stafræn klukka
+ Comment[it]=Orologio digitale JavaScript
+@@ -33,12 +38,15 @@
+ Comment[pl]=Zegar cyfrowy w Javascript
+ Comment[pt]=Relógio digital em JavaScript
+ Comment[pt_BR]=Relógio digital em JavaScript
++Comment[ro]=Un ceas digital Javascript
+ Comment[sl]=Digitalna ura v Javascriptu
+ Comment[sr]=Јаваскриптни дигитални сат
+ Comment[sr@latin]=Javascript digitalni sat
+ Comment[sv]=Javascript-digitalklocka
+ Comment[tr]=Javascript dijital saat
+ Comment[uk]=Цифровий годинник на JavaScript
++Comment[x-test]=xxJavascript digital clockxx
++Comment[zh_CN]=JavaScript 数字钟
+ Comment[zh_TW]=Javascript 數位時鐘
+ Icon=configure
+ Type=Service
+--- workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -4,9 +4,12 @@
+ Name[is]=spilanúna-skrifta
+ Name[nds]=Warrt-jüst-afspeelt-Skript
+ Name[nl]=script-nu-aan-het-spelen
++Name[ro]=script-înredare
+ Name[sv]=script-spelar-nu
+ Name[te]=ఇప్పుడునడుస్తున్న-స్క్రిప్ట్
+ Name[tr]=betik-şimdi dinlenen parça
++Name[x-test]=xxscript-nowplayingxx
++Name[zh_CN]=脚本-现在收听
+ Comment=Javascript version current track playing
+ Comment[ca]=Versió en Javascript de la peça actual en reproducció
+ Comment[da]=Javascript-version af nuværende spor som afspilles
+@@ -33,6 +36,8 @@
+ Comment[te]=ప్లేఅవుతున్న జావాస్క్రిప్ట్ వర్షన్ ప్రస్తుత ట్రాక్
+ Comment[tr]=Şimdi çalınan parça bilgisi betiğinin Javascript sürümü
+ Comment[uk]=Javascript-версія показу назви композиції, що відтворюється
++Comment[x-test]=xxJavascript version current track playingxx
++Comment[zh_CN]=Javascript 版本的现在收听
+ Comment[zh_TW]=Javascript 版本的「正在播放」
+ Icon=configure
+ Type=Service
+--- workspace/plasma/scriptengines/javascript/tests/tiger/metadata.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/javascript/tests/tiger/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -56,6 +56,7 @@
+ Comment[pl]=Adapter skryptów
+ Comment[pt]=Um Adaptador de Programas
+ Comment[pt_BR]=Um adaptador de script
++Comment[ro]=Adaptor de scripturi
+ Comment[sl]=Skriptni prilagodilnik
+ Comment[sr]=Адаптор скрипти
+ Comment[sr@latin]=Adaptor skripti
+@@ -63,6 +64,8 @@
+ Comment[te]=స్క్రిప్ట్ ఎడాప్టర్
+ Comment[tr]=Bir Betik Uyarlayıcısı
+ Comment[uk]=Пристосування скриптів
++Comment[x-test]=xxA Script Adaptorxx
++Comment[zh_CN]=脚本适配器
+ Comment[zh_TW]=文稿適配器
+ Type=Service
+ ServiceTypes=Plasma/Applet
+--- workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -14,6 +14,7 @@
+ Comment[eu]=QEdje gadget-ak
+ Comment[fi]=QEdje-sovelmat
+ Comment[fr]=Gadgets QEdje
++Comment[ga]=Giuirléidí QEdje
+ Comment[gl]=Gadgets de QEdje
+ Comment[gu]=QEdje ગેજેટ્સ
+ Comment[hi]=क्यूईडीजेई गज़ेट
+--- workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../tags/KDE/4.2.0/kdebase)	(wersja 920563)
++++ workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 920563)
+@@ -10,6 +10,7 @@
+ Name[eu]=QEdje gadget-ak
+ Name[fi]=QEdje-sovelmat
+ Name[fr]=Gadgets QEdje
++Name[ga]=Giuirléidí QEdje
+ Name[gl]=Gadgets de QEdje
+ Name[gu]=QEdje ગેજેટ્સ
+ Name[hi]=क्यूईडीजेई गज़ेट
+@@ -53,6 +54,7 @@
+ Comment[eu]=QEdje gadget-a
+ Comment[fi]=QEdje-sovelma
+ Comment[fr]=Gadget QEdje
++Comment[ga]=Giuirléid QEdje
+ Comment[gl]=Gadget de QEdje
+ Comment[gu]=QEdje ગેજેટ
+ Comment[hi]=क्यूईडीजेई गज़ेट
