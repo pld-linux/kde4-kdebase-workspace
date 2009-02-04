@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.0
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -828,9 +828,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_bell.so
 %{_datadir}/kde4/services/bell.desktop
 
-# bluez (shouldn't be in -solid???)
-%attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
-
 # clock
 %attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
 %{_datadir}/kde4/services/clock.desktop
@@ -1354,6 +1351,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
 %attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
+%attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
 %dir %{_datadir}/apps/solid
 %dir %{_datadir}/apps/solid/actions
 %dir %{_datadir}/apps/solidfakenetbackend
