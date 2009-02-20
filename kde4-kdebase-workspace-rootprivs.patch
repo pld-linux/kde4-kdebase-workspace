@@ -1,6 +1,7 @@
-diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspace-4.0.72-rootprivs/systemsettings/mainwindow.cpp
---- kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp	2008-04-30 15:58:34.000000000 +0200
-+++ kdebase-workspace-4.0.72-rootprivs/systemsettings/mainwindow.cpp	2008-05-07 01:05:14.000000000 +0200
+Index: mainwindow.cpp
+===================================================================
+--- mainwindow.cpp	(revision 835492)
++++ mainwindow.cpp	(working copy)
 @@ -27,6 +27,7 @@
  
  #include <QLayout>
@@ -17,7 +18,21 @@ diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspac
  #include <kcategorizedview.h>
  #include <kcategorydrawer.h>
  #include <kiconloader.h>
-@@ -297,9 +299,13 @@
+@@ -176,13 +178,6 @@
+         connect( tv,
+                 SIGNAL(activated(const QModelIndex&)),
+                 SLOT(selectionChanged(const QModelIndex&)) );
+-        if (KGlobalSettings::singleClick()) {
+-            connect( tv, SIGNAL(clicked(const QModelIndex&)),
+-                     SLOT(selectionChanged(const QModelIndex&)));
+-        } else {
+-            connect( tv, SIGNAL(doubleClicked(const QModelIndex&)),
+-                     SLOT(selectionChanged(const QModelIndex&)));
+-        }
+         connect( search, SIGNAL(textChanged(const QString&)),
+                 kcsfpm, SLOT(setFilterRegExp(const QString&)));
+         connect( kcsfpm, SIGNAL(layoutChanged()),
+@@ -299,9 +294,13 @@
          return;
  
      MenuItem * mItem = selected.data( Qt::UserRole ).value<MenuItem*>();
@@ -31,7 +46,7 @@ diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspac
      } else {
          kDebug() << ":'( Got dud pointer from " << selected.data( Qt::DisplayRole ).toString();
          Q_ASSERT(mItem); // Would core dump below. Do it now
-@@ -311,6 +317,35 @@
+@@ -313,6 +312,35 @@
      if ( groupWidget )
          return;
  
@@ -56,10 +71,10 @@ diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspac
 +            cmd = cmd.remove(0,9).trimmed();
 +
 +        QStringList args;
-+        args << "-c" << QString( "%1 %2 --lang %3" ).arg( KStandardDirs::locate("exe", "kcmshell4") ).arg( cmd ).arg( KGlobal::locale()->language() );
++        args << "-i" << QString( mItem->service->icon() ) << "-c" << QString( "%1 %2 --lang %3" ).arg( KStandardDirs::locate("exe", "kcmshell4") ).arg( cmd ).arg( KGlobal::locale()->language() );
 +
 +        kDebug() << "Starting root module: " << args;
-+        QProcess::execute( kdesu, args );
++        QProcess::startDetached( kdesu, args );
 +
 +        return;
 +    }
