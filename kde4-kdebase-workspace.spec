@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.0
-Release:	6
+Release:	7
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -518,6 +518,7 @@ cd build
 	-DKDE4_KDM_PAM_SERVICE=kdm \
 	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
 	-DKDE4_KSCREENSAVER_PAM_SERVICE=kscreensaver \
+	-DCMAKE_BUILD_TYPE=release \
 %if "%{_lib}" == "lib64"
 	-DLIB_SUFFIX=64 \
 %endif
