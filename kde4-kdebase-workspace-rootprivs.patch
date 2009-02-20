@@ -1,7 +1,7 @@
 Index: mainwindow.cpp
 ===================================================================
---- mainwindow.cpp	(revision 835492)
-+++ mainwindow.cpp	(working copy)
+--- kde4-kdebase-workspace/systemsettings/mainwindow.cpp	(revision 835492)
++++ kde4-kdebase-workspace/systemsettings/mainwindow.cpp	(working copy)
 @@ -27,6 +27,7 @@
  
  #include <QLayout>
