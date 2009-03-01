@@ -6,7 +6,7 @@ diff -ur kdebase-workspace-4.2.1.org/doc/kdm/index.docbook kdebase-workspace-4.2
  
  <para>When &kdm; starts up, it reads its configuration from the folder
 -<filename class="directory">$<envar>KDEDIR</envar>/share/config/kdm/</filename>
-+<filename class="directory">$<envar>/etc/X11/kdm/</filename>
++<filename class="directory">/etc/X11/kdm/</filename>
  (this may
  be <filename class="directory">/etc/kde4/kdm/</filename> or something else
  on your system).</para>
