@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.1
-Release:	1.1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -536,9 +536,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
-
-# Drop generated Xsession file (we have own one)
-%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 install -d $RPM_BUILD_ROOT/etc/{X11/kdm,pam.d,security}
@@ -1412,9 +1409,9 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
-%dir /etc/X11/config/kdm
-%config(noreplace) %verify(not md5 mtime size) /etc/X11/config/kdm/kdmrc
-%config(noreplace) %verify(not md5 mtime size) /etc/X11/config/kdm/backgroundrc
+%dir /etc/X11/kdm
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/kdmrc
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/backgroundrc
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xreset
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsession
 %attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsetup
