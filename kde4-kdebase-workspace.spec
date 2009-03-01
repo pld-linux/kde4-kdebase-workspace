@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.1
-Release:	1
+Release:	1.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -23,10 +23,12 @@ Source7:	kdebase-kdm_pldwallpaper.png
 Source8:	kdebase-kde.pam
 Source9:	%{name}-kcheckpass.pam
 Source10:	%{name}-kscreensaver.pam
+Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-solid-bluetooth.patch
+Patch2:		%{name}-kdmconfig.patch
 Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
@@ -510,6 +512,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 #%patch100 -p1
 %patch0 -p1
 %patch1 -p0
+%patch2 -p1
 
 %build
 install -d build
@@ -534,8 +537,11 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	kde_htmldir=%{_kdedocdir}
 
+# Drop generated Xsession file (we have own one)
+%{__rm} $RPM_BUILD_ROOT/etc/X11/kdm/Xsession
+
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
-install -d $RPM_BUILD_ROOT/etc/{X11,pam.d,security}
+install -d $RPM_BUILD_ROOT/etc/{X11/kdm,pam.d,security}
 install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm \
 	$RPM_BUILD_ROOT%{_datadir}/apps/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol \
@@ -552,6 +558,8 @@ install %{SOURCE9}	$RPM_BUILD_ROOT/etc/pam.d/kcheckpass
 install %{SOURCE10}	$RPM_BUILD_ROOT/etc/pam.d/kscreensaver
 install %{SOURCE4}	$RPM_BUILD_ROOT/etc/rc.d/init.d/kdm
 install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
+
+install %{SOURCE11}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
@@ -1404,15 +1412,15 @@ fi
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kde
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/security/blacklist.kdm
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/kdm
-%dir %{_datadir}/config/kdm
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/kdmrc
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/backgroundrc
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xreset
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xsession
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xsetup
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xstartup
-%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xwilling
-%config(noreplace) %verify(not md5 mtime size) %{_datadir}/config/kdm/Xaccess
+%dir /etc/X11/config/kdm
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/config/kdm/kdmrc
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/config/kdm/backgroundrc
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xreset
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsession
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xsetup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xstartup
+%attr(755,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xwilling
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/kdm/Xaccess
 %attr(754,root,root) /etc/rc.d/init.d/kdm
 %attr(755,root,root) %{_bindir}/genkdmconf
 %attr(755,root,root) %{_bindir}/kdm
