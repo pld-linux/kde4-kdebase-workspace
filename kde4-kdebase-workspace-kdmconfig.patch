@@ -173,7 +173,7 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/CMakeLists.txt kdebase-worksp
  ## use 'GENKDMCONF_FLAGS=... make install' to add flags to the config generation (try genkdmconf -h)
  install(CODE "
 -exec_program(\"${CMAKE_CURRENT_BINARY_DIR}/genkdmconf\" ARGS --in \\\"\\\$DESTDIR${CONFIG_INSTALL_DIR}/kdm\\\" --no-in-notice --face-src \\\"${CMAKE_CURRENT_SOURCE_DIR}/pics\\\" \\\$GENKDMCONF_FLAGS)
-+exec_program(\"${CMAKE_CURRENT_BINARY_DIR}/genkdmconf\" ARGS --in \\\"/etc/X11/kdm\\\" --no-in-notice --face-src \\\"${CMAKE_CURRENT_SOURCE_DIR}/pics\\\" \\\$GENKDMCONF_FLAGS)
++exec_program(\"${CMAKE_CURRENT_BINARY_DIR}/genkdmconf\" ARGS --in \\\"\\\${DESTDIR}/etc/X11/kdm\\\" --no-in-notice --face-src \\\"${CMAKE_CURRENT_SOURCE_DIR}/pics\\\" \\\$GENKDMCONF_FLAGS)
  ")
 diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c kdebase-workspace-4.2.1/kdm/kfrontend/kdmctl.c
 --- kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c	2008-01-05 00:55:45.000000000 +0100
