@@ -1,6 +1,6 @@
-diff -ur kdebase-workspace-4.2.1.org/doc/kdm/index.docbook kdebase-workspace-4.2.1/doc/kdm/index.docbook
+diff -urN kdebase-workspace-4.2.1.org/doc/kdm/index.docbook kdebase-workspace-4.2.1/doc/kdm/index.docbook
 --- kdebase-workspace-4.2.1.org/doc/kdm/index.docbook	2008-05-29 13:18:56.000000000 +0200
-+++ kdebase-workspace-4.2.1/doc/kdm/index.docbook	2009-03-01 13:33:49.650643144 +0100
++++ kdebase-workspace-4.2.1/doc/kdm/index.docbook	2009-03-02 09:33:11.956956104 +0100
 @@ -317,7 +317,7 @@
  system, and that you simply want to change its behavior in some way.</para>
  
@@ -10,9 +10,9 @@ diff -ur kdebase-workspace-4.2.1.org/doc/kdm/index.docbook kdebase-workspace-4.2
  (this may
  be <filename class="directory">/etc/kde4/kdm/</filename> or something else
  on your system).</para>
-diff -ur kdebase-workspace-4.2.1.org/kcontrol/fonts/fonts.cpp kdebase-workspace-4.2.1/kcontrol/fonts/fonts.cpp
+diff -urN kdebase-workspace-4.2.1.org/kcontrol/fonts/fonts.cpp kdebase-workspace-4.2.1/kcontrol/fonts/fonts.cpp
 --- kdebase-workspace-4.2.1.org/kcontrol/fonts/fonts.cpp	2008-12-21 21:19:15.000000000 +0100
-+++ kdebase-workspace-4.2.1/kcontrol/fonts/fonts.cpp	2009-03-01 13:30:49.730658303 +0100
++++ kdebase-workspace-4.2.1/kcontrol/fonts/fonts.cpp	2009-03-02 09:33:11.956956104 +0100
 @@ -643,7 +643,7 @@
         "<p>The use of this option is generally discouraged. For selecting proper DPI"
         " value a better option is explicitly configuring it for the whole X server if"
@@ -22,9 +22,9 @@ diff -ur kdebase-workspace-4.2.1.org/kcontrol/fonts/fonts.cpp kdebase-workspace-
         " properly with real DPI value better fonts should be used or configuration"
         " of font hinting should be checked.</p>" );
     comboForceDpi->setWhatsThis(whatsthis);
-diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/background.cpp kdebase-workspace-4.2.1/kcontrol/kdm/background.cpp
+diff -urN kdebase-workspace-4.2.1.org/kcontrol/kdm/background.cpp kdebase-workspace-4.2.1/kcontrol/kdm/background.cpp
 --- kdebase-workspace-4.2.1.org/kcontrol/kdm/background.cpp	2008-07-03 07:05:24.000000000 +0200
-+++ kdebase-workspace-4.2.1/kcontrol/kdm/background.cpp	2009-03-01 13:34:38.617307679 +0100
++++ kdebase-workspace-4.2.1/kcontrol/kdm/background.cpp	2009-03-02 09:33:11.956956104 +0100
 @@ -45,7 +45,7 @@
  		" specified in the Setup= option in kdmrc (usually Xsetup).") );
  	m_simpleConf = KSharedConfig::openConfig(
@@ -34,9 +34,9 @@ diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/background.cpp kdebase-workspa
  	m_background = new BGDialog( this, m_simpleConf );
  
  	connect( m_background, SIGNAL(changed( bool )), SIGNAL(changed()) );
-diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/kdm-users.cpp kdebase-workspace-4.2.1/kcontrol/kdm/kdm-users.cpp
+diff -urN kdebase-workspace-4.2.1.org/kcontrol/kdm/kdm-users.cpp kdebase-workspace-4.2.1/kcontrol/kdm/kdm-users.cpp
 --- kdebase-workspace-4.2.1.org/kcontrol/kdm/kdm-users.cpp	2008-08-28 18:12:26.000000000 +0200
-+++ kdebase-workspace-4.2.1/kcontrol/kdm/kdm-users.cpp	2009-03-01 13:43:23.500581732 +0100
++++ kdebase-workspace-4.2.1/kcontrol/kdm/kdm-users.cpp	2009-03-02 09:33:11.956956104 +0100
 @@ -87,7 +87,7 @@
  
  	// We assume that $kde_datadir/kdm exists, but better check for pics/ and pics/users,
@@ -46,9 +46,9 @@ diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/kdm-users.cpp kdebase-workspac
  	QDir testDir( m_userPixDir );
  	if (!testDir.exists() && !testDir.mkdir( testDir.absolutePath() ) && !geteuid())
  		KMessageBox::sorry( this, i18n("Unable to create folder %1", testDir.absolutePath() ) );
-diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/main.cpp kdebase-workspace-4.2.1/kcontrol/kdm/main.cpp
+diff -urN kdebase-workspace-4.2.1.org/kcontrol/kdm/main.cpp kdebase-workspace-4.2.1/kcontrol/kdm/main.cpp
 --- kdebase-workspace-4.2.1.org/kcontrol/kdm/main.cpp	2009-01-06 18:22:15.000000000 +0100
-+++ kdebase-workspace-4.2.1/kcontrol/kdm/main.cpp	2009-03-01 13:30:59.824472782 +0100
++++ kdebase-workspace-4.2.1/kcontrol/kdm/main.cpp	2009-03-02 09:33:11.983457130 +0100
 @@ -187,7 +187,7 @@
  		kWarning() << "user(s) '" << tgmapci.value().join( "," )
  		<< "' have unknown GID " << tgmapci.key() << endl;
@@ -58,9 +58,9 @@ diff -ur kdebase-workspace-4.2.1.org/kcontrol/kdm/main.cpp kdebase-workspace-4.2
  
  	QVBoxLayout *top = new QVBoxLayout( this );
  	top->setMargin( 0 );
-diff -ur kdebase-workspace-4.2.1.org/kdm/config.def kdebase-workspace-4.2.1/kdm/config.def
+diff -urN kdebase-workspace-4.2.1.org/kdm/config.def kdebase-workspace-4.2.1/kdm/config.def
 --- kdebase-workspace-4.2.1.org/kdm/config.def	2009-02-26 15:16:59.000000000 +0100
-+++ kdebase-workspace-4.2.1/kdm/config.def	2009-03-01 13:42:27.887607315 +0100
++++ kdebase-workspace-4.2.1/kdm/config.def	2009-03-02 09:36:05.187328458 +0100
 @@ -29,7 +29,7 @@
  #define RCVERMAJOR 2
  #define RCVERMINOR 4
@@ -139,7 +139,7 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/config.def kdebase-workspace-4.2.1/kdm/
  Key: SessionsDirs
  Type: list
 -Default: *KDMDATA "/sessions"
-+Default: *"/usr/share/xsessions"
++Default: "/usr/share/xsessions"
  User: core
  User: greeter-c
 -Instance: */KDMCONF "/sessions," KDMDATA "/sessions"
@@ -165,9 +165,9 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/config.def kdebase-workspace-4.2.1/kdm/
  User: greeter
  Instance: #*/"/usr/share/faces"
  Update: upd_facedir
-diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/CMakeLists.txt kdebase-workspace-4.2.1/kdm/kfrontend/CMakeLists.txt
+diff -urN kdebase-workspace-4.2.1.org/kdm/kfrontend/CMakeLists.txt kdebase-workspace-4.2.1/kdm/kfrontend/CMakeLists.txt
 --- kdebase-workspace-4.2.1.org/kdm/kfrontend/CMakeLists.txt	2008-07-31 10:14:09.000000000 +0200
-+++ kdebase-workspace-4.2.1/kdm/kfrontend/CMakeLists.txt	2009-03-01 13:37:39.710759801 +0100
++++ kdebase-workspace-4.2.1/kdm/kfrontend/CMakeLists.txt	2009-03-02 09:33:11.983457130 +0100
 @@ -109,5 +109,5 @@
  
  ## use 'GENKDMCONF_FLAGS=... make install' to add flags to the config generation (try genkdmconf -h)
@@ -175,9 +175,9 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/CMakeLists.txt kdebase-worksp
 -exec_program(\"${CMAKE_CURRENT_BINARY_DIR}/genkdmconf\" ARGS --in \\\"\\\$DESTDIR${CONFIG_INSTALL_DIR}/kdm\\\" --no-in-notice --face-src \\\"${CMAKE_CURRENT_SOURCE_DIR}/pics\\\" \\\$GENKDMCONF_FLAGS)
 +exec_program(\"${CMAKE_CURRENT_BINARY_DIR}/genkdmconf\" ARGS --in \\\"\\\${DESTDIR}/etc/X11/kdm\\\" --no-in-notice --face-src \\\"${CMAKE_CURRENT_SOURCE_DIR}/pics\\\" \\\$GENKDMCONF_FLAGS)
  ")
-diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c kdebase-workspace-4.2.1/kdm/kfrontend/kdmctl.c
+diff -urN kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c kdebase-workspace-4.2.1/kdm/kfrontend/kdmctl.c
 --- kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c	2008-01-05 00:55:45.000000000 +0100
-+++ kdebase-workspace-4.2.1/kdm/kfrontend/kdmctl.c	2009-03-01 13:31:07.834004939 +0100
++++ kdebase-workspace-4.2.1/kdm/kfrontend/kdmctl.c	2009-03-02 09:33:11.983457130 +0100
 @@ -150,7 +150,7 @@
  {
  	char *dpy = getenv( "DISPLAY" );
@@ -187,8 +187,9 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c kdebase-workspace-4.
  	char *ptr;
  	int fd;
  
---- kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt.orig	2009-03-02 01:19:34.258648722 +0100
-+++ kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt	2009-03-02 01:20:25.502777197 +0100
+diff -urN kdebase-workspace-4.2.1.org/kdm/kfrontend/sessions/CMakeLists.txt kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt
+--- kdebase-workspace-4.2.1.org/kdm/kfrontend/sessions/CMakeLists.txt	2008-04-30 15:58:40.000000000 +0200
++++ kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt	2009-03-02 09:33:11.983457130 +0100
 @@ -51,5 +51,5 @@
  	xfce.desktop
  	xfce4.desktop
