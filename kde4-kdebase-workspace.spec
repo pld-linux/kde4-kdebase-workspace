@@ -1425,8 +1425,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
-# XXX move dir below elsewhere
 /etc/X11/sessions
+# XXX move dir below elsewhere
 %dir %{_datadir}/apps/doc
 %{_datadir}/apps/doc/kdm
 %dir %{_datadir}/apps/kdm
