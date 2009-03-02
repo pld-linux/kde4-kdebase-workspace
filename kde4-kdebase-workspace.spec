@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -562,7 +562,7 @@ install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
 install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
 install %{SOURCE16} $RPM_BUILD_ROOT%{_bindir}/kde4-session
-install %{SOURCE15} $RPM_BUILD_ROOT%{_datadir}/apps/kdm/sessions/kde4.desktop
+install %{SOURCE15} $RPM_BUILD_ROOT/etc/X11/sessions/kde4.desktop
 
 $RPM_BUILD_ROOT%{_bindir}/genkdmconf --in $RPM_BUILD_ROOT%{_datadir}/config/kdm
 rm -f $RPM_BUILD_ROOT%{_datadir}/config/kdm/README
@@ -1426,6 +1426,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
 # XXX move dir below elsewhere
+/etc/X11/sessions
 %dir %{_datadir}/apps/doc
 %{_datadir}/apps/doc/kdm
 %dir %{_datadir}/apps/kdm
