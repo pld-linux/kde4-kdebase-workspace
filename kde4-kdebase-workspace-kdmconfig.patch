@@ -152,7 +152,7 @@ diff -urN kdebase-workspace-4.2.1.org/kdm/config.def kdebase-workspace-4.2.1/kdm
  User: core
  User: greeter-c
 -Instance: */KDMCONF "/sessions," KDMDATA "/sessions"
-+Instance: */"/etc/X11/sessions","/usr/share/xsessions"
++Instance: */"/etc/X11/sessions,/usr/share/xsessions"
  Update: upd_sessionsdirs
  Comment:
   The directories containing session type definitions in .desktop format,
