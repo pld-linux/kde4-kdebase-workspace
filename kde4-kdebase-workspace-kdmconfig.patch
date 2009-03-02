@@ -187,3 +187,12 @@ diff -ur kdebase-workspace-4.2.1.org/kdm/kfrontend/kdmctl.c kdebase-workspace-4.
  	char *ptr;
  	int fd;
  
+--- kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt.orig	2009-03-02 01:19:34.258648722 +0100
++++ kdebase-workspace-4.2.1/kdm/kfrontend/sessions/CMakeLists.txt	2009-03-02 01:20:25.502777197 +0100
+@@ -51,5 +51,5 @@
+ 	xfce.desktop
+ 	xfce4.desktop
+ 
+-	DESTINATION ${DATA_INSTALL_DIR}/kdm/sessions
++	DESTINATION /etc/X11/sessions
+ )
