@@ -1,12 +1,31 @@
---- workspace/ConfigureChecks.cmake	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/ConfigureChecks.cmake	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/ConfigureChecks.cmake	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/ConfigureChecks.cmake	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -85,3 +85,4 @@
  
  pkg_check_modules (XRANDR_1_2   xrandr>=1.2)
  macro_bool_to_01(XRANDR_1_2_FOUND HAS_RANDR_1_2)
 +
---- workspace/klipper/klipperrc.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/klipper/klipperrc.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
+@@ -54,6 +54,7 @@
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#include <limits.h>
+ #include <unistd.h>
+ #include <pwd.h>
+ 
+@@ -108,7 +109,7 @@
+ 		"Note that users with the UID 0 (typically root) are not affected by "
+ 		"this and must be explicitly excluded in \"Inverse selection\" mode.") );
+ 	QSizePolicy sp_ign_fix( QSizePolicy::Ignored, QSizePolicy::Fixed );
+-	QValidator *valid = new QIntValidator( 0, 999999, minGroup );
++	QValidator *valid = new QIntValidator( 0, INT_MAX, minGroup );
+ 	QLabel *minlab = new QLabel( i18nc("UIDs", "Below:"), minGroup );
+ 	leminuid = new KLineEdit( minGroup );
+ 	minlab->setBuddy( leminuid );
+--- workspace/klipper/klipperrc.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/klipper/klipperrc.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -259,7 +259,7 @@
  Description[gu]=મૂળભૂત બ્રાઉઝર સાથે ખોલો (&d)
  Description[he]=פתח באמצעות דפדפן &ברירת המחדל
@@ -70,8 +89,8 @@
  Description[hr]=Otvori pomoću &Mozille
  Description[hsb]=Z &Mozilla wočinić
  Description[hu]=Megnyitás a &Mozillával
---- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -1270,6 +1270,7 @@
  Name[pl]=Przechodzenie do stanu uśpienia
  Name[pt]=A efectuar uma tarefa de suspensão
@@ -80,16 +99,16 @@
  Name[ru]=Переход в режим ожидания
  Name[sk]=Vykonávam uspanie
  Name[sl]=Izvajanje zaustavitvenega opravila
---- workspace/libs/solid/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/libs/solid/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/libs/solid/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/libs/solid/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -1,2 +1,4 @@
 -add_subdirectory( control )
 +if(NOT WIN32)
 +  add_subdirectory( control )
 +endif(NOT WIN32)
  
---- workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -200,7 +200,8 @@
          Q_ASSERT( _index.isValid() );
          return;
@@ -100,8 +119,8 @@
  
      _view->setCurrentIndex(QModelIndex());
      }
---- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -1026,6 +1026,7 @@
  Comment[pl]=Naciśnij, w dół, w prawo, puść.
  Comment[pt]=Carregar, mover para cima, mover para a direita, largar.
@@ -110,8 +129,8 @@
  Comment[ru]=Нажать, вверх, вправо, отпустить.
  Comment[se]=Deaddil, sirdde bajásguvlui, sirdde olgešguvlui, luoitte.
  Comment[sk]=Stlačte, pohyb nahor, pohyb vpravo, pustite.
---- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -756,7 +756,7 @@
  Name[pl]=Uruchom Konsolę
  Name[pt]=Executar o Konsole
@@ -130,8 +149,8 @@
  Name[ne]=Ctrl+W to Ctrl+F4 लाई Qt डिजाइनरमा पुन: नक्साङ्कन गर्नुहोस्
  Name[nl]=Ctrl+W omzetten naar Ctrl+F4 in Qt Designer
  Name[nn]=Omordna «Ctrl + W» til «Ctrl + F4» i Qt Designer
---- workspace/kwin/effects/blur.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kwin/effects/blur.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kwin/effects/blur.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kwin/effects/blur.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -83,7 +83,7 @@
  Comment[gu]=પાશ્વભાગને અર્ધ-પારદર્શક વિન્ડોઝમાં ઝાંખું કરે છે
  Comment[he]=טישטוש הרקע של חלונות שקופים למחצה
@@ -141,8 +160,8 @@
  Comment[hsb]=Stwori młowojty pozadk za połpřewidnymi woknami.
  Comment[is]=Móðar bakgrunn aftan við hálfgegnsæa glugga
  Comment[it]=Sfoca lo sfondo dietro le finestre semitrasparenti
---- workspace/kwin/popupinfo.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kwin/popupinfo.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kwin/popupinfo.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kwin/popupinfo.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -51,6 +51,7 @@
      {
      setObjectName( name );
@@ -160,8 +179,8 @@
      }
  
  void PopupInfo::showInfo(const QString &infoString)
---- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -3426,7 +3426,7 @@
  Name[gu]=વિન્ડો દૂર કરો
  Name[he]=מחק חלון
@@ -189,8 +208,8 @@
  Name[hr]=Izbriši dijalog
  Name[hu]=Párbeszédablak eltűnése
  Name[is]=Eyða samskiptaglugga
---- workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -40,7 +40,7 @@
  Comment[gu]=કોલ્સ્ટ્રેરોલ ફ્રી ડેસ્કટોપ એન્વાર્યમેન્ટ, આવૃત્તિ ૪. ડેસ્કટોપ એન્વાર્યમેન્ટ જે CDE ની યાદ અપાવે છે
  Comment[he]=‏Cholesterol Free Desktop Environment, גירסה 4. סביבת שולחן עבודה המזכירה את CDE
@@ -200,8 +219,8 @@
  Comment[hr]=Cholesterol Free Desktop Environment verzija 4 - Okruženje radne površine koje podsjeća na CDE
  Comment[hsb]=Cholesterol Free Desktop Environment, wersija 4. System za dźěłowy powjerch, podobny na CDE
  Comment[hu]=The Cholesterol Free Desktop Environment, 4-es verzió. Egy CDE-szerű ablakkezelő
---- workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -38,7 +38,7 @@
  Comment[gu]=ક્લાઉડેનું ટેબ વિન્ડો વ્યવસ્થાપક, TWM વર્ચ્યુઅલ સ્ક્રિન વગેરે વડે વિસ્તૃત કરેલ.
  Comment[he]=‏Claude's Tab Window Manager, ‏TWM עם שיפורים של מסכים וירטואליים וכו'
@@ -211,8 +230,8 @@
  Comment[hr]=Claudov Tab upravitelj prozora, TWM poboljšan virtualnim zaslonima, itd.
  Comment[hsb]=Claude's Tab Window Manager, TWM rozšěrjeny z wirtualnymi powjerchami atd.
  Comment[hu]=Claude lapozós ablakkezelője, lényegében a TWM, kiegészítve virtuális képernyőkkel, egyebekkel
---- workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -42,7 +42,7 @@
  Comment[gu]=હલ્કું થીમ વાપરી શકાય તેવું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות קל משקל וניתן להתאמה אישית על ידי ערכות נושא
@@ -222,8 +241,8 @@
  Comment[hr]=Lagani upravitelj prozora s temama
  Comment[hsb]=Njenaročny woknowy rjadowar z temami 
  Comment[hu]=Kis erőforrásigényű ablakkezelő, témázási lehetőséggel
---- workspace/kdm/kfrontend/sessions/9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -70,7 +70,7 @@
  Comment[pt]=Uma emulação do gestor de janelas do Plan 9 8-1/2
  Comment[pt_BR]=Uma emulação do gerenciador de janelas Plan 9 (8-1/2)
@@ -233,8 +252,8 @@
  Comment[se]=Lásegieđahalli mii áddestaddá Plan 9 lásegieđahalli 8-1/2.
  Comment[sk]=Emulácia správcu okien 8-1/2 systému Plan 9
  Comment[sl]=Emulacija okenskega upravitelja Plan 9 8-1/2
---- workspace/kdm/kfrontend/sessions/ude.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/ude.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/ude.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/ude.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -38,7 +38,7 @@
  Comment[gu]=ધ UNIX ડેસ્કટોપ એન્વાર્યમેન્ટ
  Comment[he]=סביבת העבודה של יוניקס
@@ -244,8 +263,8 @@
  Comment[hr]=UNIX radno okruženje
  Comment[hsb]=UNIX Desktop Environment
  Comment[hu]=UNIX Desktop Environment ablakkezelő
---- workspace/kdm/kfrontend/sessions/xfce.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/xfce.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/xfce.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/xfce.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -38,7 +38,7 @@
  Comment[gu]=કોલ્સ્ટ્રેરોલ ફ્રી ડેસ્કટોપ એન્વાર્યમેન્ટ. ડેસ્કટોપ એન્વાર્યમેન્ટ જે CDE ની યાદ અપાવે છે
  Comment[he]=‏Cholesterol Free Desktop Environment. סביבת שולחן עבודה המזכירה את CDE
@@ -255,8 +274,8 @@
  Comment[hr]=Cholesterol Free Desktop Environment - Okruženje radne površine koje podsjeća na CDE
  Comment[hsb]=Cholesterol Free Desktop Environment. System za dźěłowy powjerch, podobny na CDE
  Comment[hu]=Cholesterol Free Desktop Environment, egy a CDE-re emlékeztető ablakkezelő
---- workspace/kdm/kfrontend/sessions/waimea.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/waimea.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/waimea.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/waimea.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -42,7 +42,7 @@
  Comment[gu]=બ્લેકબોક્સ પર આધારિત ઉચ્ચ ગોઠવણી કરી શકાય તેવું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות מבוסס על Blackbox המאפשר התאמה אישית רבה
@@ -266,8 +285,8 @@
  Comment[hr]=Vrlo prilagodljiv upravitelj prozora zasnovan na Blackboxu
  Comment[hsb]=Jara konfigurujomny woknowy rjadowar,  bazowacy na Blackbox
  Comment[hu]=Egy sokféle beállítási lehetőséggel rendelkező ablakkezelő a Blackbox alapján
---- workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -38,7 +38,7 @@
  Comment[gu]=9WM પર આધારિત વિન્ડો વ્યવસ્થાપક, જે વર્ચ્યુઅલ સ્ક્રિનો અને કીબોર્ડ જોડાણો વડે વિસ્તૃત કરી શકાય છે
  Comment[he]=מנהל חלונות המבוסס על 9WM, עם שיפורים לשולחנות עבודה וירטואליים ומיפויי מקשים
@@ -277,8 +296,8 @@
  Comment[hr]=Upravitelj prozora zasnovan na 9WM, unaprijeđen virtualnim zaslonima i prečacima tipkovnice
  Comment[hsb]=Woknowy rjadowar bazowacy na 9WM, kiž podpěruje wirtuelne wobrazowki a tastaturowe definicije
  Comment[hu]=Egy 9WM-alapú ablakkezelő, virtuális képernyőkezeléssel, konfigurálható billentyűparancsokkal
---- workspace/kdm/kfrontend/sessions/cde.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/cde.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/cde.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/cde.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -37,7 +37,7 @@
  Comment[gu]=કોમન ડેસ્કટોપ એન્વાર્યમેન્ટ, ખાનગી ઔધોગિક પ્રમાણભૂત ડેસ્કટોપ એન્વાર્યમેન્ટ
  Comment[he]=‏Common Desktop Environment, סביבת שולחן עבודה קניינית סטנדרטית בתעשייה
@@ -288,8 +307,8 @@
  Comment[hr]=Opće okruženje radne površine, standardizirano industrijskim vlasništvima
  Comment[hsb]=Common Desktop Environment, proprieterny dźěłowy powjerch po industrielnych normach
  Comment[hu]=The Common Desktop Environment, egy kereskedelmi, kváziszabványnak számító grafikus környezet
---- workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -37,7 +37,7 @@
  Comment[gu]=વર્ચ્યુઅલ ટેબ વિન્ડો વ્યવસ્થાપક. વિઝ્યુલ સ્ક્રિન વગેરે વડે વિસ્તૃત બનાવેલ TWM.
  Comment[he]=‏Virtual Tab Window Manager. ‏TWM עם שיפורים לשולחנות עבודה וירטואליים וכו'
@@ -299,8 +318,8 @@
  Comment[hr]=Comment=Virtual Tab Window Manager. TWM poboljšan virtualnim zaslonima itd.
  Comment[hsb]=Virtual Tab Window Manager. TWM z wirtuelnymi wobrazowkami atd.
  Comment[hu]=Virtual Tab Window Manager, egy TWM-változat, támogatja a virtuális képernyőkezelést
---- workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -41,7 +41,7 @@
  Comment[gu]=Emacs Lisp-જેવી ભાષાઓ વડે સ્ક્રિપ્ટ કરી શકાતું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות הניתן להרחבה ותכנות עם שפה דמויית Emacs Lisp
@@ -310,8 +329,8 @@
  Comment[hr]=Proširivi upravitelj prozora pisan u skripti nalik na jezik Emacs Lisp
  Comment[hsb]=Rozšěrjomny woknowy rjadowar, kiž rozumi skriptowu rěč, podobnu na Emacs-Lisp
  Comment[hu]=Egy könnyen tovább bővíthető ablakkezelő, egy Emacs Lisp-szerű nyelvvel szkriptelhető
---- workspace/plasma/dataengines/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/dataengines/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/dataengines/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/dataengines/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -4,11 +4,9 @@
  add_subdirectory(favicons)
  add_subdirectory(filebrowser)
@@ -333,8 +352,8 @@
     add_subdirectory(systemmonitor)
     add_subdirectory(tasks)
  endif(NOT WIN32)
---- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -203,6 +203,11 @@
        m_triggerEntered(false)
  {
@@ -358,8 +377,8 @@
  }
  
  PanelView::~PanelView()
---- workspace/plasma/containments/desktop/desktop.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/containments/desktop/desktop.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/containments/desktop/desktop.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/containments/desktop/desktop.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -77,7 +77,7 @@
      m_layout->setAutoWorkingArea(false);
      m_layout->setAlignment(Qt::AlignTop|Qt::AlignLeft);
@@ -369,8 +388,8 @@
      m_layout->setShiftingSpacing(0);
      m_layout->setTemporaryPlacement(true);
      m_layout->setVisibilityTolerance(0.5);
---- workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -86,7 +86,7 @@
  Comment[gu]=દૂર કરેલ વસ્તુઓનો અધિકાર
  Comment[he]=גישה לפריטים שנמחקו
@@ -380,8 +399,8 @@
  Comment[hsb]=Přistup k wumazanym objektam
  Comment[is]=Aðgangur að hlutum sem hefur verið eytt
  Comment[it]=Accedi agli oggetti cancellati
---- workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -27,7 +27,7 @@
  Name[gu]=ડોલ્ફિન સાથે ખોલો
  Name[he]=פתח באמצעות Dolphin
@@ -391,8 +410,8 @@
  Name[hr]=Otvori pomoću Dolphina
  Name[hsb]=Z Dolphinom wočinić
  Name[hu]=Megnyitás a Dolphinnal
---- workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -33,7 +33,7 @@
  Name[pt]=Lançamento Rápido
  Name[pt_BR]=Lançamento rápido
@@ -411,8 +430,8 @@
  Comment[si]=ඔබ කැමතීම යෙදුම් ආරම්ඹකය
  Comment[sk]=Rýchle spustenie obľúbených aplikácií
  Comment[sl]=Hitri zagon priljubljenih programov
---- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -44,6 +44,11 @@
           * The widget that displays the calendar.
           */
@@ -434,8 +453,8 @@
  };
  
  K_EXPORT_PLASMA_APPLET(calendar, CalendarTest)
---- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -22,6 +22,7 @@
  
  #include <KDebug>
@@ -505,8 +524,8 @@
 +}
 +
  #include "calendar.moc"
---- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -313,7 +313,14 @@
          delete layout;
          layout = new QHBoxLayout();
@@ -539,8 +558,8 @@
          layout->addWidget(contentSwitcher);
          QBoxLayout * layout2 = new QVBoxLayout();
          if (tabOrder == NormalTabOrder) {
---- workspace/plasma/applets/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/applets/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/applets/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/applets/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -1,11 +1,9 @@
  add_subdirectory(analog-clock)
  add_subdirectory(activitybar)
@@ -562,8 +581,8 @@
     add_subdirectory(pager)
     add_subdirectory(system-monitor)
     add_subdirectory(systemtray)
---- workspace/plasma/scriptengines/ruby/ChangeLog	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/ruby/ChangeLog	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/ruby/ChangeLog	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/ruby/ChangeLog	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -1,3 +1,8 @@
 +2009-02-10  Richard Dale  <richard.j.dale@gmail.com>
 +* For the methods that need to be special cased to work with 
@@ -573,8 +592,8 @@
  2009-02-05  Richard Dale  <richard.j.dale@gmail.com>
  * Added various special casing to the Plasma::ToolTipManager class so you can
    pass a PlasmaScripting::Applet to the methods. Thanks to Mathieu Jobin for
---- workspace/plasma/scriptengines/ruby/applet.rb	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/ruby/applet.rb	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/ruby/applet.rb	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/ruby/applet.rb	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -498,6 +498,10 @@
        end
      end
@@ -839,8 +858,8 @@
      def stretchFactor(item)
        if item.kind_of?(PlasmaScripting::Applet)
          super(item.applet_script.applet)
---- workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -70,6 +70,7 @@
  Comment[pl]=Gadżety Google na pulpicie
  Comment[pt]='Gadgets' do Google Desktop
@@ -849,8 +868,8 @@
  Comment[ru]=Гаджеты Google для рабочего стола
  Comment[sl]=Gradniki Google Gadgets
  Comment[sr]=Гуглове справице за површ
---- workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -84,6 +84,7 @@
  Comment[pl]=Gadżetu Google na pulpicie
  Comment[pt]='Gadget' do Google Desktop
@@ -859,8 +878,8 @@
  Comment[ru]=Гаджет Google для рабочего стола
  Comment[sl]=Gradnik Google Gadget
  Comment[sr]=Гуглове справице за површ
---- workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -39,6 +39,7 @@
  Comment[pl]=Gadżety QEdje
  Comment[pt]=Itens do QEdje
@@ -869,8 +888,8 @@
  Comment[ru]=Гаджеты QEdje
  Comment[sl]=Gradniki QEdje
  Comment[sr]=Куедје справице
---- workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 935993)
-+++ workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 935993)
+--- workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 936422)
++++ workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 936422)
 @@ -31,6 +31,7 @@
  Name[pl]=Gadżety QEdje
  Name[pt]=Itens do QEdje
