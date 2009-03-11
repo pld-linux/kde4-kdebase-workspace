@@ -62,6 +62,7 @@ BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	qzion-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	soprano-devel
 BuildRequires:	strigi-devel
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
