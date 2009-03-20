@@ -1,12 +1,54 @@
---- workspace/ConfigureChecks.cmake	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/ConfigureChecks.cmake	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -85,3 +85,4 @@
+--- workspace/ksmserver/kcm/kcmsmserver.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/ksmserver/kcm/kcmsmserver.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -52,7 +52,7 @@
+ Name[kn]=ಅಧಿವೇಶನ (ಸೆಶನ್) ವ್ಯವಸ್ಥಾಪಕ
+ Name[ko]=세션 관리자
+ Name[ku]=Gerînendeyê Danişînê
+-Name[lt]=Sesijos valdyklė
++Name[lt]=Sesijos tvarkytuvė
+ Name[lv]=Sesiju pārvaldnieks
+ Name[mai]=सत्र प्रबंधक
+ Name[mk]=Менаџер на сесии
+@@ -133,7 +133,7 @@
+ Comment[km]=កំណត់​រចនា​សម្ព័ន្ធ​កម្មវិធី​គ្រប់គ្រង​សម័យ និង​​កំណត់​ការ​ចេញ
+ Comment[kn]=ಅಧಿವೇಶನ (ಸೆಶನ್) ವ್ಯವಸ್ಥಾಪಕ ಹಾಗೂ ನಿರ್ಗಮನ (ಲಾಗೌಟ್) ಸಂಯೋಜನೆಗಳನ್ನು ಸಂರಚಿಸು
+ Comment[ko]=세션 관리자와 로그아웃 설정 관리
+-Comment[lt]=Čia galite konfigūruoti sesijos tvarkyklę ir išsiregistravimo nustatymus
++Comment[lt]=Čia galite konfigūruoti sesijos tvarkytuvę ir išsiregistravimo nustatymus
+ Comment[lv]=Šeit jūs varat konfigurēt sesiju pārvaldnieku un pieslēgšanās parametrus
+ Comment[mai]=सत्र प्रबंधक आओर लागआउट सेटिंग बिन्यस्त करू
+ Comment[mk]=Конфигурирајте го менаџерот на сесии и поставувањата за одјавување
+--- workspace/ConfigureChecks.cmake	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/ConfigureChecks.cmake	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -82,6 +82,8 @@
+ check_type_size("struct ucred" STRUCT_UCRED)       # kio_fonts
+ 
+ check_function_exists(getpeereid  HAVE_GETPEEREID) # kdesu
++check_function_exists(setpriority  HAVE_SETPRIORITY) # kscreenlocker
  
  pkg_check_modules (XRANDR_1_2   xrandr>=1.2)
  macro_bool_to_01(XRANDR_1_2_FOUND HAS_RANDR_1_2)
 +
---- workspace/kcontrol/style/style.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kcontrol/style/style.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kcontrol/standard_actions/standard_actions.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/standard_actions/standard_actions.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -44,6 +44,7 @@
+ Name[kn]=ಪ್ರಮಾಣಿತ ಕೀಲಿಮಣೆ ಶೀಘ್ರಮಾರ್ಗಗಳು (ಶಾರ್ಟ್ ಕಟ್)
+ Name[ko]=표준 키보드 단축키
+ Name[ku]=Kurterê yên Klavyeyê yên Standard
++Name[lt]=Standartiniai spartieji klavišai
+ Name[lv]=Standarta tastatūras īsceļi
+ Name[mk]=Стандардни кратенки на тастатурата
+ Name[ml]=കീബോര്‍ഡിലെ സ്റ്റാന്‍ഡര്‍ഡ് കുറക്കുവഴികള്‍
+@@ -106,6 +107,7 @@
+ Comment[kn]=ಪ್ರಮಾಣಿತ ಕೀಲಿಮಣೆ ನಿಬಂಧನೆಗಳ (ಬೈಂಡಿಂಗ್ಸ್) ಸಂರಚನೆ
+ Comment[ko]=표준 키 바인딩 설정
+ Comment[ku]=Veavakirina girêdanî ya bişkojkan yê standard
++Comment[lt]=Standartinių klavišų siečių konfigūravimas
+ Comment[lv]=Standarta taustiņsasaišu konfigurēšana
+ Comment[mk]=Конфигурација на стандардни врски на копчиња
+ Comment[ml]=കീബൈന്‍ഡിങ്സിനുള്ള സാധാരണ ക്രമീകരണം
+--- workspace/kcontrol/style/style.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/style/style.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -136,7 +136,7 @@
  Comment[kn]=ಕೆಡಿಇ ಯ ವೈಖರಿಯನ್ನು ಬದಲಾಯಿಸಲು ಮತ್ತು ನಿಯಂತ್ರಣಾಸಂಪರ್ಕತಟಗಳ (ವಿಡ್ಗೆಟ್) ಮಾರ್ಪಾಟುಮಾಡಲು ಅನುವುಮಾಡಿಕೊಡುತ್ತದೆ
  Comment[ko]=KDE 위젯의 행동을 조정하고 스타일을 변경하기
@@ -16,8 +58,82 @@
  Comment[lv]=Atļauj mainīt logdaļu izturēšanos un KDE stilu
  Comment[mai]=केडीईक शैली आओर विजेट बर्ताव मे परिवर्तनक स्वीकृति देत अछि
  Comment[mk]=Дозволува манипулација со однесувањата на графичките контроли и промена на стиловите во KDE
---- workspace/kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kcontrol/access/kaccess.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/access/kaccess.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -42,7 +42,7 @@
+ Name[kn]=ಕೆಡಿಇ ನಿಲುಕಣೆ (ಅಕ್ಸೆಸಿಬಲಿಟಿ) ಸಲಕರಣೆ
+ Name[ko]=KDE 접근성 도구
+ Name[ku]=KDE Amûra Xwegihandinê
+-Name[lt]=KDE prieinamumo įrankis
++Name[lt]=KDE pritaikymo neįgaliesiems įrankis
+ Name[lv]=KDE pieejamības rīks
+ Name[mai]=केडीई पहुँच अओजार
+ Name[mk]=Алатка за пристапливост во KDE
+--- workspace/kcontrol/access/kcmaccess.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/access/kcmaccess.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -54,7 +54,7 @@
+ Name[kn]=ನಿಲುಕಣೆ (ಆಕ್ಸೆಸಿಬಿಲಿಟಿ)
+ Name[ko]=내게 필요한 설정
+ Name[ku]=Gihîştin
+-Name[lt]=Prieinamumas
++Name[lt]=Pritaikymas neįgaliesiems
+ Name[lv]=Pieejamība
+ Name[mai]=अभिगम्यता
+ Name[mk]=Пристапливост
+--- workspace/kcontrol/access/kaccess.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/access/kaccess.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -181,6 +181,7 @@
+ Comment[kn]=ಒಂದು ಪರಿವರ್ತಕ (ಮಾಡಿಫಯರ್) ಕೀಲಿ (ಉ.ದಾ Shift ಅಥವಾ Ctrl) ನ ಸ್ಥಿತಿಯು ಬದಲಾಗಿದ್ದು ಈಗ ಸಕ್ರಿಯಗೊಂಡಿದೆ
+ Comment[ko]=Shift나 Control 키 같은 수정자 키의 상태가 바뀌었고 현재 사용 가능함
+ Comment[ku]=Bişkojkeke Guherker (mînak Shift an jî Ctrl) ciyê xwe guherand û niha çalak e
++Comment[lt]=Klavišo – modifikatoriaus (pvz., Lyg2(Shift) arba Vald(Ctrl)) būsena pakito ir jis dabar – aktyvus
+ Comment[lv]=Modifikatora taustiņš (piem. Shift vai Control) ir mainījis stāvokli un tagad ir aktīvs
+ Comment[mk]=Некое копче за модификација (пр. Shift или Ctrl) си ја смени состојбата и сега е активно
+ Comment[ml]=ഒരു മോഡിഫയര്‍ കീ (ഉദാ. Shift അല്ലെങ്കില്‍ Ctrl) അവസ്ഥ മാറി സജീവമായിരിക്കുന്നു
+@@ -313,6 +314,7 @@
+ Comment[kn]=ಒಂದು ಪರಿವರ್ತಕ (ಮಾಡಿಫಯರ್) ಕೀಲಿ (ಉ.ದಾ Shift ಅಥವಾ Ctrl) ನ ಸ್ಥಿತಿಯು ಬದಲಾಗಿದ್ದು ಈಗ  ನಿಷ್ಕ್ರಿಯಗೊಂಡಿದೆ
+ Comment[ko]=Shift나 Control 키 같은 수정자 키의 상태가 바뀌었고 현재 사용 불가능함
+ Comment[ku]=Bişkojkeke Guherker (mînak Shift an jî Ctrl) ciyê xwe guherand û niha neçalak e
++Comment[lt]=Klavišo – modifikatoriaus (pvz., Lyg2(Shift) arba Vald(Ctrl)) būsena pakito ir jis dabar – neaktyvus
+ Comment[lv]=Modifikatora taustiņš (piem. Shift vai Control) ir mainījis stāvokli un tagad ir neaktīvs
+ Comment[mk]=Некое копче за модификација (пр. Shift или Ctrl) си ја смени состојбата и сега е неактивно
+ Comment[ml]=ഒരു മോഡിഫയര്‍ കീ (ഉദാ. Shift അല്ലെങ്കില്‍ Ctrl) അവസ്ഥ മാറി നിര്‍ജീവമായിരിക്കുന്നു
+@@ -443,6 +445,7 @@
+ Comment[kn]=ಒಂದು ಪರಿವರ್ತಕ (ಮಾಡಿಫಯರ್) ಕೀಲಿಯನ್ನು  (ಉ.ದಾ Shift ಅಥವಾ Ctrl) ಬಂಧಿಸಲಾಗಿದ್ದು (ಲಾಕ್), ಮುಂದಿನ ಎಲ್ಲಾ ಕೀಲಿಮಣೆ ಒತ್ತುಗಳಿಗೆ ಈಗ ಸಕ್ರಿಯವಾಗಿದೆ
+ Comment[ko]=Shift나 Control 키 같은 수정자 키의 상태가 바뀌었고 현재 모든 키 입력에 대해서 활성화됨
+ Comment[ku]=Bişkojka guhêrker (wekî Shift an jî Ctrl) hate qufl kirin û niha ji bo çalak kirina hemû bişkojkên jêr çalak e
++Comment[lt]=Klavišas – modifikatorius (pvz., Lyg2(Shift) arba Vald(Ctrl)) buvo užrakintas ir dabar visiems būsimiems klavišų paspaudimams yra aktyvus
+ Comment[lv]=Modifikatora taustiņš (piem. Shift vai Control) tika fiksēts un ir aktīvs visiem nākamajiem taustiņu nospiedieniem
+ Comment[mk]=Некое копче за модификација (пр. Shift или Ctrl) беше заклучено и сега е активно за сите наредни притиснати копчиња
+ Comment[ml]=ഒരു മോഡിഫയര്‍ കീ (ഉദാ. Shift അല്ലെങ്കില്‍ Ctrl) പൂട്ടിയിരിക്കുന്നു. നിലവില്‍ താഴെ പറയുന്ന കീപ്രെസ്സുകള്‍ക്കു് ഇതു് സജീവമാണു്
+@@ -574,6 +577,7 @@
+ Comment[kn]=ಒಂದು ಭಂಧನ (ಲಾಕ್) ಕೀಲಿ (ಉ.ದಾ Shift ಅಥವಾ Ctrl) ನ ಸ್ಥಿತಿಯು ಬದಲಾಗಿದ್ದು ಈಗ ಸಕ್ರಿಯಗೊಂಡಿದೆ
+ Comment[ko]=Caps Lock이나 Num Lock 키 같은 잠금 키의 상태가 바뀌었고 현재 활성화됨
+ Comment[ku]=Rewşa Bişkojkeke Mifteyê (wekî Caps Lock an jî Num Lock) hate guhertin û niha çalak e
++Comment[lt]=Užrakto klavišo (pvz., Didž(Caps Lock) arba Sk(Num Lock)) būsena pakito ir jis dabar – aktyvus
+ Comment[lv]=Slēga taustiņš (piem. Caps Lock vai Num Lock) ir mainījis stāvokli un tagad ir aktīvs
+ Comment[mk]=Некое копче за заклучување (пр. Caps Lock или Num Lock) си ја смени состојбата и сега е активно
+ Comment[ml]=ഒരു ലോക്ക് കീ (ഉദാ. Caps Lock അല്ലെങ്കില്‍ Num Lock) അവസ്ഥ മാറി സജീവമാക്കിയിരിക്കുന്നു
+@@ -705,6 +709,7 @@
+ Comment[kn]=ಒಂದು ಭಂಧನ (ಲಾಕ್) ಕೀಲಿ (ಉ.ದಾ Shift ಅಥವಾ Ctrl) ನ ಸ್ಥಿತಿಯು ಬದಲಾಗಿದ್ದು ಈಗ ನಿಷ್ಕ್ರಿಯಗೊಂಡಿದೆ
+ Comment[ko]=Caps Lock이나 Num Lock 키 같은 잠금 키의 상태가 바뀌었고 현재 비활성화됨
+ Comment[ku]=Rewşa bişkojkeke mifteyê (wekî Caps Lock an jî Num Lock) hate guhertin û niha neçalak e
++Comment[lt]=Užrakto klavišo (pvz., Didž(Caps Lock) arba Sk(Num Lock)) būsena pakito ir jis dabar – neaktyvus
+ Comment[lv]=Slēga taustiņš (piem. Caps Lock vai Num Lock) ir mainījis stāvokli un tagad ir neaktīvs
+ Comment[mk]=Некое копче за заклучување (пр. Caps Lock или Num Lock) си ја смени состојбата и сега е неактивно
+ Comment[ml]=ഒരു ലോക്ക് കീ (ഉദാ. Caps Lock അല്ലെങ്കില്‍ Num Lock) അവസ്ഥ മാറി നിര്‍ജീവമായിരിക്കുന്നു
+--- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -44,6 +44,7 @@
+ Name[kn]=ಸಾರ್ವತ್ರಿಕ ಕೀಲಿಮಣೆ ಶೀಘ್ರಮಾರ್ಗಗಳು (ಶಾರ್ಟ್ ಕಟ್)
+ Name[ko]=전역 키보드 단축키
+ Name[ku]=Kurteriyên Klavyeyê yên Giştî
++Name[lt]=Globalieji spartieji klavišai
+ Name[lv]=Globālie tastatūras īsceļi
+ Name[mk]=Глобални кратенки на тастатурата
+ Name[ml]=ആഗോളമായ കീബോര്‍ഡിലെ കുറക്കുവഴികള്‍
+--- workspace/kcontrol/kdm/kdm-users.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kcontrol/kdm/kdm-users.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -54,6 +54,7 @@
  
  #include <sys/types.h>
@@ -35,8 +151,8 @@
  	QLabel *minlab = new QLabel( i18nc("UIDs", "Below:"), minGroup );
  	leminuid = new KLineEdit( minGroup );
  	minlab->setBuddy( leminuid );
---- workspace/doc/kcontrol/powerdevil/index.docbook	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/doc/kcontrol/powerdevil/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/doc/kcontrol/powerdevil/index.docbook	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/doc/kcontrol/powerdevil/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -11,7 +11,7 @@
  <!-- TRANS:ROLES_OF_TRANSLATORS -->
  </authorgroup>
@@ -299,8 +415,8 @@
  </para>
  </listitem>
  </varlistentry>
---- workspace/doc/kcontrol/kwincompositing/index.docbook	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/doc/kcontrol/kwincompositing/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/doc/kcontrol/kwincompositing/index.docbook	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/doc/kcontrol/kwincompositing/index.docbook	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -14,7 +14,7 @@
  <!-- TRANS:ROLES_OF_TRANSLATORS -->
  </authorgroup>
@@ -376,8 +492,8 @@
  </sect2>
  
  </sect1>
---- workspace/systemsettings/categories/settings-computer-administration.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/systemsettings/categories/settings-computer-administration.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/systemsettings/categories/settings-computer-administration.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/systemsettings/categories/settings-computer-administration.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -14,7 +14,7 @@
  Name[bn]=কমপিউটার অ্যাডমিনস্ট্রেশন
  Name[bn_IN]=কম্পিউটার অ্যাডমিনিস্ট্রেশন
@@ -387,8 +503,19 @@
  Name[csb]=Sprôwianié systemą
  Name[da]=Computeradministration
  Name[de]=Systemverwaltung
---- workspace/klipper/klipperrc.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/klipper/klipperrc.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/systemsettings/categories/settings-accessibility.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/systemsettings/categories/settings-accessibility.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -48,7 +48,7 @@
+ Name[kn]=ನಿಲುಕಣೆ (ಆಕ್ಸೆಸಿಬಿಲಿಟಿ)
+ Name[ko]=내게 필요한 설정
+ Name[ku]=Gihîştin
+-Name[lt]=Prieinamumas
++Name[lt]=Pritaikymas neįgaliesiems
+ Name[lv]=Pieejamība
+ Name[mai]=अभिगम्यता
+ Name[mk]=Пристапливост
+--- workspace/klipper/klipperrc.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/klipper/klipperrc.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -259,7 +259,7 @@
  Description[gu]=મૂળભૂત બ્રાઉઝર સાથે ખોલો (&d)
  Description[he]=פתח באמצעות דפדפן &ברירת המחדל
@@ -452,9 +579,146 @@
  Description[hr]=Otvori pomoću &Mozille
  Description[hsb]=Z &Mozilla wočinić
  Description[hu]=Megnyitás a &Mozillával
---- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -1270,6 +1270,7 @@
+--- workspace/solid/bluez/solid_bluez.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/solid/bluez/solid_bluez.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -43,6 +43,7 @@
+ Comment[kn]=ಬ್ಲೂಜ಼್ ಅಡುಕು (ಸ್ಟಾಕ್) ಬಳಸಿ ಬ್ಲೂಟೂತ್ ವ್ಯವಸ್ಥಾಪನೆ
+ Comment[ko]=BlueZ 스택을 사용하는 블루투스 관리
+ Comment[ku]=Gerînendetiya Bluetoothê BlueZ stack bi kar tîne
++Comment[lt]=Bluetooth tvarkymas naudojant BlueZ steką	
+ Comment[lv]=Bluetooth pārvaldība lietojot BlueZ
+ Comment[mk]=Менаџмент на Bluetooth со користење на BlueZ
+ Comment[ml]=BlueZ സ്റ്റാക്ക് ഉപയോഗിക്കുന്ന ബ്ലൂടൂത് മാനേജ്മെന്റ്
+--- workspace/solid/hal/solid_hal_power.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/solid/hal/solid_hal_power.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -20,6 +20,7 @@
+ Name[kk]=HAL-Қуаттандыру
+ Name[kn]=HAL-ಶಕ್ತಿ
+ Name[ko]=HAL 전력
++Name[lt]=HAL-galia
+ Name[lv]=HAL-Enerģija
+ Name[mai]=एचएएल-पावर
+ Name[mk]=HAL-енергија
+@@ -73,6 +74,7 @@
+ Comment[kn]=freedesktop.org ನ HAL ನೇಪಥಿಕ (ಡೀಮನ್) ಬಳಸಿ ಯಂತ್ರಾಂಶ ವಿದ್ಯುಚ್ಛಕ್ತಿ ವ್ಯವಸ್ಥಾಪನೆ
+ Comment[ko]=freedesktop.org HAL 데몬을 사용하는 하드웨어 전원 관리
+ Comment[ku]=Gerînendetiya hêza reqalavê xeyaleta freedesktop.org HAL'ê bi kar tîne
++Comment[lt]=Aparatinės įrangos maitinimo valdymas naudojant freedesktop.org HAL tarnybą
+ Comment[lv]=Aparatūras energokontrole, lietojot freedesktop.org HAL dēmonu
+ Comment[mk]=Менаџмент на енергијата на хардверот со даемонот HAL на freedesktop.org
+ Comment[ml]=freedesktop.org HAL daemon ഉപയോഗിച്ചുള്ള ഹാര്‍ഡുവയര്‍ ഊര്‍ജ്ജമേല്‍നോട്ടം
+--- workspace/solid/networkmanager-0.6/solid_networkmanager.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/solid/networkmanager-0.6/solid_networkmanager.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -79,6 +79,7 @@
+ Comment[kn]=ಜಾಲಬಂಧ ವ್ಯವಸ್ಥಾಪಕ ನೇಪಥಿಕವನ್ನು (ಡೀಮನ್) ಬಳಸಿ ಜಾಲ ವ್ಯವಸ್ಥಾಪನೆ
+ Comment[ko]=NetworkManager 데몬을 사용하는 네트워크 관리자
+ Comment[ku]=Gerînendetiya Torê ya ku xeyaketa GerînendeyêTorê bi kar tîne
++Comment[lt]=Tinklo tvarkymas naudojant NetworkManager tarnybą
+ Comment[lv]=Tīkla pārvaldība lietojot TiklaPārvaldnieka dēmonu
+ Comment[ml]=NetworkManager ഡെമണ്‍ ഉപയോഗിക്കുന്ന നെറ്റ്‌വര്‍ക്ക് മാനേജ്മെന്റ്
+ Comment[mr]=संजाळव्यवस्थापक डीमनचा वापर करणारे संजाळ व्यवस्थापन
+--- workspace/solid/networkmanager-0.7/solid_networkmanager07.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/solid/networkmanager-0.7/solid_networkmanager07.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -66,6 +66,7 @@
+ Comment[kn]=ಜಾಲಬಂಧ ವ್ಯವಸ್ಥಾಪಕ ನೇಪಥಿಕ (ಡೀಮನ್), ಆವೃತ್ತಿ ೦.೭  ಬಳಸಿ ಜಾಲ ವ್ಯವಸ್ಥಾಪನೆ
+ Comment[ko]=NetworkManager 데몬을 사용하는 네트워크 관리자, 버전 0.7
+ Comment[ku]=Gerînendetiya Torê ya ku xeyaleta GerînendeyêTorê guherto 0.7 bi kar tîne
++Comment[lt]=Tinklo tvarkymas naudojant NetworkManager (versija 0.7) tarnybą
+ Comment[lv]=Tīkla pārvaldība, lietojot NetworkManager dēmonu, 0.7 versiju
+ Comment[ml]=NetworkManager പതിപ്പു് 0.7 ഡെമണ്‍ ഉപയോഗിക്കുന്ന നെറ്റ്‌വര്‍ക്ക് മാനേജ്മെന്റ്
+ Comment[mr]=संजाळव्यवस्थापक डीमन, आवृत्ती 0.7 चा वापर करणारे संजाळ व्यवस्थापन
+--- workspace/solid/kcm/kcm_solid.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/solid/kcm/kcm_solid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -44,7 +44,6 @@
+ Name[mr]=हार्डवेअर
+ Name[nb]=Maskinvare
+ Name[ne]=हार्डवेयर
+-Name[nn]=Maskinvare
+ Name[or]=ହାର୍ଡୱେର
+ Name[pa]=ਹਾਰਡਵੇਅਰ
+ Name[pl]=Sprzęt
+@@ -96,6 +95,7 @@
+ Comment[kn]=ಸಾಲಿಡ್ ನೊಂದಿಗೆ ಯಂತ್ರಾಂಶ ಜೋಡಣೆ ಸಂರಚನೆ
+ Comment[ko]=Solid를 통한 하드웨어 통합 설정
+ Comment[ku]=Veavakirina Tevîhevkirina Reqalavê bi Solid re
++Comment[lt]=Aparatinės įrangos integracijos konfigūravimas su Solid
+ Comment[lv]=Aparatūras integrācijas konfigurācija ar Solid
+ Comment[mk]=Конфигурација на хадверската интеграција со Солид
+ Comment[ml]=ഹാര്‍ഡുവെയര്‍ ഏകീകരണത്തിനുള്ള ക്രമീകരണം സോളിഡുമായി
+--- workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -218,7 +218,7 @@
+ 
+     // This gets registered to avoid double copies.
+     QDBusConnection::sessionBus().registerService("org.kde.powerdevilsystem");
+-
++    conn.interface()->registerService("org.freedesktop.Policy.Power");
+     // All systems up Houston, let's go!
+     refreshStatus();
+ }
+--- workspace/powerdevil/daemon/powerdevil.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/powerdevil/daemon/powerdevil.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -51,6 +51,7 @@
+ Comment[kn]=ಉಡಿಗಣಕ (ಲಾಪ್ಟಾಪ್) ವಿದ್ಯುಚ್ಛಕ್ತಿ ವ್ಯವಸ್ಥಾಪನಾ ನೇಪಥಿಕ (ಡೀಮನ್)
+ Comment[ko]=노트북 전원 관리 데몬
+ Comment[ku]=Servîsa Rêveberiya Hêza Laptopê
++Comment[lt]=Nešiojamojo kompiuterio energijos valdymo tarnyba
+ Comment[lv]=Klēpjdatora energokontroles dēmons
+ Comment[mk]=Даемон за менаџмент на енергија за лаптопи
+ Comment[ml]=ഒരു ലാപ്ടോപ് പവര്‍ മാനേജ്മെന്റ് നിരന്തരപ്രവ്രത്തി
+--- workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -95,6 +95,7 @@
+ Comment[km]=បង្ហាញ​ពន្លឺ ផ្អាក និង​កា​រកំណត់​ទម្រង់​ថាមពល
+ Comment[kn]=ಪ್ರದರ್ಶನ ಉಜ್ವಲತೆ (ಬ್ರೈಟ್ನೆಸ್), ವಜಾಮಾಡುವಿಕೆ (ಸಸ್ಪೆಂಡ್) ಹಾಗೂ ವಿದ್ಯುಚ್ಛಕ್ತಿ ವೈಶಿಷ್ಟ್ಯ ಸಂಯೋಜನೆಗಳು
+ Comment[ko]=화면 밝기, 절전 모드, 전원 프로필 설정
++Comment[lt]=Ekrano ryškumas, sustabdymo ir energijos profilių nustatymai
+ Comment[lv]=Parāda gaišumu, iemigšanas un jaudas profila iestatījumus
+ Comment[ml]=തെളിച്ചവും, താല്‍കാലികമായി നിര്‍ത്തിവെക്കാനുള്ളതിന്റെയും ഊര്‍ജ്ജത്തിന്റെയും പ്രൊഫൈല്‍ സജ്ജീകരണങ്ങള്‍ കാണിക്കുക.
+ Comment[mr]=तेजपणा, सस्पेंड व पावर प्रदर्शन संयोजना दर्शवा
+--- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -177,6 +177,7 @@
+ Comment[km]=បានប្រើ​សម្រាប់​ការ​ជូន​ព្រមាន
+ Comment[kn]=ಎಚ್ಚರಿಕೆ ಸೂಚನೆಗಳಿಗೆ ಬಳಸಲಾಗುತ್ತದೆ
+ Comment[ko]=경고 알림에 사용됨
++Comment[lt]=Naudojama perspėjimams
+ Comment[lv]=Izmanto brīdinājumu paziņojumiem
+ Comment[ml]=താക്കീത് അറിയിപ്പുകള്‍ക്കായ് ഉപയോഗിക്കുന്നു
+ Comment[mr]=सावधगिरी सूचना करीता वापरले जाते
+@@ -417,6 +418,7 @@
+ Comment[km]=ជូនដំណឹង​ព្រត្តិការណ៍​សំខាន់
+ Comment[kn]=ವಿಷಮ ಘಟನೆಯೊಂದನ್ನು ಸೂಚಿಸುತ್ತದೆ
+ Comment[ko]=치명적인 사건을 알림
++Comment[lt]=Perspėja apie kritinį įvykį
+ Comment[lv]=Paziņo kritisku notikumu
+ Comment[mk]=Известува за критичен настан
+ Comment[ml]=ഒരു അത്യാവശ്യമായ സംഭവം അറിയിക്കുന്നു
+@@ -473,6 +475,7 @@
+ Name[km]=ថ្ម​ទាប
+ Name[kn]=ವಿದ್ಯುಕ್ಕೋಶದ ಶಕ್ತಿ ಕ್ಷೀಣವಾಗಿದೆ
+ Name[ko]=배터리 낮음
++Name[lt]=Žema akumuliatoriaus įkrova
+ Name[lv]=Zema baterija
+ Name[ml]=ബാറ്ററി കുറവാണു്‌
+ Name[nb]=Lavt batterinivå
+@@ -744,6 +747,7 @@
+ Comment[kk]=Батареяңыз әбден сарқытылды. Бұл құлақтандырумен бұл жағдайға бағышталған амалға қалған уакыт санауы басталады, бұған кедергі қылмауы абзал.
+ Comment[km]=ថ្ម​របស់​អ្នក​បានដល់កម្រិត​សំខាន់ ។ ការ​ជូនដំណឹង​នេះ​កេះ​ឲ្យ​រាប់​ថយ​ក្រោយ​មុនធ្វើ​​សកម្មភាព​ដែល​បានកំណត់​រចនាសម្ព័ន្ធ ដូច្នេះ​វា​ត្រូវ​បានផ្ដល់​អនុសាសន៍​ឲ្យ​ទុក​វា​សិន ។
+ Comment[ko]=배터리가 부족합니다. 설정된 동작을 실행할 때까지 잠깐 동안의 여유가 있으며, 그 시간 동안 작업을 정리하십시오.
++Comment[lt]=Jūsų akumuliatoriaus įkrova pasiekė kritinį lygmenį. Šis perspėjimas sužądina atvirkštinį skaičiavimą, kuriam pasibaigus bus atliekamas konfigūruotas veiksmas, tad primygtinai siūlome palikti šį nustatymą įjungtą
+ Comment[lv]=Jūsu baterija ir sasniegisi kritisku līmeni. Šis paziņojums sāk laika atskaiti līdz konfigurētajai darbībai, tāpēc ir ļoti vēlams atstāt to redzamu.
+ Comment[ml]=നിങ്ങളുടെ ബാറ്ററി ക്രിടിക്കല്‍ (ഭയാവഹമായ) നില എത്തിയിരിക്കുന്നു. ഈ അറിയിപ്പ് ഒരു കൗണ്‍ട്-ഡൗണ്‍ തുടങ്ങുന്നു, അതു കഴിഞ്ഞാല്‍ ക്രമീകരിച്ച പ്രവര്‍ത്തനം ചെയ്യപ്പെടും, അതിനാല്‍ അതു സജീവമായിരിക്കട്ടെ എന്നു ഉപദേശിക്കുന്നു.
+ Comment[mr]=बॅटरी महत्वाचे स्तर पर्यंत पोहचली आहे. ही सूचना संयोजीत क्रिया करण्यापूर्वी काऊन्टडाऊन सक्रीय करते, ज्यामुळे त्यांस वगळण्यास सूचविले जाते.
+@@ -1259,6 +1263,7 @@
+ Name[kk]=Қалғуға өту
+ Name[km]=អនុវត្ត​ការងារ suspension
+ Name[ko]=대기 모드로 들어가는 중
++Name[lt]=Atliekamas sustabdymas
+ Name[lv]=Veic iemigšanas darbību
+ Name[ml]=താല്‍കാലികമായി നിര്‍ത്തിവെക്കാനുള്ള (മയങ്ങല്‍) ജോലി ചെയ്യുന്നു
+ Name[mr]=सस्पेनशन कार्य कार्यान्वीत केले
+@@ -1270,6 +1275,7 @@
  Name[pl]=Przechodzenie do stanu uśpienia
  Name[pt]=A efectuar uma tarefa de suspensão
  Name[pt_BR]=Realizando uma tarefa de suspensão
@@ -462,16 +726,59 @@
  Name[ru]=Переход в режим ожидания
  Name[sk]=Vykonávam uspanie
  Name[sl]=Izvajanje zaustavitvenega opravila
---- workspace/libs/solid/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/libs/solid/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+@@ -1302,6 +1308,7 @@
+ Comment[kk]=Бұл құлақтандыру қалғу режіміне өту ензіне қалған уакыт санауы басталғанда көрсетіледі. Бұған кедергі қылмауы абзал.
+ Comment[km]=កា​រជូន​ដំណឹង​នេះ​ត្រូវ​បានបង្ហាញ​នៅពេល​ការងារ suspension រៀប​នឹង​ធ្វើ និង​វាកេះ​ឲ្យ​រាប់​ថយក្រោយ ។ ដូច្នេះ​វា​ត្រូវបានណែនាំ​ឲ្យ​ទុកវាសិន ។
+ Comment[ko]=대기 모드로 곧 들어갑니다. 잠깐 동안의 시간 여유가 주어지며, 그 동안 작업을 정리하십시오.
++Comment[lt]=Šis pranešimas rodomas kai ruošiamasi sustabdyti kompiuterį, kai įsijungia sekundžių iki išjungimo skaičiavimas. Todėl primygtinai siūlytina palikti šią parinktį įjungtą.
+ Comment[lv]=Šis paziņojums tiek parādīts, kad tiks veikta iemigšanas darbība, un tas sāk laika atskaiti. Tāpēc ļoti vēlams atstāt to redzamu.
+ Comment[ml]=ഈ അറിയിപ്പ് കാണിച്ചാല്‍ ഒരു താല്‍കാലികമായി നിര്‍ത്തിവെക്കല്‍ (മയങ്ങല്‍)ജോലി ചെയ്യാന്‍ പോകുന്നു. ഇത് ഒരു കൗണ്‍ട്-ഡൗണ്‍ തുടങ്ങുന്നു, അതിനാല്‍ അതു സജീവമായിരിക്കട്ടെ എന്നു ഉപദേശിക്കുന്നു.
+ Comment[mr]=सस्पेनशन कार्य पूर्ण होतेवेळी ही सूनचा दर्शविली जाते, व काऊन्टडाऊन करीता सक्रीय केले जाते. त्यामुळेच, त्यांस वगळणे सूचविले जाते.
+@@ -1408,6 +1415,7 @@
+ Comment[km]=PowerDevil បាន​កេះ​កំហុស​ខា​ងក្នុង​មួយ
+ Comment[kn]=ಪವರ್ ಡೆವಿಲ್ ಒಂದು ಆಂತರಿಕ ದೋಷವನ್ನು ಪ್ರಚೋದಿಸಿದೆ (ಟ್ರಿಗರ್)
+ Comment[ko]=PowerDevil에서 내부 오류가 발생했습니다
++Comment[lt]=PowerDevil sužadino vidinę klaidą
+ Comment[lv]=PowerDevil gadījusies iekšēja kļūda
+ Comment[ml]=PowerDevil ഒരു ആന്തരിക പിശക് തുടങ്ങിയിരിക്കുന്നു
+ Comment[mr]=PowerDevil ने आंतरिक त्रुटीला सक्रीय केले
+@@ -1461,6 +1469,7 @@
+ Name[kk]=Қалғуға өту кідірілді
+ Name[km]=បានហាមឃាត់​ការ​ផ្អាក
+ Name[ko]=대기 모드로 들어가지 않았음
++Name[lt]=Sustabdymas sutrukdytas
+ Name[lv]=Iemigšana aizkavēta
+ Name[ml]=താല്‍കാലിക നിര്‍ത്തിവെക്കല്‍ (മയങ്ങല്‍ ) നിര്‍ത്തിയിരിക്കുന്നു
+ Name[nb]=Suspensjon hindret
+@@ -1506,6 +1515,7 @@
+ Comment[kk]=Қалғу режіміне өту бір бағдарламаның талабымен кідірілді
+ Comment[km]=ការ​ផ្អាក​ត្រូវ​បានហាមឃាត់​ ពីព្រោះ​កម្មវិធី​បាន​ស្នើ​វា
+ Comment[ko]=프로그램의 요청으로 대기 모드에 들어가지 않았습니다
++Comment[lt]=Sustabdymas sutrukdytas, nes to prašė programa
+ Comment[lv]=Iemigšana tika aizkavēta, jo to pieprasīja kāda programma
+ Comment[ml]=താല്‍കാലിക-നിര്‍ത്തിവെക്കല്‍(മയങ്ങല്‍) നിര്‍ത്തിയിരിക്കുന്നു കാരണം ഒരു പ്രയോഗം ഇതു അഭ്യര്‍ത്തിരിക്കുന്നു.
+ Comment[nb]=Suspensjonen er blitt hindret fordi et program ba om det
+--- workspace/libs/solid/control/backends/fakenet/solid_fakenet.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/libs/solid/control/backends/fakenet/solid_fakenet.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -104,7 +104,7 @@
+ Comment[km]=ការ​គ្រប់គ្រង​បណ្តាញ​ក្លែងក្លាយ​
+ Comment[kn]=ನಕಲಿ ಜಾಲ ವ್ಯವಸ್ಥಾಪನೆ
+ Comment[ko]=가짜 네트워크 관리
+-Comment[lt]=Netikro tinklo tvarkymas
++Comment[lt]=Netikra tinklo tvarkymo tarnyba
+ Comment[lv]=Neīsta tīkla pārvaldnieks
+ Comment[mai]=नकली नेटवर्क प्रबंधन
+ Comment[ml]=ഫെയിക് നെറ്റ്‌വര്‍ക്ക് മാനേജ്മെന്റ്
+--- workspace/libs/solid/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/libs/solid/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -1,2 +1,4 @@
 -add_subdirectory( control )
 +if(NOT WIN32)
 +  add_subdirectory( control )
 +endif(NOT WIN32)
  
---- workspace/libs/taskmanager/strategies/desktopsortingstrategy.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/libs/taskmanager/strategies/desktopsortingstrategy.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/libs/taskmanager/strategies/desktopsortingstrategy.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/libs/taskmanager/strategies/desktopsortingstrategy.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -44,28 +44,20 @@
  
  void DesktopSortingStrategy::sortItems(ItemList &items)
@@ -509,8 +816,39 @@
      disconnect(item, 0, this, 0); //To avoid duplicate connections
      connect(item, SIGNAL(changed(::TaskManager::TaskChanges)), this, SLOT(check()));
      AbstractSortingStrategy::handleItem(item);
---- workspace/libs/taskmanager/strategies/desktopsortingstrategy.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/libs/taskmanager/strategies/desktopsortingstrategy.h	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/libs/taskmanager/strategies/programgroupingstrategy.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/libs/taskmanager/strategies/programgroupingstrategy.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -27,6 +27,8 @@
+ 
+ #include <KDebug>
+ #include <KLocale>
++#include <KConfig>
++#include <KConfigGroup>
+ 
+ #include "abstractgroupingstrategy.h"
+ #include "groupmanager.h"
+@@ -54,10 +56,19 @@
+ {
+     d->groupManager = groupManager;
+     setType(GroupManager::ProgramGrouping);
++
++    KConfig groupBlacklist( "taskbargroupblacklistrc", KConfig::NoGlobals );
++    KConfigGroup blackGroup( &groupBlacklist, "Blacklist" );
++    d->blackList = blackGroup.readEntry( "Applications", QStringList() );
+ }
+ 
+ ProgramGroupingStrategy::~ProgramGroupingStrategy()
+ {
++    KConfig groupBlacklist( "taskbargroupblacklistrc", KConfig::NoGlobals );
++    KConfigGroup blackGroup( &groupBlacklist, "Blacklist" );
++    blackGroup.writeEntry( "Applications", d->blackList );
++    blackGroup.config()->sync();
++    
+     delete d;
+ }
+ 
+--- workspace/libs/taskmanager/strategies/desktopsortingstrategy.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/libs/taskmanager/strategies/desktopsortingstrategy.h	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -43,6 +43,7 @@
  private:
      /** Sorts list of items according to strategy*/
@@ -519,8 +857,8 @@
  };
  
  
---- workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/kcm_hotkeys/hotkeys_tree_view.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -200,7 +200,8 @@
          Q_ASSERT( _index.isValid() );
          return;
@@ -531,9 +869,230 @@
  
      _view->setCurrentIndex(QModelIndex());
      }
---- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -1026,6 +1026,7 @@
+--- workspace/khotkeys/kcm_hotkeys/actions/menuentry_action_widget.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/kcm_hotkeys/actions/menuentry_action_widget.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -26,6 +26,7 @@
+ 
+ MenuentryActionWidget::MenuentryActionWidget( KHotKeys::MenuEntryAction *action, QWidget *parent )
+         : ActionWidgetBase(action, parent )
++          ,storage_id()
+     {
+     ui.setupUi(this);
+ 
+@@ -66,10 +67,12 @@
+     if (service)
+         {
+         ui.application->setText( service->name() );
++        storage_id = service->storageId();
+         }
+     else
+         {
+-        ui.application->setText("");
++        ui.application->setText(QString());
++        storage_id = QString();
+         }
+     }
+ 
+@@ -77,8 +80,8 @@
+ void MenuentryActionWidget::doCopyToObject()
+     {
+     Q_ASSERT(action());
+-
+-    action()->set_service( KService::serviceByName( ui.application->text() ));
++    kDebug() << KService::serviceByName(ui.application->text());
++    action()->set_service( KService::serviceByStorageId(storage_id));
+     }
+ 
+ 
+@@ -113,6 +116,7 @@
+     if (service)
+         {
+         ui.application->setText( service->name() );
++        storage_id = service->storageId();
+         }
+     }
+ 
+--- workspace/khotkeys/kcm_hotkeys/actions/menuentry_action_widget.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/kcm_hotkeys/actions/menuentry_action_widget.h	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -60,8 +60,11 @@
+     virtual void doCopyFromObject();
+     virtual void doCopyToObject();
+ 
++    QString storage_id;
++
+     Ui::MenuentryActionWidget ui;
+ 
++
+ };
+ 
+ #endif /* #ifndef MENUENTRY_ACTION_WIDGET_H */
+--- workspace/khotkeys/libkhotkeysprivate/actions/menuentry_action.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/libkhotkeysprivate/actions/menuentry_action.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -18,9 +18,11 @@
+ */
+ 
+ #include "actions.h"
++#include "action_data/action_data.h"
+ 
+ #include <KDE/KConfigGroup>
+ #include <KDE/KDebug>
++#include <KDE/KMessageBox>
+ #include <KDE/KUrl>
+ #include <KDE/KRun>
+ 
+@@ -57,19 +59,37 @@
+ 
+ void MenuEntryAction::set_service( KService::Ptr service )
+     {
+-    if (!service) return;
+     _service = service;
+-    set_command_url(service->storageId());
++    if (service)
++        {
++        set_command_url(service->storageId());
++        }
++    else
++        {
++        set_command_url(QString());
++        }
+     }
+ 
+ 
+ void MenuEntryAction::execute()
+     {
+-    (void) service();
+-    if (!_service)
++    if (!service())
++        {
++        KMessageBox::sorry(
++                NULL,
++                i18n("No service configured!"),
++                i18n("Input Action : %1", data->comment()));
+         return;
+-    kDebug() << "Starting service " << _service->desktopEntryName();
+-    KRun::run( *_service, KUrl::List(), 0 );
++        }
++
++    if (!KRun::run( *service(), KUrl::List(), 0 ))
++        {
++        KMessageBox::sorry(
++                NULL,
++                i18n("Failed to start service '%1'!", service()->name()),
++                i18n("Input Action : %1", data->comment()));
++        return;
++        }
+     timeout.setSingleShot( true );
+     timeout.start( 1000 ); // 1sec timeout
+     }
+@@ -83,8 +103,7 @@
+ 
+ const QString MenuEntryAction::description() const
+     {
+-    (void) service();
+-    return i18n( "Menu entry: " ) + (_service ? _service->comment() : QString());
++    return i18n( "Menu entry: " ) + (service() ? service()->comment() : QString());
+     }
+ 
+ 
+--- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -38,6 +38,7 @@
+ Comment[km]=កាយវិការ Konqueror ជា​មូលដ្ឋាន ។
+ Comment[kn]=ಮೂಲಭೂತ ಕಾಂಕರರ್ ಸೂಚ್ಯವರ್ತನೆಗಳು (ಗೆಸ್ಚರ್ಸ್).
+ Comment[ko]=기본 Konqueror 제스처입니다.
++Comment[lt]=Elementarūs Konqueror gestai.
+ Comment[lv]=Pamata Konqueror žesti.
+ Comment[mai]=मूल कान्करर गेस्चर्स.
+ Comment[ml]=അടിസ്ഥാന കോണ്‍ക്വറര്‍ ആംഗ്യങ്ങള്‍
+@@ -306,6 +307,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ទៅ​ឆ្វេង លែង 
+ Comment[kn]=ಒತ್ತು, ಎಡಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 왼쪽으로 이동하고, 놓기.
++Comment[lt]=Spausti, judėti kairėn, atleisti.
+ Comment[lv]=Nospiest, pa kreisi, atlaist.
+ Comment[mai]=दबाबू, बम्माँ घसकाबू, छोडू
+ Comment[ml]=അമര്‍ത്തി, ഇടത്തേക്കു് നീക്കി വിടുക
+@@ -448,6 +450,7 @@
+ Comment[km]=រចនាប័ទ្ម Opera ៖ ចុច​ ផ្លាស់ទី​ឡើង​លើ លែង ។\nចំណាំ ៖ មាន​ការ​ប៉ទង្គិច​ជាមួយ 'ផ្ទាំង​ថ្មី' ហើយ​តាម​លំនាំ​ដើម​មិន​ត្រូវ​បាន​អនុញ្ញាត​ឡើយ ។
+ Comment[kn]=ಓಪರಾ-ಶೈಲಿ:ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.\ಸೂಚನೆ: 'ಹೊಸ ಹಾಳೆ' ಯೊಡನೆ ಘರ್ಷಣೆ ಹಾಗೂ ಇತ್ಯಾದಿಗಳನ್ನು ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಅಶಕ್ತಗೊಳಿಸಲಾಗಿದೆ.
+ Comment[ko]=오페라 스타일: 누르고, 위로 이동하고, 놓기.\n메모: '새 탭'과 충돌하므로 기본적으로 사용하지 않습니다.
++Comment[lt]=Opera-stiliaus: spausti, judėti aukštyn, atleisti.\nPASTABA: konfliktuoja su „Nauja kortele“ ir todėl numatytuose nustatymuose yra išjungtas.
+ Comment[lv]=Opera stils; nospiest, uz augšu, atlaist.\nPIEZĪME: Konfliktē ar 'Jauna Cilne' un tāpēc noklusēti ir izslēgts.
+ Comment[ml]=Opera-style: അമര്‍ത്തുക, മുകളിലേയ്ക്ക്, വിടുക.\nNOTE: Conflicts with 'New Tab', and as such is disabled by default.
+ Comment[nb]=Opera-stil: Trykk, flytt oppover, slipp.\nMerk: Slått av som standard pga. konflikt med «Ny fane».
+@@ -513,6 +516,7 @@
+ Name[kn]=ಉತ್ಥಾಪನೆಯನ್ನು ನಿಲ್ಲಿಸು
+ Name[ko]=불러오기 멈추기
+ Name[ku]=Barkirinê Bisekinîne
++Name[lt]=Stabdyti įkėlimą
+ Name[lv]=Apturēt ielādi
+ Name[mai]=अधिभारन रोकू
+ Name[ml]=ലഭ്യമാക്കുന്നതു് നിര്‍‌ത്തുക
+@@ -584,6 +588,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -642,6 +647,7 @@
+ Comment[km]=ឡើង​លើ​ក្នុង​រចនាសម្ព័ន្ធ​ថត URL/ ។\nរចនាប័ទ្ម Mozilla ៖ ចុច ផ្លាស់ទី​ឡើង​លើ ផ្លាស់ទី​ទៅ​ឆ្វេង ផ្លាស់ទី​ឡើង​លើ លែង ។
+ Comment[kn]=URL/ಕಡತಕೋಶ  ರಚನೆಯಲ್ಲಿ ಮೇಲಕ್ಕೆ ಹೋಗುವಿಕೆ. \n ಮೋಜಿಲ್ಲಾ-ಶೈಲಿ: ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಎಡಕ್ಕೆ ಚಲಿಸು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=URL/디렉터리 구조에서 한 단계 위로 갑니다.\n모질라 스타일: 누르고, 위로 이동하고, 왼쪽으로 이동하고, 위로 이동하고, 놓기.
++Comment[lt]=Ėjimas aukštyn URL/aplankų struktūra.\nMozilla stiliaus: nuspausti, vesti aukštyn, vesti kairėn, vesti aukštyn, atleisti.
+ Comment[lv]=Iet uz augšu pa URL/mapju struktūru.\nMozilla stilā: nopsiest, uz augšu, pa kreisi, uz augšu, atlaist.
+ Comment[ml]=URL/ഘടനയില്‍ ഒരുപടി മുകളിലേയ്ക്ക് പോവുക.\nMozilla-style: അമര്‍ത്തുക, മുകളിലേയ്ക്കു്, ഇടത്തേയ്ക്കു്, മുകളിലേയ്ക്കു്, വിടുക.\n
+ Comment[nb]=Går oppover i URL/katalogstruktur.\nMozilla-stil: Trykk, flytt opp, flytt til venstre, flytt opp, slipp.
+@@ -706,6 +712,7 @@
+ Name[kn]=ಮೇಲೆ
+ Name[ko]=위로
+ Name[ku]=Jor
++Name[lt]=Aukštyn
+ Name[lv]=Augšup
+ Name[mai]=उप्पर
+ Name[mk]=Нагоре
+@@ -778,6 +785,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -833,6 +841,7 @@
+ Comment[km]=ឡើង​លើ​ក្នុង​រចនាសម្ព័ន្ធ ថត/URL ។\nរចនាប័ទ្ម Opera ៖ ចុច ផ្លាស់ទី​ឡើង​លើ ផ្លាស់ទី​ទៅ​ឆ្វេង ផ្លាស់ទី​ឡើង​លើ លែង ។\nចំណាំ ៖ មាន​ការ​ប៉ះទង្គិច​ជា​មួយ  "ធ្វើ​ឲ្យ​ផ្ទាំង​មុន​សកម្ម" ហើយ​តាម​លំនាំដើម​វា​ត្រូវ​បាន​បិទ ។
+ Comment[kn]=URL/ಕಡತಕೋಶ  ರಚನೆಯಲ್ಲಿ ಮೇಲಕ್ಕೆ ಹೋಗುವಿಕೆ. \n ಓಪರಾ-ಶೈಲಿ: ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಎಡಕ್ಕೆ ಚಲಿಸು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.\n ಸೂಚನೆ: "ಹಿಂದಿನ ಹಾಳೆಯನ್ನು ಸಕ್ರಿಯಗೊಳಿಸು" ನೊಡನೆ ಘರ್ಷಣೆ ಇತ್ಯಾದಿಗಳನ್ನು ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಅಶಕ್ತಗೊಳಿಸಲಾಗಿದೆ.
+ Comment[ko]=URL/디렉터리 구조에서 한 단계 위로 갑니다.\n오페라 스타일: 누르고, 위로 이동하고, 왼쪽으로 이동하고, 위로 이동하고, 놓기.\n메모: "이전 탭으로 이동하기"와 충돌하기 때문에 기본적으로 비활성화되어 있습니다.
++Comment[lt]=Ėjimas aukštyn URL/aplankų struktūroje.\nOpera stilius: Nuspausti, vesti aukštyn, vesti kairėn, vesti aukštyn, atleisti.\nPASTABA: konfliktuoja su veiksmu „Aktyvuoti ankstesnę kortelę“, ir todėl numatytuose nustatymuose yra išjungtas.
+ Comment[lv]=Iet uz augšu pa URL/mapju struktūru.\nOpera stilā: nopsiest, uz augšu, pa kreisi, augšup, atlaist.\nPIEZĪME: Konfilktē ar "Parādīt iepriekšējo cilni" un tāpēc noklusēti ir izslēgts.
+ Comment[ml]=URL/ഘടനയില്‍ ഒരുപടി മുകളിലേയ്ക്ക് പോവുക.\nOpera-style: അമര്‍ത്തുക, മുകളിലേയ്ക്കു്, ഇടത്തേയ്ക്കു്, മുകളിലേയ്ക്കു്, വിടുക.\nNOTE: Conflicts with  "Activate Previous Tab", and as such is disabled by default.
+ Comment[nb]=Går oppover i URL/katalogstruktur.\nOpera-stil: Trykk, flytt opp, flytt til venstre, flytt opp, slipp.\nMERK: slått av som standard pga. konflikt med «Gå til forrige fane».
+@@ -888,6 +897,7 @@
+ Name[kn]=ಮೇಲಕ್ಕೆ #೨
+ Name[ko]=위로 #2
+ Name[ku]=Jor #2
++Name[lt]=Aukštyn #2
+ Name[lv]=Augšup #2
+ Name[mai]=उप्पर  #2
+ Name[ml]=മുകളിലേക്കു് #2
+@@ -952,6 +962,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1013,6 +1024,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ឡើងលើ ផ្លាស់ទី​ទៅ​ស្ដាំ​ ស្ដាំ ។
+ Comment[kn]=ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಬಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 위로 이동하고, 오른쪽으로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti aukštyn, vesti dešinėn, atleisti.
+ Comment[lv]=Nospiest, uz augšu, pa labi, atlaist.
+ Comment[mai]=दबाबू, उप्पर घसकाबू, दहिन्ना घसकाबू, छोडू.
+ Comment[ml]=അമര്‍ത്തി, മുകളിലേക്കു് നീങ്ങി, പിന്നീടു് വലത്തേക്കു് നീങ്ങി വിടുക.
+@@ -1026,6 +1038,7 @@
  Comment[pl]=Naciśnij, w dół, w prawo, puść.
  Comment[pt]=Carregar, mover para cima, mover para a direita, largar.
  Comment[pt_BR]=Pressionar, mover para cima, mover para a direita, largar.
@@ -541,9 +1100,241 @@
  Comment[ru]=Нажать, вверх, вправо, отпустить.
  Comment[se]=Deaddil, sirdde bajásguvlui, sirdde olgešguvlui, luoitte.
  Comment[sk]=Stlačte, pohyb nahor, pohyb vpravo, pustite.
---- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -756,7 +756,7 @@
+@@ -1151,6 +1164,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1212,6 +1226,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ឡើងលើ ផ្លាស់ទី​ទៅ​ឆ្វេង លែង ។
+ Comment[kn]=ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಎಡಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 위로 이동하고, 왼쪽으로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti aukštyn, vesti kairėn, atleisti.
+ Comment[lv]=Nospiest, uz augšu, pa kreisi, atlaist.
+ Comment[mai]=दबाबू, उप्पर घसकाबू, बम्माँ घसकाबू, छोड़ू.
+ Comment[ml]=അമര്‍ത്തി, മുകളിലേക്കു് നീങ്ങി, പിന്നീട് ഇടത്തേക്കു് നീങ്ങി വിടുക.
+@@ -1352,6 +1367,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1415,6 +1431,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1476,6 +1493,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ចុះក្រោម ផ្លាស់ទី​ឡើង​លើ លែង ។
+ Comment[kn]=ಒತ್ತು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 아래로 이동하고, 위로 이동하고, 아래로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti žemyn, vesti aukštyn, vesti žemyn, atleisti.
+ Comment[lv]=Nospiest, uz leju, uz augšu, uz leju, atlaist.
+ Comment[mai]=दबाबू, नीच्चाँ घसकाबू, उप्पर घसकाबू, नीच्चाँ घसकाबू, छोड़ू.
+ Comment[ml]=അമര്‍ത്തി, താഴേക്കു് നീങ്ങി, പിന്നീടു് മുകളില്‍ ചെന്നു് താഴേക്കു് നീങ്ങി വിടുക.
+@@ -1541,6 +1559,7 @@
+ Name[kn]=ತದ್ರೂಪು ಹಾಳೆ (ಟಾಬ್)
+ Name[ko]=탭 복제하기
+ Name[ku]=Hilfirînê bike cot
++Name[lt]=Dubliuoti kortelę
+ Name[lv]=Dublēt cilni
+ Name[mai]=दोहरा टैब
+ Name[mk]=Удвој ливче
+@@ -1610,6 +1629,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1671,6 +1691,7 @@
+ Comment[km]=ចុច​ ផ្លាស់ទី​ចុះក្រោម ផ្លាស់ទី​ឡើង​លើ លែង ។
+ Comment[kn]=ಒತ್ತು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 아래쪽으로 이동하고, 위쪽으로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti žemyn, vesti aukštyn, paleisti.
+ Comment[lv]=Nospiest, uz leju, uz augšu, atlaist.
+ Comment[mai]=दबाबू, नीच्चाँ घसकाबू, उप्पर घसकाबू, छोड़ू.
+ Comment[ml]=അമര്‍ത്തി, താഴേക്കു് നീങ്ങി, പിന്നീടു് മുകളിലേക്കു് ചെന്നു് വിടുക.
+@@ -1740,6 +1761,7 @@
+ Name[kn]=ತದ್ರೂಪು ಕಿಟಕಿ
+ Name[ko]=창 복제하기
+ Name[ku]=Paceyê bike cot
++Name[lt]=Dubliuoti langą
+ Name[lv]=Dublēt logu
+ Name[mai]=अनुकृति विंडो
+ Name[mk]=Удвој прозорец
+@@ -1808,6 +1830,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -1869,6 +1892,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ទៅ​ស្តាំ លែង ។​
+ Comment[kn]=ಒತ್ತು, ಬಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 오른쪽으로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti dešinėn, paleisti.
+ Comment[lv]=Nospiest, pa labi, atlaist.
+ Comment[mai]=दबाबू, दाएँ घसकाबू, छोड़ू.
+ Comment[ml]=അമര്‍ത്തി വലത്തേക്കു് നീക്കി വിടുക.
+@@ -2014,6 +2038,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2070,6 +2095,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ចុះ​ក្រោម ផ្លាស់ទី​ឡើង​លើ​ពាក់​កណ្តាល ផ្លាស់ទី​ចុះក្រោម លែង ។\n(គូស​អក្សរ 'h' តូច ។)
+ Comment[kn]=ಒತ್ತು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಅರ್ಧ ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಬಲಕ್ಕೆ ಚಲಿಸು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.\n( 'h' ಅಕ್ಷರವನ್ನು ಬರೆದಂತೆ.)
+ Comment[ko]=누르고, 아래로 이동하고, 반쯤 위로 이동하고, 아래로 이동하고, 놓기.\n(소문자 'h'를 그립니다.)
++Comment[lt]=Nuspausti, vesti žemyn, vesti aukštyn pusę kelio, vesti dešinėn, vesti žemyn, paleisti.\n(mažosios „h“ nupaišymas).
+ Comment[lv]=Nospiest, uz leju, pusi uz augšu, pa labi, uz leju, atlaist.\n(Uzzīmēt mazo 'h'.)
+ Comment[ml]=അമര്‍ത്തുക, താഴേയ്ക്കു നീക്കുക, പാതി മുകളിലേയ്ക്കു നീക്കുക, താഴേയ്ക്കുനീക്കുക, വിടുക(ചെറിയക്ഷരം 'h' എഴുതുംപോലെ)
+ Comment[nb]=Trykk, flytt ned, flytt halvveis opp igjen, flytt til høyre, flytt ned, slipp.\n(Tegne en liten «h»).
+@@ -2213,6 +2239,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2273,6 +2300,7 @@
+ Comment[km]=ចុច ផ្លាស់​ទី​ទៅ​ស្តាំ ផ្លាស់ទី​ចុះក្រោម ផ្លាស់ទី​ទៅ​ស្តាំ លែង ។\nរចនាប័ទ្ម Mozilla ៖ ចុច ផ្លាស់ទី​ចុះក្រោម ផ្លាស់ទី​ទៅ​ស្តាំ លែង ។
+ Comment[kn]=ಒತ್ತು, ಬಲಕ್ಕೆ ಚಲಿಸು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಬಲಕ್ಕೆ ಚಲಿಸು,ಮುಕ್ತಗೊಳಿಸು.\n  ಮೋಜಿಲ್ಲಾ-ಶೈಲಿ: ಒತ್ತು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಬಲಕ್ಕೆ ಚಲಿಸು,ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 오른쪽으로 이동하고, 아래로 이동하고, 오른쪽으로 이동하고, 놓기.\n모질라 스타일: 누르고, 아래로 이동하고, 오른쪽으로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti dešinėn, vesti žemyn, vesti dešinėn, atleisti.\nMozilla stiliaus: nuspausti, vesti žemyn, vesti dešinėn, atleisti.
+ Comment[lv]=Nospiest, pa labi, uz leju, pa labi, atlaist.\nMozilla stilā: Nospiest, uz leju, pa labi, atlaist.
+ Comment[ml]=അമര്‍ത്തുക, വലത്തേക്കു നീക്കുക, ഇടത്തേക്കു നീക്കുക, വിടുക\nമോസില്ല രീതി: അമര്‍ത്തുക, താഴേക്കു നീക്കുക, വലത്തേക്കു നീക്കുക, വിടുക
+ Comment[nb]=Trykk, flytt til høyre, flytt ned, flytt til høyre, slipp. \nMozilla-stil: Trykk, flytt ned, flytt til høyre, slipp.
+@@ -2410,6 +2438,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2471,6 +2500,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ឡើង​លើ លែង​ ។\nមាន​ការ​ប៉ះទង្គិច​ជាមួយ​រចនាប័ទ្ម Opera​ 'ឡើងលើ #2' ដែល​តាម​លំនាំដើម​ត្រូវ​បាន​បិទ ។
+ Comment[kn]=ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.\n ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲ್ಪಟ್ಟ ಓಪರಾ ಶೈಲಿಯ 'Up #2' ವಿನೊಡನೆ ಘರ್ಷಣೆಯಲ್ಲಿದೆ.
+ Comment[ko]=누르고, 위로 이동하고, 놓기.\n오페라의 '위로 #2'와 중복되므로 기본적으로 사용하지 않습니다.
++Comment[lt]=Nuspausti, vesti aukštyn, atleisti.\nKonfliktuoja su Opera stiliaus „Up #2“, todėl numatytuose nustatymuose išjungtas.
+ Comment[lv]=Nospiest, uz augšu, atlaist.\nKonfliktē ar Opera stila 'Augšup #2', kas ir noklusēti izslēgts.
+ Comment[ml]=അമര്‍ത്തുക, മുകളിലേക്ക് നീക്കുക, വിടുക\nഓപറയുടെ 'Up #2' വുമായി വിരുദ്ധം, സ്വതേ പ്രവര്‍ത്തനരഹിതമാക്കിയിരിക്കുന്നു.
+ Comment[nb]=Trykk, flytt opp, slipp.\ Konflikt med Opera-stil «Opp 2», som er slått av som standard.
+@@ -2608,6 +2638,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2669,6 +2700,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ចុះ​ក្រោម លែង ។
+ Comment[kn]=ಒತ್ತು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 아래로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti žemyn, atleisti.
+ Comment[lv]=Nospiest, uz leju, atlaist.
+ Comment[mai]=दबाबू, नीच्चाँ घसकाबू, छोड़ू
+ Comment[ml]=അമര്‍ത്തി, താഴേക്കു് നീങ്ങി വിടുക.
+@@ -2818,6 +2850,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2879,6 +2912,7 @@
+ Comment[km]=ចុច ផ្លាស់ទី​ឡើង​លើ ផ្លាស់ទី​ចុះក្រោម​ លែង ។
+ Comment[kn]=ಒತ್ತು, ಮೇಲಕ್ಕೆ ಚಲಿಸು, ಕೆಳಕ್ಕೆ ಚಲಿಸು, ಮುಕ್ತಗೊಳಿಸು.
+ Comment[ko]=누르고, 위로 이동하고, 아래로 이동하고, 놓기.
++Comment[lt]=Nuspausti, vesti aukštyn, vesti žemyn, paleisti.
+ Comment[lv]=Nospiest uz augšu, uz leju, atlaist.
+ Comment[mai]=दबाबू, उप्पर घसकाबू, नीच्चाँ घसकाबू, छोड़ू.
+ Comment[ml]=അമര്‍ത്തി, മുകളിലേക്കു് നീങ്ങി പിന്നീടു് താഴേക്കു് നീങ്ങി വിടുക.
+@@ -2950,6 +2984,7 @@
+ Name[kn]=ಪುನರುತ್ಥಾಪಿಸು (ರಿಲೋಡ್)
+ Name[ko]=새로 고침
+ Name[ku]=Nûbarkirin
++Name[lt]=Įkelti iš naujo
+ Name[lv]=Pārielādēt
+ Name[mai]=पुनः लोड करू
+ Name[mk]=Превчитај
+@@ -3023,6 +3058,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+--- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -32,6 +32,7 @@
+ Comment[km]=ក្រុម​នេះ​មាន​ឧទាហរណ៍​ខុសៗ​គ្នា​ ដែល​​បង្ហាញ​អំពី​​លក្ខណៈពិសេស​របស់​ KHotkeys ។ (ចំណាំថា ៖ ក្រុម​នេះ​ និង​​អំពើ​​របស់​វា​ទាំងអស់​តាម​លំនាំដើម​មិន​ត្រូវ​បាន​អនុញ្ញាត​ឡើយ ។)
+ Comment[kn]=ಕೆ ಹಾಟ್ ಕೀಸ್ ನ ಬಹಳಮಟ್ಟಿನ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಪರಿಚಯ ಮಾಡಿಸಿಕೊಡುವ ಉದಾಹರಣೆಗಳನ್ನು ಈ ಸಮೂಹ ಒಳಗೊಂಡಿದೆ. (ಗಮನಿಸಿ, ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ  ಈ ಸಮೂಹ ಹಾಗೂ ಇದರ ಎಲ್ಲಾ ಕ್ರಿಯೆಗಳನ್ನೂ ಅಶಕ್ತಗೊಳಿಸಲಾಗಿರುತ್ತದೆ.)
+ Comment[ko]=이 그룹에는 KHotkeys의 기능을 보여 주는 다양한 예제가 들어 있습니다. 기본적으로 이 그룹과 그룹 안의 모든 동작은 비활성화되어 있습니다.
++Comment[lt]=Šioje grupėje yra įvairūs pavyzdžiai, demonstruojantys daugumą KHotKeys galimybių. (Atkreipkite dėmesį, kad ši grupė ir joje esantys veiksmai numatytuose nustatymuose yra išjungta).
+ Comment[lv]=Šī grupa satur dažādus piemērus, kas demonstrē lielāko daļu KHotKeys iespējām. (Šī grupa pēc noklusējuma nav aktivizēta.)
+ Comment[mk]=Оваа група содржи разни примери што ги демонстрираат повеќето од можностите на KHotkeys. (Забележете дека оваа група и сите нејзини дејства се стандардно оневозможени.)
+ Comment[ml]=KHotkeys ന്റെ വിവിധ സവിശേഷതകള്‍ ഉദാഹരണസഹിതം കാണിക്കുന്നു.  (Note that this group and all its actions are disabled by default.)
+@@ -177,6 +178,7 @@
+ Comment[km]=បន្ទាប់​ពី​ចុច​ បញ្ជា (Ctrl) + ជំនួស (Alt) + I បង្អួច KSIRC នឹង​ត្រូវ​បាន​ធ្វើ​ឲ្យ​សកម្ម​ បើ​វា​មាន​ ។
+ Comment[kn]=Ctrl+Alt+I ಅನ್ನು ಒತ್ತಿದನಂತರ KSIRC ಕಿಟಕಿಯನ್ನು, ಅಸ್ತಿತ್ವದಲ್ಲಿದ್ದಲ್ಲಿ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗುತ್ತದೆ. ಅಷ್ಟೇ.
+ Comment[ko]=Ctrl+Alt+I 키를 누르면 KSIRC 창이 존재할 때 활성화됩니다. 간단합니다.
++Comment[lt]=Nuspaudus Vald(Ctrl)+Alt+I bus aktyvuotas KSIRC langas, jei toks yra. Paprasta
+ Comment[lv]=Nospiežot Ctrl+Alt+I, tiks aktivizēts KSIRC logs, ja tāds eksistē. Vienkārši.
+ Comment[mai]=जँ केएसआईआरसी विंडो मोजुद रहत तँ कंट्रोल+आल्ट+I दबाने पर ई सक्रिय भए जएताह. आसान.
+ Comment[mk]=По притискањето на Ctrl+Alt+I ќе се активира прозорецот на KSIRC. Лесно.
+@@ -414,6 +416,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+@@ -472,6 +475,7 @@
+ Comment[kk]=Alt+Ctrl+H тіркесімді басқан соң, 'Hello' деген сөз, дәл қолмен теріп алғандай, енгізіп келтіріледі. Бұл мүмкіндік, 'unsigned' секілді сөздерді теруді ерінсеңіз, әсіресе пайдалы. Әрбір келтірілген перне басуы ':' қос нүктемен бөлінеді. Мұндағы перне басуы дегеніміз - шын перне басуы, сонымен, пернетақтадағыны шын басатынды жазыңыз. Төмендегі кестесінде, сол жақ бағанда енгізетіні, оң жақ бағанда теретіні көрсетілген.\n\n"enter" (яғни, жаңа жол)                Enter не Return\na (яғни, кіші a)                          A\nA (яғни, үлкен a)                       Shift+A\n: (қос нүкте)                                  Shift+;\n' '  (бос орын)                              Бос_орын
+ Comment[km]=បន្ទាប់​ពី​ចុច ជំនួស(Alt)+បញ្ជា(Ctrl)+H ការ​បញ្ចូល 'Hello' នឹង​ត្រូវ​បាន​ត្រាប់តាម​ដូច​អ្វី​ដែល​អ្នកវាយ ។ ជា​ពិសេស​មាន​ប្រយោជន៍​ ប្រសិន​បើអ្នក​ខ្ជិល​វាយ​​អ្វីមួយ​ដូចជា 'មិន​បាន​ចុះ​ហត្ថលេខា' ។ រាល់​ការ​ចុច​​គ្រាប់ចុច​នៅ​ក្នុង​ការ​បញ្ចូល​ត្រូវ​បានបំបែក​ដោយ​សញ្ញា ':' ។ ចំណាំថា ការ​ចុច​គ្រាប់ចុច​មានន័យ​ថា​ពិត​ជា​ចុច​​គ្រាប់ចុច ដូច្នេះ​អ្នក​ត្រូវ​តែ​សរសេរ​អ្វី​ដែល​អ្នក​ពិត​ជា​ចង់​ចុច​នៅ​លើ​ក្ដារចុច ។ នៅ​ក្នុង​តារាង​ខាង​ក្រោម ជួរឈរ​​ខាង​ឆ្វេង​បង្ហាញ​ការ​បញ្ចូល និង​ជួរឈរ​ខាងស្ដាំ​បង្ហាញ​អ្វី​ដែល​អ្នក​វាយ ។\n\n"បញ្ចូល" (ឧ. បន្ទាត់​ថ្មី)                បញ្ចូល(Enter) ឬ ត្រឡប់\na (ឧ. អក្សរ a តូច)                          A\nA (ឧ. អក្សរ a ធំ)                       ប្ដូរ(Shift)+A\n: (សញ្ញា (:))                                  ប្ដូរ(Shift)+;\n' '  (ចន្លោះ)                              ចន្លោះ
+ Comment[ko]=Alt+Ctrl+H 키를 누르면 키보드에서 키를 입력한 것처럼 'Hello'를 입력합니다. 'unsigned' 같은 긴 텍스트를 입력하기 귀찮을 때 사용할 수 있습니다. 입력에서 각각 키를 누르는 것은 콜론(:)으로 구분됩니다. 누르는 키는 실제로 누르는 키를 뜻하므로, 키보드에서 실제 무엇을 누를지를 쓰십시오. 아래 표에서 왼쪽은 키보드 입력을, 오른쪽은 입력할 것을 나타냅니다.\n\n"enter" (새 줄)                Enter 또는 Return\n\na (소문자 a)                          A\nA (대문자 A)                       Shift+A\n:(콜론)                                  Shift+;\n' ' (공백)                              스페이스
++Comment[lt]=Nuspaudus Alt+Vald(Ctrl)+H, bus simuliuojamas žodžio „Hello“ įvedimas taip, tarytum būtumėte jį parašę. Tai naudinga, ypač jei tingite įvedinėti kokias nors standartines frazes, pvz., „Nuoširdžiai jūsų“. Kiekvienas klavišo paspaudimas įvedime yra atskiriamas dvitaškiu „:“ . Atkreipkite dėmesį, kad klavišo paspaudimas iš tiesų reiškia klavišo paspaudimą, taigi, turite paspausti kiekvieną klavišą taip pat, kaip ir įvesdami reikiamą frazę. Žemiau esančioje lentelėje kairėje rodoma įvestis, o dešinėje – tai, ką turite surinkti.\n\n"enter" (t.y., nauja eilutė)                Įvesti (Enter)\na (tai yra, mažoji a)                          A\nA (tai yra didžioji a)                       Lyg2(Shift)+A\n: (dvitaškis)                                  Lyg2(Shift)+;\n' '  (tarpas)                              Tarpas
+ Comment[lv]=Nospiežot Alt+Ctrl+H, tiks imitēts 'Hello' ievads tā itkā jūs būtu to ievadījis. Tas ir īpaši noderīgi, ja esat slinks rakstīt lietas kā 'unsigned'. Katrs taustiņa nospiediens ievadā ir atdalīts kolu ':' . Nemiet vērā ka taustiņu nospiedieni tiešām nozīmē nospiedienus,  tāpēc jums jāraksta tas kojūs gribēsiet nospiest uz tastatūras. Zemāk redzamajā tabulā kreisā kolonna rāda ievadu unlabā rāda ko spiest.\n\n"enter" (t.i. jauna rinda)                Enter vai Return\na (t.i. mazais a)                          A\nA (t.i. lielais a)                       Shift+A\n: (kols)                                  Shift+;\n' '  (atstarpe)                              Atstarpe
+ Comment[nb]=Når Alt+Ctrl+H er trykket, blir «Hallo»-inndata simulert akkurat som om du tastet det inn. Spesielt nyttig om du er for doven til å taste slikt som «unsigned». Hvert tastetrykk i inndataene er atskilt med kolon «:». Merk at tastetrykkene er ekte tastetrykk, så du må skrive inn hva du virkelig ville skrive på tastaturet. I tabellen nedenfor vises inndata i venstre kolonne, og høyre kolonne viser hva som skal tastes. \n\n"enter" (dvs. ny linje)                Enter eller Return\na (dvs. liten a)                          A\nA (dvs. stor A)                       Shift+A\n: (kolon)                                  Shift+;\n' '  (mellomrom)                         Mellomrom
+ Comment[nds]=Dat drücken vun Strg+Alt+H maakt de Ingaav vun "Hello" na, jüst so, as wenn Du dat sülven ingeven deist. Dat is t.B. denn goot, wenn Du Saken as "unsigned" nich jümmers heel ingeven wullt. Elk Druck op en Tast warrt mit en Dubbelpunkt scheedt. Beacht bitte, dat "Tastdruck" redig daaldrückt Tasten meent, Du muttst also schrieven, wat Du redig op de Tastatuur drücken deist. In de Tabell nerrn wiest de Striep linkerhand de namaakte Ingaav, de Striep rechterhand, wat Du schrieven muttst.\n\n"Ingaav" (d.h. Reegümbrook)          "Enter" oder "Return"\na (en lütt A)                          "A"\nA (en groot A)                         "Shift+A"\n: (en Dubbelpunkt)                     "Shift+;"\n  (en Freeteken)                       "Space"
+@@ -530,6 +534,7 @@
+ Name[kn]='ನಮಸ್ಕಾರ' ಎಂದು ಬೆರಳಚ್ಚಿಸು.
+ Name[ko]='Hello' 입력하기
+ Name[ku]='Rojbaş' binivîse
++Name[lt]=Įvesti „Hello“
+ Name[lv]=Uzrakstīt 'Hello'
+ Name[mai]=टाइप करू - 'हैलो'
+ Name[mk]=Напишете „Здраво“
+@@ -604,6 +609,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+@@ -756,7 +762,7 @@
  Name[pl]=Uruchom Konsolę
  Name[pt]=Executar o Konsole
  Name[pt_BR]=Executar o Konsole
@@ -552,7 +1343,20 @@
  Name[ru]=Запустить Konsole
  Name[se]=Vuoje konsolla
  Name[sk]=Spustiť Konsole
-@@ -930,7 +930,7 @@
+@@ -816,6 +822,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+@@ -926,11 +933,12 @@
+ Name[km]=ផ្គូផ្គង​បញ្ជា​(Ctrl)+W ទៅ​នឹង​បញ្ជា(Ctrl + F4) ​ឡើង​វិញ​នៅ​ក្នុង Qt Designer
+ Name[kn]=Qt Designer ನಲ್ಲಿರುವ Ctrl+W to Ctrl+F4 ಅನ್ನು  ಪುನರ್ನಿರೂಪಿಸು (ರಿಮಾಪ್)
+ Name[ko]=Qt 디자이너에서 Ctrl+W 키를 Ctrl+F4 키로 바꾸기
++Name[lt]=Pakeisti derinį Vald(Ctrl)+W į derinį Vald(Ctrl)+F4 Qt designer programoje
+ Name[lv]=Pārkartēt Ctrl+W uz Ctrl+F4 Qt maketētājā
  Name[ml]=Qt ഡിസൈനറില്‍ Ctrl+W to Ctrl+F4 വീണ്ടും മാപ്പ് ചെയ്യുന്നു
  Name[mr]=Qt डिजाइनर मध्ये Ctrl+W ला Ctrl+F4 असे निश्चित करा
  Name[nb]=Viderefør Ctrl+W til Ctrl+F4 i QT Designer
@@ -561,8 +1365,184 @@
  Name[ne]=Ctrl+W to Ctrl+F4 लाई Qt डिजाइनरमा पुन: नक्साङ्कन गर्नुहोस्
  Name[nl]=Ctrl+W omzetten naar Ctrl+F4 in Qt Designer
  Name[nn]=Omordna «Ctrl + W» til «Ctrl + F4» i Qt Designer
---- workspace/kwin/effects/flipswitch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/flipswitch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+@@ -1055,6 +1063,7 @@
+ Comment[km]=ដោយ​ចុច ជំនួស​(Alt)+បញ្ជា​(Ctrl)+W នោះ​ការ​ហៅ D-Bus នឹង​ត្រូវបាន​ប្រតិបត្តិ ដែល​នឹង​បង្ហាញ minicli ។ អ្នក​អាចប្រើ​ប្រភេទ​ការ​ហៅ D-Bus ណាមួយ គឺ​ដូច​នឹង​ការ​ប្រើ​ឧបករាណ៍​បន្ទាត់​ពាក្យ​បញ្ជា 'qdbus' ។
+ Comment[kn]=Alt+Ctrl+W ಒತ್ತುವುದರ ಮೂಲಕ ಒಂದು D-Bus ಕರೆಯನ್ನು ನೀಡಲಾಗುವುದು, ಇದರಿಂದಾಗಿ minicli ಯನ್ನು ತೋರಿಸಲಾಗುವುದು. ಆದೇಶ ತೆರೆಯ  'qdbus' ಸಲಕರಣೆಯಂತೆ ಯಾವುದೇ ರೀತಿಯ D-Bus ಕರೆಯನ್ನು ಬಳಸಬಹುದು.
+ Comment[ko]=Alt+Ctrl+W 키를 누르면 minicli를 표시하는 D-Bus 호출을 실행합니다. 'qdbus' 명령행 도구를 실행하는 것처럼 임의의 D-Bus 호출을 할 수 있습니다.
++Comment[lt]=Nuspaudus Alt+Vald(Ctrl)+W bus įvykdytas D-Bus iškvietimas, iššaukiantis komandų įvedimo sąsają. Galite naudoti bet kokį D-Bus iškvietimą lygiai taip pat, kaip, pvz., naudojant „qdbus“ įrankį.
+ Comment[lv]=Nospiešžot Alt+Ctrl+W tiks veikts D-Bus izsaukums, kas parādīs minicli. Jūs varan lietot jebkuru D-Bus izsaukumu, tāpat kā lietojot komandrindas 'qdbus' rīku.
+ Comment[nb]=Om Ctrl+Alt+W trykkes blir det utført et D-BUS-kall som viser mini-kommandolinja. Alle slags D-BUS-kall kan brukes akkurat som i kommandolinjeverktøyet «qdbus».
+ Comment[nds]=Dat Drücken vun Strg+Alt+W föhrt en D-Bus-Oproop ut, de den Dialoog "Befehl utföhren" opröppt. Du kannst all D-Bus-Oprööp bruken, jüst as mit dat Konsool-Programm "qdbus".
+@@ -1104,6 +1113,7 @@
+ Name[km]=ប្រតិបត្តិ​ការ​ហៅ D-Bus 'kdesktop KDesktopIface popupExecuteCommand()'
+ Name[kn]=D-Bus ಕರೆ  'kdesktop KDesktopIface popupExecuteCommand()' ಯನ್ನು ಮಾಡು
+ Name[ko]=D-Bus 호출 'kdesktop KDesktopIface popupExecuteCommand()'를 실행하기
++Name[lt]=Atlikti D-Bus užklausą 'kdesktop KDesktopIface popupExecuteCommand()'
+ Name[lv]=Veikt D-Bus izsaukumu 'kdesktop KDesktopIface popupExecuteCommand()'
+ Name[mr]=D-Bus कॉल 'kdesktop KDesktopIface popupExecuteCommand()' वापरा
+ Name[nb]=Utfør DBus-kallet 'kdesktop KDesktopIface popupExecuteCommand()'
+@@ -1172,6 +1182,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+@@ -1521,6 +1532,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+@@ -1575,6 +1587,7 @@
+ Comment[kk]=KDE3.1 Konqi-де қойындылар пайда болды, енді, мінекей, ым қимылдарына қол жеткізіп отырсындар. Өзге шолғыштарды былай қойыңыз >;).\n\nТышқанның ортаңғы батырмасын басып қалыңыз да, ым қимылының біреуін салыңыз, сызуды аяқтаған соң, батырмасын босатыңыз. Ортаңғы батырма, сонымен қатар, баяғыдай, түртіп таңдауға да әзір. (Бұл тышқанның батырмасының қызметін жалпы жүйелік баптауларында өзгертуге болады).\n\nДәл қазір келесі ым қимылдар қол жеткізуде:\nоңға сосын солға қайтып қимылдау - Алға (ALt+Right)\nсолға сосын оңға қайтып қимылдау - Шегіну (Alt+Left)\nжоғарға сонын төменге қайтып қимылдау - Жоғары (Alt+Up)\nсағат тіліне қарсы айнала жүгірту - Қайта жүктеу (F5)\n(Opera не Mozilla-да тапқанымды қайталадым - салыстырып көріңіз, одан артық істесеңіз, қысылмай маған көмектесіп khotkeysrc-тарыңызды жолдаңыз.)\n\nКейбір ым қимылдары анықтау үшін жай ғана баптау диалогында орындап беруге болады (кейбір диалогтарды KGesture-ден алдым, Mike Pilone әріптесіміне рахмет). Ым қимыл өрісі 3х3 торды негіздейді, тор көздері 1-ден 9-ға дейін нөмірленген, дәл қосымша пернетақтадағы нөмірлік пернелер сияқты.\n\nӘрекетін істету үшін ым қимылын мұқият орындау керек. Сонымен, бір әрекетке бірнеше ым қимылдарды сәйкес қоюға болады. Күрделі, тышқанның жүгіру бағытын бір реттен артық өзгертетін қимылдардан аулақ болыңыз (яғни, мысалы 45654 не 74123 деген қимылдар күрделі емес болғандықтан - жарайды, ал мысалы, 1236987 деген қимыл тым күрделі болар).\n\nБарлық ым қимылдар орындалатын шарты осы топта анықталады. Бүкіл осы ым қимылдар, белсенді терезесі Konqueror (класына 'konqueror' деген кіретін) болса ғана қабылданады.
+ Comment[km]=គ្មាន​បញ្ហា Konqi នៅ​ក្នុង KDE3.1 មាន​ផ្ទាំង និង​ឥឡូវ​អ្នក​ក៏​អាច​មានកាយវិការ​ដែរ ។ មិន​ចាំបាច់​ប្រើ​កម្មវិធី​រុករក​ផ្សេង​ទៀត​ទេ>;) ។\n\nគ្រាន់​តែ​ចុច​ប៊ូតុង​កណ្ដុរ​កណ្ដាល និង​ចាប់ផ្ដើម​គូស​កាយវិការ​មួយ និង​បន្ទាប់​មក​អ្នក​ត្រូវ​បាន​បញ្ចប់ លែង​ប៊ូតុង​កណ្ដុរ ។ ប្រសិន​បើ​អ្នក​ត្រូវ​បិទភ្ជាប់​ជម្រើស វា​នៅ​តែ​ដំណើរការ តាមធម្មតា​ចុច​តែ​ប៊ូតុង​កណ្ដុរ​កណ្ដាល ។ (អ្នក​អាច​ផ្លាស់ប្ដូរ​ប៊ុតុង​កណ្ដុរ​ ដើម្បី​ប្រើ​នៅ​ក្នុង​ការ​កំណត់​សកល) ។\n\nឥឡូវ មាន​កាយវិការ​ទាំងនេះ ៖\nផ្លាស់ទី​ទៅ​ស្ដាំ និង​ត្រឡប់​មក​ឆ្វេង - ទៅ (ជំនួស(Alt)+ស្ដាំ)\nផ្លាស់ទី​ទៅ​ឆ្វេង និង​ត្រឡប់​ទៅ​ស្ដាំ- ថយក្រោយ (ជំនួស(Alt)+ឆ្វេង)\nផ្លាស់ទៅ​ឡើងលើ និង​ត្រឡប់​ចុះក្រោម  - ឡើង​លើ (ជំនួស(Alt)+ឡើងលើ)\nគូស​រង្វង់​​ច្រាស​ទ្រនិច​នាឡិកា - ផ្ទុក​ឡើ​ងវិញ (F5)\n (ដ៏រាប​ណា​ខ្ញុំ​ដឹង​ថាមួយ​ណា​នៅ​ក្នុងOpera ឬ Mozilla ខ្ញុំ​នឹង​បន្ថែម​ទៀត និង​ប្រាកដ​ថា​ពួកវា​ដូច​គ្នា ។ ឬ​ប្រសិន​បើ​អ្នក​​ធ្វើ​វា​ដោយ​ខ្លួន​ឯង សូម​កុំ​ស្ទាក់ស្ទើរ​ដើម្បីជួយ​ខ្ញុំ និង​ផ្ញើ​មក​ខ្ញុំ​នូវ khotkeysrc របស់​អ្នក ។)\n\nរូបរាង​របស់​កាយវិការ (ប្រអប់​មួយ​ចំនួន​មក​ពិ​ KGesture សូម​អរគុណ​ដល់ Mike Pilone) តាម​​ធម្មតា​អាច​ត្រូវ​បាន​បញ្ចូល​ដោយ​អនុវត្ត​ពួកវា​នៅ​ក្នុង​ប្រអប់​កំណត់​រចនាសម្ព័ន្ធ ។ អ្នក​ក៏​អាច​មើល​នៅ​បន្ទះ​លេខ​របស់​អ្នក​ដើម្បី​ជួយ​អ្នក​ផងដែរ កាយវិការ​ត្រូវ​បាន​រៀបចំ​ដូច​ជា​ក្រឡា​ចត្រង្គ 3x3 របស់​វាល លេខ ១ ដល់ ៩ ។\n\nចំណាំ​ថា អ្នក​​ត្រូវ​តែ​អនុវត្ត​កាយវិការ​យ៉ាង​ជាក់លាក់ ដើម្បី​កេះ​សកម្មភាព ។ ដោយ​សារ​តែ​វា វា​អាច​បញ្ចូល​កាយវិការ​​ជា​ច្រើន​ទៀត​សម្រាប់​កម្មភាព ។ អ្នក​គួរ​តែ​ព្យាយាម​ជៀសវាង​កាយវិការ​ស្មុគស្មាញ​ដែល​អ្នក​ផ្លាស់ប្ដូរ​ទិស​​នៃការ​ផ្លាស់ឮទី​កណ្ដុរ​ច្រើន​ជាង​ម្ដង (ឧ. do ឧ. 45654 ឬ 74123 ព្រោះ​ថា​ពួកវា​តាម​ធម្មតា​អនុវត្ត​ ប៉ុន្តែ e ។g. 1236987 អាច​មាន​ការ​លំបាក​រួច​ហើយ) ។\n\nលក្ខខណ្ឌ​សម្រាប់​កាយវិការ​ទាំងអស់​ត្រូវ​បាន​កំណត់​នៅ​ក្នុង​ក្រុម​នេះ ។ កាយវិការ​ទាំងនេះ​សកម្ម​តែ​ក្នុងករណី ដែល​បង្អួ​សកម្ម​គឺ​ជា Konqueror (ថ្នាក់​មាន 'konqueror') ។
+ Comment[ko]=KDE 3.1의 Konqi에는 탭이 생겼고, 이제 제스처도 생겼습니다. 다른 웹 브라우저를 굳이 사용할 필요는 없습니다. >;)\n\n마우스 가운데 단추를 누른 다음 제스처를 그리고 다 그렸으면 단추를 놓으십시오. 선택한 것을 붙여넣으려면 마우스 가운데 단추를 한 번만 누르면 됩니다. 제스처에 사용할 마우스 단추는 전역 설정에서 바꿀 수 있습니다.\n\n지금 사용할 수 있는 제스처가 여기에 있습니다:\n오른쪽으로 이동했다가 왼쪽으로 이동하기 - 앞으로 이동 (Alt+Right)\n왼쪽으로 이동했다가 오른쪽으로 이동하기 - 뒤로 (Alt+Left)\n위로 이동했다가 아래로 이동하기 - 위로 (Alt+Up)\n반시계 방향으로 원 그리기 - 새로 고침(F5)\n(오페라나 모질라의 기본 동작을 파악하는 대로 추가하겠습니다. 만약 여러분이 해 주셨다면 khotkeysrc 파일을 보내 주십시오.)\n\n제스처 모양은 설정 창에 그리는 대로 입력할 수 있습니다. 설정 창의 몇몇 부분은 Mkie Pilone의 KGestures 프로그램에서 복사해 왔습니다. 제스처는 키보드의 숫자 패드에 있는 1에서 9까지의 숫자가 붙어 있는 3x3 모양의 격자의 형태로 인식됩니다. 동작을 실행시키기 위해서는 제스처를 그대로 그려야 합니다. 이것 때문에 하나의 동작에 하나 이상의 제스처를 할당할 수 있습니다.\n\n모든 제스처의 조건은 이 그룹에 배당되어 있습니다. 모든 제스처는 Konqueror 안에서만 동작합니다.
++Comment[lt]=Taigi, Konqi nuo KDE3.1 versijos turi korteles, o taip pat suteikia galimybę naudotis gestais. Nebereikia naudoti kitų naršyklių >;).\n\nTiesiog spauskite vidurinį pelės klavišą ir pradėkite piešti vieną iš gestų, baigę piešti – atleiskite mygtuką. Vis dar galite naudoti vidurinįjį pelės klavišą įterpimui, tam tereikia tiesiog spragtelėti. (Be to galite pakeisti tam naudojamą pelės klavišą globaliuosiuose nustatymuose).\n\nŠiuo metu yra galimi tokie gestai:\njudėjimas dešinėn ir atgal, kairėn – Pirmyn (Alt+Dešinėn)\njudėjimas kairėn ir atgal, dešinėn - Agal (Alt+Kairėn)\njudėjimas aukštyn ir atgal, žemyn – Aukštyn (Alt+Aukštyn)\nsukimas ratu prieš laikrodžio rodyklę – Įkelti iš naujo (F5)\n (Kai tik aptiksiu, kokie dar gestai naudojami  Opera ar Mozilla naršyklėse, pridėsiu lygiai tokius. Ir Jūs galite tai padaryti – tuomet tiesiog atsiųskite man savo khotkeysrc failą.)\n\nGestų figūros gali būti įvedamos tiesiog atliekant juos konfigūravimo dialoge (kai kurie dialogai yra iš KGesture programos, už tai dėkui Mike'ui Pilone'ui). Taip pat galite pasinaudoti skaitine klaviatūra, gestai atpažįstami kaip brėžiami 3x3 laukų tinklelyje, kur mygtukai sunumeruoti nuo 1 iki 9.\n\nAtkreipkite dėmesį, kad, norėdami iššaukti veiksmą, turite įvesti tikslų gestą. Todėl galima įvesti ir daugiau gestų tam pačiam veiksmui. Turėtumėte vengti sudėtingų gestų, kur pelės judėjimo kryptis keičiasi daugiau nei vieną kartą (pvz., judėti trajektorija 45654 arba 74123, nes ji ganėtinai paprasta, tačiau, pvz., 1236987 jau gali būti ganėtinai sudėtinga).\n\nVisų gestų sąlygos apibūdinamos šioje grupėje. Visi šie gestai yra aktyvūs tik tuo atveju, jei aktyvus langas yra Konqueror (lango klasėje yra „konqueror“ pavadinimas).
+ Comment[lv]=Labi, iekš KDE3.1 Konqueror ir cilnes, un tagad jūs varat lietot arī peles žestus. Nav vairs nepieciešams lietot citus pārlūkus >;).\n\nTikai nospiediet peles vidējo pogu un sāciet zīmēt žestus, kad esat pabeidzis, atlaižiet peles pogu.Ja nepieciešams tikai ielīmēt iezīmēto, tas joprojām strādā noklišķinot vidējo peles pogu.(Jūs varat nomainīt lietojamo peles pogu globālajos iestatījumos). \n\nŠobrīt ir pieejami šādi žesti:\npa labi un atpakaļ pa kreisi - Uz priekšu (Alt+Pa labi)\npa kreisi un atpakaļ pa labi- Atpakaļ (Alt+Pa kreisi)\nuz augšu un atpakaļ uz leju - Augšup (Alt+Uz augšu)\nriņķis pulksteņa virzienā - Pārielādēt (F5)\n(Tiklīdz es nosaidrošu kādi žesti ir iekš Opera vai Mozilla, es pievienošu vēl un pārliecināšaos lai tie ir tādi paši. Vai ja jūs to izdarāt pats,droši palīdziet man un atsūtiet man savu khotkeysrc.)\n\nŽestu formas (daži no dialogiem ir no KGesture, paldies Mike Pilone) var ievadīt vienkārši veicot žestus konfigurācijas dialogā. Jūs varat arī lietot ciparus lai sastādītu žestus. Cipari ir izkārtoti 3x3 režģī - kā numpadā, no 1 līdz 9.\n\nŅemiet vērā ka jums ir precīzi jāatkātro žests lai izraisītu darbību. Tāpēcir iespējams katrai darbībai ievadīt vairāk nekā vienu žestu. Vajadzētu izvairīties no sarežģītiem žestiem, kuros jāmaina peles kustības virziens vairāk nekā vienu reizi. (piem. lietojiet 45654 vai 74123 jo tos ir vienkārši uzzīmēt, betpiem. 1236987 varētu būt jau diezgan sarežģīts).\n\nVisiem žestiem šajā grupā ir definēts nosacījums. Visi šie žesti ir aktīvi tikai ja aktīvais logs ir Konqueror (klase satur 'konqueror').
+ Comment[nb]=Konqi i KDE3.1 har faner, og nå kan du også få musebevegelser. Unødvendig å bruke andre nettlesere >;).\n\nTrykk midtre museknapp og begynn å tegne opp en av disse bevegelsene, og slipp museknappen når du er ferdig, Hvis du bare skal lime inn utvalget, virker det ennå. Bare trykk én gang på midtre museknapp. (Hvilken museknapp som skal brukes kan bestemmes i de globale innstillingene.). \n\nAkkurat nå er disse bevegelsene tilgjengelige: \nflytt mot høyre og tilbake mot venstre – Framover (Alt+høyre)\nflytt mot venstre og tilbake mot høyre  – Tilbake (Alt + venstre\nflytt oppover og tilbake nedover .. Opp  (Alt+opp)\ni ring moturs – Last på nytt (F5)\n. Så snart jeg finner ut hvilke bevegelser som er i Opera og Mozilla skal jeg legge til flere og se til at de er de samme. Eller om du gjør det selv, er det fint om du hjelper til ved å sende meg din khotkeysrc-fil.\n\nNoen av bevegelsesdialogene er fra KGesture, takk til Mike Pilone. Musebevegelsene kan angis ved å bare gjøre dem i oppsettsdialogen. En kan også få hjelp ved å se på tall-tastene. Musebevegelser oppfattes på et 3×3 rutenett nummerert fra 1 til 9.\n\n Merk at du må utføre nøyaktig samme bevegelse for å få handlinga utført. Derfor er det mulig å oppgi flere enn ett bevegelsesmønster for handlinga. Forsøk å unngå kompliserte bevegelser der bevegelsesretningen endres mer enn en gang (gjør f.eks. 45654 eller 74123 siden de er enkle å utføre, mens 1236987 allerede kan være ganske vanskelig). \n\nBetingelsene for alle musebevegelser er angitt i denne gruppa. Alle bevegelsene er bare i bruk hvis det aktive vinduet er Konqueror (klassen inneholder «konqueror»).
+ Comment[nds]=Jo, in Konqui gifft dat siet KDE 3.1 Paneels, un nu ok Muustekens. Dat Bruken vun anner Nettkiekers deit nu redig nich mehr noot.\n\nDrück eenfach den Middel-Muusknoop un maak een vun de Tekens. Laat den Muusknoop wedder loos, wenn Du fardig büst. Wenn Du bloots de Köör infögen wullt, geiht dat ok, drück eenfach bloots den Middelknoop. (Binnen de globale Instellen kannst Du den Knoop fastleggen, mit den Du Tekens maken wullt.)\n\nOpstunns gifft dat disse Tekens:\nNa rechts un torüch na links - Vörut (Alt+Rechts)\nNa links un torüch na rechts - Torüch (Alt+Links)\nNa baven un torüch na nerrn - Na baven (Alt+Hooch)\nKrink linksrüm - Nieg laden (F5)\n (Wenn ik rutfunnen heff, wat för Tekens dat bi Opera un Mozilla gifft, föög ik de hier to. Wenn Du dat sülven maakst, kannst Du mi ok hölpen un Dien "khotkeysrc" tostüern.)\n\nDu kannst Dien Muustekens eenfach binnen den Instellendialoog utföhren un so ingeven (en Reeg vun de Dialogen is ut "KGesture", Dank Di, Mike Pilone!). För de Tekens gifft dat 3x3 Kuntrullpünkt, de vun 1 to 9 nummereert sünd as de Tasten op den Tallenblock vun Dien Tastatuur.\n\nBeacht bitte, Du muttst dat Teken akraat utföhren, wullt Du de Akschoon opropen. Dorüm laat sik för een Akschoon mehr Tekens angeven. Legg man keen vigeliensche Tekens fast, bi de Du de Richt vun de Muusbewegen mehr as eenmaal ännerst (a.B. laat sik 45654 oder 74123 licht maken, man 1236987 mag al düchtig swoor wesen.\n\nDe Bedingen för all Muustekens is över den Koppel fastleggt. All de Akschonen sünd bloots anmaakt, wenn dat aktive Finster Konqueror is (de Finsterklass "konqueror" bargt).
+@@ -1907,6 +1920,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2061,6 +2075,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2140,6 +2155,7 @@
+ Name[kn]=ಮೇಲೆ
+ Name[ko]=위로
+ Name[ku]=Jor
++Name[lt]=Aukštyn
+ Name[lv]=Augšup
+ Name[mai]=उप्पर
+ Name[mk]=Нагоре
+@@ -2212,6 +2228,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2292,6 +2309,7 @@
+ Name[kn]=ಪುನರುತ್ಥಾಪಿಸು (ರಿಲೋಡ್)
+ Name[ko]=새로 고침
+ Name[ku]=Nûbarkirin
++Name[lt]=Įkelti iš naujo
+ Name[lv]=Pārielādēt
+ Name[mai]=पुनः लोड करू
+ Name[mk]=Превчитај
+@@ -2365,6 +2383,7 @@
+ Comment[it]=Interruttori_gesti
+ Comment[kk]=Ым_Қимыл_жіберушілері
+ Comment[kn]=ಸೂಚ್ಯವರ್ತನೆ ಪ್ರಚೋದನೆ (ಗೆಸ್ಚರ್ ಟ್ರಿಗರ್)
++Comment[lt]=Gestai_iškvietikliai
+ Comment[lv]=Žestu_trigeri
+ Comment[mai]=गेस्चर_ट्रिगर्स
+ Comment[mr]=गेस्चर_ट्रिगर्स
+@@ -2431,6 +2450,7 @@
+ Comment[km]=បន្ទាប់​ពី​ចុច Win+E (Tux+E) កម្មវិធី​រុករក​វើលវ៉ាយវេប​នឹង​ត្រូវ​បាន​ចាប់ផ្ដើម​ ហើយវា​នឹង​បើក http://www.kde.org ។ អ្នក​អាច​រត់​គ្រប់​ពាក្យ​បញ្ជា ដែលអ្នក​អាច​រត់​នៅ​ក្នុង minicli (ជំនួស(Alt)+F2) ។
+ Comment[kn]= Win+E (Tux+E) ಅನ್ನು ಒತ್ತಿದ ನಂತರ, WWW ವೀಕ್ಷಕವು ಪ್ರಕ್ಷೇಪಗೊಂಡು (ಲಾಂಚ್), http://www.kde.org ಅನ್ನು ತೆರೆಯುತ್ತದೆ. minicli (Alt+F2) ಯಲ್ಲಿ ಚಾಲಯಿಸಬಹುದಾದ ಎಲ್ಲ ರೀತಿಯ ಆದೇಶಗಳನ್ನೂ ಚಾಲಯಿಸಬಹುದು.
+ Comment[ko]=Win+E 키를 누르면 웹 브라우저가 실행되고 'http://www.kde.org'를 표시합니다. minicli(Alt+F2)에서 실행할 수 있는 모든 명령을 실행할 수 있습니다.
++Comment[lt]=Nuspaudus Meta+E (Meta klavišas dar vadinamas Win, arba Tux) bus paleista žiniatinklio naršyklė, kurioje bus atvertas http
+ Comment[lv]=Pēc Win+E (Tux+E) nospiešanas, tiks palaists WWW pārlūksun tiks atvērtshttp://www.kde.org . Jūs varat palaist jekkuru komandu, ko var palaist ar minicli (Alt+F2).
+ Comment[mr]=Win+E (Tux+E) दाबल्यावर, WWW ब्राउजर दाखल केले जाईल व http://www.kde.org उघडले जाईल. तुम्ही minicli (Alt+F2) मध्ये सर्व प्रकारचे आदेश चालवू शकाल.
+ Comment[nb]=Når Win+E (Tux+E) trykkes, starter WWW-leseren og åpner http://www.kde.org. Alle kommandoer som kan kjøres i mini-kommandolinja (Alt+F2) kan kjøres her.
+@@ -2567,6 +2587,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+--- workspace/khotkeys/data/printscreen.khotkeys	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/khotkeys/data/printscreen.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -33,6 +33,7 @@
+ Comment[km]=ក្រុម​នេះ​មាន​អំពើ​ដែល​រៀបចំ​ឡើង​តាម​លំនាំ​ដើម​ ។
+ Comment[kn]=ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ಸಂಯೋಜಿಸಲಾದ ಕ್ರಿಯೆಗಳನ್ನು ಈ ಸಮೂಹವು ಒಳಗೊಂಡಿದೆ.
+ Comment[ko]=이 그룹은 기본값으로 설정되어 있는 동작을 포함합니다.
++Comment[lt]=Šioje grupėje yra veiksmai, kurie yra iš anksto nustatyti.
+ Comment[lv]=Šī grupa satur noklusētās darbības.
+ Comment[ml]=സഹജമായി ക്രമീകരിച്ചിട്ടുള്ള പ്രവര്‍ത്തികള്‍ ഈ കൂട്ടത്തില്‍ ലഭ്യമാകുന്നു.
+ Comment[mr]=या समूह मध्ये मुलभूतरित्या स्थापीत क्रिया समाविष्टीत आहे.
+@@ -101,6 +102,7 @@
+ Name[km]=កំណត់​អំពើ​ជាមុន​
+ Name[kn]=ಕ್ರಿಯೆಗಳನ್ನುಪೂರ್ವನಿಯೋಜಿಸು
+ Name[ko]=미리 정의된 동작
++Name[lt]=Iš anksto nustatyti veiksmai
+ Name[lv]=Noklusētās darbības
+ Name[mai]=प्रीसेट काजसभ
+ Name[mk]=Стандардни дејства
+@@ -175,6 +177,7 @@
+ Comment[km]=ចាប់ផ្ដើម​​កម្មវិធី KSnapShot នៅ​ពេល​​​ចុច​ប៊ូតុង PrintScrn ។
+ Comment[kn]=PrintScrn ಒತ್ತಿದಾಗ KSnapShot ಅನ್ನು ಪ್ರಕ್ಷೇಪಿಸುತ್ತದೆ.
+ Comment[ko]=PrintScrn 키가 눌렸을 때 KSnapShot을 실행합니다.
++Comment[lt]=Paleidžia KSnapShot nuspaudus Sp(PrintScrn) klavišą.
+ Comment[lv]=Palaiž KSnapShot ja nospiests PrintScrn.
+ Comment[ml]=PrintScrn അമര്‍ത്തിയാന്‍ KSnapShot ലഭ്യമാകുന്നു.
+ Comment[mr]=PrintScrn दाबल्यावर KSnapShot दाखल केले जाते.
+@@ -225,6 +228,7 @@
+ Name[km]=ថត​អេក្រង់​
+ Name[kn]=ತೆರೆಯನ್ನು ಮುದ್ರಿಸು (PrintScreen)
+ Name[ku]=DîmenderaÇapkirinê
++Name[lt]=Sp(PrintScreen)
+ Name[mai]=प्रिंट-स्क्रीन
+ Name[mk]=Печатење на екранот
+ Name[mr]=प्रिंटस्क्रीन
+@@ -287,6 +291,7 @@
+ Comment[it]=Azione_semplice
+ Comment[kk]=Қарапайым_әрекет
+ Comment[kn]=ಸರಳ_ಕ್ರಿಯೆ
++Comment[lt]=Paprastas_veiksmas
+ Comment[lv]=Vieknārša_darbība
+ Comment[mai]=सामान्य_क्रिया
+ Comment[mk]=Едноставно_дејство
+--- workspace/ksplash/kcm/ksplashthememgr.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/ksplash/kcm/ksplashthememgr.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -130,7 +130,7 @@
+ Comment[kn]=ಸ್ಪ್ಲಾಷ್ ತೆರೆ  ಪರಿಸರವಿನ್ಯಾಸಗಳಿಗೆ (ಥೀಮ್) ವ್ಯವಸ್ಥಾಪಕ
+ Comment[ko]=시작 화면 테마 관리자
+ Comment[ku]=Gerînendetiya Dirbên Splash Screenê
+-Comment[lt]=Pasveikinimo ekrano temų tvarkyklė
++Comment[lt]=Pasveikinimo ekrano temų tvarkytuvė
+ Comment[lv]=Šļakstekrāna tēmu pārvaldnieks
+ Comment[mai]=स्प्लैश स्क्रीन प्रसंगसभ क' लेल प्रबंधक
+ Comment[mk]=Менаџер на теми за поздравни екрани
+--- workspace/kwin/effects/invert.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/invert.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -96,6 +96,7 @@
+ Comment[km]=បម្លែង​ពណ៌​របស់​ផ្ទៃតុ​ និង​បង្អួច
+ Comment[kn]=ಕಿಟಕಿಗಳ ಮತ್ತು ಗಣಕತೆರೆಯ ಬಣ್ಣಗಳನ್ನು ವಿಲೋಮಗೊಳಿಸುತ್ತದೆ (ಇನ್ವರ್ಟ್)
+ Comment[ko]=데스크톱과 창의 색을 반전시킵니다
++Comment[lt]=Invertuoja darbastalio ir langų spalvas
+ Comment[lv]=Invertē darbvirsmas un logu krāsas
+ Comment[ml]=പണിയിടത്തിന്റെയും ജാലകങ്ങളുടെയും നിറം ഇന്‍വര്‍ട് ചെയ്യുന്നു (വിപരീതം ആക്കുന്നു)
+ Comment[nb]=Snur om (vender fortegn på) farger på skrivebordet og vinduene
+--- workspace/kwin/effects/flipswitch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/flipswitch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,7 +24,7 @@
+ Name[km]=ប្ដូរ​ការ​ត្រឡប់​
+ Name[kn]=ಬದಲಾವಣೆ ಗುಂಡಿ (ಫ್ಲಿಪ್ ಸ್ವಿಚ್)
+ Name[ko]=플립 전환기
+-Name[lt]=Krūvos vartiklis
++Name[lt]=Kartotekos imitacijos keitiklis
+ Name[lv]=Flip pārslēdzējs
+ Name[ml]=ഫ്ലിപ് സ്വിച്ച്
+ Name[nb]=Bla-bytter
 @@ -44,6 +44,7 @@
  Name[te]=ఫ్లిప్ స్విచ్
  Name[th]=สลับหน้าต่างพลิกซ้อนเป็นชั้น
@@ -571,8 +1551,46 @@
  Name[wa]=Discandjeu d' purnea
  Name[x-test]=xxFlip Switchxx
  Name[zh_CN]=翻转切换
---- workspace/kwin/effects/boxswitch_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/boxswitch_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+@@ -70,6 +71,7 @@
+ Comment[km]=ត្រឡប់​កាត់​តាម​បង្អួច​ដេល​នៅ​ក្នុង​ជង់​សម្រាប់​​កម្មវិធី​ប្ដូរ​បង្អួច​ជំនួស+ថេប
+ Comment[kn]=alt+tab ಕಿಟಕಿ ಪರಿವರ್ತಕಕ್ಕೆ (ಸ್ವಿಚ್) ಅಡುಕು (ಸ್ಟಾಕ್) ನಲ್ಲಿರುವ ಕಿಟಕಿಗಳ ಮೂಲಕ ಹಾಯುವಂತೆ ಮಾಡು
+ Comment[ko]=스택에 쌓여 있는 창을 Alt+Tab 창 전환기를 통하여 전환시킵니다
++Comment[lt]=Rodo langus kaip kartotekos korteles naudojant Alt+Tab langų keitimo būdą
+ Comment[lv]=Pālūko logus sakrautus kaudzē Alt+Tabl logu pārslēdzējā
+ Comment[ml]=ജാലക സ്വിച്ചര്‍  - alt+tab ഉപയോഗിച്ചു് ഒരു സ്റ്റാക്കിലുള്ള ജാലകങ്ങള്‍ തമ്മില്‍ മാറ്റുക.
+ Comment[nb]=Bla gjennom vinduer som ligger stablet, for alt+tab-vindusbytteren
+--- workspace/kwin/effects/showfps_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/showfps_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -41,7 +41,7 @@
+ Name[kn]=FPS ತೋರಿಸು
+ Name[ko]=FPS 표시
+ Name[ku]=FPS'ê nîşan bide
+-Name[lt]=Rodyti FPS
++Name[lt]=FPS rodymas
+ Name[lv]=Rādīt kadrus/sek
+ Name[mai]=एफपीएस देखाबू
+ Name[ml]=FPS കാണിക്കുക
+--- workspace/kwin/effects/taskbarthumbnail.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/taskbarthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -86,6 +86,7 @@
+ Comment[km]=បង្ហាញ​រូបភាព​តូចៗ​របស់​បង្អួច នៅ​ពេល​ទស្សន៍​នៅ​លើ​ធាតុ​របារ​ភារកិច្ច​របស់​ពួកវា
+ Comment[kn]=ಸ್ಥಳಸೂಚಿಗಳು (ಕರ್ಸರ್) ಕಾರ್ಯಪಟ್ಟಿ   ನಮೂದುಗಳ ಮೇಲೆ ಬಂದಾಗ ಕಿಟಕಿ ಸೂಚ್ಯಚಿತ್ರಗಳನ್ನು (ಥಂಬ್ ನೇಲ್ಸ್) ತೋರುವಂತೆ ಮಾಡು
+ Comment[ko]=작업 표시줄의 창 항목을 지나다닐 때 미리 보기 그림을 표시합니다
++Comment[lt]=Rodo langų miniatiūras užvedus kursorių virš lango įrašo užduočių juostoje
+ Comment[lv]=Parāda loga sīktēlu, kad kursors atrodas uz uzdevumjoslas ieraksta
+ Comment[ml]=ജാലകനഖചിത്രങ്ങള്‍ പണിനിരയില്‍ മൌസ് നീക്കുമ്പോള്‍ കാണിക്കുക
+ Comment[mr]=कर्सर साधनपट्टी नोंदणी चाळत असल्यास चौकट थंबनेल दर्शवा
+--- workspace/kwin/effects/boxswitch_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/boxswitch_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -35,7 +35,7 @@
+ Name[km]=ប្ដូរ​ប្រអប់​
+ Name[kn]=ಬಾಕ್ಸ್ ಸ್ವಿಚ್
+ Name[ko]=상자 전환기
+-Name[lt]=Dėžutinis vartiklis
++Name[lt]=Miniatiūrų juostos keitiklis
+ Name[lv]=Kastes pārslēdzējs
+ Name[mai]=बाक्स स्विच
+ Name[ml]=ബോക്സ് സ്വിച്ച്
 @@ -58,6 +58,7 @@
  Name[te]=బాక్‍స్  స్విచ్
  Name[th]=สลับหน้าต่างแบบกล่อง
@@ -581,8 +1599,56 @@
  Name[vi]=Chuyển đổi hộp
  Name[wa]=Discandjeu d' boesse
  Name[x-test]=xxBox Switchxx
---- workspace/kwin/effects/blur.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/blur.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kwin/effects/maketransparent.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/maketransparent.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -98,6 +98,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​បង្អួច​ថ្លា​ក្រោមលក្ខខណ្ឌ​ផ្សេងៗ​គ្នា
+ Comment[kn]=ವಿವಿಧ ಪರಿಸ್ಥಿತಿಗಳಲ್ಲಿ ಕಿಟಕಿಗಳನ್ನು ಅರೆಪಾರದರ್ಶಕಗೊಳಿಸು (ಟ್ರಾನ್ಸ್ಲೂಸೆಂಟ್)
+ Comment[ko]=다른 조건 하에서 창을 투명하게 만듭니다
++Comment[lt]=Esant tam tikroms sąlygoms padaro langus permatomus
+ Comment[lv]=Noteiktos apstākļos padara logus caurspīdīgus
+ Comment[ml]=ജാലകങ്ങള്‍ പ്രത്യേക സാഹചര്യങ്ങളില്‍ അര്‍ദ്ധ-സുതാര്യമാക്കുന്നു
+ Comment[nb]=Gjør vinduer gjennomskinnelige under forskjellige forhold
+--- workspace/kwin/effects/sharpen.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/sharpen.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -31,7 +31,7 @@
+ Name[km]=ធ្វើ​ឲ្យ​ច្បាស់
+ Name[kn]=ಸ್ಫುಟಗೊಳಿಸು (ಶಾರ್ಪನ್)
+ Name[ko]=선명하게
+-Name[lt]=Paaštrinti
++Name[lt]=Paaštrinimas
+ Name[lv]=Asināt
+ Name[mai]=तीक्ष्ण
+ Name[mk]=Изострување
+@@ -92,6 +92,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​ផ្ទៃតុ​របស់ទាំង​មូល​​ច្បាស់​ជាង​មុន​​
+ Comment[kn]=ಪೂರ್ಣ ಗಣಕತೆರೆ ಸ್ಫುಟವಾಗಿ ಕಾಣುವಂತೆ ಮಾಡು
+ Comment[ko]=데스크톱을 선명하게 표시합니다
++Comment[lt]=Paaštrina darbastalį
+ Comment[lv]=Liek jūsu darbvirsmai izskatīties asākai
+ Comment[mk]=Ја прави целата работна површина да изгледа поизострено
+ Comment[ml]=നിങ്ങളുടെ പണിയിടം സൂക്ഷ്മമാക്കുന്നു 
+--- workspace/kwin/effects/trackmouse_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/trackmouse_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -41,6 +41,7 @@
+ Name[km]=ដាន​កណ្តុរ​
+ Name[kn]=ಮೂಷಕ ಹಿಂಬಾಲಕ
+ Name[ko]=마우스 추적
++Name[lt]=Pelės sekimas
+ Name[lv]=Sekot pelei
+ Name[mai]=माउस ट्रैक करू
+ Name[mk]=Следење на глушецот
+--- workspace/kwin/effects/blur.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/blur.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -30,7 +30,7 @@
+ Name[km]=ព្រិល​
+ Name[kn]=ಮಾಸಲುಗೊಳಿಸು (ಬ್ಲರ್)
+ Name[ko]=흐리게
+-Name[lt]=Sulieti
++Name[lt]=Suliejimas
+ Name[lv]=Aizmiglot
+ Name[mai]=धुंधला करू
+ Name[mk]=Заматување
 @@ -83,7 +83,7 @@
  Comment[gu]=પાશ્વભાગને અર્ધ-પારદર્શક વિન્ડોઝમાં ઝાંખું કરે છે
  Comment[he]=טישטוש הרקע של חלונות שקופים למחצה
@@ -592,8 +1658,25 @@
  Comment[hsb]=Stwori młowojty pozadk za połpřewidnymi woknami.
  Comment[is]=Móðar bakgrunn aftan við hálfgegnsæa glugga
  Comment[it]=Sfoca lo sfondo dietro le finestre semitrasparenti
---- workspace/kwin/effects/boxswitch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/boxswitch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+@@ -92,6 +92,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​ផ្ទៃ​ខាងក្រោយ​ព្រិលៗ​ខាង​ក្រោយ​បង្អួច​ថ្លា​ពាក់កណ្ដាល
+ Comment[kn]=ಅರೆ-ಪಾರದರ್ಶಕ ಕಿಟಕಿಗಳ ಹಿನ್ನೆಲೆಯನ್ನು ಮಾಸಲುಗೊಳಿಸುತ್ತದೆ
+ Comment[ko]=반투명 창의 뒷배경을 흐리게 합니다
++Comment[lt]=Sulieja pusiau permatomų langų foną
+ Comment[lv]=Aizmiglo fonu aiz puscaurspīdīgiem logiem
+ Comment[ml]=പാതിസുതാര്യ ജാലകങ്ങളുടെ പിന്നാമ്പുറം മങ്ങിയതാക്കുന്നു. 
+ Comment[mr]=अर्ध-पारदर्शी चौकटची पार्श्वभूमी फुसट करतो
+--- workspace/kwin/effects/boxswitch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/boxswitch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -28,7 +28,7 @@
+ Name[km]=ប្ដូរ​ប្រអប់​
+ Name[kn]=ಬಾಕ್ಸ್ ಸ್ವಿಚ್
+ Name[ko]=상자 전환기
+-Name[lt]=Dėžutinis vartiklis
++Name[lt]=Miniatiūrų juostos keitiklis
+ Name[lv]=Kastes pārslēdzējs
+ Name[mai]=बाक्स स्विच
+ Name[ml]=ബോക്സ് സ്വിച്ച്
 @@ -51,6 +51,7 @@
  Name[te]=బాక్‍స్  స్విచ్
  Name[th]=สลับหน้าต่างแบบกล่อง
@@ -602,7 +1685,15 @@
  Name[vi]=Chuyển đổi hộp
  Name[wa]=Discandjeu d' boesse
  Name[x-test]=xxBox Switchxx
-@@ -101,7 +102,7 @@
+@@ -83,6 +84,7 @@
+ Comment[km]=បង្ហាញ​រូបភាព​តូចៗ​របស់​បង្អួជ​នៅ​ក្នុង​កម្មវិធី​ប្ដូរ​បង្អួច​ជំនួស+ថេប
+ Comment[kn]= alt+tab ಕಿಟಕಿ ಪರಿವರ್ತಕದಲ್ಲಿ (ಸ್ವಿಚ್) ಸೂಚ್ಯಚಿತ್ರಗಳನ್ನು (ಥಂಬ್ ನೇಲ್ಸ್) ತೋರಿಸು
+ Comment[ko]=Alt+Tab 창 전환기에 창의 미리 보기 그림을 표시합니다
++Comment[lt]=Rodo langų miniatiūras juostoje naudojant Alt+Tab langų keitimo būdą
+ Comment[lv]=Parāda logu sīktēlus Alt+Tab logu pārslēdzējā
+ Comment[ml]=ജാലക സ്വിച്ചര്‍  - alt+tab-ല്‍ ജാലകങ്ങളുടെ നഖചിത്രങ്ങള്‍ കാണിക്കുക
+ Comment[mr]=alt+tab चौकट स्विचर अंतर्गत चौकटचे थंबनेल दर्शवा
+@@ -101,7 +103,7 @@
  Comment[sv]=Visar miniatyrbilder av fönster vid fönsterbyte med Alt+Tabulator
  Comment[th]=แสดงภาพตัวอย่างของหน้าต่าง เมื่อกดปุ่มพิมพ์ alt+tab
  Comment[tr]=Alt-tab pencere seçicide pencerelerin küçük resimlerini göster
@@ -611,8 +1702,74 @@
  Comment[wa]=Håyner les prévoeyaedjes des punrneas dins discandjeu d' purnea alt+tab
  Comment[x-test]=xxDisplay thumbnails of windows in the alt+tab window switcherxx
  Comment[zh_CN]=在 Alt+Tab 窗口切换器中显示各窗口的缩略图
---- workspace/kwin/effects/lookingglass_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/lookingglass_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kwin/effects/explosion.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/explosion.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -93,6 +93,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​បង្អួច​ផុស​ចេញ​ពេល​បិទ​ពួក​វា​
+ Comment[kn]=ಕಿಟಕಿಗಳನ್ನು ಮುಚ್ಚಿದಾಗ ಅವು ಸಿಡಿಯುವಂತೆ ಮಾಡುತ್ತದೆ
+ Comment[ko]=창이 닫힐 때 폭발시킵니다
++Comment[lt]=Išsprogdina langus juos užveriant
+ Comment[lv]=Liek logiem eksplodēt, kad tos aizver
+ Comment[ml]=അടയ്ക്കുമ്പോള്‍ ജാലകങ്ങള്‍ പൊട്ടിത്തെറിയ്ക്കുന്നു. 
+ Comment[nb]=Gjør at vinduer som lukkes, eksploderer
+--- workspace/kwin/effects/zoom.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/zoom.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -30,6 +30,7 @@
+ Name[kn]=ಹಿಗ್ಗಿಸು
+ Name[ko]=확대/축소
+ Name[ku]=Mezinkirin
++Name[lt]=Išdidinimas
+ Name[lv]=Palielināšana
+ Name[mai]=जूम
+ Name[mk]=Зум
+@@ -89,6 +90,7 @@
+ Comment[km]=ពង្រីក​ផ្ទៃតុ​ទាំង​មូល
+ Comment[kn]=ಇಡೀ ಗಣಕತೆರೆಯನ್ನು ಹಿಗ್ಗಿಸು
+ Comment[ko]=전체 데스크톱을 확대합니다
++Comment[lt]=Didina visą darbastalį
+ Comment[lv]=Palielina visu darbvirsmu
+ Comment[mk]=Ја зголемува целата работна површина
+ Comment[ml]=പണിയിട മൊത്തമായും വലുതാക്കുക
+--- workspace/kwin/effects/thumbnailaside.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/thumbnailaside.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -30,6 +30,7 @@
+ Name[km]=រូបភាព​តូចនៅ​ខាង
+ Name[kn]=ಸೂಚ್ಯಚಿತ್ರ ಬದಿಯಲ್ಲಿ
+ Name[ko]=미리 보기 그림
++Name[lt]=Miniatiūros pakrašty
+ Name[lv]=Sīktēli malā
+ Name[mai]=लघुछवि बाजू मे
+ Name[ml]=അടുത്തുള്ള നഖചിത്രം
+@@ -86,6 +87,7 @@
+ Comment[km]=បង្ហាញ​រូបភាព​តូចៗ​របស់​បង្អួច​នៅគែម​​អេក្រង់
+ Comment[kn]=ಕಿಟಕಿಯ ಸೂಚ್ಯಚಿತ್ರವನ್ನು ತೆರೆಯ ಅಂಚಿನಲ್ಲಿ ತೋರುವಂತೆ ಮಾಡು
+ Comment[ko]=화면의 모서리에 창의 미리 보기 그림을 표시합니다
++Comment[lt]=Rodo langų miniatiūras ekrano pakrašty
+ Comment[lv]=Rāda logu sīktēlus ekrāna malā
+ Comment[ml]=ജാലകത്തിനുള്ള നഖചിത്രം സ്ക്രീനിന്റെ കോണില്‍ കാണിക്കുക
+ Comment[mr]=पडद्याच्या किनाऱ्यास चौकट थंबनेल दर्शवा
+--- workspace/kwin/effects/magnifier.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/magnifier.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -102,6 +102,7 @@
+ Comment[km]=ពង្រីក​ផ្នែក​នៃ​អេក្រង់​​​ដែល​នៅ​ជិត​ទស្សន៍ទ្រនិច​កណ្ដុរ​
+ Comment[kn]=ಮೂಷಕದ ಕೆಳಗಿನ ತೆರೆಯ ಭಾಗವನ್ನು ಹಿಗ್ಗಿಸಿ ತೋರಿಸು
+ Comment[ko]=마우스 커서 근처에 있는 화면을 확대합니다
++Comment[lt]=Padidina ekrano dalį, esančią netoli pelės
+ Comment[lv]=Rāda palielinātu daļu no ekrāna zem peles kursora
+ Comment[ml]=മൌസിനടുത്തുള്ള സ്ക്രീനിന്റെ ഭാഗം വലുതാക്കിക്കാണിക്കുന്നു.
+ Comment[nb]=Forstørrer den delen av skjermen som er nær musepekeren
+--- workspace/kwin/effects/thumbnailaside_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/thumbnailaside_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -37,6 +37,7 @@
+ Name[km]=រូបភាព​តូចនៅ​ខាង
+ Name[kn]=ಸೂಚ್ಯಚಿತ್ರ ಬದಿಯಲ್ಲಿ
+ Name[ko]=미리 보기 그림
++Name[lt]=Miniatiūros pakrašty
+ Name[lv]=Sīktēli malā
+ Name[mai]=लघुछवि बाजू मे
+ Name[ml]=അടുത്തുള്ള നഖചിത്രം
+--- workspace/kwin/effects/lookingglass_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/lookingglass_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -55,6 +55,7 @@
  Name[te]=లుకింగ్ గ్లాస్
  Name[th]=เลนส์ตาปลา
@@ -621,9 +1778,88 @@
  Name[wa]=Berikes
  Name[x-test]=xxLooking Glassxx
  Name[zh_CN]=镜射
---- workspace/kwin/effects/dimscreen.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/dimscreen.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -74,7 +74,7 @@
+--- workspace/kwin/effects/sharpen_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/sharpen_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -38,7 +38,7 @@
+ Name[km]=ធ្វើ​ឲ្យ​ច្បាស់
+ Name[kn]=ಸ್ಫುಟಗೊಳಿಸು (ಶಾರ್ಪನ್)
+ Name[ko]=선명하게
+-Name[lt]=Paaštrinti
++Name[lt]=Paaštrinimas
+ Name[lv]=Asināt
+ Name[mai]=तीक्ष्ण
+ Name[mk]=Изострување
+--- workspace/kwin/effects/snow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/snow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -99,6 +99,7 @@
+ Comment[km]=អនុញ្ញាត​ឲ្យ​វា​ធ្លាក់​ព្រឹល​នៅលើ​ផ្ទៃតុ
+ Comment[kn]=ಗಣಕತೆರೆಯಲ್ಲಿ ಮಂಜು ಬೀಳುತ್ತಿರುವಂತೆ ತೋರುವ ಹಾಗೆ ಮಾಡು
+ Comment[ko]=데스크톱에 눈이 오도록 합니다
++Comment[lt]=Imituoja snigimą jūsų darbastalyje
+ Comment[lv]=Imitē sniegu uz darbvirsmas
+ Comment[mk]=Симулира паѓање снег на работната површина
+ Comment[ml]=പണിയിടത്തില്‍ മഞ്ഞുപെയ്യട്ടെ. 
+--- workspace/kwin/effects/mousemark_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/mousemark_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -39,7 +39,7 @@
+ Name[km]=សម្គាល់​កណ្តុរ​
+ Name[kn]=ಮೂಷಕ (ಮೌಸ್) ಮುದ್ರೆ
+ Name[ko]=마우스 자취
+-Name[lt]=Pelės žymės
++Name[lt]=Piešimas pele
+ Name[lv]=Peles zīmēšana
+ Name[mai]=माउस मार्क
+ Name[mk]=Цртање со глушец
+--- workspace/kwin/effects/magiclamp.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/magiclamp.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -82,6 +82,7 @@
+ Comment[km]=ក្លែង​ធ្វើ​អំពូល​មន្តអាគមន៍​នៅពេល​បង្រួម​បង្អួច​អប្បបរមា​
+ Comment[kn]=ಕಿಟಕಿಗಳನ್ನು ಕನಿಷ್ಠೀಕರಿಸುವಾಗ ಒಂದು ಮಾಂತ್ರಿಕ ದೀಪವನ್ನು ಸಜೀವನಗೊಳಿಸು
+ Comment[ko]=창을 최소화할 때 요술 램프에 빨려들어가는 애니메이션을 보여줍니다
++Comment[lt]=Imituoja magišką lempą sumažinant langus
+ Comment[lv]=Imitē maģisko lampu minimizējot logus
+ Comment[ml]=ജാലകങ്ങള്‍ ചെറുതാക്കുംബോള്‍ ഒരു മാന്ത്രിക വിളക്ക് കാണിക്കുക
+ Comment[mr]=चौकट लहान करतेवेळी जादुई दिवा सिम्यूलेट करा
+--- workspace/kwin/effects/coverswitch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/coverswitch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -72,6 +72,7 @@
+ Comment[km]=បង្ហាញ​បែបផែន​លំហូ​សម្រាប់កម្មវិធី​ប្ដូរ​បង្អួច​ជំនួស+ថេប
+ Comment[kn]=ಕಿಟಕಿ ಪರಿವರ್ತಕದಲ್ಲಿ (ಸ್ವಿಚ್) ಕವರ್ ಫ್ಲೋ ಪರಿಣಾಮವನ್ನು ತೋರಿಸು
+ Comment[ko]=Alt+Tab 창 전환기에 커버 플로 효과를 표시합니다
++Comment[lt]=Suteikia viršelių slinkimo efektą naudojant Alt+Tab langų keitimo būdą
+ Comment[lv]=Parāda 'Vāku plūsmas' efektu Alt+Tab logu pārslēdzējā
+ Comment[ml]=ജാലക സ്വിച്ചര്‍  - alt+tab-നായി ഒരു കവര്‍ ഒഴുക്ക് പ്രഭാവം കാണിക്കുക.
+ Comment[mr]=alt+tab चौकट स्विचर करीता Cover Flow दर्शवा
+--- workspace/kwin/effects/wobblywindows.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/wobblywindows.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -30,6 +30,7 @@
+ Name[kn]=ಅಲ್ಲಾಡುವ ಕಿಟಕಿಗಳು
+ Name[ko]=흔들리는 창
+ Name[ku]=Paceyên Dihejin
++Name[lt]=Kreivojantys langai
+ Name[lv]=Ļodzīgie logi
+ Name[mai]=वोबली विंडो
+ Name[ml]=ചാഞ്ചാടുന്ന ജാലകങ്ങള്‍
+@@ -83,6 +84,7 @@
+ Comment[km]=បង្អួច​ទ្រង់ទ្រាយ​បង្អួច​ខណៈពេល​កំពុង​ផ្លាស់ទី​ពួកវា​
+ Comment[kn]=ಕಿಟಕಿಗಳನ್ನು  ಸರಿಸುವಾಗ ಅವುಗಳನ್ನು ವಿಕೃತಿಗೊಳಿಸು
+ Comment[ko]=창이 움직일 때 흔듭니다
++Comment[lt]=Deformuoja langus kai šie juda
+ Comment[lv]=Deformē logus, kad tos pārvieto
+ Comment[mk]=Ги деформира прозорците додека ги преместувате
+ Comment[ml]=അനങ്ങുംബോള്‍ ജാലകങ്ങളുടെ ആക്രതി മാറുന്നു
+--- workspace/kwin/effects/dimscreen.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/dimscreen.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -28,7 +28,7 @@
+ Name[km]=បន្ថយ​ពន្លឺ​អេក្រង់ សម្រាប់​របៀប​ជា​អ្នក​គ្រប់គ្រង
+ Name[kn]=ನಿರ್ವಾಹಕ ವಿಧಾನದಲ್ಲಿ (ಅ ಡ್ಮಿನಿಸ್ಟ್ರೇಟರ್ ಮೋಡ್) ತೆರೆಯನ್ನು ಮಂಕಾಗಿಸು
+ Name[ko]=관리자 모드에서 화면 어둡게 하기
+-Name[lt]=Užtemdyti ekraną administratoriaus veiksenai
++Name[lt]=Užtemdomas ekraną administratoriaus veiksenai
+ Name[lv]=Aptumšināt ekrānu, pieprasot administratora tiesības
+ Name[ml]=അഡ്മിനിസ്ട്രേറ്റര്‍ മോഡില്‍ സ്ക്രീന്‍ തെളിച്ചം കുറയ്ക്കല്‍
+ Name[mr]=प्रशासक पद्धती करीता मंद पडदा
+@@ -74,12 +74,13 @@
  Comment[hi]=जब रूट विशेषाधिकार हेतु निवेदन किया जाए तो संपूर्ण स्क्रीन को गाढ़ा करता है
  Comment[hne]=जब रूट प्रिविलेज बर निवेदन करही तब पूरा स्क्रीन ल धुंधला कर देही
  Comment[is]=Skyggir allan skjáinn þegar beðið er um lykilorð kerfisstjóra
@@ -632,8 +1868,92 @@
  Comment[ja]=root 権限が要求されるとスクリーン全体を暗くします
  Comment[kk]=root құқығын сұрағанда бүкіл экранды күңгірттеу
  Comment[km]=ធ្វើ​ឲ្យ​អេក្រង់ទាំងមូល​ងងឹត​នៅពេល​បង្ហាញ​សិទ្ធិជា​ root
---- workspace/kwin/effects/lookingglass.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/lookingglass.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+ Comment[kn]=ನಿರ್ವಾಹಕ ಸವಲತ್ತುಗಳನ್ನು ಕೇಳುವಾಗ ಇಡೀ ತೆರೆಯನ್ನು ಮಂಕಾಗಿಸುತ್ತದೆ
+ Comment[ko]=루트 권한이 필요할 때 화면을 어둡게 합니다
++Comment[lt]=Pritemdo visą ekraną prašant administratoriaus privilegijų
+ Comment[lv]=Aptumšina visu ekrānu, kad pieprasa root privilēģijas
+ Comment[ml]=മൂല (റൂട്ട്) വിശേഷാധികാരം അഭ്യര്‍ത്തിക്കുംബോള്‍ സ്ക്രീന്‍ കറുപ്പിക്കുന്നു
+ Comment[nb]=Mørklegger hele skjermen når det spørres etter root-privilegier
+--- workspace/kwin/effects/diminactive_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/diminactive_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -36,7 +36,7 @@
+ Name[km]=បន្ថយ​ពន្លឺ​នៅពេល​អសកម្ម
+ Name[kn]=ನಿಷ್ಕ್ರಿಯವಾದದ್ದನ್ನು  ಮಂಕಾಗಿಸು
+ Name[ko]=비활성 창 어둡게
+-Name[lt]=Užtemdyti neaktyvius
++Name[lt]=Užtemdomi neaktyvūs langai
+ Name[lv]=Tumšināt neaktīvos
+ Name[mai]=असक्रिय मंद करू
+ Name[ml]=നിര്‍ജ്ജീവമായവ മറയ്ക്കുക
+--- workspace/kwin/effects/wobblywindows_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/wobblywindows_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -37,6 +37,7 @@
+ Name[kn]=ಅಲ್ಲಾಡುವ ಕಿಟಕಿಗಳು
+ Name[ko]=흔들리는 창
+ Name[ku]=Paceyên Dihejin
++Name[lt]=Kreivojantys langai
+ Name[lv]=Ļodzīgie logi
+ Name[mai]=वोबली विंडो
+ Name[ml]=ചാഞ്ചാടുന്ന ജാലകങ്ങള്‍
+--- workspace/kwin/effects/mousemark.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/mousemark.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -32,7 +32,7 @@
+ Name[km]=សម្គាល់​កណ្តុរ​
+ Name[kn]=ಮೂಷಕ (ಮೌಸ್) ಮುದ್ರೆ
+ Name[ko]=마우스 자취
+-Name[lt]=Pelės žymės
++Name[lt]=Piešimas pele
+ Name[lv]=Peles zīmēšana
+ Name[mai]=माउस मार्क
+ Name[mk]=Цртање со глушец
+@@ -94,6 +94,7 @@
+ Comment[km]=អនុញ្ញាត​ឲ្យ​អ្នក​គូស​បន្ទាត់​ច្រើន​នៅ​លើ​ផ្ទៃតុ
+ Comment[kn]=ಗಣಕತೆರೆಯಲ್ಲಿ ಗೆರೆಗಳನ್ನೆಳೆಯಲು ಅನುವುಮಾಡಿಕೊಡುತ್ತದೆ
+ Comment[ko]=데스크톱에 선을 그립니다
++Comment[lt]=Leidžia piešti linijas ekrane
+ Comment[lv]=Ļauj ar peli zīmēt līnijas uz darbvirsmas
+ Comment[ml]=പണിയിടത്തില്‍ നിങ്ങള്‍ക്കിതുപയോഗിച്ചു് വരകള്‍ വരയ്ക്കാം 
+ Comment[mr]=डेस्कटॉपवर ओळी काढण्यास मदत करतो
+--- workspace/kwin/effects/dialogparent.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/dialogparent.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -92,6 +92,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​បង្អួច​មេ​របស់​ប្រអប់​សកម្ម​បច្ចុប្បន្ន​ងងឹត​
+ Comment[kn]=ಸಕ್ರಿಯವಾಗಿರುವ ಸಂವಾದದ ಪೂರ್ವಜ ಕಿಟಕಿಯನ್ನು ಮಸುಕಾಗಿಸುತ್ತದೆ
+ Comment[ko]=현재 활성 대화 상자의 부모 창을 어둡게 합니다
++Comment[lt]=Užtemdo dialogo sąvininką kai aktyvuojamas dialogo langas
+ Comment[lv]=Satumšina aktīvā loga vecāka logu
+ Comment[ml]=സജീവഡയലോഗിന്റെ മാതൃജാലകം കറുപ്പിക്കുക
+ Comment[mr]=वर्तमान सक्रीय संवादचे मुख्य चौकट काळसर करतो
+--- workspace/kwin/effects/trackmouse.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/trackmouse.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -34,6 +34,7 @@
+ Name[km]=ដាន​កណ្តុរ​
+ Name[kn]=ಮೂಷಕ ಹಿಂಬಾಲಕ
+ Name[ko]=마우스 추적
++Name[lt]=Pelės sekimas
+ Name[lv]=Sekot pelei
+ Name[mai]=माउस ट्रैक करू
+ Name[mk]=Следење на глушецот
+@@ -90,6 +91,7 @@
+ Comment[km]=បង្ហាញ​ទីតាំង​របស់ទស្សន៍ទ្រនិច​កណ្ដុរ​នៅពេល​បាន​ធ្វើ​ឲ្យ​សកម្ម
+ Comment[kn]=ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ ಮೂಷಕದ ಸ್ಥಳಸೂಚಿಯನ್ನು (ಕರ್ಸರ್) ತೋರಿಸು
+ Comment[ko]=활성화되었을 때 마우스 커서의 위치를 표시합니다
++Comment[lt]=Rodo pelės žymeklio vietos nustatymo efektą
+ Comment[lv]=Kad aktivizēts, rāda peles kursora atrašanās vietu
+ Comment[ml]=സജീവമാക്കുമ്പോള്‍ മൌസ് കര്‍സറിന്റെ സ്ഥാനം കാണിക്കുന്ന എഫക്ട് കാണിക്കുക
+ Comment[mr]=सक्रिय केल्यावर माउस कर्सर शोध प्रभाव दर्शवा
+--- workspace/kwin/effects/desktopgrid.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/desktopgrid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -88,6 +88,7 @@
+ Comment[kk]=Үстелдерді кішірейтіп торда қатарлап көрсету
+ Comment[km]=បង្រួម​ផ្ទៃតុ​ទាំងអស់​បង្ហាញ​ម្ដង​មួយ​ផ្នែក​ៗ​នៅ​ក្នុង​ក្រឡាចត្រង្គ
+ Comment[ko]=모든 데스크톱을 한 화면에 볼 수 있도록 축소합니다
++Comment[lt]=Atitolinti darbastalį, kad visi darbastaliai būtų matomi kaip vienas tinklelis
+ Comment[lv]=Attālina, lai visas darbvirsmas būtu redzamas blakus režģa veidā
+ Comment[nb]=Forminsk så alle skrivebord vises side om side i et rutenett
+ Comment[nds]=Ansicht grötter maken, so dat all Schriefdischen blangenanner in en Gadder wiest warrt
+--- workspace/kwin/effects/lookingglass.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/lookingglass.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -48,6 +48,7 @@
  Name[te]=లుకింగ్ గ్లాస్
  Name[th]=เลนส์ตาปลา
@@ -642,8 +1962,95 @@
  Name[wa]=Berikes
  Name[x-test]=xxLooking Glassxx
  Name[zh_CN]=镜射
---- workspace/kwin/effects/flipswitch_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/effects/flipswitch_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+@@ -76,6 +77,7 @@
+ Comment[km]=កម្មវិធី​ពង្រីក​អេក្រង់​ដែលមើល​​ទៅ​ដូច​ជា​កែវ​ភ្នែក​ត្រី
+ Comment[kn]=ಮತ್ಸ್ಯನೇತ್ರ ಮಸೂರದಂತೆ (ಫಿಷ್ ಐ) ತೋರುವ ಒಂದು ತೆರೆ ಮಸೂರ
+ Comment[ko]=어안 렌즈를 통해서 화면을 확대합니다
++Comment[lt]=Ekrano didintuvas, panašus į žuvies akį
+ Comment[lv]=Ekrāna palielinātājs, kas izskatās pēc lēcas
+ Comment[ml]=ഫിഷയ് ലെന്‍സ് പോലെ ഇരിക്കുന്ന സ്ക്രീന്‍ മാഗ്നിഫയര്‍ (വലുതാക്കാനുള്ള യന്ത്രം)
+ Comment[nb]=En skjermlupe som ser ut som en fiskeøye-linse
+--- workspace/kwin/effects/fade.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/fade.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -94,6 +94,7 @@
+ Comment[km]=ធ្វើ​ឲ្យ​បង្អួច​លេច​បន្តិច​ម្តង​/លិចបន្តិច​ម្តង​យ៉ាង​រលូន ពេល​ពួក​វា​ត្រូវ​បាន​បង្ហាញ ឬ​លាក់
+ Comment[kn]=ಕಿಟಕಿಗಳನ್ನು ತೆರೆದಾಗ ಅಥವಾ ಅಡಗಿಸಿದಾಗ ಅವುಗಳು ಸುಗಮವಾಗಿ  ಒಳಮಸುಳು/ಹೊರಮಸುಳುವಂತೆ ಮಾಡುತ್ತದೆ
+ Comment[ko]=창이 보여지거나 감춰질 때 부드러운 페이드 인/아웃을 사용합니다
++Comment[lt]=Sukuria efektą, kai langai pamažu išnyksta/atsiranda jei juos prašoma parodyti arba jie slepiami
+ Comment[lv]=Liek logiem vienmērīgi izdzist un parādīties, kad tos parāda vai noslēpj 
+ Comment[ml]=ജാലകങ്ങള്‍ അടയ്ക്കുകയും തുറക്കുകയും ചെയ്യുമ്പോള്‍ മങ്ങുകയും തെളിയുകയും ചെയ്യുന്നപോലെ തോന്നിയ്ക്കുന്നു.
+ Comment[nb]=Gjør at vinduer toner jevnt inn/ut når de vises eller skjules
+--- workspace/kwin/effects/login.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/login.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -97,6 +97,7 @@
+ Comment[km]=លិច​​បន្តិចម្ដងៗ​ទៅ​ផ្ទៃតុ​នៅពេល​ចូល
+ Comment[kn]=ಪ್ರವೇಶಿಸುವಾಗ (ಲಾಗಿಂಗ್ ಇನ್), ನಾಜೂಕಾಗಿ ಗಣಕತೆರೆಗೆ  ಮಸುಕುಗೊಳಿಸು
+ Comment[ko]=로그인할 때 부드럽게 데스크톱을 보여줍니다
++Comment[lt]=Sklandžiai išryškina darbastalį prisijungiant
+ Comment[lv]=Gludeni parādīt darbvirsmu, piesakoties
+ Comment[ml]=അകത്തേക്ക് കടക്കുംബോള്‍ പണിയിടത്തിലേക്ക് തനിയെ സ്മൂത് ആയി കടക്കുന്നു
+ Comment[nb]=Ton jevnt inn til skrivebordet når det logges inn
+--- workspace/kwin/effects/logout.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/logout.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -37,7 +37,7 @@
+ Name[kn]=ನಿರ್ಗಮಿಸು (ಲಾಗೌಟ್)
+ Name[ko]=로그아웃
+ Name[ku]=Derketin
+-Name[lt]=Atsijungti
++Name[lt]=Atsijungimas
+ Name[lv]=Atteikties
+ Name[mai]=लाग आउट
+ Name[mk]=Одјавување
+@@ -98,6 +98,7 @@
+ Comment[km]=ជ្រាប​ផ្ទៃតុ​នៅពេល​បង្ហាញ​ប្រអប់​ចេញ
+ Comment[kn]=ಹೊರನಡೆಯುವಿಕೆ (ಲಾಗೌಟ್) ಸಂವಾದವನ್ನು ತೋರಿಸುವಾಗ ಗಣಕತೆರೆಯ ಶುಧ್ಧತ್ವವನ್ನು ಕುಂದಿಸು
+ Comment[ko]=로그아웃 대화상자를 표시할 때 데스크톱을 흑백으로 전환시킵니다
++Comment[lt]=Panaikina darbastalio spalvų sodrumą kai rodomas išsiregistravimo dialogas
+ Comment[lv]=Padarīt darbvirsmu pelēktoņu , parādot atteikšanās logu
+ Comment[ml]=പുറത്തേക്ക് കടക്കാനുള്ള ഡയലോഗ് കാണിക്കുംബോള്‍ പണിയിടം ഡീ-സാചുറേറ്റ് ചെയ്യുക
+ Comment[nb]=Blek ut skrivebordet når utloggingsdialogen vises
+--- workspace/kwin/effects/shadow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/shadow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -102,7 +102,7 @@
+ Comment[km]=បន្ថែម​ស្រមោល​ក្រោម​បង្អួច​
+ Comment[kn]=ಕಿಟಕಿಗಳ ಅಡಿಯಲ್ಲಿ ನೆರಳನ್ನು  ಚಿತ್ರಿಸು
+ Comment[ko]=창 아래에 그림자를 그립니다
+-Comment[lt]=Piešti šešėlius po langais
++Comment[lt]=Piešia šešėlius po langais
+ Comment[lv]=Zīmē ēnas zem logiem
+ Comment[mk]=Додава сенки под прозорците
+ Comment[ml]=ജാലകങ്ങള്‍ക്കടിയില്‍ നിഴല്‍ കാണിക്കുക 
+--- workspace/kwin/effects/diminactive.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/diminactive.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -29,7 +29,7 @@
+ Name[km]=បន្ថយ​ពន្លឺ​នៅពេល​អសកម្ម
+ Name[kn]=ನಿಷ್ಕ್ರಿಯವಾದದ್ದನ್ನು  ಮಂಕಾಗಿಸು
+ Name[ko]=비활성 창 어둡게
+-Name[lt]=Užtemdyti neaktyvius
++Name[lt]=Užtemdomi neaktyvūs langai
+ Name[lv]=Tumšināt neaktīvos
+ Name[mai]=असक्रिय मंद करू
+ Name[ml]=നിര്‍ജ്ജീവമായവ മറയ്ക്കുക
+@@ -89,7 +89,7 @@
+ Comment[kn]=ನಿಷ್ಕ್ರಿಯ ಕಿಟಕಿಗಳನ್ನು ಮಂಕಾಗಿಸು
+ Comment[ko]=비활성 창을 어둡게 합니다
+ Comment[ku]=Paceyên ne çalak tarî bike
+-Comment[lt]=Užtemdo neaktyvius langus
++Comment[lt]=Pritemdo neaktyvius langus
+ Comment[lv]=Patumšināt neaktīvos logus
+ Comment[mk]=Ги затемнува неактивните прозорци
+ Comment[ml]=നിര്‍ജ്ജീവ ജാലകങ്ങള്‍ മറയ്ക്കുന്നു 
+--- workspace/kwin/effects/flipswitch_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/flipswitch_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -31,7 +31,7 @@
+ Name[km]=ប្ដូរ​ការ​ត្រឡប់​
+ Name[kn]=ಬದಲಾವಣೆ ಗುಂಡಿ (ಫ್ಲಿಪ್ ಸ್ವಿಚ್)
+ Name[ko]=플립 전환기
+-Name[lt]=Krūvos vartiklis
++Name[lt]=Kartotekos imitacijos keitiklis
+ Name[lv]=Flip pārslēdzējs
+ Name[ml]=ഫ്ലിപ് സ്വിച്ച്
+ Name[nb]=Bla-bytter
 @@ -51,6 +51,7 @@
  Name[te]=ఫ్లిప్ స్విచ్
  Name[th]=สลับหน้าต่างพลิกซ้อนเป็นชั้น
@@ -652,8 +2059,164 @@
  Name[wa]=Discandjeu d' purnea
  Name[x-test]=xxFlip Switchxx
  Name[zh_CN]=翻转切换
---- workspace/kwin/composite.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/composite.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kwin/effects/presentwindows.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/presentwindows.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -89,6 +89,7 @@
+ Comment[km]=បង្រួម​រហូត​ទាល់​តែ​បង្អួច​ដែល​បើក​ទាំងអស់​អាច​ត្រូវ​បាន​បង្ហាញ​ម្ដង​មួយផ្នែកៗ
+ Comment[kn]=ಎಲ್ಲಾ ತೆರೆದ ಕಿಟಕಿಗಳೂ ಅಕ್ಕಪಕ್ಕದಲ್ಲಿ ಓರಣಗೊಳ್ಳುವವರೆಗೆ ಗಾತ್ರವನ್ನು ಕುಗ್ಗಿಸು
+ Comment[ko]=모든 열린 창을 축소시켜서 한 화면에 보이도록 합니다
++Comment[lt]=Sukuria atsitraukimo efektą ir leidžia pamatyti visus langus vienu metu greta vienas kito
+ Comment[lv]=Attālināt līdz visus atvērtos logus var parādīt blakus
+ Comment[ml]=പുറകിലേക്ക് വരുക (സൂം ഔട് ചെയ്യുക) - ഇതു ചെയ്യുംബോള്‍ എല്ലാം ജാലകങ്ങളും ക്രമത്തില്‍ ഓരോന്നായി കാണാന്‍ കഴിയും
+ Comment[nb]=Forminsk alle de åpnede vinduene til de kan vises side ved side
+--- workspace/kwin/effects/slide.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/slide.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -26,6 +26,7 @@
+ Name[kn]=ಜಾರು
+ Name[ko]=슬라이드
+ Name[ku]=Xîş Bike
++Name[lt]=Slinktis
+ Name[lv]=Slīdēt
+ Name[mai]=स्लाइड
+ Name[ml]=സ്ലൈഡ്
+@@ -77,6 +78,7 @@
+ Comment[km]=បង្អួច​ស្លាយ​កាត់​អេក្រង់​នៅពេល​ប្ដូរ​ផ្ទៃតុ​និម្មិត
+ Comment[kn]=ವಾಸ್ತವಪ್ರಾಯ ಗಣಕತೆರೆಗಳನ್ನು ಬದಲಾಯಿಸುವಾಗ ಕಿಟಕಿಗಳನ್ನು ತೆರೆಯ ಮೂಲಕ ಜಾರುವಂತೆ ಮಾಡು
+ Comment[ko]=가상 데스크톱 사이를 전환할 때 슬라이딩 효과를 사용합니다
++Comment[lt]=Perslenka langus per ekraną pereinant iš vieno darbastalio į kitą
+ Comment[lv]=Slīdina logus pa ekrānu, kad pārslēdz virtuālās darbvirsmas
+ Comment[ml]=വര്‍ച്ചുവല്‍ പണിയിടങ്ങള്‍ തമ്മില്‍ മാറുംബോള്‍ ജാലകങ്ങള്‍ സ്ക്രീനേല്‍ സ്ലൈഡ് ചെയ്യട്ടെ
+ Comment[nb]=La vinduene skli over skjermen når du bytter virtuelt skrivebord
+--- workspace/kwin/effects/test/demo_showpicture.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/demo_showpicture.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,6 +24,7 @@
+ Name[km]=ការ​បង្ហាញ​រូបភាព​សាកល្បង
+ Name[kn]=ಚಿತ್ರ ತೋರಿಸು ನಿದರ್ಶನ
+ Name[ko]=그림 보이기 데모
++Name[lt]=Demo paveikslėlio rodymas
+ Name[lv]=Demo parādīt attēlu
+ Name[mai]=छवि-देखाबू नमूना
+ Name[mr]=प्रतिमा दर्शवा करीता नमूना
+--- workspace/kwin/effects/test/demo_wavywindows.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/demo_wavywindows.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -27,6 +27,7 @@
+ Name[km]=បង្ហាញ​បង្អួច​ទឹក​រលក​​សាកល្បង
+ Name[kn]=ಅಲೆಯಾಕಾರದ ಕಿಟಕಿ ನಿದರ್ಶನ
+ Name[ko]=흔들리는 창 데모
++Name[lt]=Demo banguojantys langai
+ Name[lv]=Demo viļņojošie logi
+ Name[mai]=तरंगयुक्त-विंडो नमूना
+ Name[ml]=ഡെമോ ഓളംവെട്ടും ജാലകങ്ങള്‍
+--- workspace/kwin/effects/test/demo_shiftworkspaceup.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/demo_shiftworkspaceup.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,6 +24,7 @@
+ Name[km]=ការ​បង្ហាញ ShiftWorkspaceUp សាកល្បង
+ Name[kn]=ಕಾರ್ಯಕ್ಷೇತ್ರ ಮೇಲೆ ಸರಿಸು ನಿದರ್ಶನ (ಡೆಮೋ)
+ Name[ko]=워크스페이스 위로 이동 데모
++Name[lt]=Demo perkeliantis darbo lauką aukštyn
+ Name[lv]=Demo pabīdīt darbvirsmu augšup
+ Name[mai]=कार्यस्थान-ऊपर-शिफ्ट नमूना
+ Name[mr]=कार्यस्थानला वर हलवा करीता नमूना
+--- workspace/kwin/effects/test/drunken.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/drunken.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -27,6 +27,7 @@
+ Name[km]=ធ្វើ​ឲ្យ​ងងឹត​
+ Name[kn]=ಅಮಲೇರಿದ
+ Name[ko]=비틀거림
++Name[lt]=Pasigėręs
+ Name[lv]=Iedzēris
+ Name[mai]=ड्रंकन
+ Name[mk]=Пијано
+--- workspace/kwin/effects/test/test_thumbnail.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/test_thumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -16,6 +16,7 @@
+ Name[kk]=Нобайды_сынау
+ Name[kn]=ಸೂಚ್ಯಚಿತ್ರ_ಪರೀಕ್ಷೆ
+ Name[ko]=미리_보기_시험
++Name[lt]=Testuoti_miniatiūrą
+ Name[mai]=लघुछवि_जाँचू
+ Name[mr]=लघुप्रतिमा_चाचणी
+ Name[nb]=Test_minibilde
+--- workspace/kwin/effects/test/test_input.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/test_input.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -16,6 +16,7 @@
+ Name[kk]=Кірісті_сынау
+ Name[kn]=ಆದಾನ_ಪರೀಕ್ಷೆ
+ Name[ko]=입력_시험
++Name[lt]=Testuoti_įvestį
+ Name[mai]=इनपुट_जाँचू
+ Name[mr]=इनपुट_चाचणी
+ Name[nds]=Test: Ingaav
+--- workspace/kwin/effects/test/videorecord.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/test/videorecord.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -98,6 +98,7 @@
+ Comment[km]=​ថត​វីដេអូ​ផ្ទៃតុ​របស់​អ្នក
+ Comment[kn]=ಗಣಕತೆರೆಯ ದೃಶ್ಯಾಂಶದ (ವೀಡಿಯೋ ) ಒಂದನ್ನು ದಾಖಲು ಮಾಡು
+ Comment[ko]=데스크톱 화면을 녹화합니다
++Comment[lt]=Įrašo darbastalio sesijos video
+ Comment[lv]=Ļauj ierakstīt jūsu darbvirsmu video failā
+ Comment[mk]=Снимање видеа од Вашата работна површина
+ Comment[ml]=നിങ്ങളുടെ പണിയിടത്തിന്റെ വീഡിയോ റിക്കോര്‍ഡ് ചെയ്യുക
+--- workspace/kwin/effects/zoom_config.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/zoom_config.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -37,6 +37,7 @@
+ Name[kn]=ಹಿಗ್ಗಿಸು
+ Name[ko]=확대/축소
+ Name[ku]=Mezinkirin
++Name[lt]=Išdidinimas
+ Name[lv]=Palielināšana
+ Name[mai]=जूम
+ Name[mk]=Зум
+--- workspace/kwin/effects/showpaint.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/showpaint.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -30,7 +30,7 @@
+ Name[km]=បង្ហាញគំនូរ
+ Name[kn]=ಕೆಪೈಂಟ್ ತೋರಿಸು
+ Name[ko]=그리기 영역 보이기
+-Name[lt]=Rodyti piešimą
++Name[lt]=Piešimo rodymas
+ Name[lv]=Rādīt zīmēto
+ Name[ml]=പെയിന്റ് കാണിക്കുക
+ Name[mr]=रंग दर्शवा
+@@ -87,6 +87,7 @@
+ Comment[km]=បន្លិច​ផ្ទៃ​របស់​ផ្ទៃតុ​ដែល​ត្រូវបាន​ធ្វើ​ឲ្យ​ទាន់សម័យ​ថ្មីៗ
+ Comment[kn]=ಇತ್ತೀಚೆಗೆ ನವೀಕರಿಸಲಾದ ಗಣಕತೆರೆಯ ಭಾಗಗಳನ್ನು ಪ್ರಶಸ್ತಗೊಳಿಸು
+ Comment[ko]=최근에 다시 그려진 데스크톱의 영역을 표시합니다
++Comment[lt]=Paryškina darbastalio elementus, kurie buvo neseniai atnaujinti
+ Comment[lv]=Izceļ darbivrsmas apgabalus, kas ir nesen atjaunināti
+ Comment[ml]=പണിയിടത്തില്‍ അടുത്തായി മാറ്റിയിരിക്കുന്ന ഭാഗങ്ങള്‍ എടുത്തുകാണിക്കുക
+ Comment[nb]=Fremhev områder på skrivebordet som nylig er oppdaterte
+--- workspace/kwin/effects/sphere.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/sphere.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -85,6 +85,7 @@
+ Comment[kn]=ವಾಸ್ತವಪ್ರಾಯ ಗಣಕತೆರೆಗಳನ್ನು ಗೋಲವೊಂದರ ಬದಿಗಳ ಮೇಲೇ ತೋರುವಂತೆ ಮಾಡು
+ Comment[ko]=구의 각각 면에 가상 데스크톱을 표시합니다
+ Comment[ku]=Her sermase ya farazî di rexê erdgilor de nîşan bide  
++Comment[lt]=Rodo kiekvieną virtualų darbastalį ant sferos šono
+ Comment[lv]=Rāda visas virtuālās darbvirsmas uz sfēras malas
+ Comment[mk]=Ги прикажува виртуелните работни површини на страниците на сфера
+ Comment[ml]=ഓരോ വര്‍ച്ചുവല്‍ പണിയിടവും ഒരു ഗോളത്തിന്റെ വശത്തായ് കാണിക്കുക
+--- workspace/kwin/effects/showfps.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/effects/showfps.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -34,7 +34,7 @@
+ Name[kn]=FPS ತೋರಿಸು
+ Name[ko]=FPS 표시
+ Name[ku]=FPS'ê nîşan bide
+-Name[lt]=Rodyti FPS
++Name[lt]=FPS rodymas
+ Name[lv]=Rādīt kadrus/sek
+ Name[mai]=एफपीएस देखाबू
+ Name[ml]=FPS കാണിക്കുക
+@@ -93,6 +93,7 @@
+ Comment[km]=បង្ហាញ​ការ​អនុវត្ត​របស់ KWin នៅ​​ក្នុងជ្រុង​របស់​អេក្រង់
+ Comment[kn]=ತೆರೆಯ ಮೂಲೆಯಲ್ಲಿ ಕೆವಿನ್ ನ ಕಾರ್ಯಕ್ಷಮತೆಯನ್ನು ತೋರೀಸು
+ Comment[ko]=KWin의 성능을 화면 구석에 표시합니다
++Comment[lt]=Rodo KWin greitaveiką ekrano kampe
+ Comment[lv]=Ekrāna stūrī rāda KWin veiktspēju
+ Comment[ml]=KWin-ന്റെ പെര്‍ഫോര്‍മന്‍സ് സ്ക്രീനിന്റെ കോണിലായി കാണിക്കുക
+ Comment[nb]=Vis KWins ytelse i hjørnet av skjermen
+--- workspace/kwin/composite.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/composite.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -454,6 +454,7 @@
      overlay = XCompositeGetOverlayWindow( display(), rootWindow());
      if( overlay == None )
@@ -662,8 +2225,19 @@
      return true;
  #else
      return false;
---- workspace/kwin/popupinfo.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/popupinfo.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -130,7 +130,7 @@
+ Comment[km]=អ្នក​អាច​កំណត់​រចនា​សម្ព័ន្ធ​ឲ្យ​មាន​ផ្ទៃតុ​និម្មិត​ច្រើន ។
+ Comment[kn]=ಎಷ್ಟು ವಾಸ್ತವಪ್ರಾಯ ಗಣಕತೆರೆಗಳಿವೆಯೆಂದು ಸಂರಚಿಸಬಹುದು.
+ Comment[ko]=다중 데스크톱의 개수 설정
+-Comment[lt]=Čia galite nustatyti kiek menamų darbastalių naudoti
++Comment[lt]=Čia galite nustatyti kiek virtualių darbastalių naudoti.
+ Comment[lv]=Jūs varat konfigurēt virtuālo darbvirsmu skaitu.
+ Comment[mai]=अहाँ बिन्यस्त कए सकैत छी जे ओतए कतेक आभासी डेस्कटाप हुए.
+ Comment[mk]=Може да конфигурирате колку виртуелни работни површини ќе има.
+--- workspace/kwin/popupinfo.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/popupinfo.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -51,6 +51,7 @@
      {
      setObjectName( name );
@@ -681,8 +2255,8 @@
      }
  
  void PopupInfo::showInfo(const QString &infoString)
---- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -3426,7 +3426,7 @@
  Name[gu]=વિન્ડો દૂર કરો
  Name[he]=מחק חלון
@@ -710,8 +2284,8 @@
  Name[hr]=Izbriši dijalog
  Name[hu]=Párbeszédablak eltűnése
  Name[is]=Eyða samskiptaglugga
---- workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/xfce4.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -40,12 +40,12 @@
  Comment[gu]=કોલ્સ્ટ્રેરોલ ફ્રી ડેસ્કટોપ એન્વાર્યમેન્ટ, આવૃત્તિ ૪. ડેસ્કટોપ એન્વાર્યમેન્ટ જે CDE ની યાદ અપાવે છે
  Comment[he]=‏Cholesterol Free Desktop Environment, גירסה 4. סביבת שולחן עבודה המזכירה את CDE
@@ -727,8 +2301,8 @@
  Comment[ja]=Cholesterol Free Desktop Environment, version 4, CDE を思わせる、むだのないデスクトップ環境
  Comment[ka]=CDE-ს მაგვარი უქოლესტერინო სამუშაო დაფა xfce 4
  Comment[kk]=Cholesterol Free Desktop Environment, 4-нұсқа. CDE-ге ұқсас графикалық орта
---- workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/ctwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -38,7 +38,7 @@
  Comment[gu]=ક્લાઉડેનું ટેબ વિન્ડો વ્યવસ્થાપક, TWM વર્ચ્યુઅલ સ્ક્રિન વગેરે વડે વિસ્તૃત કરેલ.
  Comment[he]=‏Claude's Tab Window Manager, ‏TWM עם שיפורים של מסכים וירטואליים וכו'
@@ -738,8 +2312,8 @@
  Comment[hr]=Claudov Tab upravitelj prozora, TWM poboljšan virtualnim zaslonima, itd.
  Comment[hsb]=Claude's Tab Window Manager, TWM rozšěrjeny z wirtualnymi powjerchami atd.
  Comment[hu]=Claude lapozós ablakkezelője, lényegében a TWM, kiegészítve virtuális képernyőkkel, egyebekkel
---- workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -42,7 +42,7 @@
  Comment[gu]=હલ્કું થીમ વાપરી શકાય તેવું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות קל משקל וניתן להתאמה אישית על ידי ערכות נושא
@@ -749,8 +2323,8 @@
  Comment[hr]=Lagani upravitelj prozora s temama
  Comment[hsb]=Njenaročny woknowy rjadowar z temami 
  Comment[hu]=Kis erőforrásigényű ablakkezelő, témázási lehetőséggel
---- workspace/kdm/kfrontend/sessions/9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -70,7 +70,7 @@
  Comment[pt]=Uma emulação do gestor de janelas do Plan 9 8-1/2
  Comment[pt_BR]=Uma emulação do gerenciador de janelas Plan 9 (8-1/2)
@@ -760,8 +2334,8 @@
  Comment[se]=Lásegieđahalli mii áddestaddá Plan 9 lásegieđahalli 8-1/2.
  Comment[sk]=Emulácia správcu okien 8-1/2 systému Plan 9
  Comment[sl]=Emulacija okenskega upravitelja Plan 9 8-1/2
---- workspace/kdm/kfrontend/sessions/ude.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/ude.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/ude.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/ude.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -38,7 +38,7 @@
  Comment[gu]=ધ UNIX ડેસ્કટોપ એન્વાર્યમેન્ટ
  Comment[he]=סביבת העבודה של יוניקס
@@ -771,8 +2345,17 @@
  Comment[hr]=UNIX radno okruženje
  Comment[hsb]=UNIX Desktop Environment
  Comment[hu]=UNIX Desktop Environment ablakkezelő
---- workspace/kdm/kfrontend/sessions/xfce.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/xfce.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/xfce.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/xfce.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -23,7 +23,7 @@
+ Comment[csb]=Òkrãże pùltu szlachùjące za CDE
+ Comment[cy]=Yr Amgylchedd Penbwrdd Di-Golesterol.  Amgylchedd penbwrdd sy'n atgoffaol o CDE
+ Comment[da]=Det kolesterolfrie desktopmiljø. Et desktopmiljø der minder om CDE
+-Comment[de]=Cholesterol Free Desktop Environment. Graphische Arbeitsumgebung, die an CDE erinnert
++Comment[de]=Cholesterol Free Desktop Environment. Grafische Arbeitsumgebung, die an CDE erinnert 
+ Comment[el]=Το Cholesterol Free Desktop Environment. Ένα περιβάλλον επιφάνειας εργασίας βασισμένο στο CDE
+ Comment[eo]=La libera labortablo ĉirkaŭajo
+ Comment[es]=El Cholesterol Free Desktop Environment, un entorno de escritorio que recuerda a CDE
 @@ -38,12 +38,12 @@
  Comment[gu]=કોલ્સ્ટ્રેરોલ ફ્રી ડેસ્કટોપ એન્વાર્યમેન્ટ. ડેસ્કટોપ એન્વાર્યમેન્ટ જે CDE ની યાદ અપાવે છે
  Comment[he]=‏Cholesterol Free Desktop Environment. סביבת שולחן עבודה המזכירה את CDE
@@ -788,8 +2371,8 @@
  Comment[ja]=Cholesterol Free Desktop Environment。CDE を思わせる、無駄のないデスクトップ環境。
  Comment[ka]=CDE-ს მაგვარი სამუშაო დაფა ქოლესტერინის გარეშე
  Comment[kk]=Cholesterol Free Desktop Environment. CDE-ге үқсас графикалық орта
---- workspace/kdm/kfrontend/sessions/waimea.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/waimea.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/waimea.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/waimea.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -42,7 +42,7 @@
  Comment[gu]=બ્લેકબોક્સ પર આધારિત ઉચ્ચ ગોઠવણી કરી શકાય તેવું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות מבוסס על Blackbox המאפשר התאמה אישית רבה
@@ -799,8 +2382,8 @@
  Comment[hr]=Vrlo prilagodljiv upravitelj prozora zasnovan na Blackboxu
  Comment[hsb]=Jara konfigurujomny woknowy rjadowar,  bazowacy na Blackbox
  Comment[hu]=Egy sokféle beállítási lehetőséggel rendelkező ablakkezelő a Blackbox alapján
---- workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/w9wm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -38,7 +38,7 @@
  Comment[gu]=9WM પર આધારિત વિન્ડો વ્યવસ્થાપક, જે વર્ચ્યુઅલ સ્ક્રિનો અને કીબોર્ડ જોડાણો વડે વિસ્તૃત કરી શકાય છે
  Comment[he]=מנהל חלונות המבוסס על 9WM, עם שיפורים לשולחנות עבודה וירטואליים ומיפויי מקשים
@@ -810,8 +2393,8 @@
  Comment[hr]=Upravitelj prozora zasnovan na 9WM, unaprijeđen virtualnim zaslonima i prečacima tipkovnice
  Comment[hsb]=Woknowy rjadowar bazowacy na 9WM, kiž podpěruje wirtuelne wobrazowki a tastaturowe definicije
  Comment[hu]=Egy 9WM-alapú ablakkezelő, virtuális képernyőkezeléssel, konfigurálható billentyűparancsokkal
---- workspace/kdm/kfrontend/sessions/cde.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/cde.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/cde.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/cde.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -37,7 +37,7 @@
  Comment[gu]=કોમન ડેસ્કટોપ એન્વાર્યમેન્ટ, ખાનગી ઔધોગિક પ્રમાણભૂત ડેસ્કટોપ એન્વાર્યમેન્ટ
  Comment[he]=‏Common Desktop Environment, סביבת שולחן עבודה קניינית סטנדרטית בתעשייה
@@ -821,8 +2404,8 @@
  Comment[hr]=Opće okruženje radne površine, standardizirano industrijskim vlasništvima
  Comment[hsb]=Common Desktop Environment, proprieterny dźěłowy powjerch po industrielnych normach
  Comment[hu]=The Common Desktop Environment, egy kereskedelmi, kváziszabványnak számító grafikus környezet
---- workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/vtwm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -37,7 +37,7 @@
  Comment[gu]=વર્ચ્યુઅલ ટેબ વિન્ડો વ્યવસ્થાપક. વિઝ્યુલ સ્ક્રિન વગેરે વડે વિસ્તૃત બનાવેલ TWM.
  Comment[he]=‏Virtual Tab Window Manager. ‏TWM עם שיפורים לשולחנות עבודה וירטואליים וכו'
@@ -832,8 +2415,8 @@
  Comment[hr]=Comment=Virtual Tab Window Manager. TWM poboljšan virtualnim zaslonima itd.
  Comment[hsb]=Virtual Tab Window Manager. TWM z wirtuelnymi wobrazowkami atd.
  Comment[hu]=Virtual Tab Window Manager, egy TWM-változat, támogatja a virtuális képernyőkezelést
---- workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/kdm/kfrontend/sessions/sawfish.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -41,7 +41,7 @@
  Comment[gu]=Emacs Lisp-જેવી ભાષાઓ વડે સ્ક્રિપ્ટ કરી શકાતું વિન્ડો વ્યવસ્થાપક
  Comment[he]=מנהל חלונות הניתן להרחבה ותכנות עם שפה דמויית Emacs Lisp
@@ -843,8 +2426,97 @@
  Comment[hr]=Proširivi upravitelj prozora pisan u skripti nalik na jezik Emacs Lisp
  Comment[hsb]=Rozšěrjomny woknowy rjadowar, kiž rozumi skriptowu rěč, podobnu na Emacs-Lisp
  Comment[hu]=Egy könnyen tovább bővíthető ablakkezelő, egy Emacs Lisp-szerű nyelvvel szkriptelhető
---- workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/ksysguard/example/ksysguard.notifyrc	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/ksysguard/example/ksysguard.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -116,6 +116,7 @@
+ Name[kn]=ನಮೂನೆ ಸರಿಹೊಂದಿತು
+ Name[ko]=패턴 일치함
+ Name[ku]=Nîgara Hevgirtî
++Name[lt]=Atitiko šabloną
+ Name[lv]=Šablona atbilstība
+ Name[mai]=पैटर्न भेटल
+ Name[mk]=Совпаѓање на шема
+@@ -251,6 +252,7 @@
+ Name[kn]=ಸಂವೇದಕ (ಸೆನ್ಸರ್) ಎಚ್ಚರಕ (ಅಲಾರಂ)
+ Name[ko]=센서 알람
+ Name[ku]=Alarma Sensorê
++Name[lt]=Daviklis perspėja
+ Name[lv]=Sensora trauksme
+ Name[mai]=सेंसर अलार्म
+ Name[mk]=Аларм за сензор
+--- workspace/plasma/dataengines/applicationjobs/plasma-dataengine-applicationjobs.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/dataengines/applicationjobs/plasma-dataengine-applicationjobs.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,6 +24,7 @@
+ Name[km]=ព័ត៌មាន​ការងារ​របស់​កម្មវិធី
+ Name[ko]=프로그램 작업 정보
+ Name[ku]=Agahiyên Karê Sepanê
++Name[lt]=Programos darbo informacija
+ Name[lv]=Programmas darba informācija
+ Name[ml]=പ്രയോഗ ജോലി അറിയിപ്പുകള്‍
+ Name[mr]=अनुप्रयोग कार्यविषयी माहिती
+@@ -77,6 +78,7 @@
+ Comment[km]=ទិន្នន័យ Kuiserver សម្រាប់ Plasmoids
+ Comment[ko]=Plasmoid를 위한 Kuiserver 데이터
+ Comment[ku]=Dane yên Kuiserver ji bo Plasmoidan
++Comment[lt]=KDE vartotojo sąsajos duomenys, skirti plazmoidams
+ Comment[lv]=Kuiserver dati Plazmoīdiem
+ Comment[ml]=പ്ലാസ്മോയിഡുകള്‍ക്കുള്ള കെയുഐസെര്‍വര്‍ ഡേറ്റാ
+ Comment[mr]=Plasmoids करीता Kuiserver माहिती
+--- workspace/plasma/dataengines/executable/plasma-dataengine-executable.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/dataengines/executable/plasma-dataengine-executable.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -87,6 +87,7 @@
+ Comment[km]=រត់​ម៉ាស៊ីន​ទិន្នន័យ​ដែលអាច​ប្រតិបត្តិ​បាន
+ Comment[ko]=명령 실행 데이터 엔진
+ Comment[ku]=Motora Dane yên Tên Xebitandin Bixebitîne
++Comment[lt]=Leisti vykdomąjį duomenų variklį
+ Comment[lv]=Izpildfailu palaišanas datu dzinējs
+ Comment[ml]=പ്രവര്‍ത്തിക്കാന്‍ കഴിയുന്ന ഡേറ്റാ എഞ്ചിന്‍ പ്രവര്‍ത്തിക്കുക
+ Comment[mr]=कार्यान्वीतजोगी Data Engine चालवा
+--- workspace/plasma/dataengines/nowplaying/playerinterface/mpris/mpris.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/dataengines/nowplaying/playerinterface/mpris/mpris.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -97,9 +97,15 @@
+         connect(m_player, SIGNAL(StatusChange(MprisDBusStatus)),
+                 this,   SLOT(stateChanged(MprisDBusStatus)));
+ 
+-        capsChanged(m_player->GetCaps());
+-        trackChanged(m_player->GetMetadata());
+-        stateChanged(m_player->GetStatus());
++        QDBusReply<int> caps = m_player->GetCaps();
++        if (caps.isValid())
++            capsChanged(caps);
++        QDBusReply<QVariantMap> metadata = m_player->GetMetadata();
++        if (metadata.isValid())
++            trackChanged(metadata);
++        QDBusReply<MprisDBusStatus> status = m_player->GetStatus();
++        if (status.isValid())
++            stateChanged(status);
+     }
+ }
+ 
+@@ -193,7 +199,9 @@
+ int Mpris::position()
+ {
+     if (m_player->isValid()) {
+-        return m_player->PositionGet() / 1000;
++        QDBusReply<int> positionMs = m_player->PositionGet();
++        if (positionMs.isValid())
++            return positionMs / 1000;
+     }
+     return 0;
+ }
+@@ -201,7 +209,9 @@
+ float Mpris::volume()
+ {
+     if (m_player->isValid()) {
+-        return ((float)m_player->VolumeGet()) / 100;
++        QDBusReply<int> volumePercent = m_player->VolumeGet();
++        if (volumePercent.isValid())
++            return ((float)volumePercent) / 100;
+     }
+     return 0;
+ }
+--- workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -102,7 +102,7 @@
  Comment[pl]=Dane o miejscach dla plazmoidów
  Comment[pt]=Dados dos locais para os Plasmóides
@@ -854,8 +2526,8 @@
  Comment[ru]=Данные о точках входа для виджетов
  Comment[se]=Báikedáhtat plasmoidaide
  Comment[sk]=Údaje o miestach pre plazmoidy
---- workspace/plasma/dataengines/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/dataengines/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/dataengines/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/dataengines/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -4,11 +4,9 @@
  add_subdirectory(favicons)
  add_subdirectory(filebrowser)
@@ -877,8 +2549,18 @@
     add_subdirectory(systemmonitor)
     add_subdirectory(tasks)
  endif(NOT WIN32)
---- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/shells/desktop/plasma.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/shells/desktop/plasma.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,6 +24,7 @@
+ Name[km]=តំបន់​ការងារ​ផ្ទៃតុ​របស់ប្លាស្មា
+ Name[kn]=ಪ್ಲಾಸ್ಮಾ ಗಣಕತೆರೆ  ಕಾರ್ಯವ್ಯೋಮ (ವರ್ಕ್ ಸ್ಪೇಸ್)
+ Name[ko]=Plasma 데스크톱 작업 공간
++Name[lt]=Plasma darbastalio erdvė
+ Name[lv]=Plasma darbvirsma
+ Name[ml]=പ്ലാസ്മ പണിയിട വര്‍ക്സ്പേസ്
+ Name[mr]=Plasma डेस्कटॉप कार्यक्षेत्र
+--- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -203,6 +203,11 @@
        m_triggerEntered(false)
  {
@@ -902,8 +2584,49 @@
  }
  
  PanelView::~PanelView()
---- workspace/plasma/containments/desktop/desktop.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/containments/desktop/desktop.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/runners/sessions/plasma-runner-sessions.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/runners/sessions/plasma-runner-sessions.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -41,7 +41,7 @@
+ Name[nb]=Skrivebordsøkter
+ Name[nds]=Schriefdischtörns
+ Name[nl]=Desktopsessies
+-Name[nn]=Skrivebordssøkter
++Name[nn]=Skrivebordsøkter
+ Name[or]=ଡ଼େସ୍କଟପ ଅଧିବେଶନଗୁଡ଼ିକ
+ Name[pa]=ਡੈਸਕਟਾਪ ਸ਼ੈਸ਼ਨ
+ Name[pl]=Sesje pulpitu
+--- workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -87,6 +87,7 @@
+ Comment[kk]=Үстел нақышын өзінше баптап алуы
+ Comment[km]=ប្ដូរ​ធាតុ​ស្បែក​ផ្ទៃតុ​នីមួយៗតាម​បំណង
+ Comment[ko]=테마 사용자 정의
++Comment[lt]=Derina individualius darbastalio temos elementus
+ Comment[lv]=Pielāgot individuālas darbivrsmas tēmas detaļas
+ Comment[ml]=പ്രത്യേക പണിയിട ഥീം പ്രമേയ ഇനങ്ങള്‍ കസ്റ്റമൈസ് ചെയ്യുക
+ Comment[mr]=डेस्कटॉप सुत्रयोजना घटक अंतर्गत इच्छिक बदलाव करा
+--- workspace/plasma/containments/mid-panel/plasma-containment-midpanel.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/containments/mid-panel/plasma-containment-midpanel.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -24,6 +24,7 @@
+ Name[km]=បន្ទះ​សម្រាប់​ឧបករណ៍​អ៊ីនធឺណិត​ចល័ត
+ Name[kn]=ಜಂಗಮ ಜಾಲ ಸಾಧನಗಳಿಗೆ ಪುಟೀಪು (ಪಾನಲ್)
+ Name[ko]=모바일 인터넷 장치를 위한 패널
++Name[lt]=Mobiliems interneto įrenginiams skirtas pultas
+ Name[lv]=Panelis Mobilām Inteneta ierīcēm
+ Name[mk]=Панел за мобилни Интернет-уреди
+ Name[ml]=മൊബൈല്‍ ഇന്റര്‍നെറ്റ് സേവനങ്ങള്‍കുള്ള പാളി
+--- workspace/plasma/containments/desktop/plasma-containment-desktop.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/containments/desktop/plasma-containment-desktop.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -103,6 +103,7 @@
+ Comment[km]=មាន​ផ្ទៃតុ​លំនាំដើម
+ Comment[kn]=ಪೂರ್ವನಿಯೋಜಿತ ಗಣಕತೆರೆ ಧಾರಣೆ (ಕಂಟೋಯ್ನ್ಮೆಂಟ್)
+ Comment[ko]=모든 것을 포함하는 기본 데스크톱
++Comment[lt]=Numatytasis darbastalio talpiklis
+ Comment[lv]=Noklusētais darbvirsmas ietvērums
+ Comment[ml]=സാധരണയായ പണിയിടം കണ്‍ടേന്മെന്റ്
+ Comment[mr]=मुलभूत डेस्कटॉप वातावरण
+--- workspace/plasma/containments/desktop/desktop.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/containments/desktop/desktop.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -77,7 +77,7 @@
      m_layout->setAutoWorkingArea(false);
      m_layout->setAlignment(Qt::AlignTop|Qt::AlignLeft);
@@ -913,8 +2636,8 @@
      m_layout->setShiftingSpacing(0);
      m_layout->setTemporaryPlacement(true);
      m_layout->setVisibilityTolerance(0.5);
---- workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/trash/plasma-applet-trash.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -86,7 +86,7 @@
  Comment[gu]=દૂર કરેલ વસ્તુઓનો અધિકાર
  Comment[he]=גישה לפריטים שנמחקו
@@ -924,9 +2647,55 @@
  Comment[hsb]=Přistup k wumazanym objektam
  Comment[is]=Aðgangur að hlutum sem hefur verið eytt
  Comment[it]=Accedi agli oggetti cancellati
---- workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -27,7 +27,7 @@
+--- workspace/plasma/applets/activitybar/plasma-applet-activitybar.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/activitybar/plasma-applet-activitybar.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -6,7 +6,7 @@
+ Name[ca]=Barra d'activitat
+ Name[cs]=Pruh aktivit
+ Name[da]=Aktivitetslinje
+-Name[de]=Aktivitäts-Leiste
++Name[de]=Aktivitätsleiste
+ Name[el]=Γραμμή δραστηριότητας
+ Name[es]=Barra de actividad
+ Name[et]=Tegevusriba
+--- workspace/plasma/applets/analog-clock/clock.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/analog-clock/clock.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -41,6 +41,7 @@
+ #include <KDebug>
+ #include <KLocale>
+ #include <KIcon>
++#include <KIconLoader>
+ #include <KSharedConfig>
+ #include <KTimeZoneWidget>
+ #include <KDialog>
+@@ -221,6 +222,8 @@
+         p->save();
+ 
+         elementRect = m_theme->elementRect(name);
++        if( rect.height() < KIconLoader::SizeEnormous )
++            elementRect.setWidth( elementRect.width() * 2.5 );
+         static const QPoint offset = QPoint(2, 3);
+ 
+         p->translate(rect.width()/2+offset.x(), rect.height()/2+offset.y());
+@@ -235,6 +238,8 @@
+ 
+     name = handName + "Hand";
+     elementRect = m_theme->elementRect(name);
++    if( rect.height() < KIconLoader::SizeEnormous )
++        elementRect.setWidth( elementRect.width() * 2.5 );
+ 
+     p->translate(rect.width()/2, rect.height()/2);
+     p->rotate(rotation);
+--- workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/devicenotifier/test-predicate-openinwindow.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -21,13 +21,14 @@
+ Name[et]=Avamine Dolphinis
+ Name[eu]=Ireki Dolphin-arekin 
+ Name[fi]=Avaa Dolphin-ohjelmalla
++Name[fr]=Ouvrir dans Dolphin
+ Name[fy]=Iepenje mei Dolphin
+ Name[ga]=Oscail le Dolphin
+ Name[gl]=Abrir con Dolphin
  Name[gu]=ડોલ્ફિન સાથે ખોલો
  Name[he]=פתח באמצעות Dolphin
  Name[hi]=डॉल्फिन के साथ खोलें
@@ -935,8 +2704,8 @@
  Name[hr]=Otvori pomoću Dolphina
  Name[hsb]=Z Dolphinom wočinić
  Name[hu]=Megnyitás a Dolphinnal
---- workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/quicklaunch/plasma-applet-quicklaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -33,7 +33,7 @@
  Name[pt]=Lançamento Rápido
  Name[pt_BR]=Lançamento rápido
@@ -955,8 +2724,8 @@
  Comment[si]=ඔබ කැමතීම යෙදුම් ආරම්ඹකය
  Comment[sk]=Rýchle spustenie obľúbených aplikácií
  Comment[sl]=Hitri zagon priljubljenih programov
---- workspace/plasma/applets/quicklaunch/quicklaunchApplet.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/quicklaunch/quicklaunchApplet.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/quicklaunch/quicklaunchApplet.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/quicklaunch/quicklaunchApplet.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -141,16 +141,11 @@
          if (!m_innerLayout) {
              return sizeHint;
@@ -977,8 +2746,8 @@
          }
          return sizeHint;
      }
---- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -44,6 +44,11 @@
           * The widget that displays the calendar.
           */
@@ -1000,8 +2769,8 @@
  };
  
  K_EXPORT_PLASMA_APPLET(calendar, CalendarTest)
---- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -22,6 +22,7 @@
  
  #include <KDebug>
@@ -1071,8 +2840,19 @@
 +}
 +
  #include "calendar.moc"
---- workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/battery/plasma-battery-default.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/battery/plasma-battery-default.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -101,7 +101,7 @@
+ Comment[km]=មើល​ស្ថានភាព​ថាមពល​នៃ​ថ្ម​របស់​អ្នក
+ Comment[kn]=ನಿನ್ನ ವಿದ್ಯುತ್ಕೋಶದ (ಬಾಟರಿ) ಸ್ಥಿತಿಯನ್ನು ನೋಡು
+ Comment[ko]=배터리 상태를 표시합니다
+-Comment[lt]=Rodyti baterijos įkrovimą
++Comment[lt]=Rodyti akumuliatoriaus įkrovimą
+ Comment[lv]=Rāda baterijas izlādes stāvokli
+ Comment[ml]=നിങ്ങളുടെ ബാറ്ററിയുടെ വൈദ്യുതി ഊര്‍ജ്ജ സ്ഥിതി കാണുക
+ Comment[mr]=बॅटरीची पॉवर स्थिती पहा
+--- workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/kickoff/simpleapplet/simpleapplet.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -250,10 +250,11 @@
          connect(menueditor, SIGNAL(triggered(bool)), this, SLOT(startMenuEditor()));
      }
@@ -1089,8 +2869,8 @@
  
      constraintsEvent(Plasma::ImmutableConstraint);
  }
---- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -313,7 +313,14 @@
          delete layout;
          layout = new QHBoxLayout();
@@ -1123,8 +2903,18 @@
          layout->addWidget(contentSwitcher);
          QBoxLayout * layout2 = new QVBoxLayout();
          if (tabOrder == NormalTabOrder) {
---- workspace/plasma/applets/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/applets/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/applets/kickoff/ui/flipscrollview.cpp	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/kickoff/ui/flipscrollview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -542,6 +542,7 @@
+ {
+     d->hoveredIndex = QModelIndex();
+     setCurrentIndex(QModelIndex());
++    d->backArrowHover = false;
+ }
+ 
+ void FlipScrollView::paintItems(QPainter &painter, QPaintEvent *event, QModelIndex &root)
+--- workspace/plasma/applets/CMakeLists.txt	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/applets/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -1,11 +1,9 @@
  add_subdirectory(analog-clock)
  add_subdirectory(activitybar)
@@ -1146,8 +2936,56 @@
     add_subdirectory(pager)
     add_subdirectory(system-monitor)
     add_subdirectory(systemtray)
---- workspace/plasma/scriptengines/ruby/ChangeLog	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/ruby/ChangeLog	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/scriptengines/python/plasma-scriptengine-applet-python.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/python/plasma-scriptengine-applet-python.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -76,6 +76,7 @@
+ Comment[kk]=Python-да жазылған Plasma интерфейс бөлшегі
+ Comment[km]=ការ​គាំទ្រ​ធាតុក្រាហ្វិក​ប្លាស្មា​ត្រូវបាន​សរសេរ​នៅ​ក្នុង​ភាសា Python
+ Comment[ko]=파이썬으로 작성된 Plasma 위젯
++Comment[lt]=Plasma valdiklių palaikymas, parašytas su Python
+ Comment[lv]=Plasma sīkrīks, kas rakstīts Python
+ Comment[ml]=പൈത്തണില്‍ തയ്യാറാക്കിയിരിക്കുന്ന പ്ലാസ്മാ വിഡ്ജറ്റ് സപ്പോര്‍ട്ട്
+ Comment[mr]=Python अंतर्गत लिहीले गेलेले स्थानीय Plasma विजेट
+--- workspace/plasma/scriptengines/python/plasma-scriptengine-dataengine-python.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/python/plasma-scriptengine-dataengine-python.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -26,6 +26,7 @@
+ Name[kk]=Python деректер тетігі
+ Name[km]=ម៉ាស៊ីន​ទិន្នន័យ Python
+ Name[ko]=파이썬 데이터 엔진
++Name[lt]=Python duomenų variklis
+ Name[lv]=Python datu dzinējs
+ Name[ml]=പൈത്തണ്‍  ഡേറ്റാ എഞ്ചിന്‍
+ Name[mr]=Python माहिती इन्जीन
+@@ -72,6 +73,7 @@
+ Comment[kk]=Python деректер тетігінің Plasma қолдауы
+ Comment[km]=កា​រគាំទ្រ​ម៉ាស៊ីន​ទិន្នន័យ​ប្លាស្មា​សម្រាប់ Python
+ Comment[ko]=파이썬을 위한 Plasma 데이터 엔진 지원
++Comment[lt]=Plasma duomenų variklio palaikymas Python kalbai
+ Comment[lv]=Plasma datu dzinēju atbalsts Python
+ Comment[ml]=പൈത്തിണിനുള്ള പ്ലാസ്മ വിവര എഞ്ചിന്‍ (യന്ത്രം) തുണ
+ Comment[mr]=Python करीता Plasma माहिती इन्जीन समर्थन
+--- workspace/plasma/scriptengines/python/examples/dataengines/pytime/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/python/examples/dataengines/pytime/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -84,6 +84,7 @@
+ Comment[km]=ទិន្នន័យ​ពេលវេលា Python សម្រាប់ Plasmoids
+ Comment[ko]=Plasmoid를 위한 파이썬 시간 데이터
+ Comment[ku]=Python dane yên Demê ji bo Plasmoidan
++Comment[lt]=Plazmoidams skirti laiko duomenys iš Python
+ Comment[lv]=Python laika dati Plazmoīdiem
+ Comment[ml]=പ്ലാസ്മോയിഡ്സിനുള്ള പൈത്തണ്‍ സമയത്തിന്റെ ഡാറ്റ
+ Comment[mr]=Plasmoids करीता Python वेळ माहिती
+--- workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-applet.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-applet.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -77,6 +77,7 @@
+ Comment[kk]=Ruby-дег жазылған Plasma интерфейс бөлшегі
+ Comment[km]=ធាតុក្រាហ្វិក​ប្លាស្មា​ដើម​បាន​សរសេរ​នៅ​ក្នុង Ruby
+ Comment[ko]=루비로 작성된 Plasma 위젯
++Comment[lt]=Nuosavas Plasma valdiklis parašytas Ruby kalba
+ Comment[lv]=Plasma sīkrīks, rakstīts Ruby
+ Comment[ml]=റൂബിയില്‍ തയ്യാറാക്കിയിരിക്കുന്ന നേറ്റീവ് പ്ലാസ്മാ വിഡ്ജറ്റ്
+ Comment[mr]=Ruby अंतर्गत लिहीले गेलेले मुळ Plasma विजेट
+--- workspace/plasma/scriptengines/ruby/ChangeLog	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/ChangeLog	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -1,3 +1,8 @@
 +2009-02-10  Richard Dale  <richard.j.dale@gmail.com>
 +* For the methods that need to be special cased to work with 
@@ -1157,8 +2995,8 @@
  2009-02-05  Richard Dale  <richard.j.dale@gmail.com>
  * Added various special casing to the Plasma::ToolTipManager class so you can
    pass a PlasmaScripting::Applet to the methods. Thanks to Mathieu Jobin for
---- workspace/plasma/scriptengines/ruby/applet.rb	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/ruby/applet.rb	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/scriptengines/ruby/applet.rb	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/applet.rb	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -498,6 +498,10 @@
        end
      end
@@ -1423,8 +3261,113 @@
      def stretchFactor(item)
        if item.kind_of?(PlasmaScripting::Applet)
          super(item.applet_script.applet)
---- workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-dataengine.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-dataengine.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -77,6 +77,7 @@
+ Comment[kk]=Ruby-дег жазылған Plasma интерфейс бөлшегі
+ Comment[km]=ធាតុក្រាហ្វិក​ប្លាស្មា​ដើម​បាន​សរសេរ​នៅ​ក្នុង Ruby
+ Comment[ko]=루비로 작성된 Plasma 위젯
++Comment[lt]=Nuosavas Plasma valdiklis parašytas Ruby kalba
+ Comment[lv]=Plasma sīkrīks, rakstīts Ruby
+ Comment[ml]=റൂബിയില്‍ തയ്യാറാക്കിയിരിക്കുന്ന നേറ്റീവ് പ്ലാസ്മാ വിഡ്ജറ്റ്
+ Comment[mr]=Ruby अंतर्गत लिहीले गेलेले मुळ Plasma विजेट
+--- workspace/plasma/scriptengines/ruby/examples/dataengines/dbpedia_albums/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/examples/dataengines/dbpedia_albums/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -22,6 +22,7 @@
+ Name[kk]=DBpedia сұраныстары
+ Name[km]=សំណួរ DBpedia
+ Name[ko]=DBpedia 쿼리
++Name[lt]=DBpedia užklausos
+ Name[lv]=DBpedia vaicājumi
+ Name[ml]=ഡിബിപീഡിയ അന്വേഷണങ്ങള്‍
+ Name[mr]=DBpedia प्रश्न
+@@ -76,6 +77,7 @@
+ Comment[km]=ទិន្នន័យ DBpedia សម្រាប់ Plasmoids
+ Comment[ko]=Plasmoid를 위한 DBpedia 데이터
+ Comment[ku]=Dane yên DBpedia ji bo Plasmoidan
++Comment[lt]=Plazmoidams skirti DBpedia duomenys
+ Comment[lv]=DBpedia dati priekš Plazmoīdiem
+ Comment[ml]=പ്ലാസ്മോയിഡ്സിനുള്ള ഡിബിപീഡിയ ഡാറ്റ
+ Comment[mr]=Plasmoids करीता DBpedia माहिती
+--- workspace/plasma/scriptengines/ruby/examples/applets/webapplet/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/examples/applets/webapplet/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -28,6 +28,7 @@
+ Name[km]=កម្មវិធី​រុករក​បណ្ដាញ
+ Name[ko]=루비 웹 브라우저
+ Name[ku]=Ruby Geroka Torê
++Name[lt]=Ruby žiniatinklio naršyklė
+ Name[lv]=Ruby tīmekļa pārlūks
+ Name[ml]=റൂബി വെബ് ബ്രൌസര്‍
+ Name[mr]=Ruby वेब ब्राउजर
+--- workspace/plasma/scriptengines/ruby/examples/applets/tiger/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/ruby/examples/applets/tiger/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -17,6 +17,7 @@
+ Name[km]=ខ្លា
+ Name[ko]=호랑이
+ Name[ku]=Piling
++Name[lt]=Tigras
+ Name[lv]=Tīģeris
+ Name[mai]=बाघ
+ Name[ml]=ടൈഗര്‍
+@@ -60,6 +61,7 @@
+ Comment[kk]=SVG көрсету мысалы
+ Comment[km]=ឧទាហរណ៍​នៃ​ការ​បង្ហាញ​ SVG
+ Comment[ko]=SVG 표시 예제
++Comment[lt]=SVG rodymo pavyzdys
+ Comment[lv]=Piemērs SVG attēlošanai
+ Comment[ml]=ഒരു എസ്‌വിജി പ്രദര്‍ശിപ്പിയ്ക്കുന്ന ഉദാഹരണം
+ Comment[mr]=SVG दर्शविणारे उदाहरण
+--- workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -23,7 +23,7 @@
+ Name[km]=ធាតុក្រាហ្វិក​ផ្ទាំង​គ្រប់គ្រង MacOS
+ Name[ko]=MacOS 대시보드 위젯
+ Name[ku]=Alavên Panela Kontrolê yên MacOS
+-Name[lt]=MacOS Dashboard valdikliai
++Name[lt]=MacOS prietaisų skydelio valdikliai
+ Name[lv]=MacOS dashboard sīkrīki
+ Name[ml]=MacOS ഡാഷ്ബോര്‍ഡ് വിഡ്ജറ്റുകള്‍
+ Name[mr]=MacOS डॅशबोर्ड विजेट
+@@ -75,7 +75,7 @@
+ Comment[kn]=MacOS ಯಂತ್ರೋಪಕರಣ ಪಟ್ಟಿ  (ಡಾಶ್ ಬೋರ್ಡ್) ನಿಯಂತ್ರಣಾ ಸಂಪರ್ಕತಟ (ವಿಡ್ಗೆಟ್)
+ Comment[ko]=MacOS 대시보드 위젯
+ Comment[ku]=Amûrê MacOS dashboardê
+-Comment[lt]=MacOS dashboard valdiklis
++Comment[lt]=MacOS prietaisų skydelio valdiklis
+ Comment[lv]=MacOS dashboard skrīks
+ Comment[ml]=MacOS ഡാഷ്ബോര്‍ഡ് വിഡ്ജറ്റ്
+ Comment[mr]=MacOS डॅशबोर्ड विजेट
+--- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -17,6 +17,7 @@
+ Name[kn]=ಯಂತ್ರೋಪಕರಣ ಪಟ್ಟಿ  (ಡಾಶ್ ಬೋರ್ಡ್)
+ Name[ko]=대시보드
+ Name[ku]=Panela Kontrolê
++Name[lt]=Prietaisų skydelis
+ Name[ml]=ഡാഷ്ബോര്‍ഡ് 
+ Name[mr]=डॅशबोर्ड
+ Name[nds]=Klockpaneel
+@@ -65,7 +66,7 @@
+ Comment[kn]=MacOS X ಯಂತ್ರೋಪಕರಣ ಪಟ್ಟಿ  (ಡಾಶ್ ಬೋರ್ಡ್) ನಿಯಂತ್ರಣಾ ಸಂಪರ್ಕತಟ (ವಿಡ್ಗೆಟ್)
+ Comment[ko]=Mac OS X 대시보드 위젯
+ Comment[ku]=Amûrê MacOS X dashboardê
+-Comment[lt]=MacOS X dashboard valdiklis
++Comment[lt]=MacOS X prietaisų skydelio valdiklis
+ Comment[lv]=MacOS X dashboard sīkrīks
+ Comment[ml]=MacOS എക്സ് ഡാഷ്ബോര്‍ഡ് വിഡ്ജറ്റ്
+ Comment[mr]=MacOS X डॅशबोर्ड विजेट
+--- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-web.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-web.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -86,6 +86,7 @@
+ Comment[kn]=HTML ಮತ್ತು  ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ಬಳಸುವ ಜಾಲಪುಟ ನಿಯಂತ್ರಣಾಸಂಪರ್ಕತಟ (ವಿಡ್ಗೆಟ್)
+ Comment[ko]=HTML과 자바스크립트를 사용하는 웹 페이지 위젯
+ Comment[ku]=Amûrê Rûpela Webê HTML û JavaScript bi kar tîne
++Comment[lt]=Žiniatinklio puslapio valdiklis naudojantis HTML ir JavaScript
+ Comment[lv]=Tīmekļa lapas sīkrīks, kas izmanto HTML un JavaScript
+ Comment[ml]=എച്ടിഎംഎലും ജാവാസ്ക്രിപ്റ്റും ഉപയോഗിക്കുന്ന വെബ്താള്‍ വിഡ്ജറ്റ്
+ Comment[mr]=HTML व जावास्क्रिप्टचा वापर करणारे वेबपान विजेट
+--- workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/javascript/tests/javascript-config-test/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -19,7 +19,7 @@
  Comment[ga]=Giuirléid tástála cumraíochta JavaScript
  Comment[gl]=Widget de proba da configuración do obxecto en Javascript
@@ -1434,9 +3377,35 @@
  Comment[km]=ធាតុក្រាហ្វិក​សាកល្បង​វត្ថុ​របស់ Javascript config
  Comment[lt]=Javascript configūravimo objekto bandomasis valdiklis
  Comment[lv]=Javascript configurācijas objekta testa logdaļa
---- workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -21,7 +21,7 @@
+--- workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -3,6 +3,7 @@
+ Name[es]=script-Reloj-digital
+ Name[is]=Stafræn klukkuskrifta
+ Name[km]=នាឡិកា​ឌីជីថលស្គ្រីប
++Name[lt]=scenarijus-skaitmeninis-laikrodis
+ Name[mai]=स्क्रिप्ट डिजिटल घडी
+ Name[mk]=Едноставен дигитален часовник
+ Name[nds]=Skript-Digitaalklock
+@@ -30,6 +31,7 @@
+ Comment[kk]=JavaScript цифрлық сағат
+ Comment[km]=នាឡិកា​ឌីជីថល Javascript
+ Comment[ko]=자바스크립트 디지털 시계
++Comment[lt]=JavaScript skaitmeninis laikrodis
+ Comment[lv]=Javascript digitālais pulkstenis
+ Comment[nb]=Javascript digital klokke
+ Comment[nds]=JavaScript-Digitaalklock
+--- workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/javascript/tests/script-nowplaying/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -2,6 +2,7 @@
+ Name=script-nowplaying
+ Name[es]=script-ejecutando
+ Name[is]=spilanúna-skrifta
++Name[lt]=scenarijus-dabar groja
+ Name[nds]=Warrt-jüst-afspeelt-Skript
+ Name[nl]=script-nu-aan-het-spelen
+ Name[ro]=script-înredare
+@@ -21,9 +22,10 @@
  Comment[ga]=Amhrán á sheinm anois in JavaScript
  Comment[gl]=Versión en Javascript da pista a reproducir
  Comment[is]=Javascript útgáfa núverandi spilunar
@@ -1444,9 +3413,30 @@
 +Comment[it]=La traccia attualmente in riproduzione (versione JavaScript)
  Comment[ja]=「今聴いているもの」の JavaScript バージョン
  Comment[km]=ការ​ចាក់​បទ​បច្ចុប្បន្ន​កំណែ​ Javascript
++Comment[lt]=JavaScript versija – dabar grojantis takelis
  Comment[lv]=Pašlaik atskaņo javascript versija
---- workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+ Comment[nb]=Javascript versjon – spor som spilles nå
+ Comment[nds]=JavaScript-Verschoon vun Opstunns afspeelt Stück
+--- workspace/plasma/scriptengines/javascript/tests/tiger/metadata.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/javascript/tests/tiger/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -18,6 +18,7 @@
+ Name[km]=ខ្លា
+ Name[ko]=호랑이
+ Name[ku]=Piling
++Name[lt]=Tigras
+ Name[lv]=Tīģeris
+ Name[mai]=बाघ
+ Name[ml]=ടൈഗര്‍
+@@ -51,6 +52,7 @@
+ Comment[is]=Skriftumótari
+ Comment[it]=Script adattatore
+ Comment[km]=អាដាប់ទ័ឬ​ស្គ្រីប
++Comment[lt]=Scenarijų adaptatorius
+ Comment[lv]=Skriptu pielāgotājs
+ Comment[nb]=En skripttilpasser
+ Comment[nds]=En Skript-Topasser
+--- workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/google_gadgets/plasma-scriptengine-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -70,6 +70,7 @@
  Comment[pl]=Gadżety Google na pulpicie
  Comment[pt]='Gadgets' do Google Desktop
@@ -1455,8 +3445,8 @@
  Comment[ru]=Гаджеты Google для рабочего стола
  Comment[sl]=Gradniki Google Gadgets
  Comment[sr]=Гуглове справице за површ
---- workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
+--- workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/google_gadgets/plasma-packagestructure-googlegadgets.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
 @@ -84,6 +84,7 @@
  Comment[pl]=Gadżetu Google na pulpicie
  Comment[pt]='Gadget' do Google Desktop
@@ -1465,9 +3455,17 @@
  Comment[ru]=Гаджет Google для рабочего стола
  Comment[sl]=Gradnik Google Gadget
  Comment[sr]=Гуглове справице за површ
---- workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -39,6 +39,7 @@
+--- workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/qedjescript/plasma-appletscript-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -28,6 +28,7 @@
+ Comment[km]=ធាតុក្រាហ្វិក QEdje
+ Comment[ko]=QEdje 가젯
+ Comment[ku]=Nûçeyên QEdje
++Comment[lt]=QEdje prietaisėliai
+ Comment[lv]=QEdje sīkrīki
+ Comment[ml]=QEdje ഗാഡ്ജറ്റുകള്‍
+ Comment[mr]=QEdje उपकरण
+@@ -39,6 +40,7 @@
  Comment[pl]=Gadżety QEdje
  Comment[pt]=Itens do QEdje
  Comment[pt_BR]=Gadgets do QEdje
@@ -1475,9 +3473,17 @@
  Comment[ru]=Гаджеты QEdje
  Comment[sl]=Gradniki QEdje
  Comment[sr]=Куедје справице
---- workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 938089)
-+++ workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 938089)
-@@ -31,6 +31,7 @@
+--- workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../tags/KDE/4.2.1/kdebase)	(wersja 942071)
++++ workspace/plasma/scriptengines/qedjescript/plasma-packagestructure-qedje.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 942071)
+@@ -22,6 +22,7 @@
+ Name[km]=ធាតុក្រាហ្វិក QEdje
+ Name[ko]=QEdje 가젯
+ Name[ku]=Nûçeyên QEdje
++Name[lt]=QEdje prietaisėliai
+ Name[lv]=QEdje sīkrīki
+ Name[ml]=QEdje ഗാഡ്ജറ്റുകള്‍
+ Name[mr]=QEdje उपकरण
+@@ -31,6 +32,7 @@
  Name[pl]=Gadżety QEdje
  Name[pt]=Itens do QEdje
  Name[pt_BR]=Gadgets do QEdje
@@ -1485,7 +3491,15 @@
  Name[ru]=Гаджеты QEdje
  Name[sl]=Gradniki QEdje
  Name[sr]=Куедје справице
-@@ -78,6 +79,7 @@
+@@ -67,6 +69,7 @@
+ Comment[km]=ធាតុក្រាហ្វិក QEdje
+ Comment[ko]=QEdje 가젯
+ Comment[ku]=Nûçeyê QEdje
++Comment[lt]=QEdje prietaisėlis
+ Comment[lv]=QEdje sīkrīks
+ Comment[ml]=QEdje ഗാഡ്ജറ്റ്
+ Comment[mr]=QEdje उपकरण
+@@ -78,6 +81,7 @@
  Comment[pl]=Gadżet QEdje
  Comment[pt]=Item do QEdje
  Comment[pt_BR]=Gadget do QEdje
