@@ -511,7 +511,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
 %setup -q -n %{oname}-%{version}
-#%patch100 -p1
+%patch100 -p1
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
