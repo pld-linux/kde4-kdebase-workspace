@@ -1,5 +1,36 @@
---- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kcontrol/randr/krandrtray.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kcontrol/randr/krandrtray.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -20,7 +20,7 @@
+ GenericName[ar]=إعادة تحجيم ودوران الشاشة
+ GenericName[be]=Змена памераў экрана і перагортванне
+ GenericName[be@latin]=Aplet dla źmieny pamieraŭ i pavarotu ekrana
+-GenericName[bg]=Размер и ротация на екрана
++GenericName[bg]=Големина и завъртане на екрана
+ GenericName[bn]=পর্দা মাপবদল ও আবর্তন
+ GenericName[bn_IN]=পর্দা মাপবদল ও আবর্তন
+ GenericName[br]=Adventañ ha treiñ ar skramm
+--- workspace/kcontrol/randr/randr.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kcontrol/randr/randr.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -16,7 +16,7 @@
+ Name[ar]=الحجم والاتجاه
+ Name[be]=Памеры і арыентацыя
+ Name[be@latin]=Pamiery j pavarot
+-Name[bg]=Размер и завъртане на екрана
++Name[bg]=Големина и завъртане на екрана
+ Name[bn]=আকৃতি এবং দিশা
+ Name[bn_IN]=মাপ ও দিশা
+ Name[br]=Ment ha reteradur
+@@ -97,7 +97,7 @@
+ Comment[ar]=غيّر حجم العرض وأدِره
+ Comment[be]=Змяняе памеры і перагортвае ваш экран
+ Comment[be@latin]=Źmianieńnie pamieraŭ i pavarot ekrana
+-Comment[bg]=Настройване на размера и завъртането на екрана
++Comment[bg]=Настройване на големината и завъртането на екрана
+ Comment[bn]=আপনার ডিসপ্লের আকৃতি এবং দিশা পরিবর্তন করুন
+ Comment[bn_IN]=আপনার ডিসপ্লের আকৃতি এবং দিশা পরিবর্তন করুন
+ Comment[br]=Adventañ ha treiñ ho skramm
+--- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -60,7 +60,7 @@
  Name[pt]=Atalhos Globais do Teclado
  Name[pt_BR]=Atalhos de teclado globais
@@ -9,8 +40,47 @@
  Name[si]=ගෝලීය යතුරුපුවරු කෙටිමං
  Name[sk]=Globálne klávesové skratky
  Name[sl]=Globalne tipkovnične bližnjice
---- workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/solid/kcm/kcm_solid.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/solid/kcm/kcm_solid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -12,6 +12,7 @@
+ Name[ar]=العتاد
+ Name[be]=Прылады
+ Name[be@latin]=Aparatura
++Name[bg]=Хардуер
+ Name[bn]=হার্ডওয়্যার
+ Name[bn_IN]=হার্ডওয়্যার
+ Name[br]=Periantel
+--- workspace/powerdevil/daemon/PollSystemLoader.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/daemon/PollSystemLoader.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -58,20 +58,21 @@
+     tpl->deleteLater();
+ }
+ 
+-QMap<AbstractSystemPoller::PollingType, QString> PollSystemLoader::getAvailableSystems()
++QHash<AbstractSystemPoller::PollingType, QString> PollSystemLoader::getAvailableSystems()
+ {
+     // Cached
+     return m_availableSystems;
+ }
+ 
+-QMap<int, QString> PollSystemLoader::getAvailableSystemsAsInt()
++QHash<int, QString> PollSystemLoader::getAvailableSystemsAsInt()
+ {
+     // Cached
+ 
+-    QMap<int, QString> retlist;
++    QHash<int, QString> retlist;
+ 
+-    foreach(const AbstractSystemPoller::PollingType &ent, m_availableSystems.keys()) {
+-        retlist[(int) ent] = m_availableSystems[ent];
++    QHash<AbstractSystemPoller::PollingType, QString>::const_iterator i;
++    for (i = m_availableSystems.constBegin(); i != m_availableSystems.constEnd(); ++i) {
++        retlist[(int) i.key()] = i.value();
+     }
+ 
+     return retlist;
+--- workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -63,8 +63,7 @@
  #include <X11/Xatom.h>
  #include <X11/Xutil.h>
@@ -61,6 +131,15 @@
       *  just in case.
       *
       *   d->kscreenSaverIface = new OrgKdeScreensaverInterface("org.freedesktop.ScreenSaver", "/ScreenSaver",
+@@ -196,7 +203,7 @@
+     if (PowerDevilSettings::pollingSystem() == -1) {
+         // Ok, new configuration... so let's see what we've got!!
+ 
+-        QMap<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
++        QHash<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
+ 
+         if (pList.contains(AbstractSystemPoller::XSyncBased)) {
+             PowerDevilSettings::setPollingSystem(AbstractSystemPoller::XSyncBased);
 @@ -224,6 +231,7 @@
  
  PowerDevilDaemon::~PowerDevilDaemon()
@@ -69,7 +148,31 @@
      delete d;
  }
  
-@@ -364,10 +372,14 @@
+@@ -327,7 +335,7 @@
+ 
+ bool PowerDevilDaemon::loadPollingSystem(AbstractSystemPoller::PollingType type)
+ {
+-    QMap<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
++    QHash<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
+ 
+     if (!pList.contains(type)) {
+         return false;
+@@ -351,10 +359,11 @@
+ {
+     QVariantMap map;
+ 
+-    QMap<int, QString> pmap = d->pollLoader->getAvailableSystemsAsInt();
++    QHash<int, QString> pmap = d->pollLoader->getAvailableSystemsAsInt();
+ 
+-    foreach(int ent, pmap.keys()) {
+-        map[pmap[ent]] = ent;
++    QHash<int, QString>::const_iterator i;
++    for (i = pmap.constBegin(); i != pmap.constEnd(); ++i) {
++        map[i.value()] = i.key();
+     }
+ 
+     return map;
+@@ -364,10 +373,14 @@
  {
      KConfigGroup * settings = getCurrentProfile();
  
@@ -86,7 +189,7 @@
  }
  
  void PowerDevilDaemon::refreshStatus()
-@@ -404,15 +416,15 @@
+@@ -404,15 +417,15 @@
          emitNotification("unplugged", i18n("The power adaptor has been unplugged"));
      }
  
@@ -105,7 +208,7 @@
      int dropError(Display *, XErrorEvent *);
      typedef int (*XErrFunc)(Display *, XErrorEvent *);
  }
-@@ -425,10 +437,15 @@
+@@ -425,10 +438,15 @@
  
  void PowerDevilDaemon::applyProfile()
  {
@@ -122,7 +225,7 @@
  
      Solid::Control::PowerManager::setBrightness(settings->readEntry("brightness").toInt());
      Solid::Control::PowerManager::setCpuFreqPolicy((Solid::Control::PowerManager::CpuFreqPolicy)
-@@ -459,10 +476,15 @@
+@@ -459,10 +477,15 @@
  
  void PowerDevilDaemon::setUpDPMS()
  {
@@ -139,7 +242,7 @@
  
  #ifdef HAVE_DPMS
  
-@@ -535,9 +557,14 @@
+@@ -535,9 +558,14 @@
  
      setBatteryPercent(charge);
  
@@ -155,18 +258,18 @@
      if (charge <= PowerDevilSettings::batteryCriticalLevel()) {
          switch (PowerDevilSettings::batLowAction()) {
          case Shutdown:
-@@ -600,6 +627,10 @@
+@@ -600,6 +628,10 @@
  
  void PowerDevilDaemon::buttonPressed(int but)
  {
-+    if (!checkIfCurrentSessionActive()) {
++    if (!checkIfCurrentSessionActive() || d->screenSaverIface->GetActive()) {
 +        return;
 +    }
 +
      KConfigGroup * settings = getCurrentProfile();
  
      if (!settings)
-@@ -681,18 +712,30 @@
+@@ -681,18 +713,30 @@
  
  void PowerDevilDaemon::decreaseBrightness()
  {
@@ -197,7 +300,7 @@
      if (!d->lockHandler->setNotificationLock(automated)) {
          return;
      }
-@@ -709,6 +752,10 @@
+@@ -709,6 +753,10 @@
  
  void PowerDevilDaemon::suspendToDiskNotification(bool automated)
  {
@@ -208,7 +311,7 @@
      if (!d->lockHandler->setNotificationLock(automated)) {
          return;
      }
-@@ -725,6 +772,10 @@
+@@ -725,6 +773,10 @@
  
  void PowerDevilDaemon::suspendToRamNotification(bool automated)
  {
@@ -219,7 +322,7 @@
      if (!d->lockHandler->setNotificationLock(automated)) {
          return;
      }
-@@ -741,6 +792,10 @@
+@@ -741,6 +793,10 @@
  
  void PowerDevilDaemon::standbyNotification(bool automated)
  {
@@ -230,7 +333,7 @@
      if (!d->lockHandler->setNotificationLock(automated)) {
          return;
      }
-@@ -757,6 +812,10 @@
+@@ -757,6 +813,10 @@
  
  void PowerDevilDaemon::shutdown(bool automated)
  {
@@ -241,7 +344,7 @@
      if (!d->lockHandler->setJobLock(automated)) {
          return;
      }
-@@ -775,6 +834,10 @@
+@@ -775,6 +835,10 @@
  
  void PowerDevilDaemon::suspendToDisk(bool automated)
  {
@@ -252,7 +355,7 @@
      if (!d->lockHandler->setJobLock(automated)) {
          return;
      }
-@@ -795,6 +858,10 @@
+@@ -795,6 +859,10 @@
  
  void PowerDevilDaemon::suspendToRam(bool automated)
  {
@@ -263,7 +366,7 @@
      if (!d->lockHandler->setJobLock(automated)) {
          return;
      }
-@@ -814,6 +881,10 @@
+@@ -814,6 +882,10 @@
  
  void PowerDevilDaemon::standby(bool automated)
  {
@@ -274,7 +377,7 @@
      if (!d->lockHandler->setJobLock(automated)) {
          return;
      }
-@@ -856,8 +927,12 @@
+@@ -856,8 +928,12 @@
       * We make an intensive use of qMin/qMax here to determine the minimum time.
       */
  
@@ -288,7 +391,7 @@
      KConfigGroup * settings = getCurrentProfile();
  
      if (!settings) {
-@@ -866,7 +941,7 @@
+@@ -866,7 +942,7 @@
  
      if (!settings->readEntry("dimOnIdle", false) && !settings->readEntry("turnOffIdle", false) &&
              settings->readEntry("idleAction").toInt() == None) {
@@ -297,7 +400,7 @@
          POLLER_CALL(d->pollLoader->poller(), stopCatchingTimeouts());
          return;
      }
-@@ -891,13 +966,13 @@
+@@ -891,13 +967,13 @@
          minTime = qMin(minTime, minDimTime);
      }
  
@@ -313,7 +416,7 @@
          return;
      }
  
-@@ -1009,6 +1084,10 @@
+@@ -1009,6 +1085,10 @@
  
  void PowerDevilDaemon::lockScreen()
  {
@@ -324,7 +427,7 @@
      emitNotification("doingjob", i18n("The screen is being locked"));
      d->screenSaverIface->Lock();
  }
-@@ -1136,6 +1215,10 @@
+@@ -1136,6 +1216,10 @@
  
  void PowerDevilDaemon::reloadProfile(int state)
  {
@@ -335,7 +438,7 @@
      if (!recacheBatteryPointer()) {
          setCurrentProfile(PowerDevilSettings::aCProfile());
      } else {
-@@ -1186,6 +1269,10 @@
+@@ -1186,6 +1270,10 @@
  
  void PowerDevilDaemon::setProfile(const QString & profile)
  {
@@ -346,7 +449,7 @@
      setCurrentProfile(profile);
  
      /* Don't call refreshStatus() here, since we don't want the predefined profile
-@@ -1202,6 +1289,10 @@
+@@ -1202,6 +1290,10 @@
  
  void PowerDevilDaemon::reloadAndStream()
  {
@@ -357,7 +460,7 @@
      reloadProfile();
  
      setAvailableProfiles(d->profilesConfig->groupList());
-@@ -1274,16 +1365,28 @@
+@@ -1274,16 +1366,28 @@
  
  void PowerDevilDaemon::setPowersavingScheme(const QString &scheme)
  {
@@ -386,7 +489,7 @@
      switch ((IdleAction) method) {
      case S2Disk:
          QTimer::singleShot(100, this, SLOT(suspendToDisk()));
-@@ -1301,6 +1404,10 @@
+@@ -1301,6 +1405,10 @@
  
  void PowerDevilDaemon::setBrightness(int value)
  {
@@ -397,7 +500,7 @@
      if (value == -2) {
          // Then set brightness to half the current brightness.
  
-@@ -1332,6 +1439,10 @@
+@@ -1332,6 +1440,10 @@
  
  void PowerDevilDaemon::profileFirstLoad()
  {
@@ -408,7 +511,7 @@
      KConfigGroup * settings = getCurrentProfile();
  
      if (!settings)
-@@ -1411,6 +1522,10 @@
+@@ -1411,6 +1523,10 @@
  
  void PowerDevilDaemon::setCurrentProfile(const QString &profile)
  {
@@ -419,7 +522,7 @@
      if (profile != d->currentProfile) {
          d->currentProfile = profile;
          profileFirstLoad();
-@@ -1424,4 +1539,53 @@
+@@ -1424,4 +1540,62 @@
      emit profileChanged(d->currentProfile, d->availableProfiles);
  }
  
@@ -470,11 +573,51 @@
 +        d->ckAvailable = false;
 +        return;
 +    }
++
++    /* If everything's fine, let's attach ourself to the ActiveChanged signal.
++     * You'll see we're attaching to refreshStatus without any further checks. You know why?
++     * refreshStatus already checks if the console is active, so the check is already happening
++     * in the underhood
++     */
++
++    QDBusConnection::systemBus().connect("org.freedesktop.ConsoleKit", sessionPath.value().path(),
++                                         "org.freedesktop.ConsoleKit.Session", "ActiveChanged", this, SLOT(refreshStatus()));
 +}
 +
  #include "PowerDevilDaemon.moc"
---- workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/powerdevil/daemon/PollSystemLoader.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/daemon/PollSystemLoader.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -21,7 +21,7 @@
+ #define POLLSYSTEMLOADER_H
+ 
+ #include <QObject>
+-#include <QMap>
++#include <QHash>
+ #include <QPointer>
+ 
+ #include "AbstractSystemPoller.h"
+@@ -34,8 +34,8 @@
+     PollSystemLoader(QObject *parent = 0);
+     virtual ~PollSystemLoader();
+ 
+-    QMap<AbstractSystemPoller::PollingType, QString> getAvailableSystems();
+-    QMap<int, QString> getAvailableSystemsAsInt();
++    QHash<AbstractSystemPoller::PollingType, QString> getAvailableSystems();
++    QHash<int, QString> getAvailableSystemsAsInt();
+ 
+     bool loadSystem(AbstractSystemPoller::PollingType type);
+     bool unloadCurrentSystem();
+@@ -48,7 +48,7 @@
+ 
+ private:
+     QPointer<AbstractSystemPoller> m_poller;
+-    QMap<AbstractSystemPoller::PollingType, QString> m_availableSystems;
++    QHash<AbstractSystemPoller::PollingType, QString> m_availableSystems;
+ };
+ 
+ #endif /* POLLSYSTEMLOADER_H */
+--- workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -34,9 +34,6 @@
  class PollSystemLoader;
  class SuspensionLockHandler;
@@ -517,8 +660,8 @@
      };
  
      enum IdleStatus {
---- workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -82,8 +82,8 @@
      if (iface.isValid()) {
          QDBusConnection conn = QDBusConnection::systemBus();
@@ -530,8 +673,8 @@
              initError(i18n("Another power manager has been detected. PowerDevil will not start if "
                             "other power managers are active. If you want to use PowerDevil as your primary "
                             "power manager, please remove the existing one and restart PowerDevil service."));
---- workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -61,8 +61,8 @@
  Name[ru]=Управление питанием
  Name[sk]=Správa napájania
@@ -543,8 +686,8 @@
  Name[sv]=Strömsparhantering
  Name[tg]=Идоракунии барқ
  Name[th]=การจัดการพลังงาน
---- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -50,8 +50,8 @@
  Name[ru]=Управление питанием
  Name[sk]=Správa napájania
@@ -556,8 +699,8 @@
  Name[sv]=Strömsparhantering
  Name[tg]=Идоракунии барқ
  Name[th]=การจัดการพลังงาน
---- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -114,6 +114,7 @@
      m_layout->addWidget(m_buttonContainer);
  
@@ -584,8 +727,8 @@
      resetInterface();
  }
  
---- workspace/krunner/interfaces/default/resultscene.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/krunner/interfaces/default/resultscene.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/krunner/interfaces/default/resultscene.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/krunner/interfaces/default/resultscene.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -323,14 +323,14 @@
  
  bool ResultScene::launchQuery(const QString &term)
@@ -603,8 +746,8 @@
      m_runnerManager->launchQuery(term, runner);
      return temp;
  }
---- workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -282,7 +282,10 @@
          {
              QRect r = QRect(0,0,0,0).united(m_proposedRect);
@@ -646,8 +789,19 @@
              }
          }
      }
---- workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/libs/taskmanager/task.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/libs/taskmanager/task.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -293,7 +293,7 @@
+ 
+ bool Task::demandsAttention() const
+ {
+-    return (d->info.valid() && (d->info.state() & NET::DemandsAttention)) ||
++    return (d->info.valid(true) && (d->info.state() & NET::DemandsAttention)) ||
+             !d->transientsDemandingAttention.isEmpty();
+ }
+ 
+--- workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -64,7 +64,11 @@
      bool event( QEvent* event );
  
@@ -661,8 +815,8 @@
  };
  
  /**
---- workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -33,7 +33,7 @@
  
  //-----------------------------------------------------------------------------
@@ -693,8 +847,8 @@
      QApplication::sendPostedEvents();
  }
  
---- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -490,7 +490,7 @@
  Comment[pt]=Depois carregar em Alt+Ctrl+H, será simulada a escrita de 'Olá', tal como se tivesse escrito de facto. É especialmente útil se você não quiser estar a escrever coisas do tipo 'unsigned'. Sempre que carregar numa tecla do campo de texto será separado por dois-pontos ':'. Repare que o carregar de teclas é mesmo o carregar de teclas, pelo que terá de escrever realmente o que deseja no teclado. Na tabela abaixo, a coluna esquerda mostra o texto introduzido e a coluna à direita mostra o que é necessário escrever.\n\n"enter" (i.e. mudança de linha)                Enter ou Return\na (i.e. 'a' minúsculo)                          A\nA (i.e. 'a' maiúsculo)                       Shift+A\n: (dois-pontos)                                  Shift+;\n' '  (espaço)                              Espaço
  Comment[pt_BR]=Após pressionar Alt+Ctrl+H, a entrada 'Hello' será simulada como se você a tivesse digitado. Especialmente útil se você está com preguiça de digitar coisas como 'unsigned'. Cada tecla pressionada na entrada é separada por dois-pontos ':' . Note que teclas pressionadas significa realmente teclas pressionadas, então você tem que escrever o que queria pressionar realmente no teclado. Na tabela abaixo, a coluna da esquerda mostra a entrada e a coluna da direita mostra o que você digitou.\n\n"enter" (i.e. nova linha)                Enter ou Return\na (i.e. a minúsculo)                          A\nA (i.e. a maiúsculo)                       Shift+A\n: (dois-pontos)                                  Shift+;\n' '  (espaço)                              Espaço
@@ -704,8 +858,8 @@
  Comment[sk]=Po stlačení Alt+Ctrl+H bude simulovaný vstup 'Hello' presne tak, ako keby ste ho napísali. Mimoriadne užitočné, ak ste lenivý písať veci ako 'unsigned'. Každé stlačenie klávesu je oddelené dvojbodkou ':'. Všimnite si, že stlačenia klávesu znamenajú skutočné stlačenie, takže musíte napísať, čo v skutočnosti na klávesnici stláčate. V tabuľke nižšie ukazuje ľavý stĺpec vstup a pravý stĺpec, čo treba napísať.\n\n"enter" (t.j. nový riadok)                Enter alebo Return\na (t.j. malé a)                          A\nA (t.j. veľké a)                       Shift+A\n: (dvojbodka)                                  Shift+;\n' '  (medzera)                              Medzera
  Comment[sl]=Po pritisku Alt+Ctrl+H se bo vnesla beseda »Hello«, kot da bi jo vtipkali. Uporabno, če se vam ne da tipkati dolgih besed ali nizov besed. Pritiski tipk so v polju ločeni z dvopičjem »:«. Pomnite, da pritiski tipk pomenijo prav to. Zato morate vnesti točno to, kar bi pritisnili na tipkovnici. V spodnji razpredelnici je v levem stolpcu prikazan vnos, v desnem pa, kaj je zanj potrebno pritisniti na tipkovnici.\n\n"vnos" (nova vrstica)                Vnos ali Vračalka\na (mali a)                          A\nA (veliki a)                       Shift+A\n: (dvopičje)                                  Shift+.\n' '  (presledek)                              Preslednica
  Comment[sr]=Притисак на Ctrl+Alt+H симулираће унос „Hello“ као да сте га укуцали тастатуром. Врло корисно када сте исувише лењи да стално уносите „unsigned“ и томе слично. Сваки притисак тастера у уносу раздваја се двотачком (:). Пазите да под притиском на тастер заиста то и мислимо, тј. морате унети тачно оно што бисте притиснули на тастатури. У табели испод, лева колона приказује унос, а десна шта за треба да се притисне.\n\n„enter“ (тј. нов ред)                Enter или Return\na (тј. мало a)                          A\nA (тј. велико a)                       Shift+A\n: (двотачка)                                  Shift+;\n' '  (размак)                              Space
---- workspace/kwin/effects/taskbarthumbnail.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kwin/effects/taskbarthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kwin/effects/taskbarthumbnail.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kwin/effects/taskbarthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -107,7 +107,7 @@
  Comment[sv]=Visa miniatyrbilder av fönster när pekaren hålls över deras post i aktivitetsfältet
  Comment[th]=แสดงภาพย่อของหน้าต่างเมื่อเคลื่อนเมาส์มาอยู่เหนือรายการในแถบงาน
@@ -715,8 +869,8 @@
  Comment[x-test]=xxDisplay window thumbnails when hovering over taskbar entriesxx
  Comment[zh_CN]=当鼠标悬停在任务栏时显示窗口缩略图
  Comment[zh_TW]=當游標停在工作列的按鈕上面時，顯示視窗的縮圖
---- workspace/kwin/effects/magiclamp.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kwin/effects/magiclamp.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kwin/effects/magiclamp.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kwin/effects/magiclamp.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -26,12 +26,17 @@
  {
  
@@ -735,8 +889,8 @@
  
  void MagicLampEffect::prePaintScreen( ScreenPrePaintData& data, int time )
      {
---- workspace/kwin/effects/magiclamp.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kwin/effects/magiclamp.h	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kwin/effects/magiclamp.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kwin/effects/magiclamp.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -40,6 +40,8 @@
          virtual void windowMinimized( EffectWindow* c );
          virtual void windowUnminimized( EffectWindow* c );
@@ -746,8 +900,18 @@
      private:
          QHash< EffectWindow*, TimeLine > mTimeLineWindows;
          int mActiveAnimations;
---- workspace/kwin/main.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kwin/main.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kwin/effects/desktopgrid.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kwin/effects/desktopgrid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -71,6 +71,7 @@
+ Name[zh_TW]=桌面格
+ Icon=preferences-system-windows-effect-desktop-grid
+ Comment=Zoom out so all desktops are displayed side-by-side in a grid
++Comment[bg]=Работните плотове да се показват един до друг в мрежа
+ Comment[ca]=Redueix tots els escriptoris per a visualitzar-los un al costat de l'altre en una graella
+ Comment[cs]=Oddálí plochy a zobrazí je v mřížce
+ Comment[da]=Zoom ud så alle desktoppe vises side om side i et gitter
+--- workspace/kwin/main.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kwin/main.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -177,7 +177,7 @@
          return 0;
  
@@ -757,8 +921,8 @@
  
      if( kwin_sync )
      fprintf( stderr, "%s\n", kBacktrace().toLocal8Bit().data() );
---- workspace/kdm/kfrontend/sessions/icewm.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/kdm/kfrontend/sessions/icewm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/kdm/kfrontend/sessions/icewm.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/kdm/kfrontend/sessions/icewm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -18,7 +18,7 @@
  Comment[ar]=مدير نوافذ يشبه نوافذ 95-OS/2 
  Comment[be]=Кіраўнік вокнаў, падобны на Windows 95-OS/2-Motif
@@ -768,8 +932,8 @@
  Comment[bn]=Windows 95-OS/2-Motif-এর অনুরূপ একটি উইণ্ডো ম্যানেজার
  Comment[bn_IN]=Windows 95-OS/2-Motif-এর অনুরূপ একটি উইণ্ডো ম্যানেজার
  Comment[ca]=Un gestor de finestres com els de Windows 95-OS/2-Motif
---- workspace/ksysguard/ksysguardd/Command.c	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/ksysguard/ksysguardd/Command.c	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/ksysguard/ksysguardd/Command.c	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/ksysguard/ksysguardd/Command.c	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -126,6 +126,7 @@
    Command* cmd = (Command*)malloc( sizeof( Command ) );
    if(!cmd || !(cmd->command = (char*)malloc( strlen( command ) + 1 ))) {
@@ -802,8 +966,8 @@
        return;
    }
  
---- workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -50,8 +50,8 @@
  Name[ru]=Управление питанием
  Name[sk]=Správa napájania
@@ -815,8 +979,8 @@
  Name[sv]=Strömsparhantering
  Name[tg]=Идоракунии барқ
  Name[th]=การจัดการพลังงาน
---- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -60,6 +60,10 @@
          KWindowSystem::setType(winId(), NET::Dock);
          m_svg->setImagePath("widgets/glowbar");
@@ -828,8 +992,28 @@
          QRect glowGeom = triggerZone;
          QSize s = sizeHint();
          switch (m_direction) {
---- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/runners/locations/locationrunner.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/runners/locations/locationrunner.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -93,7 +93,6 @@
+         match.setText(i18n("Open %1", term));
+         match.setIcon(KIcon("system-help"));
+         match.setRelevance(1);
+-        match.setRelevance(1);
+         match.setType(Plasma::QueryMatch::ExactMatch);
+         match.setId("help");
+         context.addMatch(term, match);
+--- workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -11,6 +11,7 @@
+ Name=Desktop Theme Details
+ Name[ar]=تفاصيل سمة سطح المكتب
+ Name[be@latin]=Detali matyva dla rabočaha stała
++Name[bg]=Детайли на темите
+ Name[ca]=Detalls del tema d'escriptori
+ Name[cs]=Detaily motivu plochy
+ Name[csb]=Wëdowiédzô ò témie pùltu
+--- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -45,12 +45,9 @@
           */
          QGraphicsWidget *graphicsWidget();
@@ -852,8 +1036,8 @@
  };
  
  K_EXPORT_PLASMA_APPLET(calendar, CalendarTest)
---- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -19,6 +19,7 @@
  
  #include <QGraphicsLayout>
@@ -892,8 +1076,19 @@
 -}
 -
  #include "calendar.moc"
---- workspace/plasma/applets/battery/battery.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/applets/battery/battery.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/applets/system-monitor/net.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/applets/system-monitor/net.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -89,7 +89,7 @@
+     plotter->addPlot(QColor(((color.red() - 128) * 0.90) + 128, 0, 0, color.alpha()));
+     plotter->setUseAutoRange(true);
+     plotter->setThinFrame(false);
+-    plotter->setShowLabels(false);
++    plotter->setShowLabels(true);
+     plotter->setShowTopBar(false);
+     plotter->setShowVerticalLines(false);
+     plotter->setShowHorizontalLines(false);
+--- workspace/plasma/applets/battery/battery.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/applets/battery/battery.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -818,13 +818,6 @@
          m_theme->paint(p, scaleRectF(m_acAlpha, contentsRect), "AcAdapter");
      }
@@ -908,8 +1103,57 @@
      if (plugState && m_theme->hasElement("Overlay")) {
          m_theme->paint(p, scaleRectF(m_batteryAlpha, contentsRect), "Overlay");
      }
---- workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -765,21 +765,34 @@
+     if (d->placement != placement) {
+         d->placement = placement;
+ 
++        Private::TabOrder normalOrder;
++        Private::TabOrder reverseOrder;
++
++        //QTabBar attempts to be smart and flips what we say in rtl mode so say the opposite when the tabbar is horizontal
++        if (QApplication::layoutDirection() == Qt::RightToLeft) {
++            normalOrder = Private::ReverseTabOrder;
++            reverseOrder = Private::NormalTabOrder;
++        } else {
++            normalOrder = Private::NormalTabOrder;
++            reverseOrder = Private::ReverseTabOrder;
++        }
++
+         switch (placement) {
+         case Plasma::TopPosedRightAlignedPopup:
+-            d->setSouthLayout(Private::ReverseTabOrder);
++            d->setSouthLayout(reverseOrder);
+             break;
+         case Plasma::LeftPosedTopAlignedPopup:
++            //when the tabbar is vertical it's fine
+             d->setEastLayout(Private::NormalTabOrder);
+             break;
+         case Plasma::LeftPosedBottomAlignedPopup:
+             d->setEastLayout(Private::ReverseTabOrder);
+             break;
+         case Plasma::BottomPosedLeftAlignedPopup:
+-            d->setNorthLayout(Private::NormalTabOrder);
++            d->setNorthLayout(normalOrder);
+             break;
+         case Plasma::BottomPosedRightAlignedPopup:
+-            d->setNorthLayout(Private::ReverseTabOrder);
++            d->setNorthLayout(reverseOrder);
+             break;
+         case Plasma::RightPosedTopAlignedPopup:
+             d->setWestLayout(Private::NormalTabOrder);
+@@ -789,7 +802,7 @@
+             break;
+         case Plasma::TopPosedLeftAlignedPopup:
+         default:
+-            d->setSouthLayout(Private::NormalTabOrder);
++            d->setSouthLayout(normalOrder);
+             break;
+         }
+     }
+--- workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -49,7 +49,7 @@
  Name[uk]=Віджети панелі приладів MacOS
  Name[x-test]=xxMacOS Dashboard Widgetsxx
@@ -928,8 +1172,8 @@
  Type=Service
  ServiceTypes=Plasma/PackageStructure
  
---- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 952918)
-+++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 952918)
+--- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
 @@ -38,7 +38,7 @@
  Name[uk]=Панель приладів
  Name[x-test]=xxDashboardxx
@@ -948,3 +1192,13 @@
  Type=Service
  ServiceTypes=Plasma/ScriptEngine
  Icon=internet-web-browser
+--- workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
++++ workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+@@ -16,6 +16,7 @@
+ Name[x-test]=xxscript-digital-clockxx
+ Name[zh_CN]=脚本-数字钟
+ Comment=Javascript digital clock
++Comment[bg]=Цифров часовник (JavaScript)
+ Comment[ca]=Rellotge digital en Javascript
+ Comment[cs]=Digitální hodiny v JavaScriptu
+ Comment[da]=Digitalt ur i Javascript
