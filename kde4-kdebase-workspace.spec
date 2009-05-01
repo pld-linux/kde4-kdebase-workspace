@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.2
-Release:	2
+Version:	4.2.3
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	ac494815044eefc3a181488871225eda
+# Source0-md5:	f58d388883d73c69a0a719819625b171
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -511,7 +511,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
@@ -873,6 +873,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
+%{_datadir}/kde4/services/kcm_keyboard.desktop
 %{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
 %{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
 %{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
@@ -964,7 +965,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-%{_libdir}/KDE4Workspace-4.2.2
+%{_libdir}/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
