@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.2.3
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -965,7 +965,13 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
+%ifarch %{x8664}
 %{_libdir}/KDE4Workspace-%{version}
+%endif
+%ifarch %{ix86}
+%dir %{_libdir}/cmake
+%{_libdir}/cmake/KDE4Workspace-%{version}
+%endif
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
