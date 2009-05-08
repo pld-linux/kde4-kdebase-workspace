@@ -45,7 +45,7 @@ BuildRequires:	QtWebKit-devel >= %{qt4brver}
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
-BuildRequires:	cmake >= 2.6.2
+BuildRequires:	cmake >= 2.6.3
 BuildRequires:	google-gadgets-qt >= 0.10.5
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
