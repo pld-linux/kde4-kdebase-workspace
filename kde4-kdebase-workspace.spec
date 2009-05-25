@@ -1,18 +1,18 @@
 # TODO:
 %define		oname		kdebase-workspace
-%define		_state		stable
+%define		_state		unstable
 %define		qt4brver	4.5.0
 # - internal deps (really FUBAR currently)
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.3
-Release:	3
+Version:	4.2.85
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f58d388883d73c69a0a719819625b171
+# Source0-md5:	fb83bd9cb331c7ef225d4c1ec2eb9a80
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -27,8 +27,7 @@ Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
-Patch1:		%{name}-solid-bluetooth.patch
-Patch2:		%{name}-kdmconfig.patch
+Patch1:		%{name}-kdmconfig.patch
 Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
@@ -57,10 +56,10 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	python-sip-devel
-BuildRequires:	qedje-devel
+BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
-BuildRequires:	qzion-devel
+BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	soprano-devel
 BuildRequires:	strigi-devel
@@ -512,9 +511,8 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 %prep
 %setup -q -n %{oname}-%{version}
 #%patch100 -p1
-%patch0 -p1
-%patch1 -p0
-%patch2 -p1
+#%patch0 -p1
+%patch1 -p1
 
 %build
 install -d build
