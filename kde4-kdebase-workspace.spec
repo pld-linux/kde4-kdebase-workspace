@@ -28,7 +28,7 @@ Source15:	%{name}.desktop
 Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
