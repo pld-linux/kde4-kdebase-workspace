@@ -76,6 +76,7 @@ Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
+Requires:	kde4-kdebase-workspace-solid >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
 Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
