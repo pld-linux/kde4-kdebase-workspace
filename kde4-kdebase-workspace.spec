@@ -645,14 +645,21 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
 %attr(755,root,root) %{_bindir}/setscheduler
+%attr(755,root,root) %{_bindir}/polkit-kde-authorization
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
-%attr(755,root,root) %{_libdir}/libplasmaclock.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-desktop.so
+%attr(755,root,root) %{_libdir}/libkickoff.so
+%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
+%attr(755,root,root) %{_libdir}/libsystemsettingsview.so
+%attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
+%attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
 
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
@@ -691,6 +698,8 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
+%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
+%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
 
 # kmenuedit
 %attr(755,root,root) %{_bindir}/kmenuedit
@@ -719,6 +728,12 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
+%attr(755,root,root) %{_libdir}/kde4/classic_mode.so
+%attr(755,root,root) %{_libdir}/kde4/icon_mode.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
+%attr(755,root,root) %{_libdir}/kde4/kded_notificationitemwatcher.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/kscreenlocker
+%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
 #%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/kde4/services/recentdocuments.desktop
 %{_datadir}/autostart/krunner.desktop
@@ -733,6 +748,13 @@ fi
 %{_datadir}/kde4/services/plasma-engine-metadata.desktop
 %{_datadir}/kde4/services/plasma-geolocation-gps.desktop
 %{_datadir}/kde4/services/plasma-geolocation-ip.desktop
+%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+%{_datadir}/kde4/services/kded/kephal.desktop
+%{_datadir}/kde4/services/kded/notificationitemwatcher.desktop
+%{_datadir}/kde4/services/settings-classic-view.desktop
+%{_datadir}/kde4/services/settings-icon-view.desktop
+%{_datadir}/kde4/servicetypes/systemsettingsview.desktop
+%{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 
@@ -791,6 +813,7 @@ fi
 %{_datadir}/kde4/servicetypes/systemsettingscategory.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
 %{_kdedocdir}/en/systemsettings
+%{_kdedocdir}/en/PolicyKit-kde
 
 # themes
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
@@ -972,6 +995,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
 %attr(755,root,root) %{_libdir}/libkworkspace.so
 %attr(755,root,root) %{_libdir}/libplasmaclock.so
+%attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so
 %attr(755,root,root) %{_libdir}/libprocesscore.so
 %attr(755,root,root) %{_libdir}/libprocessui.so
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so
@@ -979,10 +1003,13 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
+%attr(755,root,root) %{_libdir}/libtime_solar.so
 # YES, this is wrong...
 %{_libdir}/cmake/KDE4Workspace-4.2.85
 #%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
+%{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
 %{_includedir}/kephal
@@ -1029,6 +1056,7 @@ fi
 %{_datadir}/autostart/klipper.desktop
 #%{_datadir}/config/klipperrc
 %{_desktopdir}/kde4/klipper.desktop
+%{_datadir}/apps/kconf_update/klipper-kconfigxt.upd
 %lang(en) %{_kdedocdir}/en/klipper
 
 %files ksysguard
@@ -1068,6 +1096,7 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
+%attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/blur-render.frag
 %{_datadir}/apps/kwin/blur-render.vert
@@ -1185,6 +1214,8 @@ fi
 %{_datadir}/apps/kconf_update/kwiniconify.upd
 %{_datadir}/apps/kconf_update/kwinsticky.upd
 %{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
+%{_datadir}/apps/kconf_update/plasma-to-plasmadesktop-shortcuts.upd
+%{_datadir}/apps/kconf_update/plasmarc-to-plasmadesktoprc.upd
 #%{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
 %{_iconsdir}/oxygen/16x16/apps/kwin.png
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
@@ -1275,6 +1306,10 @@ fi
 %{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
+%attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libplasma-geolocation-interface.so.?
+%attr(755,root,root) %{_libdir}/libplasmaclock.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libplasmaclock.so.?
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %dir %{_datadir}/apps/plasma
@@ -1285,6 +1320,7 @@ fi
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
+%{_datadir}/apps/plasma_scriptengine_python
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-applet.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %dir %{_datadir}/apps/plasma/services
@@ -1364,7 +1400,11 @@ fi
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/calendar
 %{_datadir}/apps/desktoptheme/default/calendar/mini-calendar.svgz
+%{_datadir}/autostart/plasma-desktop.desktop
+%{py_sitedir}/PyKDE4/plasmascript.pyc
+%{py_sitedir}/PyKDE4/plasmascript.pyo
 %lang(en) %{_kdedocdir}/en/plasma
+%{_mandir}/man1/plasmaengineexplorer.1*
 
 %files screensavers
 %defattr(644,root,root,755)
@@ -1380,6 +1420,7 @@ fi
 
 %files solid
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/solid-action-desktop-gen
 %attr(755,root,root) %{_bindir}/solid-bluetooth
 %attr(755,root,root) %{_bindir}/solid-network
 %attr(755,root,root) %{_bindir}/solid-powermanagement
@@ -1400,9 +1441,12 @@ fi
 %{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
 %{_datadir}/kde4/services/kcm_solid.desktop
 %{_datadir}/kde4/services/solidbackends
+%{_datadir}/kde4/services/solid-actions.desktop
 %{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
 %{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
 %{_datadir}/kde4/servicetypes/solidpowermanager.desktop
+%dir %{_datadir}/apps/kcmsolidactions
+%{_datadir}/apps/kcmsolidactions/solid-action-template.desktop
 
 %files networkmanager
 %defattr(644,root,root,755)
