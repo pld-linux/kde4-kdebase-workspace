@@ -1,18 +1,18 @@
 # TODO:
 %define		oname		kdebase-workspace
 %define		_state		stable
-%define		qt4brver	4.5.0
+%define		qt4brver	4.5.1
 # - internal deps (really FUBAR currently)
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.3
-Release:	5
+Version:	4.2.4
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	f58d388883d73c69a0a719819625b171
+# Source0-md5:	72f90e1a61d94a5f66c0b3ce39b7b279
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -511,7 +511,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
