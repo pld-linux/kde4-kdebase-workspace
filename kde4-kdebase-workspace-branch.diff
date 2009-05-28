@@ -1,1204 +1,2027 @@
---- workspace/kcontrol/randr/krandrtray.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kcontrol/randr/krandrtray.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -20,7 +20,7 @@
- GenericName[ar]=إعادة تحجيم ودوران الشاشة
- GenericName[be]=Змена памераў экрана і перагортванне
- GenericName[be@latin]=Aplet dla źmieny pamieraŭ i pavarotu ekrana
--GenericName[bg]=Размер и ротация на екрана
-+GenericName[bg]=Големина и завъртане на екрана
- GenericName[bn]=পর্দা মাপবদল ও আবর্তন
- GenericName[bn_IN]=পর্দা মাপবদল ও আবর্তন
- GenericName[br]=Adventañ ha treiñ ar skramm
---- workspace/kcontrol/randr/randr.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kcontrol/randr/randr.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
+--- workspace/ksmserver/kcm/kcmsmserver.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/ksmserver/kcm/kcmsmserver.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -87,8 +87,8 @@
+ Name[uz@cyrillic]=Сеанс бошқарувчиси
+ Name[vi]=Bộ quản lý phiên chạy
+ Name[wa]=Manaedjeu di sessions
++Name[xh]=Umphathi wesiqendu
+ Name[x-test]=xxSession Managerxx
+-Name[xh]=Umphathi wesiqendu
+ Name[zh_CN]=会话管理器
+ Name[zh_TW]=工作階段管理程式
+ 
+@@ -167,8 +167,8 @@
+ Comment[uz@cyrillic]=Сеанс бошқарувчисини ва чиқиш мосламаларини мослаш
+ Comment[vi]=Cấu hình trình quản lý phiên chạy và thiết lập đăng xuất
+ Comment[wa]=Apontiaedje do manaedjeu di sessions eyet apontiaedjes do dislodjaedje
++Comment[xh]=Qwalasela umphathi wesiqendu nezicwangciso zokuphuma ngaphandle
+ Comment[x-test]=xxConfigure the session manager and logout settingsxx
+-Comment[xh]=Qwalasela umphathi wesiqendu nezicwangciso zokuphuma ngaphandle
+ Comment[zh_CN]=配置会话管理器和注销设置
+ Comment[zh_TW]=設定工作階段管理程式與登出設定值
+ 
+--- workspace/kcontrol/dateandtime/clock.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/dateandtime/clock.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -90,8 +90,8 @@
+ Name[uz@cyrillic]=Сана ва вақт
+ Name[vi]=Ngày và Giờ
+ Name[wa]=Date et eure
++Name[xh]=Umhla & Ixesha
+ Name[x-test]=xxDate & Timexx
+-Name[xh]=Umhla & Ixesha
+ Name[zh_CN]=日期和时间
+ Name[zh_TW]=日期和時間
+ 
+@@ -173,8 +173,8 @@
+ Comment[uz@cyrillic]=Сана ва вақтнинг мосламалари
+ Comment[vi]=Thiết lập ngày giờ
+ Comment[wa]=Apontiaedjes del date et l' eure
++Comment[xh]=Izicwangciso zomhla kunye nexesha
+ Comment[x-test]=xxDate and time settingsxx
+-Comment[xh]=Izicwangciso zomhla kunye nexesha
+ Comment[zh_CN]=日期和时间设置
+ Comment[zh_TW]=日期和時間設定值
+ 
+--- workspace/kcontrol/dateandtime/dtime.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/dateandtime/dtime.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -204,8 +204,6 @@
+ 
+   connect( &internalTimer, SIGNAL(timeout()), SLOT(timeout()) );
+ 
+-  load();
+-
+   kclock->setEnabled(false);
+ }
+ 
+@@ -262,6 +260,7 @@
+   // since there is nothing writing it.
+   KConfig _config( "kcmclockrc", KConfig::NoGlobals );
+   KConfigGroup config(&_config, "NTP");
++  timeServerList->clear();
+   timeServerList->addItems(config.readEntry("servers",
+     i18n("Public Time Server (pool.ntp.org),\
+ asia.pool.ntp.org,\
+--- workspace/kcontrol/kfontinst/kcmfontinst/fontinst.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kfontinst/kcmfontinst/fontinst.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -87,8 +87,8 @@
+ Name[uz@cyrillic]=Шрифт ўрнатгич
+ Name[vi]=Cài đặt Phông chữ
+ Name[wa]=Astaleu di fontes
++Name[xh]=Umfaki Wohlobo lwegama
+ Name[x-test]=xxFont Installerxx
+-Name[xh]=Umfaki Wohlobo lwegama
+ Name[zh_CN]=字体安装程序
+ Name[zh_TW]=字型安裝程式
+ 
+--- workspace/kcontrol/kfontinst/viewpart/kfontviewpart.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kfontinst/viewpart/kfontviewpart.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -77,8 +77,8 @@
+ Name[uz@cyrillic]=Шрифт кўрувчи
+ Name[vi]=Bộ xem Phông chữ
+ Name[wa]=Håyneu d' fontes
++Name[xh]=Imboniselo Yohlobo lwegama
+ Name[x-test]=xxFont Viewerxx
+-Name[xh]=Imboniselo Yohlobo lwegama
+ Name[zh_CN]=字体查看器
+ Name[zh_TW]=字型檢視器
+ MimeType=application/x-font-ttf;application/x-font-type1;application/x-font-otf;application/x-font-pcf;application/x-font-bdf;fonts/package;
+--- workspace/kcontrol/kfontinst/kio/fonts.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kfontinst/kio/fonts.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -81,8 +81,8 @@
+ Name[uz@cyrillic]=Шрифтлар
+ Name[vi]=Phông chữ
+ Name[wa]=Fontes
++Name[xh]=Uhlobo lwamagama
+ Name[x-test]=xxFontsxx
+-Name[xh]=Uhlobo lwamagama
+ Name[zh_CN]=字体
+ Name[zh_TW]=字型
+ Open=false
+--- workspace/kcontrol/kfontinst/thumbnail/fontthumbnail.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kfontinst/thumbnail/fontthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -79,8 +79,8 @@
+ Name[uz@cyrillic]=Шрифт-файллари
+ Name[vi]=Tập tin Phông chữ
+ Name[wa]=Fitchîs fontes
++Name[xh]=Iifayile Zohlobo lwamagama
+ Name[x-test]=xxFont Filesxx
+-Name[xh]=Iifayile Zohlobo lwamagama
+ Name[zh_CN]=字体文件
+ Name[zh_TW]=字型檔案
+ X-KDE-ServiceTypes=ThumbCreator
+--- workspace/kcontrol/smartcard/smartcard.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/smartcard/smartcard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -154,8 +154,8 @@
+ Comment[uz@cyrillic]=Smartcard'ни мослаш
+ Comment[vi]=Cấu hình khả năng hỗ trợ thẻ thông minh
+ Comment[wa]=Apontyî li sopoirt smartcard
++Comment[xh]=Qwalasela inkxaso ye smartcard
+ Comment[x-test]=xxConfigure smartcard supportxx
+-Comment[xh]=Qwalasela inkxaso ye smartcard
+ Comment[zh_CN]=配置智能卡支持
+ Comment[zh_TW]=設定智慧卡 (SmartCard) 支援
+ X-KDE-Keywords=Smartcard,PKCS,SSL,reader,smart,card
+--- workspace/kcontrol/screensaver/screensaver.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/screensaver/screensaver.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -86,8 +86,8 @@
+ Name[uz@cyrillic]=Экран сақловчиси
+ Name[vi]=Bảo vệ Màn hình
+ Name[wa]=Sipårgneu di waitroûle
++Name[xh]=Umgcini Wekhusi
+ Name[x-test]=xxScreen Saverxx
+-Name[xh]=Umgcini Wekhusi
+ Name[zh_CN]=屏幕保护程序
+ Name[zh_TW]=螢幕保護程式
+ 
+@@ -168,8 +168,8 @@
+ Comment[uz@cyrillic]=Экран сақловчисининг мосламалари
+ Comment[vi]=Thiết lập Trình bảo vệ Màn hình
+ Comment[wa]=Apontiaedjes do spårgneu di waitroûle
++Comment[xh]=Izicwangciso Zomgcini Wekhusi
+ Comment[x-test]=xxScreen Saver Settingsxx
+-Comment[xh]=Izicwangciso Zomgcini Wekhusi
+ Comment[zh_CN]=屏幕保护程序设置
+ Comment[zh_TW]=螢幕保護程式設定
+ 
+--- workspace/kcontrol/autostart/autostart.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/autostart/autostart.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -76,8 +76,8 @@
+ Name[uz@cyrillic]=Авто-бошлаш
+ Name[vi]=Tự khởi chạy
+ Name[wa]=Enondaedje tot seu
++Name[xh]=Isiqalo esizenzekelayo
+ Name[x-test]=xxAutostartxx
+-Name[xh]=Isiqalo esizenzekelayo
+ Name[zh_CN]=自动启动
+ Name[zh_TW]=自動啟動
+ 
+--- workspace/kcontrol/energy/energy.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/energy/energy.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -90,8 +90,8 @@
+ Name[uz@cyrillic]=Электр таъминотни бошқариш
+ Name[vi]=Điều khiển nguồn điện
+ Name[wa]=Controle di l' alimintåcion
++Name[xh]=Ulawulo Lwamandla
+ Name[x-test]=xxPower Controlxx
+-Name[xh]=Ulawulo Lwamandla
+ Name[zh_CN]=电源控制
+ Name[zh_TW]=電源控制
+ 
+@@ -172,8 +172,8 @@
+ Comment[uz@cyrillic]=Дисплейнинг электр таъминоти учун мосламалар
+ Comment[vi]=Thiết lập để quản lý nguồn điện của màn hình
+ Comment[wa]=Tchuzes po håyner l' manaedjmint d' enerdjeye
++Comment[xh]=Izicwangciso zoboniso lophatho lwamandla
+ Comment[x-test]=xxSettings for display power managementxx
+-Comment[xh]=Izicwangciso zoboniso lophatho lwamandla
+ Comment[zh_CN]=显示器电源管理设置
+ Comment[zh_TW]=顯示器電源管理的設定值
+ 
+--- workspace/kcontrol/fonts/fonts.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/fonts/fonts.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -90,8 +90,8 @@
+ Name[uz@cyrillic]=Шрифтлар
+ Name[vi]=Phông chữ
+ Name[wa]=Fontes
++Name[xh]=Uhlobo lwamagama
+ Name[x-test]=xxFontsxx
+-Name[xh]=Uhlobo lwamagama
+ Name[zh_CN]=字体
+ Name[zh_TW]=字型
+ 
+@@ -174,8 +174,8 @@
+ Comment[uz@cyrillic]=Шрифтларни мослаш
+ Comment[vi]=Thiết lập phông chữ
+ Comment[wa]=Apontiaedje des fontes
++Comment[xh]=Izicwangciso zohlobo lwamagama
+ Comment[x-test]=xxFont settingsxx
+-Comment[xh]=Izicwangciso zohlobo lwamagama
+ Comment[zh_CN]=字体设置
+ Comment[zh_TW]=字型設定
+ 
+--- workspace/kcontrol/hardware/joystick/joystick.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/hardware/joystick/joystick.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -177,8 +177,8 @@
+ Name[uz@cyrillic]=Жойстик
+ Name[vi]=Cần điều khiển
+ Name[wa]=Djîsse di djeu
++Name[xh]=Uvuyo
+ Name[x-test]=xxJoystickxx
+-Name[xh]=Uvuyo
+ Name[zh_CN]=游戏杆
+ Name[zh_TW]=搖桿
+ 
+--- workspace/kcontrol/kxkb/keyboard_layout.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kxkb/keyboard_layout.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -92,8 +92,8 @@
+ Name[uz@cyrillic]=Тугмалар тартиби
+ Name[vi]=Bố trí bàn phím
+ Name[wa]=Adjinçmint del taprece
++Name[xh]=Ubeko Lwebhodi yezitshixo
+ Name[x-test]=xxKeyboard Layoutxx
+-Name[xh]=Ubeko Lwebhodi yezitshixo
+ Name[zh_CN]=键盘布局
+ Name[zh_TW]=鍵盤配置
+ 
+@@ -175,8 +175,8 @@
+ Comment[uz@cyrillic]=Тугмалар тартиби
+ Comment[vi]=Bố trí bàn phím
+ Comment[wa]=Adjinçmint des tapes del taprece
++Comment[xh]=Ubeko Lwebhodi yezitshixo
+ Comment[x-test]=xxKeyboard Layoutxx
+-Comment[xh]=Ubeko Lwebhodi yezitshixo
+ Comment[zh_CN]=键盘布局
+ Comment[zh_TW]=鍵盤配置
+ 
+--- workspace/kcontrol/kxkb/plasma-applet-kxkb.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kxkb/plasma-applet-kxkb.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -74,8 +74,8 @@
+ Name[uz@cyrillic]=Тугмалар тартиби учун восита
+ Name[vi]=Công cụ Ánh xạ Bàn phím
+ Name[wa]=Adjinçmint del taprece
++Name[xh]=Isixhobo semaphu yebhodi enezitshixo
+ Name[x-test]=xxKeyboard Map Toolxx
+-Name[xh]=Isixhobo semaphu yebhodi enezitshixo
+ Name[zh_CN]=键盘映射工具
+ Name[zh_TW]=鍵盤映射工具
+ Icon=keyboard_layout
+--- workspace/kcontrol/kxkb/kxkb.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kxkb/kxkb.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -83,7 +83,7 @@
+ Name[uz@cyrillic]=Тугмалар тартиби учун восита
+ Name[vi]=Công cụ Ánh xạ Bàn phím
+ Name[wa]=Adjinçmint del taprece
++Name[xh]=Isixhobo semaphu yebhodi enezitshixo
+ Name[x-test]=xxKeyboard Map Toolxx
+-Name[xh]=Isixhobo semaphu yebhodi enezitshixo
+ Name[zh_CN]=键盘映射工具
+ Name[zh_TW]=鍵盤映射工具
+--- workspace/kcontrol/input/mouse.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/input/mouse.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -171,8 +171,8 @@
+ Comment[uz@cyrillic]=Сичқончанинг мосламалари
+ Comment[vi]=Thiết lập con chuột
+ Comment[wa]=Apontiaedjes del sori
++Comment[xh]=Izicwangciso ze mouse
+ Comment[x-test]=xxMouse settingsxx
+-Comment[xh]=Izicwangciso ze mouse
+ Comment[zh_CN]=鼠标设置
+ Comment[zh_TW]=滑鼠設定
+ 
+--- workspace/kcontrol/style/style.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/style/style.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -90,8 +90,8 @@
+ Name[uz@cyrillic]=Услуб
+ Name[vi]=Kiểu dáng
+ Name[wa]=Stîle
++Name[xh]=Uhlobo
+ Name[x-test]=xxStylexx
+-Name[xh]=Uhlobo
+ Name[zh_CN]=风格
+ Name[zh_TW]=風格
+ Comment=Allows the manipulation of widget behavior and changing the Style for KDE
+@@ -167,8 +167,8 @@
+ Comment[uk]=Керування поведінкою віджетів та зміна стилю KDE
+ Comment[vi]=Cho phép điều chỉnh ứng xử của các ô điều khiển và thay đổi kiểu dáng của KDE
+ Comment[wa]=Permete di candjî l' dujhance et li stîle des ahesses po KDE
++Comment[xh]=Ivumela uhanahaniso lokuziphatha kwe widget kwaye itshintsha Uhlobo lwe KDE
+ Comment[x-test]=xxAllows the manipulation of widget behavior and changing the Style for KDExx
+-Comment[xh]=Ivumela uhanahaniso lokuziphatha kwe widget kwaye itshintsha Uhlobo lwe KDE
+ Comment[zh_CN]=允许操纵修饰行为和更改 KDE 的样式
+ Comment[zh_TW]=讓您控制視窗元件 (widget) 的操作方式，以及更改 KDE 的風格
+ 
+--- workspace/kcontrol/keyboard/kcm_keyboard.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keyboard/kcm_keyboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -91,8 +91,8 @@
+ Name[uz@cyrillic]=Тугматаг
+ Name[vi]=Bàn phím
+ Name[wa]=Taprece
++Name[xh]=Ibhodi enezitshixo
+ Name[x-test]=xxKeyboardxx
+-Name[xh]=Ibhodi enezitshixo
+ Name[zh_CN]=键盘
+ Name[zh_TW]=鍵盤
+ 
+@@ -174,8 +174,8 @@
+ Comment[uz@cyrillic]=Тугматагнинг мосламалари
+ Comment[vi]=Thiết lập bàn phím
+ Comment[wa]=Apontiaedje del taprece
++Comment[xh]=Izicwangciso zebhodi enezitshixo
+ Comment[x-test]=xxKeyboard settingsxx
+-Comment[xh]=Izicwangciso zebhodi enezitshixo
+ Comment[zh_CN]=键盘设置
+ Comment[zh_TW]=鍵盤設定
+ 
+--- workspace/kcontrol/keyboard/keyboard.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keyboard/keyboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -93,8 +93,8 @@
+ Name[uz@cyrillic]=Тугматаг
+ Name[vi]=Bàn phím
+ Name[wa]=Taprece
++Name[xh]=Ibhodi enezitshixo
+ Name[x-test]=xxKeyboardxx
+-Name[xh]=Ibhodi enezitshixo
+ Name[zh_CN]=键盘
+ Name[zh_TW]=鍵盤
+ 
+@@ -176,8 +176,8 @@
+ Comment[uz@cyrillic]=Тугматагнинг мосламалари
+ Comment[vi]=Thiết lập bàn phím
+ Comment[wa]=Apontiaedje del taprece
++Comment[xh]=Izicwangciso zebhodi enezitshixo
+ Comment[x-test]=xxKeyboard settingsxx
+-Comment[xh]=Izicwangciso zebhodi enezitshixo
+ Comment[zh_CN]=键盘设置
+ Comment[zh_TW]=鍵盤設定
+ 
+--- workspace/kcontrol/colors/colors.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/colors/colors.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -89,8 +89,8 @@
+ Name[uz@cyrillic]=Ранглар
+ Name[vi]=Màu sắc
+ Name[wa]=Coleurs
++Name[xh]=Imibala
+ Name[x-test]=xxColorsxx
+-Name[xh]=Imibala
+ Name[zh_CN]=颜色
+ Name[zh_TW]=顏色
+ 
+@@ -173,8 +173,8 @@
+ Comment[uz@cyrillic]=Рангларнинг мосламалари
+ Comment[vi]=Thiết lập màu
+ Comment[wa]=Apontiaedje des coleurs
++Comment[xh]=Izicwangciso zombala
+ Comment[x-test]=xxColor settingsxx
+-Comment[xh]=Izicwangciso zombala
+ Comment[zh_CN]=颜色设置
+ Comment[zh_TW]=顏色設定
+ 
+--- workspace/kcontrol/access/kcmaccess.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/access/kcmaccess.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -91,8 +91,8 @@
+ Name[uz@cyrillic]=Қулайликлар
+ Name[vi]=Khả năng truy cập
+ Name[wa]=Accessibilité
++Name[xh]=Unikezelo
+ Name[x-test]=xxAccessibilityxx
+-Name[xh]=Unikezelo
+ Name[zh_CN]=辅助
+ Name[zh_TW]=無障礙輔助
+ 
+@@ -171,8 +171,8 @@
+ Comment[uz@cyrillic]=Ногирон кишилар учун қулайликлар
+ Comment[vi]=Hỗ trợ người gặp khó khăn nhín, nghe, di chuyện con chuột, gõ bàn phím v.v.
+ Comment[wa]=Rind pus åjhey l' accessibilité po les sakîs k' ont des andicapes
++Comment[xh]=Phucula unikekezeleko lwabantu abakhubazekileyo
+ Comment[x-test]=xxImprove accessibility for disabled personsxx
+-Comment[xh]=Phucula unikekezeleko lwabantu abakhubazekileyo
+ Comment[zh_CN]=方便残疾人使用的辅助功能
+ Comment[zh_TW]=方便傷殘人士使用
+ 
+--- workspace/kcontrol/randr/krandrmodule.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/randr/krandrmodule.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -86,6 +86,9 @@
+ 
+ void KRandRModule::defaults()
+ {
++        if (!m_display->isValid()) {
++                return;
++        }
+ #ifdef HAS_RANDR_1_2
+ 	if (RandR::has_1_2)
+ 		m_config->defaults();
+@@ -98,6 +101,9 @@
+ {
+ 	kDebug() << "Loading KRandRModule...";
+ 	
++        if (!m_display->isValid()) {
++                return;
++        }
+ #ifdef HAS_RANDR_1_2
+ 	if (RandR::has_1_2)
+ 		m_config->load();
+@@ -110,6 +116,9 @@
+ 
+ void KRandRModule::save()
+ {
++        if (!m_display->isValid()) {
++                return;
++        }
+ #ifdef HAS_RANDR_1_2
+ 	if (RandR::has_1_2)
+ 		m_config->save();
+@@ -121,6 +130,9 @@
+ 
+ void KRandRModule::apply()
+ {
++        if (!m_display->isValid()) {
++                return;
++        }
+ #ifdef HAS_RANDR_1_2
+ 	if (RandR::has_1_2)
+ 		m_config->apply();
+--- workspace/kcontrol/kthememanager/kthememanager.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kthememanager/kthememanager.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -87,8 +87,8 @@
+ Name[uz@cyrillic]=Мавзу бошқарувчиси
+ Name[vi]=Bộ quản lý sắc thái
+ Name[wa]=Manaedjeu d' tinmes
++Name[xh]=Umphathi Womxholo
+ Name[x-test]=xxTheme Managerxx
+-Name[xh]=Umphathi Womxholo
+ Name[zh_CN]=主题管理器
+ Name[zh_TW]=佈景管理程式
+ 
+--- workspace/kcontrol/launch/kcmlaunch.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/launch/kcmlaunch.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -72,8 +72,8 @@
+ Name[se]=Prográmmaálggahan ávaštus
+ Name[sk]=Odozva na štart programov
+ Name[sl]=Povratna informacija zagona
+-Name[sr]=Одзив покретања
+-Name[sr@latin]=Odziv pokretanja
++Name[sr]=Одзив при покретању
++Name[sr@latin]=Odziv pri pokretanju
+ Name[sv]=Gensvar vid programstart
+ Name[ta]=கருத்தை தொடங்கு
+ Name[te]=లాంచ్ ప్రతిస్పందన
+@@ -150,8 +150,8 @@
+ Comment[se]=Vállje makkár ávaštus galga leat prográmmaid álggahettiin
+ Comment[sk]=Vyberte štýl odozvy pri štarte aplikácií
+ Comment[sl]=Izberite program - stil pošiljanja povratne informacije
+-Comment[sr]=Изаберите како се јавља покретање програма
+-Comment[sr@latin]=Izaberite kako se javlja pokretanje programa
++Comment[sr]=Изаберите стил одзива при покретању програма
++Comment[sr@latin]=Izaberite stil odziva pri pokretanju programa
+ Comment[sv]=Välj typ av gensvar vid programstart
+ Comment[ta]=பயன்பாடு-தொடக்கத்துக்கான கருத்து பாணியை தேர்ந்தெடு
+ Comment[te]=అనువర్తనం-లాంచ్ ప్రతిస్పందన శైలిని ఎంచుకొనుము
+@@ -162,8 +162,8 @@
+ Comment[uz@cyrillic]=Дастур ишга тушиш хабарномасининг турини танлаш
+ Comment[vi]=Chọn kiểu mà chương trình sẽ gửi phản hồi về khi khởi động
+ Comment[wa]=Tchoezi l' stile di ritoû d' enondaedje di programe
++Comment[xh]=Khetha isicelo-yenza uhlobo lwesiphumo seLaunch
+ Comment[x-test]=xxChoose application-launch feedback stylexx
+-Comment[xh]=Khetha isicelo-yenza uhlobo lwesiphumo seLaunch
+ Comment[zh_CN]=选择程序启动反馈风格
+ Comment[zh_TW]=選擇程式啟動時的回饋風格
+ 
+--- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -154,8 +154,8 @@
+ Comment[uz@cyrillic]=Тугмалар бирикмасини мослаш
+ Comment[vi]=Cấu hình các tổ hợp phím
+ Comment[wa]=Apontiaedje des rascourtis di tapes
++Comment[xh]=Uqwalaselo lwezibopheleo zesitshixo
+ Comment[x-test]=xxConfiguration of keybindingsxx
+-Comment[xh]=Uqwalaselo lwezibopheleo zesitshixo
+ Comment[zh_CN]=键绑定配置
+ Comment[zh_TW]=按鍵關聯設定
+ 
+--- workspace/kcontrol/keys/schemes/mac4.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/mac4.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -76,8 +76,8 @@
+ Name[uz@cyrillic]=Mac мавзуси
+ Name[vi]=Phối hợp của Mac
+ Name[wa]=Djeu d' rascourtis Mac
++Name[xh]=Udweliso lwe Mac
+ Name[x-test]=xxMac Schemexx
+-Name[xh]=Udweliso lwe Mac
+ Name[zh_CN]=Mac 方案
+ Name[zh_TW]=Mac 機制
+ Uses Win Modifier=true
+--- workspace/kcontrol/keys/schemes/kde3.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/kde3.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -67,8 +67,8 @@
+ Name[uk]=Типова для KDE з 3 клавішами-модифікаторами
+ Name[vi]=Mặc định KDE cho 3 Phím Bổ trợ
+ Name[wa]=Prémetou KDE (3 tapes modifieueses)
++Name[xh]=KDE Engagqibekanga ye 3 Izitsixo Mofifier
+ Name[x-test]=xxKDE Default for 3 Modifier Keysxx
+-Name[xh]=KDE Engagqibekanga ye 3 Izitsixo Mofifier
+ Name[zh_CN]=三个修饰键的 KDE 默认值
+ Name[zh_TW]=KDE 預設 3 個變更鍵
+ Uses Win Modifier=false
+--- workspace/kcontrol/keys/schemes/unix3.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/unix3.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -76,8 +76,8 @@
+ Name[uz@cyrillic]=UNIX мавзуси
+ Name[vi]=Phối hợp của Unix
+ Name[wa]=Djeu d' rascourtis Unix
++Name[xh]=Udweliso lwe UNIX
+ Name[x-test]=xxUNIX Schemexx
+-Name[xh]=Udweliso lwe UNIX
+ Name[zh_CN]=Unix 方案
+ Name[zh_TW]=UNIX 機制
+ Uses Win Modifier=false
+--- workspace/kcontrol/keys/schemes/kde4.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/kde4.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -67,8 +67,8 @@
+ Name[uk]=Типова для KDE з 4 клавішами-модифікаторами
+ Name[vi]=Mặc định KDE cho 4 Phím Bổ trợ
+ Name[wa]=Prémetou KDE (4 tapes modifieueses)
++Name[xh]=KDE Engagqibekanga ye 4 Izitsixo Mofifier
+ Name[x-test]=xxKDE Default for 4 Modifier Keysxx
+-Name[xh]=KDE Engagqibekanga ye 4 Izitsixo Mofifier
+ Name[zh_CN]=四个修饰键的 KDE 默认值
+ Name[zh_TW]=KDE 預設 4 個變更鍵
+ Uses Win Modifier=true
+--- workspace/kcontrol/keys/schemes/win3.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/win3.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -75,8 +75,8 @@
+ Name[uz@cyrillic]=Windows қолипи (Win тугмаси билан)
+ Name[vi]=Phối hợp của Windows (không có phím Cửa sổ)
+ Name[wa]=Djeu Windows (sins tape Win)
++Name[xh]=Window Yodweliso (Ngaphandle kwe Win key)
+ Name[x-test]=xxWindows Scheme (Without Win Key)xx
+-Name[xh]=Window Yodweliso (Ngaphandle kwe Win key)
+ Name[zh_CN]=Windows 方案(无 Win 键)
+ Name[zh_TW]=Windows 機制（沒有 Win 鍵）
+ Uses Win Modifier=false
+--- workspace/kcontrol/keys/schemes/win4.kksrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/keys/schemes/win4.kksrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -75,8 +75,8 @@
+ Name[uz@cyrillic]=Windows қолипи (Win тугмасиз)
+ Name[vi]=Phối hợp của Windows (có phím Cửa sổ)
+ Name[wa]=Djeu Windows (avou tape Win)
++Name[xh]=Windows Ezingagqibekanga (Nge Win-key)
+ Name[x-test]=xxWindows Scheme (With Win Key)xx
+-Name[xh]=Windows Ezingagqibekanga (Nge Win-key)
+ Name[zh_CN]=Windows 方案(有 Win 键)
+ Name[zh_TW]=Windows 機制（有 Win 鍵）
+ Uses Win Modifier=true
+--- workspace/kcontrol/kdm/background/programs/xearth.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/programs/xearth.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -61,8 +61,8 @@
+ Comment[uz@cyrillic]=XEarth (Кирик Жонсон томонидан)
+ Comment[vi]=Trái Đất X bởi Kirk Johnson
+ Comment[wa]=XDaegne pal Kirk Johnson
++Comment[xh]=XEarth ngu Kirk Johnson
+ Comment[x-test]=xxXEarth by Kirk Johnsonxx
+-Comment[xh]=XEarth ngu Kirk Johnson
+ Comment[zh_CN]=X 地球，作者 Kirk Johnson
+ Comment[zh_TW]=X 地球（by Kirk Johnson）
+ Executable=xearth
+--- workspace/kcontrol/kdm/background/programs/xplanet.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/programs/xplanet.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -63,8 +63,8 @@
+ Comment[uz@cyrillic]=XPlanet (Хари Нейр томонидан)
+ Comment[vi]=Hành tinh X bởi Hari Nair
+ Comment[wa]=XPlanete pal Hari Nair
++Comment[xh]=XPlanet ngu Hari Nair
+ Comment[x-test]=xxXPlanet by Hari Nairxx
+-Comment[xh]=XPlanet ngu Hari Nair
+ Comment[zh_CN]=X 行星，作者 Hari Nair
+ Comment[zh_TW]=行星（by Hari Nair）
+ Executable=xplanet
+--- workspace/kcontrol/kdm/background/programs/xglobe.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/programs/xglobe.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -61,8 +61,8 @@
+ Comment[uz@cyrillic]=XGlobe (Торстен Шойерман томонидан)
+ Comment[vi]=Qủa cầu X bởi Thorsten Scheuermann
+ Comment[wa]=XGlobe pal Thorsten Scheuermann
++Comment[xh]=XGlobe ngu Thorsten Scheuermann
+ Comment[x-test]=xxXGlobe by Thorsten Scheuermannxx
+-Comment[xh]=XGlobe ngu Thorsten Scheuermann
+ Comment[zh_CN]=X 球体，作者 Thorsten Scheuermann
+ Comment[zh_TW]=X 地球儀（by Thorsten Scheuermann）
+ Executable=xglobe
+--- workspace/kcontrol/kdm/background/patterns/triangles.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/patterns/triangles.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -66,8 +66,8 @@
+ Comment[uz@cyrillic]=Учбурчаклар
+ Comment[vi]=Tam giác
+ Comment[wa]=Triyangues
++Comment[xh]=Oonxantathu
+ Comment[x-test]=xxTrianglesxx
+-Comment[xh]=Oonxantathu
+ Comment[zh_CN]=三角
+ Comment[zh_TW]=三角形
+ File=triangles.png
+--- workspace/kcontrol/kdm/background/patterns/stonewall2.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/patterns/stonewall2.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -61,8 +61,8 @@
+ Comment[uz@cyrillic]=Тош девол 2 (Тигерт томонидан)
+ Comment[vi]=Tường đá 2 bởi Tigert
+ Comment[wa]=Meur di pîre 2 pal Tigert
++Comment[xh]=Stonewall 2 ngu Tigert
+ Comment[x-test]=xxStonewall 2 by Tigertxx
+-Comment[xh]=Stonewall 2 ngu Tigert
+ Comment[zh_CN]=石墙 2，作者：Tigert
+ Comment[zh_TW]=石牆 II（by Tigert）
+ File=stonewall2.png
+--- workspace/kcontrol/kdm/background/patterns/pavement.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/patterns/pavement.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -63,8 +63,8 @@
+ Comment[uz@cyrillic]=Йўлак
+ Comment[vi]=Lát gạch hoa
+ Comment[wa]=Trotwer
++Comment[xh]=Umgangatho osecaleni kwendlela
+ Comment[x-test]=xxPavementxx
+-Comment[xh]=Umgangatho osecaleni kwendlela
+ Comment[zh_CN]=路面
+ Comment[zh_TW]=人行道
+ File=pavement.png
+--- workspace/kcontrol/kdm/background/patterns/flowers.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/background/patterns/flowers.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -70,8 +70,8 @@
+ Comment[uz@cyrillic]=Гуллар
+ Comment[vi]=Bông hoa
+ Comment[wa]=Fleurs
++Comment[xh]=Iintyatyambo
+ Comment[x-test]=xxFlowersxx
+-Comment[xh]=Iintyatyambo
+ Comment[zh_CN]=花朵
+ Comment[zh_TW]=花兒
+ File=flowers.png
+--- workspace/kcontrol/kdm/kdm.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/kdm/kdm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -91,8 +91,8 @@
+ Name[uz@cyrillic]=Кириш бошқарувчиси
+ Name[vi]=Bộ quản lý Đăng nhập
+ Name[wa]=Manaedjeu d' elodjaedje
++Name[xh]=Umphathi Wegama elithile
+ Name[x-test]=xxLogin Managerxx
+-Name[xh]=Umphathi Wegama elithile
+ Name[zh_CN]=登录管理器
+ Name[zh_TW]=登錄管理程式
+ 
+@@ -174,8 +174,8 @@
+ Comment[uz@cyrillic]=Тизимга кириш бошқарувчисини (KDM) мослаш
+ Comment[vi]=Cấu hình trình quản lý đăng nhập (KDM)
+ Comment[wa]=Apontyî l' manaedjeu d' elodjaedje (KDM)
++Comment[xh]=Qwalasela umphathi wegama elithile (KDM)
+ Comment[x-test]=xxConfigure the login manager (KDM)xx
+-Comment[xh]=Qwalasela umphathi wegama elithile (KDM)
+ Comment[zh_CN]=配置登录管理器(KDM)
+ Comment[zh_TW]=設定登入管理程式 (KDM)
+ 
+--- workspace/kcontrol/bell/bell.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kcontrol/bell/bell.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -90,8 +90,8 @@
+ Name[uz@cyrillic]=Тизим товуш сигнали
+ Name[vi]=Chuông hệ thống
+ Name[wa]=Xhuflet do sistinme
++Name[xh]=Indlela yokusebenza Yentsimbi
+ Name[x-test]=xxSystem Bellxx
+-Name[xh]=Indlela yokusebenza Yentsimbi
+ Name[zh_CN]=系统铃声
+ Name[zh_TW]=系統鈴聲
+ 
+@@ -172,8 +172,8 @@
+ Comment[uz@cyrillic]=Тизим товуш сигналини мослаш
+ Comment[vi]=Cấu hình Chuông Hệ thống
+ Comment[wa]=Apontiaedje do xhuflet do sistinme
++Comment[xh]=Uqwalaselo Lwendlela Yentsimbi
+ Comment[x-test]=xxSystem Bell Configurationxx
+-Comment[xh]=Uqwalaselo Lwendlela Yentsimbi
+ Comment[zh_CN]=系统铃声配置
+ Comment[zh_TW]=系統鈴聲組態
+ 
+--- workspace/systemsettings/categories/settings-system.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/categories/settings-system.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -78,7 +78,7 @@
+ Name[uz@cyrillic]=Тизим
+ Name[vi]=Hệ thống
+ Name[wa]=Sistinme
++Name[xh]=Indlela esestyenziswayo
+ Name[x-test]=xxSystemxx
+-Name[xh]=Indlela esestyenziswayo
+ Name[zh_CN]=系统
+ Name[zh_TW]=系統
+--- workspace/systemsettings/categories/settings-accessibility.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/categories/settings-accessibility.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -85,7 +85,7 @@
+ Name[uz@cyrillic]=Қулайликлар
+ Name[vi]=Khả năng truy cập
+ Name[wa]=Accessibilité
++Name[xh]=Unikezelo
+ Name[x-test]=xxAccessibilityxx
+-Name[xh]=Unikezelo
+ Name[zh_CN]=辅助
+ Name[zh_TW]=無障礙輔助
+--- workspace/systemsettings/categories/settings-window-behaviour.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/categories/settings-window-behaviour.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -80,7 +80,7 @@
+ Name[uz@cyrillic]=Ойнанинг хусусиятлари
+ Name[vi]=Ứng xử của Cửa sổ
+ Name[wa]=Dujhance des purneas
++Name[xh]=Ukuziphatha kwe Window
+ Name[x-test]=xxWindow Behaviorxx
+-Name[xh]=Ukuziphatha kwe Window
+ Name[zh_CN]=窗口行为
+ Name[zh_TW]=視窗行為
+--- workspace/systemsettings/categories/settings-appearance.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/categories/settings-appearance.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -84,7 +84,7 @@
+ Name[uz@cyrillic]=Ташқи кўриниш
+ Name[vi]=Diện mạo
+ Name[wa]=Rivnance
++Name[xh]=Inkangeleko
+ Name[x-test]=xxAppearancexx
+-Name[xh]=Inkangeleko
+ Name[zh_CN]=外观
+ Name[zh_TW]=外觀
+--- workspace/systemsettings/categories/settings-advanced.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/categories/settings-advanced.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -62,7 +62,7 @@
+ Name[pa]=ਤਕਨੀਕੀ
+ Name[pl]=Zaawansowane
+ Name[pt]=Avançado
+-Name[pt_BR]=Avançados
++Name[pt_BR]=Avançado
+ Name[ro]=Avansat
+ Name[ru]=Дополнительно
+ Name[se]=Viiddiduvvon
+@@ -81,7 +81,7 @@
+ Name[uz@cyrillic]=Қўшимча
+ Name[vi]=Nâng cao
+ Name[wa]=Sipepieus
++Name[xh]=Ebhekisa phambili
+ Name[x-test]=xxAdvancedxx
+-Name[xh]=Ebhekisa phambili
+ Name[zh_CN]=高级
+ Name[zh_TW]=進階
+--- workspace/systemsettings/mainwindow.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/systemsettings/mainwindow.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -332,7 +332,7 @@
+             groupWidget->addModule( mItem->item );
+         } else {
+             foreach ( MenuItem * i, mItem->children ) {
+-                kDebug() << "adding " , i->item.fileName();
++                kDebug() << "adding " << i->item.fileName();
+                 groupWidget->addModule( i->item );
+             }
+         }
+--- workspace/klipper/klipperrc.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/klipper/klipperrc.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -76,8 +76,8 @@
+ Description[uz@cyrillic]=Jpeg-расм
+ Description[vi]=Ảnh JPEG
+ Description[wa]=Imådje JPEG
++Description[xh]=Jpeg-Umfanekiso
+ Description[x-test]=xxJpeg-Imagexx
+-Description[xh]=Jpeg-Umfanekiso
+ Description[zh_CN]=JPEG 图像
+ Description[zh_TW]=JPEG 影像
+ Number of commands=1
+@@ -385,8 +385,8 @@
+ Description[uz@cyrillic]=Konqueror &билан очиш
+ Description[vi]=Mở bằng &Konqueror
+ Description[wa]=Drovi avou &Konqueror
++Description[xh]=Vula nge &Konqueror
+ Description[x-test]=xxOpen with &Konquerorxx
+-Description[xh]=Vula nge &Konqueror
+ Description[zh_CN]=用 &Konqueror 打开
+ Description[zh_TW]=使用 &Konqueror 開啟
+ Enabled=true
+@@ -471,8 +471,8 @@
+ Description[uz@cyrillic]=Mozilla билан &очиш
+ Description[vi]=Mở bằng &Mozilla
+ Description[wa]=Drovi avou &Mozilla
++Description[xh]=Vula nge &Mozilla
+ Description[x-test]=xxOpen with &Mozillaxx
+-Description[xh]=Vula nge &Mozilla
+ Description[zh_CN]=用 &Mozilla 打开
+ Description[zh_TW]=使用 &Mozilla 開啟
+ Enabled=true
+@@ -555,8 +555,8 @@
+ Description[uz@cyrillic]=URL'ни &жўнатиш
+ Description[vi]=Gửi &URL
+ Description[wa]=Evoyî &hårdêye
++Description[xh]=Thumela i &URL
+ Description[x-test]=xxSend &URLxx
+-Description[xh]=Thumela i &URL
+ Description[zh_CN]=发送 &URL
+ Description[zh_TW]=送出 &URL
+ Enabled=true
+@@ -724,8 +724,8 @@
+ Description[uz@cyrillic]=&Бетни жўнатиш
+ Description[vi]=Gửi &Trang
+ Description[wa]=Evoyî &pådje
++Description[xh]=Thumela &Iphepha
+ Description[x-test]=xxSend &Pagexx
+-Description[xh]=Thumela &Iphepha
+ Description[zh_CN]=发送页面(&P)
+ Description[zh_TW]=送出 &Page
+ Enabled=true
+@@ -799,8 +799,8 @@
+ Description[uz@cyrillic]=Хат-URL
+ Description[vi]=Gửi thư chứa URL
+ Description[wa]=Hårdêye emile
++Description[xh]=Iposi-URL
+ Description[x-test]=xxMail-URLxx
+-Description[xh]=Iposi-URL
+ Description[zh_CN]=mail URL
+ Description[zh_TW]=郵寄 URL
+ Number of commands=2
+@@ -1055,8 +1055,8 @@
+ Description[uz@cyrillic]=Матн файли
+ Description[vi]=Tập tin Văn bản
+ Description[wa]=Fitchî tecse
++Description[xh]=Ifayile Yombhalo
+ Description[x-test]=xxText Filexx
+-Description[xh]=Ifayile Yombhalo
+ Description[zh_CN]=文本文件
+ Description[zh_TW]=文字檔案
+ Number of commands=1
+@@ -1224,8 +1224,8 @@
+ Description[uz@cyrillic]=Локал файлининг URL'и
+ Description[vi]=URL tập tin cục bộ
+ Description[wa]=Hårdêye viè on fitchî locå
++Description[xh]=Ifayile yobulali ye URL
+ Description[x-test]=xxLocal file URLxx
+-Description[xh]=Ifayile yobulali ye URL
+ Description[zh_CN]=本地文件 URL
+ Description[zh_TW]=本地檔案 URL
+ Number of commands=2
+@@ -1309,8 +1309,8 @@
+ Description[uz@cyrillic]=URL'ни &жўнатиш
+ Description[vi]=Gửi &URL
+ Description[wa]=Evoyî &hårdêye
++Description[xh]=Thumela i &URL
+ Description[x-test]=xxSend &URLxx
+-Description[xh]=Thumela i &URL
+ Description[zh_CN]=发送 &URL
+ Description[zh_TW]=送出 &URL
+ Enabled=true
+@@ -1395,8 +1395,8 @@
+ Description[uz@cyrillic]=&Файлни жўнатиш
+ Description[vi]=Gửi &Tập tin
+ Description[wa]=Evoyî &fitchî
++Description[xh]=Thumela &Ifayile
+ Description[x-test]=xxSend &Filexx
+-Description[xh]=Thumela &Ifayile
+ Description[zh_CN]=发送文件(&F)
+ Description[zh_TW]=送出檔案(&F)
+ Enabled=true
+@@ -1543,8 +1543,8 @@
+ Description[uz@cyrillic]=URL'ни &жўнатиш
+ Description[vi]=Gửi &URL
+ Description[wa]=Evoyî &hårdêye
++Description[xh]=Thumela i &URL
+ Description[x-test]=xxSend &URLxx
+-Description[xh]=Thumela i &URL
+ Description[zh_CN]=发送 &URL
+ Description[zh_TW]=送出 &URL
+ Enabled=true
+@@ -1629,8 +1629,8 @@
+ Description[uz@cyrillic]=&Файлни жўнатиш
+ Description[vi]=Gửi &Tập tin
+ Description[wa]=Evoyî &fitchî
++Description[xh]=Thumela &Ifayile
+ Description[x-test]=xxSend &Filexx
+-Description[xh]=Thumela &Ifayile
+ Description[zh_CN]=发送文件(&F)
+ Description[zh_TW]=送出檔案(&F)
+ Enabled=true
+@@ -1850,8 +1850,8 @@
+ Description[uz@cyrillic]=Konqueror &билан очиш
+ Description[vi]=Mở bằng &Konqueror
+ Description[wa]=Drovi avou &Konqueror
++Description[xh]=Vula nge &Konqueror
+ Description[x-test]=xxOpen with &Konquerorxx
+-Description[xh]=Vula nge &Konqueror
+ Description[zh_CN]=用 &Konqueror 打开
+ Description[zh_TW]=使用 &Konqueror 開啟
+ Enabled=true
+@@ -1935,8 +1935,8 @@
+ Description[uz@cyrillic]=Mozilla билан &очиш
+ Description[vi]=Mở bằng &Mozilla
+ Description[wa]=Drovi avou &Mozilla
++Description[xh]=Vula nge &Mozilla
+ Description[x-test]=xxOpen with &Mozillaxx
+-Description[xh]=Vula nge &Mozilla
+ Description[zh_CN]=用 &Mozilla 打开
+ Description[zh_TW]=使用 &Mozilla 開啟
+ Enabled=true
+@@ -2019,8 +2019,8 @@
+ Description[uz@cyrillic]=URL'ни &жўнатиш
+ Description[vi]=Gửi &URL
+ Description[wa]=Evoyî &hårdêye
++Description[xh]=Thumela i &URL
+ Description[x-test]=xxSend &URLxx
+-Description[xh]=Thumela i &URL
+ Description[zh_CN]=发送 &URL
+ Description[zh_TW]=送出 &URL
+ Enabled=true
+@@ -2105,8 +2105,8 @@
+ Description[uz@cyrillic]=&Файлни жўнатиш
+ Description[vi]=Gửi &Tập tin
+ Description[wa]=Evoyî &fitchî
++Description[xh]=Thumela &Ifayile
+ Description[x-test]=xxSend &Filexx
+-Description[xh]=Thumela &Ifayile
+ Description[zh_CN]=发送文件(&F)
+ Description[zh_TW]=送出檔案(&F)
+ Enabled=true
+--- workspace/klipper/klipper.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/klipper/klipper.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -95,8 +95,8 @@
+ GenericName[uz@cyrillic]=Клипборд воситаси
+ GenericName[vi]=Công cụ Bảng nháp
+ GenericName[wa]=Usteye do tchapea emacralé
++GenericName[xh]=Isixhobo Sebhodi eqhoboshayo
+ GenericName[x-test]=xxClipboard Toolxx
+-GenericName[xh]=Isixhobo Sebhodi eqhoboshayo
+ GenericName[zh_CN]=剪贴板工具
+ GenericName[zh_TW]=剪貼簿工具
+ Exec=klipper
+--- workspace/CMakeLists.txt	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/CMakeLists.txt	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -3,7 +3,7 @@
+ # Used e.g. in KDE4WorkspaceConfig.cmake, Alex
+ set(KDE4WORKSPACE_VERSION_MAJOR 4)
+ set(KDE4WORKSPACE_VERSION_MINOR 2)
+-set(KDE4WORKSPACE_VERSION_PATCH 3)
++set(KDE4WORKSPACE_VERSION_PATCH 4)
+ set(KDE4WORKSPACE_VERSION ${KDE4WORKSPACE_VERSION_MAJOR}.${KDE4WORKSPACE_VERSION_MINOR}.${KDE4WORKSPACE_VERSION_PATCH} )
+ 
+ 
 @@ -16,7 +16,7 @@
- Name[ar]=الحجم والاتجاه
- Name[be]=Памеры і арыентацыя
- Name[be@latin]=Pamiery j pavarot
--Name[bg]=Размер и завъртане на екрана
-+Name[bg]=Големина и завъртане на екрана
- Name[bn]=আকৃতি এবং দিশা
- Name[bn_IN]=মাপ ও দিশা
- Name[br]=Ment ha reteradur
-@@ -97,7 +97,7 @@
- Comment[ar]=غيّر حجم العرض وأدِره
- Comment[be]=Змяняе памеры і перагортвае ваш экран
- Comment[be@latin]=Źmianieńnie pamieraŭ i pavarot ekrana
--Comment[bg]=Настройване на размера и завъртането на екрана
-+Comment[bg]=Настройване на големината и завъртането на екрана
- Comment[bn]=আপনার ডিসপ্লের আকৃতি এবং দিশা পরিবর্তন করুন
- Comment[bn_IN]=আপনার ডিসপ্লের আকৃতি এবং দিশা পরিবর্তন করুন
- Comment[br]=Adventañ ha treiñ ho skramm
---- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -60,7 +60,7 @@
- Name[pt]=Atalhos Globais do Teclado
- Name[pt_BR]=Atalhos de teclado globais
- Name[ro]=Acceleratori de tastatură globali
--Name[ru]=Комбинации клавиш
-+Name[ru]=Основные действия
- Name[si]=ගෝලීය යතුරුපුවරු කෙටිමං
- Name[sk]=Globálne klávesové skratky
- Name[sl]=Globalne tipkovnične bližnjice
---- workspace/solid/kcm/kcm_solid.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/solid/kcm/kcm_solid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -12,6 +12,7 @@
- Name[ar]=العتاد
- Name[be]=Прылады
- Name[be@latin]=Aparatura
-+Name[bg]=Хардуер
- Name[bn]=হার্ডওয়্যার
- Name[bn_IN]=হার্ডওয়্যার
- Name[br]=Periantel
---- workspace/powerdevil/daemon/PollSystemLoader.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/daemon/PollSystemLoader.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -58,20 +58,21 @@
-     tpl->deleteLater();
- }
  
--QMap<AbstractSystemPoller::PollingType, QString> PollSystemLoader::getAvailableSystems()
-+QHash<AbstractSystemPoller::PollingType, QString> PollSystemLoader::getAvailableSystems()
- {
-     // Cached
-     return m_availableSystems;
- }
  
--QMap<int, QString> PollSystemLoader::getAvailableSystemsAsInt()
-+QHash<int, QString> PollSystemLoader::getAvailableSystemsAsInt()
- {
-     // Cached
- 
--    QMap<int, QString> retlist;
-+    QHash<int, QString> retlist;
- 
--    foreach(const AbstractSystemPoller::PollingType &ent, m_availableSystems.keys()) {
--        retlist[(int) ent] = m_availableSystems[ent];
-+    QHash<AbstractSystemPoller::PollingType, QString>::const_iterator i;
-+    for (i = m_availableSystems.constBegin(); i != m_availableSystems.constEnd(); ++i) {
-+        retlist[(int) i.key()] = i.value();
-     }
- 
-     return retlist;
---- workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -63,8 +63,7 @@
- #include <X11/Xatom.h>
- #include <X11/Xutil.h>
- #include <X11/Xos.h>
--extern "C"
--{
-+extern "C" {
- #include <X11/extensions/dpms.h>
-     int __kde_do_not_unload = 1;
- 
-@@ -102,7 +101,8 @@
-             : notifier(Solid::Control::PowerManager::notifier())
+ #search packages used by KDE
+-find_package(KDE4 4.2.3 REQUIRED)
++find_package(KDE4 4.2.4 REQUIRED)
+ find_package(Strigi REQUIRED)
+ find_package(QImageBlitz REQUIRED)
+ find_package(ZLIB REQUIRED)
+--- workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/powerdevil/daemon/PowerDevilDaemon.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -102,7 +102,7 @@
              , battery(0)
              , currentConfig(0)
--            , status(PowerDevilDaemon::NoAction) {};
-+            , status(PowerDevilDaemon::NoAction)
-+            , ckSessionInterface(0) {};
+             , status(PowerDevilDaemon::NoAction)
+-            , ckSessionInterface(0) {};
++            , ckSessionInterface(0) {}
  
      Solid::Control::PowerManager::Notifier * notifier;
      QPointer<Solid::Battery> battery;
-@@ -128,6 +128,10 @@
+@@ -163,8 +163,7 @@
  
-     int batteryPercent;
-     bool isPlugged;
-+
-+    // ConsoleKit stuff
-+    QDBusInterface *ckSessionInterface;
-+    bool ckAvailable;
- };
- 
- PowerDevilDaemon::PowerDevilDaemon(QObject *parent, const QList<QVariant>&)
-@@ -165,6 +169,9 @@
+     if (conn.interface()->isServiceRegistered("org.freedesktop.PowerManagement") ||
+             conn.interface()->isServiceRegistered("com.novell.powersave") ||
+-            conn.interface()->isServiceRegistered("org.freedesktop.Policy.Power") ||
+-            conn.interface()->isServiceRegistered("org.kde.powerdevilsystem")) {
++            conn.interface()->isServiceRegistered("org.freedesktop.Policy.Power")) {
+         kError() << "PowerDevil not initialized, another power manager has been detected";
          return;
      }
+@@ -222,9 +221,8 @@
+     new PowerDevilAdaptor(this);
+     new PowerManagementConnector(this);
  
-+    // First things first: let's set up PowerDevil to be aware of active session
-+    setUpConsoleKit();
-+
-     d->profilesConfig = KSharedConfig::openConfig("powerdevilprofilesrc", KConfig::SimpleConfig);
-     setAvailableProfiles(d->profilesConfig->groupList());
- 
-@@ -176,7 +183,7 @@
-     d->ksmServerIface = new OrgKdeKSMServerInterfaceInterface("org.kde.ksmserver", "/KSMServer",
-             QDBusConnection::sessionBus(), this);
- 
--    /*  Not needed anymore; I am not sure if we will need that in a future, so I leave it here 
-+    /*  Not needed anymore; I am not sure if we will need that in a future, so I leave it here
-      *  just in case.
-      *
-      *   d->kscreenSaverIface = new OrgKdeScreensaverInterface("org.freedesktop.ScreenSaver", "/ScreenSaver",
-@@ -196,7 +203,7 @@
-     if (PowerDevilSettings::pollingSystem() == -1) {
-         // Ok, new configuration... so let's see what we've got!!
- 
--        QMap<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
-+        QHash<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
- 
-         if (pList.contains(AbstractSystemPoller::XSyncBased)) {
-             PowerDevilSettings::setPollingSystem(AbstractSystemPoller::XSyncBased);
-@@ -224,6 +231,7 @@
- 
- PowerDevilDaemon::~PowerDevilDaemon()
- {
-+    delete d->ckSessionInterface;
-     delete d;
+-    // This gets registered to avoid double copies.
+-    QDBusConnection::sessionBus().registerService("org.kde.powerdevilsystem");
+     conn.interface()->registerService("org.freedesktop.Policy.Power");
++    QDBusConnection::sessionBus().registerService("org.kde.powerdevil");
+     // All systems up Houston, let's go!
+     refreshStatus();
  }
+--- workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -80,21 +80,23 @@
+     QDBusInterface iface("org.kde.kded", "/modules/powerdevil");
  
-@@ -327,7 +335,7 @@
- 
- bool PowerDevilDaemon::loadPollingSystem(AbstractSystemPoller::PollingType type)
- {
--    QMap<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
-+    QHash<AbstractSystemPoller::PollingType, QString> pList = d->pollLoader->getAvailableSystems();
- 
-     if (!pList.contains(type)) {
-         return false;
-@@ -351,10 +359,11 @@
- {
-     QVariantMap map;
- 
--    QMap<int, QString> pmap = d->pollLoader->getAvailableSystemsAsInt();
-+    QHash<int, QString> pmap = d->pollLoader->getAvailableSystemsAsInt();
- 
--    foreach(int ent, pmap.keys()) {
--        map[pmap[ent]] = ent;
-+    QHash<int, QString>::const_iterator i;
-+    for (i = pmap.constBegin(); i != pmap.constEnd(); ++i) {
-+        map[i.value()] = i.key();
-     }
- 
-     return map;
-@@ -364,10 +373,14 @@
- {
-     KConfigGroup * settings = getCurrentProfile();
- 
--    Solid::Control::PowerManager::setBrightness(settings->readEntry("brightness").toInt());
--
-     POLLER_CALL(d->pollLoader->poller(), stopCatchingIdleEvents());
-     POLLER_CALL(d->pollLoader->poller(), forcePollRequest());
-+
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-+    Solid::Control::PowerManager::setBrightness(settings->readEntry("brightness").toInt());
- }
- 
- void PowerDevilDaemon::refreshStatus()
-@@ -404,15 +417,15 @@
-         emitNotification("unplugged", i18n("The power adaptor has been unplugged"));
-     }
- 
--    if (!forced)
-+    if (!forced) {
-         reloadProfile(state);
-+    }
- 
-     applyProfile();
- }
- 
- #ifdef HAVE_DPMS
--extern "C"
--{
-+extern "C" {
-     int dropError(Display *, XErrorEvent *);
-     typedef int (*XErrFunc)(Display *, XErrorEvent *);
- }
-@@ -425,10 +438,15 @@
- 
- void PowerDevilDaemon::applyProfile()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     KConfigGroup * settings = getCurrentProfile();
- 
--    if (!settings)
-+    if (!settings) {
-         return;
-+    }
- 
-     Solid::Control::PowerManager::setBrightness(settings->readEntry("brightness").toInt());
-     Solid::Control::PowerManager::setCpuFreqPolicy((Solid::Control::PowerManager::CpuFreqPolicy)
-@@ -459,10 +477,15 @@
- 
- void PowerDevilDaemon::setUpDPMS()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     KConfigGroup * settings = getCurrentProfile();
- 
--    if (!settings)
-+    if (!settings) {
-         return;
-+    }
- 
- #ifdef HAVE_DPMS
- 
-@@ -535,9 +558,14 @@
- 
-     setBatteryPercent(charge);
- 
--    if (Solid::Control::PowerManager::acAdapterState() == Solid::Control::PowerManager::Plugged)
-+    if (Solid::Control::PowerManager::acAdapterState() == Solid::Control::PowerManager::Plugged) {
-         return;
-+    }
- 
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (charge <= PowerDevilSettings::batteryCriticalLevel()) {
-         switch (PowerDevilSettings::batLowAction()) {
-         case Shutdown:
-@@ -600,6 +628,10 @@
- 
- void PowerDevilDaemon::buttonPressed(int but)
- {
-+    if (!checkIfCurrentSessionActive() || d->screenSaverIface->GetActive()) {
-+        return;
-+    }
-+
-     KConfigGroup * settings = getCurrentProfile();
- 
-     if (!settings)
-@@ -681,18 +713,30 @@
- 
- void PowerDevilDaemon::decreaseBrightness()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     int currentBrightness = qMax(0, (int)(Solid::Control::PowerManager::brightness() - 10));
-     Solid::Control::PowerManager::setBrightness(currentBrightness);
- }
- 
- void PowerDevilDaemon::increaseBrightness()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     int currentBrightness = qMin(100, (int)(Solid::Control::PowerManager::brightness() + 10));
-     Solid::Control::PowerManager::setBrightness(currentBrightness);
- }
- 
- void PowerDevilDaemon::shutdownNotification(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setNotificationLock(automated)) {
-         return;
-     }
-@@ -709,6 +753,10 @@
- 
- void PowerDevilDaemon::suspendToDiskNotification(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setNotificationLock(automated)) {
-         return;
-     }
-@@ -725,6 +773,10 @@
- 
- void PowerDevilDaemon::suspendToRamNotification(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setNotificationLock(automated)) {
-         return;
-     }
-@@ -741,6 +793,10 @@
- 
- void PowerDevilDaemon::standbyNotification(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setNotificationLock(automated)) {
-         return;
-     }
-@@ -757,6 +813,10 @@
- 
- void PowerDevilDaemon::shutdown(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setJobLock(automated)) {
-         return;
-     }
-@@ -775,6 +835,10 @@
- 
- void PowerDevilDaemon::suspendToDisk(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setJobLock(automated)) {
-         return;
-     }
-@@ -795,6 +859,10 @@
- 
- void PowerDevilDaemon::suspendToRam(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setJobLock(automated)) {
-         return;
-     }
-@@ -814,6 +882,10 @@
- 
- void PowerDevilDaemon::standby(bool automated)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!d->lockHandler->setJobLock(automated)) {
-         return;
-     }
-@@ -856,8 +928,12 @@
-      * We make an intensive use of qMin/qMax here to determine the minimum time.
-      */
- 
--   // kDebug() << "Polling started, idle time is" << idle << "seconds";
-+    // kDebug() << "Polling started, idle time is" << idle << "seconds";
- 
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     KConfigGroup * settings = getCurrentProfile();
- 
-     if (!settings) {
-@@ -866,7 +942,7 @@
- 
-     if (!settings->readEntry("dimOnIdle", false) && !settings->readEntry("turnOffIdle", false) &&
-             settings->readEntry("idleAction").toInt() == None) {
--     //   kDebug() << "Stopping timer";
-+        //   kDebug() << "Stopping timer";
-         POLLER_CALL(d->pollLoader->poller(), stopCatchingTimeouts());
-         return;
-     }
-@@ -891,13 +967,13 @@
-         minTime = qMin(minTime, minDimTime);
-     }
- 
--   // kDebug() << "Minimum time is" << minTime << "seconds";
-+    // kDebug() << "Minimum time is" << minTime << "seconds";
- 
-     if (idle < minTime) {
-         d->status = NoAction;
-         int remaining = minTime - idle;
-         POLLER_CALL(d->pollLoader->poller(), setNextTimeout(remaining * 1000));
--     //   kDebug() << "Nothing to do, next event in" << remaining << "seconds";
-+        //   kDebug() << "Nothing to do, next event in" << remaining << "seconds";
-         return;
-     }
- 
-@@ -1009,6 +1085,10 @@
- 
- void PowerDevilDaemon::lockScreen()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     emitNotification("doingjob", i18n("The screen is being locked"));
-     d->screenSaverIface->Lock();
- }
-@@ -1136,6 +1216,10 @@
- 
- void PowerDevilDaemon::reloadProfile(int state)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (!recacheBatteryPointer()) {
-         setCurrentProfile(PowerDevilSettings::aCProfile());
-     } else {
-@@ -1186,6 +1270,10 @@
- 
- void PowerDevilDaemon::setProfile(const QString & profile)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     setCurrentProfile(profile);
- 
-     /* Don't call refreshStatus() here, since we don't want the predefined profile
-@@ -1202,6 +1290,10 @@
- 
- void PowerDevilDaemon::reloadAndStream()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     reloadProfile();
- 
-     setAvailableProfiles(d->profilesConfig->groupList());
-@@ -1274,16 +1366,28 @@
- 
- void PowerDevilDaemon::setPowersavingScheme(const QString &scheme)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     Solid::Control::PowerManager::setScheme(scheme);
- }
- 
- void PowerDevilDaemon::setGovernor(int governor)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     Solid::Control::PowerManager::setCpuFreqPolicy((Solid::Control::PowerManager::CpuFreqPolicy) governor);
- }
- 
- void PowerDevilDaemon::suspend(int method)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     switch ((IdleAction) method) {
-     case S2Disk:
-         QTimer::singleShot(100, this, SLOT(suspendToDisk()));
-@@ -1301,6 +1405,10 @@
- 
- void PowerDevilDaemon::setBrightness(int value)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (value == -2) {
-         // Then set brightness to half the current brightness.
- 
-@@ -1332,6 +1440,10 @@
- 
- void PowerDevilDaemon::profileFirstLoad()
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     KConfigGroup * settings = getCurrentProfile();
- 
-     if (!settings)
-@@ -1411,6 +1523,10 @@
- 
- void PowerDevilDaemon::setCurrentProfile(const QString &profile)
- {
-+    if (!checkIfCurrentSessionActive()) {
-+        return;
-+    }
-+
-     if (profile != d->currentProfile) {
-         d->currentProfile = profile;
-         profileFirstLoad();
-@@ -1424,4 +1540,62 @@
-     emit profileChanged(d->currentProfile, d->availableProfiles);
- }
- 
-+bool PowerDevilDaemon::checkIfCurrentSessionActive()
-+{
-+    if (!d->ckAvailable) {
-+        // No way to determine if we are on the current session, simply suppose we are
-+        kDebug() << "Can't contact ck";
-+        return true;
-+    }
-+
-+    QDBusReply<bool> rp = d->ckSessionInterface->call("IsActive");
-+
-+    return rp.value();
-+}
-+
-+void PowerDevilDaemon::setUpConsoleKit()
-+{
-+    // Let's cache the needed information to check if our session is actually active
-+
-+    if (!QDBusConnection::systemBus().interface()->isServiceRegistered("org.freedesktop.ConsoleKit")) {
-+        // No way to determine if we are on the current session, simply suppose we are
-+        kDebug() << "Can't contact ck";
-+        d->ckAvailable = false;
-+        return;
-+    } else {
-+        d->ckAvailable = true;
-+    }
-+
-+    // Otherwise, let's ask ConsoleKit
-+    QDBusInterface ckiface("org.freedesktop.ConsoleKit", "/org/freedesktop/ConsoleKit/Manager",
-+                           "org.freedesktop.ConsoleKit.Manager", QDBusConnection::systemBus());
-+
-+    QDBusReply<QDBusObjectPath> sessionPath = ckiface.call("GetCurrentSession");
-+
-+    if (!sessionPath.isValid() || sessionPath.value().path().isEmpty()) {
-+        kDebug() << "The session is not registered with ck";
-+        d->ckAvailable = false;
-+        return;
-+    }
-+
-+    d->ckSessionInterface = new QDBusInterface("org.freedesktop.ConsoleKit", sessionPath.value().path(),
-+            "org.freedesktop.ConsoleKit.Session", QDBusConnection::systemBus());
-+
-+    if (!d->ckSessionInterface->isValid()) {
-+        // As above
-+        kDebug() << "Can't contact iface";
-+        d->ckAvailable = false;
-+        return;
-+    }
-+
-+    /* If everything's fine, let's attach ourself to the ActiveChanged signal.
-+     * You'll see we're attaching to refreshStatus without any further checks. You know why?
-+     * refreshStatus already checks if the console is active, so the check is already happening
-+     * in the underhood
-+     */
-+
-+    QDBusConnection::systemBus().connect("org.freedesktop.ConsoleKit", sessionPath.value().path(),
-+                                         "org.freedesktop.ConsoleKit.Session", "ActiveChanged", this, SLOT(refreshStatus()));
-+}
-+
- #include "PowerDevilDaemon.moc"
---- workspace/powerdevil/daemon/PollSystemLoader.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/daemon/PollSystemLoader.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -21,7 +21,7 @@
- #define POLLSYSTEMLOADER_H
- 
- #include <QObject>
--#include <QMap>
-+#include <QHash>
- #include <QPointer>
- 
- #include "AbstractSystemPoller.h"
-@@ -34,8 +34,8 @@
-     PollSystemLoader(QObject *parent = 0);
-     virtual ~PollSystemLoader();
- 
--    QMap<AbstractSystemPoller::PollingType, QString> getAvailableSystems();
--    QMap<int, QString> getAvailableSystemsAsInt();
-+    QHash<AbstractSystemPoller::PollingType, QString> getAvailableSystems();
-+    QHash<int, QString> getAvailableSystemsAsInt();
- 
-     bool loadSystem(AbstractSystemPoller::PollingType type);
-     bool unloadCurrentSystem();
-@@ -48,7 +48,7 @@
- 
- private:
-     QPointer<AbstractSystemPoller> m_poller;
--    QMap<AbstractSystemPoller::PollingType, QString> m_availableSystems;
-+    QHash<AbstractSystemPoller::PollingType, QString> m_availableSystems;
- };
- 
- #endif /* POLLSYSTEMLOADER_H */
---- workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/daemon/PowerDevilDaemon.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -34,9 +34,6 @@
- class PollSystemLoader;
- class SuspensionLockHandler;
- class KNotification;
--class OrgFreedesktopScreenSaverInterface;
--class OrgKdeKSMServerInterfaceInterface;
--class OrgKdeScreensaverInterface;
- 
- class KDE_EXPORT PowerDevilDaemon : public KDEDModule
- {
-@@ -128,8 +125,8 @@
- private:
-     void lockScreen();
- 
--    void setUpDPMS();	
--    
-+    void setUpDPMS();
-+
-     KConfigGroup *getCurrentProfile(bool forcereload = false);
-     void applyProfile();
- 
-@@ -143,6 +140,10 @@
- 
-     bool recacheBatteryPointer(bool force = false);
- 
-+    void setUpConsoleKit();
-+
-+    bool checkIfCurrentSessionActive();
-+
- public:
-     enum IdleAction {
-         None = 0,
-@@ -151,7 +152,8 @@
-         S2Disk = 4,
-         Shutdown = 8,
-         Lock = 16,
--        ShutdownDialog = 32
-+        ShutdownDialog = 32,
-+        TurnOffScreen = 64
-     };
- 
-     enum IdleStatus {
---- workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/kcmodule/PowerDevilKCM.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -82,8 +82,8 @@
      if (iface.isValid()) {
-         QDBusConnection conn = QDBusConnection::systemBus();
+-        QDBusConnection conn = QDBusConnection::systemBus();
++        if (!QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.powerdevil").value()) {
++            QDBusConnection conn = QDBusConnection::systemBus();
  
--        if (conn.interface()->isServiceRegistered("org.freedesktop.PowerManagement") ||
--                conn.interface()->isServiceRegistered("org.freedesktop.Policy.Power")) {
-+        if (conn.interface()->isServiceRegistered("org.freedesktop.PowerManagement") || (
-+	  conn.interface()->isServiceRegistered("org.freedesktop.Policy.Power") && !QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.powerdevilsystem"))){
-             initError(i18n("Another power manager has been detected. PowerDevil will not start if "
-                            "other power managers are active. If you want to use PowerDevil as your primary "
-                            "power manager, please remove the existing one and restart PowerDevil service."));
---- workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/kcmodule/powerdevilconfig.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -61,8 +61,8 @@
- Name[ru]=Управление питанием
- Name[sk]=Správa napájania
- Name[sl]=Upravljanje z energijo
--Name[sr]=управљање енергијом
--Name[sr@latin]=upravljanje energijom
-+Name[sr]=Управљање енергијом
-+Name[sr@latin]=Upravljanje energijom
- Name[sv]=Strömsparhantering
- Name[tg]=Идоракунии барқ
- Name[th]=การจัดการพลังงาน
---- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -50,8 +50,8 @@
- Name[ru]=Управление питанием
- Name[sk]=Správa napájania
- Name[sl]=Upravljanje z energijo
--Name[sr]=управљање енергијом
--Name[sr@latin]=upravljanje energijom
-+Name[sr]=Управљање енергијом
-+Name[sr@latin]=Upravljanje energijom
- Name[sv]=Strömsparhantering
- Name[tg]=Идоракунии барқ
- Name[th]=การจัดการพลังงาน
---- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -114,6 +114,7 @@
-     m_layout->addWidget(m_buttonContainer);
- 
-     m_searchTerm = new KHistoryComboBox(false, w);
-+    m_searchTerm->setPalette(QApplication::palette());
-     m_searchTerm->setDuplicatesEnabled(false);
- 
-     KLineEdit *lineEdit = new KLineEdit(m_searchTerm);
-@@ -400,7 +401,6 @@
- 
-     kDebug() << item->name() << item->id();
-     m_delayedRun = false;
--    m_searchTerm->addToHistory(m_searchTerm->currentText());
- 
-     if (item->group() == Plasma::QueryMatch::InformationalMatch) {
-         QString info = item->data();
-@@ -416,6 +416,9 @@
-     close();
-     m_resultsScene->run(item);
-     m_running = false;
-+
-+    //TODO: check if run succesful before adding the term to history
-+    m_searchTerm->addToHistory(m_searchTerm->currentText().trimmed());
-     resetInterface();
- }
- 
---- workspace/krunner/interfaces/default/resultscene.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/krunner/interfaces/default/resultscene.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -323,14 +323,14 @@
- 
- bool ResultScene::launchQuery(const QString &term)
- {
--    bool temp = !(term.isEmpty() || m_runnerManager->query() == term);
-+    bool temp = !(term.trimmed().isEmpty() || m_runnerManager->query() == term.trimmed());
-     m_runnerManager->launchQuery(term);
-     return temp;
- }
- 
- bool ResultScene::launchQuery(const QString &term, const QString &runner)
- {
--    bool temp = !(term.isEmpty() || m_runnerManager->query() == term);
-+    bool temp = !(term.trimmed().isEmpty() || m_runnerManager->query() == term.trimmed());
-     m_runnerManager->launchQuery(term, runner);
-     return temp;
- }
---- workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/libs/kephal/xrandr12/randrcrtc.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -282,7 +282,10 @@
-         {
-             QRect r = QRect(0,0,0,0).united(m_proposedRect);
-             if (r.width() > m_screen->maxSize().width() || r.height() > m_screen->maxSize().height())
-+            {
-+                delete[] outputs;
-                 return false;
+-        if (conn.interface()->isServiceRegistered("org.freedesktop.PowerManagement") || (
+-	  conn.interface()->isServiceRegistered("org.freedesktop.Policy.Power") && !QDBusConnection::sessionBus().interface()->isServiceRegistered("org.kde.powerdevilsystem"))){
+-            initError(i18n("Another power manager has been detected. PowerDevil will not start if "
+-                           "other power managers are active. If you want to use PowerDevil as your primary "
+-                           "power manager, please remove the existing one and restart PowerDevil service."));
+-            return;
+-        } else if (conn.interface()->isServiceRegistered("com.novell.powersave")) {
+-            initError(i18n("It seems powersaved is running on this system. PowerDevil will not start if "
+-                           "other power managers are active. If you want to use PowerDevil as your primary "
+-                           "power manager, please stop powersaved and restart PowerDevil service."));
+-            return;
++            if (conn.interface()->isServiceRegistered("org.freedesktop.PowerManagement") ||
++                QDBusConnection::sessionBus().interface()->isServiceRegistered("org.freedesktop.PowerManagement")) {
++                initError(i18n("Another power manager has been detected. PowerDevil will not start if "
++                               "other power managers are active. If you want to use PowerDevil as your primary "
++                               "power manager, please remove the existing one and restart PowerDevil service."));
++                return;
++            } else if (conn.interface()->isServiceRegistered("com.novell.powersave")) {
++                initError(i18n("It seems powersaved is running on this system. PowerDevil will not start if "
++                               "other power managers are active. If you want to use PowerDevil as your primary "
++                               "power manager, please stop powersaved and restart PowerDevil service."));
++                return;
 +            }
- 
-             // if the desired mode is bigger than the current screen size, first change the 
-             // screen size, and then the crtc size
-@@ -290,7 +293,10 @@
-             {
-                 // try to adjust the screen size
-                 if (!m_screen->adjustSize(r))
-+                {
-+                    delete[] outputs;
-                     return false;
-+                }
-             }
- 
          }
-@@ -303,12 +309,18 @@
-                 // check if the rotated rect is smaller than the max screen size
-                 r = m_screen->rect().united(r);
-                 if (r.width() > m_screen->maxSize().width() || r.height() > m_screen->maxSize().height())
-+                {
-+                    delete[] outputs;
-                     return false;
-+                }
-                 
-                 // adjust the screen size
-                 r = r.united(m_currentRect);
-                 if (!m_screen->adjustSize(r))
-+                {
-+                    delete[] outputs;
-                     return false;
-+                }
-             }
-         }
-     }
---- workspace/libs/taskmanager/task.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/libs/taskmanager/task.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -293,7 +293,7 @@
- 
- bool Task::demandsAttention() const
- {
--    return (d->info.valid() && (d->info.state() & NET::DemandsAttention)) ||
-+    return (d->info.valid(true) && (d->info.state() & NET::DemandsAttention)) ||
-             !d->transientsDemandingAttention.isEmpty();
- }
- 
---- workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kscreensaver/libkscreensaver/kscreensaver.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -64,7 +64,11 @@
-     bool event( QEvent* event );
- 
- private:
--    KScreenSaverPrivate *d;
-+    //Note: To keep binary compatibility this class must have only one member, which is a pointer.
-+    //      If more members are needed, use the d-pointer technique.
-+    //      See http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C%2B%2B
-+    //KScreenSaverPrivate *d;
-+    QWidget *embeddedWidget;
- };
- 
- /**
---- workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kscreensaver/libkscreensaver/kscreensaver.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -33,7 +33,7 @@
- 
- //-----------------------------------------------------------------------------
- 
--KScreenSaver::KScreenSaver( WId id ) : QWidget()
-+KScreenSaver::KScreenSaver( WId id ) : QWidget(), embeddedWidget(0)
- {
-     if ( id )
-     {
-@@ -51,16 +51,20 @@
-     bool r = QWidget::event(e);
-     if (e->type() == QEvent::Polish)
-         setAttribute(Qt::WA_StyledBackground, false);
-+    if ((e->type() == QEvent::Resize) && embeddedWidget)
-+        embeddedWidget->resize( size() );
-     return r;
- }
- 
- void KScreenSaver::embed( QWidget *w )
- {
-+    w->resize( size() );
-     QApplication::sendPostedEvents();
- #ifdef Q_WS_X11 //FIXME
-     XReparentWindow(QX11Info::display(), w->winId(), winId(), 0, 0);
- #endif
-     w->setGeometry( 0, 0, width(), height() );
-+    embeddedWidget = w;
-     QApplication::sendPostedEvents();
- }
- 
---- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -490,7 +490,7 @@
- Comment[pt]=Depois carregar em Alt+Ctrl+H, será simulada a escrita de 'Olá', tal como se tivesse escrito de facto. É especialmente útil se você não quiser estar a escrever coisas do tipo 'unsigned'. Sempre que carregar numa tecla do campo de texto será separado por dois-pontos ':'. Repare que o carregar de teclas é mesmo o carregar de teclas, pelo que terá de escrever realmente o que deseja no teclado. Na tabela abaixo, a coluna esquerda mostra o texto introduzido e a coluna à direita mostra o que é necessário escrever.\n\n"enter" (i.e. mudança de linha)                Enter ou Return\na (i.e. 'a' minúsculo)                          A\nA (i.e. 'a' maiúsculo)                       Shift+A\n: (dois-pontos)                                  Shift+;\n' '  (espaço)                              Espaço
- Comment[pt_BR]=Após pressionar Alt+Ctrl+H, a entrada 'Hello' será simulada como se você a tivesse digitado. Especialmente útil se você está com preguiça de digitar coisas como 'unsigned'. Cada tecla pressionada na entrada é separada por dois-pontos ':' . Note que teclas pressionadas significa realmente teclas pressionadas, então você tem que escrever o que queria pressionar realmente no teclado. Na tabela abaixo, a coluna da esquerda mostra a entrada e a coluna da direita mostra o que você digitou.\n\n"enter" (i.e. nova linha)                Enter ou Return\na (i.e. a minúsculo)                          A\nA (i.e. a maiúsculo)                       Shift+A\n: (dois-pontos)                                  Shift+;\n' '  (espaço)                              Espaço
- Comment[ro]=După apăsarea Alt+Ctrl+H, intrarea „Salut” va fi simulată ca și cînd ați fi tastat-o dumneavoastră. Este deosebit de utilă dacă vă e lene să tastați cuvinte ca „unsigned”. Fiecare tastare în intrare este despărțită de „:”. Luați aminte că tastările înseamnă chiar apăsări de taste, deci trebuie să scrieți exact ceea ce ați apăsa pe tastatură. În tabelul de mai jos, coloana stîngă arată intrarea iar cea dreptă - ce trebuie să scrieți.\n\n"enter" (linie nouă)                Enter sau Retur\na („a” mic)                          A\nA (A majuscul)                       Shift+A\n: (două puncte)                                  Shift+;\n' '  (spațiu)                              Spațiu
--Comment[ru]=При нажатии комбинации клавиш Alt+Ctrl+H будет эмулирован ввод слова "Hello" как будто бы вы набивали его вручную с клавиатуры.
-+Comment[ru]=При нажатии комбинации клавиш Alt+Ctrl+H будет эмулирован ввод слова «Hello» как будто бы вы набивали его вручную с клавиатуры.
- Comment[sk]=Po stlačení Alt+Ctrl+H bude simulovaný vstup 'Hello' presne tak, ako keby ste ho napísali. Mimoriadne užitočné, ak ste lenivý písať veci ako 'unsigned'. Každé stlačenie klávesu je oddelené dvojbodkou ':'. Všimnite si, že stlačenia klávesu znamenajú skutočné stlačenie, takže musíte napísať, čo v skutočnosti na klávesnici stláčate. V tabuľke nižšie ukazuje ľavý stĺpec vstup a pravý stĺpec, čo treba napísať.\n\n"enter" (t.j. nový riadok)                Enter alebo Return\na (t.j. malé a)                          A\nA (t.j. veľké a)                       Shift+A\n: (dvojbodka)                                  Shift+;\n' '  (medzera)                              Medzera
- Comment[sl]=Po pritisku Alt+Ctrl+H se bo vnesla beseda »Hello«, kot da bi jo vtipkali. Uporabno, če se vam ne da tipkati dolgih besed ali nizov besed. Pritiski tipk so v polju ločeni z dvopičjem »:«. Pomnite, da pritiski tipk pomenijo prav to. Zato morate vnesti točno to, kar bi pritisnili na tipkovnici. V spodnji razpredelnici je v levem stolpcu prikazan vnos, v desnem pa, kaj je zanj potrebno pritisniti na tipkovnici.\n\n"vnos" (nova vrstica)                Vnos ali Vračalka\na (mali a)                          A\nA (veliki a)                       Shift+A\n: (dvopičje)                                  Shift+.\n' '  (presledek)                              Preslednica
- Comment[sr]=Притисак на Ctrl+Alt+H симулираће унос „Hello“ као да сте га укуцали тастатуром. Врло корисно када сте исувише лењи да стално уносите „unsigned“ и томе слично. Сваки притисак тастера у уносу раздваја се двотачком (:). Пазите да под притиском на тастер заиста то и мислимо, тј. морате унети тачно оно што бисте притиснули на тастатури. У табели испод, лева колона приказује унос, а десна шта за треба да се притисне.\n\n„enter“ (тј. нов ред)                Enter или Return\na (тј. мало a)                          A\nA (тј. велико a)                       Shift+A\n: (двотачка)                                  Shift+;\n' '  (размак)                              Space
---- workspace/kwin/effects/taskbarthumbnail.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kwin/effects/taskbarthumbnail.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -107,7 +107,7 @@
- Comment[sv]=Visa miniatyrbilder av fönster när pekaren hålls över deras post i aktivitetsfältet
- Comment[th]=แสดงภาพย่อของหน้าต่างเมื่อเคลื่อนเมาส์มาอยู่เหนือรายการในแถบงาน
- Comment[tr]=Bir pencerenin görev çubuğundaki girdisi üzerine gelindiğinde o pencerenin küçük resmini gösterir
--Comment[uk]=Показує мініатюри вікон, коли курсор знаходиться над елементом панелі задач
-+Comment[uk]=Показує мініатюри вікон, коли вказівник знаходиться над елементом панелі задач
- Comment[x-test]=xxDisplay window thumbnails when hovering over taskbar entriesxx
- Comment[zh_CN]=当鼠标悬停在任务栏时显示窗口缩略图
- Comment[zh_TW]=當游標停在工作列的按鈕上面時，顯示視窗的縮圖
---- workspace/kwin/effects/magiclamp.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kwin/effects/magiclamp.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -26,12 +26,17 @@
- {
- 
- KWIN_EFFECT( magiclamp, MagicLampEffect )
-+KWIN_EFFECT_SUPPORTED( magiclamp, MagicLampEffect::supported() )
- 
- MagicLampEffect::MagicLampEffect()
-     {
-     mActiveAnimations = 0;
-     }
- 
-+bool MagicLampEffect::supported()
-+    {
-+    return effects->compositingType() == OpenGLCompositing;
-+    }
- 
- void MagicLampEffect::prePaintScreen( ScreenPrePaintData& data, int time )
-     {
---- workspace/kwin/effects/magiclamp.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kwin/effects/magiclamp.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -40,6 +40,8 @@
-         virtual void windowMinimized( EffectWindow* c );
-         virtual void windowUnminimized( EffectWindow* c );
- 
-+        static bool supported();
-+
-     private:
-         QHash< EffectWindow*, TimeLine > mTimeLineWindows;
-         int mActiveAnimations;
---- workspace/kwin/effects/desktopgrid.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kwin/effects/desktopgrid.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -71,6 +71,7 @@
- Name[zh_TW]=桌面格
- Icon=preferences-system-windows-effect-desktop-grid
- Comment=Zoom out so all desktops are displayed side-by-side in a grid
-+Comment[bg]=Работните плотове да се показват един до друг в мрежа
- Comment[ca]=Redueix tots els escriptoris per a visualitzar-los un al costat de l'altre en una graella
- Comment[cs]=Oddálí plochy a zobrazí je v mřížce
- Comment[da]=Zoom ud så alle desktoppe vises side om side i et gitter
---- workspace/kwin/main.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kwin/main.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -177,7 +177,7 @@
-         return 0;
- 
-     //fprintf( stderr, "kwin: X Error (%s)\n", KXErrorHandler::errorMessage( *e, d ).data());
--    fprintf( stderr, "kwin: X Error (%s)\n", errorMessage( *e, d ).data() );
-+    kWarning( 1212 ) << "kwin: X Error (" << errorMessage( *e, d ) << ")";
- 
-     if( kwin_sync )
-     fprintf( stderr, "%s\n", kBacktrace().toLocal8Bit().data() );
---- workspace/kdm/kfrontend/sessions/icewm.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/kdm/kfrontend/sessions/icewm.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -18,7 +18,7 @@
- Comment[ar]=مدير نوافذ يشبه نوافذ 95-OS/2 
- Comment[be]=Кіраўнік вокнаў, падобны на Windows 95-OS/2-Motif
- Comment[be@latin]=Akońnik, jaki vyhladaje, jak spałučeńnie systemaŭ „Windows 95”, „OS/2” i „Motif”
--Comment[bg]=Мениждър, приличащ на Windows 95-OS/2-Motif
-+Comment[bg]=Мениджър, приличащ на Windows 95-OS/2-Motif
- Comment[bn]=Windows 95-OS/2-Motif-এর অনুরূপ একটি উইণ্ডো ম্যানেজার
- Comment[bn_IN]=Windows 95-OS/2-Motif-এর অনুরূপ একটি উইণ্ডো ম্যানেজার
- Comment[ca]=Un gestor de finestres com els de Windows 95-OS/2-Motif
---- workspace/ksysguard/ksysguardd/Command.c	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/ksysguard/ksysguardd/Command.c	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -126,6 +126,7 @@
-   Command* cmd = (Command*)malloc( sizeof( Command ) );
-   if(!cmd || !(cmd->command = (char*)malloc( strlen( command ) + 1 ))) {
-     print_error("Out of memory");
-+    free(cmd);
-     return;
-   }
-   strcpy( cmd->command, command );
-@@ -166,6 +167,7 @@
-   Command* cmd = (Command*)malloc( sizeof( Command ) );
-   if(!cmd || !(cmd->command = (char*)malloc( strlen( command ) + 1 ))) {
-       print_error("Out of memory");
-+      free(cmd);
-       return;
-   }
- 
-@@ -174,6 +176,7 @@
-   cmd->type = (char*)malloc( strlen( type ) + 1 );
-   if(!cmd->type ) {
-       print_error("Out of memory");
-+      free(cmd);
-       return;
-   }
- 
-@@ -192,6 +195,7 @@
-   cmd->command = (char*)malloc( strlen( command ) + 2 );
-   if(!cmd->command ) {
-       print_error("Out of memory");
-+      free(cmd);
-       return;
-   }
- 
---- workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/dataengines/powermanagement/plasma-dataengine-powermanagement.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -50,8 +50,8 @@
- Name[ru]=Управление питанием
- Name[sk]=Správa napájania
- Name[sl]=Upravljanje z energijo
--Name[sr]=управљање енергијом
--Name[sr@latin]=upravljanje energijom
-+Name[sr]=Управљање енергијом
-+Name[sr@latin]=Upravljanje energijom
- Name[sv]=Strömsparhantering
- Name[tg]=Идоракунии барқ
- Name[th]=การจัดการพลังงาน
---- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -60,6 +60,10 @@
-         KWindowSystem::setType(winId(), NET::Dock);
-         m_svg->setImagePath("widgets/glowbar");
- 
-+        QPalette pal = palette();
-+        pal.setColor(backgroundRole(), Qt::transparent);
-+        setPalette(pal);
-+
-         QRect glowGeom = triggerZone;
-         QSize s = sizeHint();
-         switch (m_direction) {
---- workspace/plasma/runners/locations/locationrunner.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/runners/locations/locationrunner.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -93,7 +93,6 @@
-         match.setText(i18n("Open %1", term));
-         match.setIcon(KIcon("system-help"));
-         match.setRelevance(1);
--        match.setRelevance(1);
-         match.setType(Plasma::QueryMatch::ExactMatch);
-         match.setId("help");
-         context.addMatch(term, match);
---- workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/tools/desktopthemedetails/desktopthemedetails.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -11,6 +11,7 @@
- Name=Desktop Theme Details
- Name[ar]=تفاصيل سمة سطح المكتب
- Name[be@latin]=Detali matyva dla rabočaha stała
-+Name[bg]=Детайли на темите
- Name[ca]=Detalls del tema d'escriptori
- Name[cs]=Detaily motivu plochy
- Name[csb]=Wëdowiédzô ò témie pùltu
---- workspace/plasma/applets/calendar/calendar.h	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/applets/calendar/calendar.h	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -45,12 +45,9 @@
-          */
-         QGraphicsWidget *graphicsWidget();
- 
--    protected:
--        void updateDate();
--        void timerEvent(QTimerEvent *event);
 -
-     protected slots:
-         void configAccepted();
-+        void updateDate();
++	
+         initView();
+         return;
+     } else {
+--- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -120,13 +120,13 @@
+     KLineEdit *lineEdit = new KLineEdit(m_searchTerm);
+     QAction *focusEdit = new QAction(this);
+     focusEdit->setShortcut(Qt::Key_F6);
+-
++    
+     // in therory, the widget should detect the direction from the content
+     // but this is not available in Qt4.4/KDE 4.2, so the best default for this widget
+     // is LTR: as it's more or less a "command line interface"
+     // FIXME remove this code when KLineEdit has automatic direction detection of the "paragraph"
+     m_searchTerm->setLayoutDirection( Qt::LeftToRight );
+-
++    
+     connect(focusEdit, SIGNAL(triggered(bool)), lineEdit, SLOT(setFocus()));
+     addAction(focusEdit);
  
+@@ -179,7 +179,7 @@
+     m_resultsView->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+ 
+     //kDebug() << "size:" << m_resultsView->size() << m_resultsView->minimumSize();
+-    m_resultsScene = new ResultScene(runnerManager, m_searchTerm, this);
++    m_resultsScene = new ResultScene(runnerManager, this);
+     m_resultsView->setScene(m_resultsScene);
+     m_resultsView->setMinimumSize(m_resultsScene->minimumSizeHint());
+     connect(m_resultsScene, SIGNAL(matchCountChanged(int)), this, SLOT(matchCountChanged(int)));
+--- workspace/krunner/interfaces/default/resultscene.h	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/krunner/interfaces/default/resultscene.h	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -45,7 +45,7 @@
+     Q_OBJECT
+ 
+     public:
+-        explicit ResultScene(Plasma::RunnerManager *runnerManager, QWidget * focusBase, QObject *parent = 0);
++        explicit ResultScene(Plasma::RunnerManager *runnerManager, QObject *parent = 0);
+         ~ResultScene();
+ 
+         void resize(int width, int height);
+@@ -80,7 +80,6 @@
      private:
-         void paintIcon();
-@@ -58,7 +55,6 @@
-         Plasma::Calendar *m_calendarDialog;
-         Plasma::Svg *m_theme;
-         int m_date;
--        int m_updateTimerId;
- };
+         ResultItem* addQueryMatch(const Plasma::QueryMatch &match, bool useAnyId);
+         void performResize(int width, int height);
+-        bool canMoveItemFocus() const;
  
- K_EXPORT_PLASMA_APPLET(calendar, CalendarTest)
---- workspace/plasma/applets/calendar/calendar.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/applets/calendar/calendar.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -19,6 +19,7 @@
+         Plasma::RunnerManager *m_runnerManager;
  
- #include <QGraphicsLayout>
- #include <QPainter>
-+#include <QTimer>
+@@ -106,8 +105,6 @@
+         uint m_currentPage;
+         Plasma::FrameSvg *m_frame;
  
- #include <KDebug>
- #include <KIcon>
-@@ -34,8 +35,7 @@
-     : Plasma::PopupApplet(parent, args),
-     m_calendarDialog(0),
-     m_theme(0),
--    m_date(0),
--    m_updateTimerId(0)
-+    m_date(0)
+-        QWidget *m_focusBase;
+-	
+     private slots:
+         void layoutIcons();
+         void slotArrowResultItemPressed();
+--- workspace/krunner/interfaces/default/resultscene.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/krunner/interfaces/default/resultscene.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -41,15 +41,14 @@
+ 
+ #include "resultitem.h"
+ 
+-ResultScene::ResultScene(Plasma::RunnerManager *manager, QWidget * focusBase, QObject *parent)
++ResultScene::ResultScene(Plasma::RunnerManager *manager, QObject *parent)
+     : QGraphicsScene(parent),
+       m_runnerManager(manager),
+       m_cIndex(0),
+       m_rowStride(0),
+       m_pageStride(0),
+       m_pageCount(0),
+-      m_currentPage(0),
+-      m_focusBase(focusBase)
++      m_currentPage(0)
  {
-     setAspectRatioMode(Plasma::IgnoreAspectRatio);
-     setCacheMode(DeviceCoordinateCache);
-@@ -116,18 +116,9 @@
-     QDateTime d = QDateTime::currentDateTime();
-     m_date = d.date().day();
-     int updateIn = (24 * 60 * 60) - (d.toTime_t() + KSystemTimeZones::local().currentOffset()) % (24 * 60 * 60);
--    m_updateTimerId = startTimer(updateIn * 1000);
-+    QTimer::singleShot(updateIn * 1000, this, SLOT(updateDate()));
-     constraintsEvent(Plasma::FormFactorConstraint);
+     setItemIndexMethod(NoIndex);
+ 
+@@ -123,15 +122,6 @@
+     emit matchCountChanged(0);
  }
  
--void CalendarTest::timerEvent(QTimerEvent *event)
+-bool ResultScene::canMoveItemFocus() const
 -{
--    if (event->timerId() != m_updateTimerId) {
--        return;
--    }
- 
--    killTimer(m_updateTimerId);
--    updateDate();
+-    // We prevent a late query result from stealing the item focus from the user
+-    // The item focus can be moved only if the focusBase widget (the khistorycombobox)
+-    // has focus (i.e. the user is still typing or waiting) or if there is no item currently focused
+-
+-    return m_focusBase->hasFocus() || (!focusItem());
 -}
 -
- #include "calendar.moc"
---- workspace/plasma/applets/system-monitor/net.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/applets/system-monitor/net.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -89,7 +89,7 @@
-     plotter->addPlot(QColor(((color.red() - 128) * 0.90) + 128, 0, 0, color.alpha()));
-     plotter->setUseAutoRange(true);
-     plotter->setThinFrame(false);
--    plotter->setShowLabels(false);
-+    plotter->setShowLabels(true);
-     plotter->setShowTopBar(false);
-     plotter->setShowVerticalLines(false);
-     plotter->setShowHorizontalLines(false);
---- workspace/plasma/applets/battery/battery.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/applets/battery/battery.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -818,13 +818,6 @@
-         m_theme->paint(p, scaleRectF(m_acAlpha, contentsRect), "AcAdapter");
-     }
+ void ResultScene::setQueryMatches(const QList<Plasma::QueryMatch> &m)
+ {
+     // kDebug() << "============================" << endl << "matches retrieved: " << m.count();
+@@ -194,15 +184,15 @@
+         item->setIndex(i);
  
--    // For small FormFactors, we're drawing a shadow
--    if (formFactor() == Plasma::Vertical ||
--        formFactor() == Plasma::Horizontal) {
--        if (plugState) {
--            m_theme->paint(p, contentsRect, "Shadow");
--        }
--    }
-     if (plugState && m_theme->hasElement("Overlay")) {
-         m_theme->paint(p, scaleRectF(m_batteryAlpha, contentsRect), "Overlay");
-     }
---- workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -765,21 +765,34 @@
-     if (d->placement != placement) {
-         d->placement = placement;
- 
-+        Private::TabOrder normalOrder;
-+        Private::TabOrder reverseOrder;
-+
-+        //QTabBar attempts to be smart and flips what we say in rtl mode so say the opposite when the tabbar is horizontal
-+        if (QApplication::layoutDirection() == Qt::RightToLeft) {
-+            normalOrder = Private::ReverseTabOrder;
-+            reverseOrder = Private::NormalTabOrder;
-+        } else {
-+            normalOrder = Private::NormalTabOrder;
-+            reverseOrder = Private::ReverseTabOrder;
-+        }
-+
-         switch (placement) {
-         case Plasma::TopPosedRightAlignedPopup:
--            d->setSouthLayout(Private::ReverseTabOrder);
-+            d->setSouthLayout(reverseOrder);
-             break;
-         case Plasma::LeftPosedTopAlignedPopup:
-+            //when the tabbar is vertical it's fine
-             d->setEastLayout(Private::NormalTabOrder);
-             break;
-         case Plasma::LeftPosedBottomAlignedPopup:
-             d->setEastLayout(Private::ReverseTabOrder);
-             break;
-         case Plasma::BottomPosedLeftAlignedPopup:
--            d->setNorthLayout(Private::NormalTabOrder);
-+            d->setNorthLayout(normalOrder);
-             break;
-         case Plasma::BottomPosedRightAlignedPopup:
--            d->setNorthLayout(Private::ReverseTabOrder);
-+            d->setNorthLayout(reverseOrder);
-             break;
-         case Plasma::RightPosedTopAlignedPopup:
-             d->setWestLayout(Private::NormalTabOrder);
-@@ -789,7 +802,7 @@
-             break;
-         case Plasma::TopPosedLeftAlignedPopup:
-         default:
--            d->setSouthLayout(Private::NormalTabOrder);
-+            d->setSouthLayout(normalOrder);
-             break;
+         // it is vital that focus is set *after* the index
+-        if (i == 0 && canMoveItemFocus()) {
++        if (i == 0) {
+             setFocusItem(item);
+-            emit itemHoverEnter(item);
          }
-     }
---- workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/scriptengines/webkit/plasma-packagestructure-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -49,7 +49,7 @@
- Name[uk]=Віджети панелі приладів MacOS
- Name[x-test]=xxMacOS Dashboard Widgetsxx
- Name[zh_CN]=MacOS 部件板部件
--Name[zh_TW]=MacOS 儀表板元件
-+Name[zh_TW]=MacOS 資訊看板元件
- Comment=MacOS dashboard widget
- Comment[ar]=ودجة لوحة MacOS
- Comment[be@latin]=Widžet „Dashboard” dla systemy „MacOS”
-@@ -104,7 +104,7 @@
- Comment[uk]=Віджет панелі приладів MacOS
- Comment[x-test]=xxMacOS dashboard widgetxx
- Comment[zh_CN]=MacOS 部件板
--Comment[zh_TW]=MacOS 儀表板元件
-+Comment[zh_TW]=MacOS 資訊看板元件
- Type=Service
- ServiceTypes=Plasma/PackageStructure
  
---- workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/scriptengines/webkit/plasma-scriptengine-applet-dashboard.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -38,7 +38,7 @@
- Name[uk]=Панель приладів
- Name[x-test]=xxDashboardxx
- Name[zh_CN]=部件板
--Name[zh_TW]=儀表板
-+Name[zh_TW]=資訊看板
- Comment=MacOS X dashboard widget
- Comment[ar]=لوحة ودجات MacOS
- Comment[be@latin]=Widžet „Dashboard” systemy „MacOS X”.
-@@ -93,7 +93,7 @@
- Comment[uk]=Віджет панелі приладів MacOS X
- Comment[x-test]=xxMacOS X dashboard widgetxx
- Comment[zh_CN]=MacOS X 部件板
--Comment[zh_TW]=MacOS X 儀表板元件
-+Comment[zh_TW]=MacOS X 資訊看板元件
- Type=Service
- ServiceTypes=Plasma/ScriptEngine
- Icon=internet-web-browser
---- workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../tags/KDE/4.2.2/kdebase)	(wersja 956244)
-+++ workspace/plasma/scriptengines/javascript/tests/script-digital-clock/metadata.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 956244)
-@@ -16,6 +16,7 @@
- Name[x-test]=xxscript-digital-clockxx
- Name[zh_CN]=脚本-数字钟
- Comment=Javascript digital clock
-+Comment[bg]=Цифров часовник (JavaScript)
- Comment[ca]=Rellotge digital en Javascript
- Comment[cs]=Digitální hodiny v JavaScriptu
- Comment[da]=Digitalt ur i Javascript
+         ++i;
+         tab = item;
+     }
+ 
++    emit itemHoverEnter(m_items.at(0));
+ }
+ 
+ ResultItem* ResultScene::addQueryMatch(const Plasma::QueryMatch &match, bool useAnyId)
+--- workspace/kmenuedit/kmenuedit.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kmenuedit/kmenuedit.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -84,8 +84,8 @@
+ Name[uz@cyrillic]=Меню таҳрирчи
+ Name[vi]=Biên soạn trình đơn
+ Name[wa]=Aspougneu di menus
++Name[xh]=Umhleli we Menu
+ Name[x-test]=xxMenu Editorxx
+-Name[xh]=Umhleli we Menu
+ Name[zh_CN]=菜单编辑器
+ Name[zh_TW]=選單編輯器
+ 
+--- workspace/libs/ksysguard/processcore/processes_linux_p.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/libs/ksysguard/processcore/processes_linux_p.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -143,6 +143,7 @@
+         switch( mBuffer[0]) {
+ 	  case 'N':
+ 	    if((unsigned int)size > sizeof("Name:") && qstrncmp(mBuffer, "Name:", sizeof("Name:")-1) == 0) {
++	        if(process->command.isEmpty())
+                 process->name = QString::fromLocal8Bit(mBuffer + sizeof("Name:")-1, size-sizeof("Name:")+1).trimmed();
+ 	        if(++found == 4) goto finish;
+ 	    }
+@@ -354,6 +355,12 @@
+     //cmdline seperates parameters with the NULL character
+     process->command.replace('\0', ' ');
+     process->command = process->command.trimmed();
++    if(!process->command.isEmpty()) {
++        QString processname = process->command;
++	processname.remove(QRegExp("^[^ ]*/"));
++	if(processname.startsWith(process->name))
++	    process->name = processname;
++    }
+ 
+     mFile.close();
+     return true;
+--- workspace/libs/ksysguard/processui/ksysguardprocesslist.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/libs/ksysguard/processui/ksysguardprocesslist.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -259,9 +259,7 @@
+ 	d->mUi->txtFilter->installEventFilter(this);
+ 	d->mUi->treeView->installEventFilter(this);
+ 
+-	//Logical column 0 will always be the tree bit with the process name.  We expand this automatically in code,
+-	//so don't let the user change it
+-	d->mUi->treeView->header()->setResizeMode(0, QHeaderView::ResizeToContents);
++	d->mUi->treeView->header()->setResizeMode(0, QHeaderView::Interactive);
+ 	d->mUi->treeView->header()->setStretchLastSection(true);
+ 	d->mUi->treeView->setDragEnabled(true);
+ 	d->mUi->treeView->setDragDropMode(QAbstractItemView::DragOnly);
+@@ -297,8 +295,7 @@
+ 	d->mUi->btnKillProcess->setIcon(KIcon("process-stop"));
+ 
+ 	//If the view resorts continually, then it can be hard to keep track of processes.  By doing it only every few seconds it reduces the 'jumping around'
+-	QTimer *mTimer = new QTimer(this);
+-	connect(mTimer, SIGNAL(timeout()), &d->mFilterModel, SLOT(invalidate()));
++//	QTimer *mTimer = new QTimer(this);
+ //	mTimer->start(4000);
+ // QT BUG?  We have to disable the sorting for now because there seems to be a bug in Qt introduced in Qt 4.4beta which makes the view scroll back to the top
+         d->mModel.update(d->mUpdateIntervalMSecs);
+@@ -1111,6 +1108,7 @@
+ void KSysGuardProcessList::restoreHeaderState(const QByteArray & state) {
+ 	d->mUi->treeView->header()->restoreState(state);
+ 	d->mFilterModel.sort( d->mUi->treeView->header()->sortIndicatorSection(), d->mUi->treeView->header()->sortIndicatorOrder() );
++	d->mUi->treeView->header()->setResizeMode(0, QHeaderView::Interactive);
+ }
+ 
+ bool KSysGuardProcessList::eventFilter(QObject *obj, QEvent *event) {
+--- workspace/kscreensaver/kblank_screensaver/kblank.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kscreensaver/kblank_screensaver/kblank.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -81,8 +81,8 @@
+ Name[uz@cyrillic]=Бўш экран
+ Name[vi]=Màn hình Trống
+ Name[wa]=Noere waitroûle
++Name[xh]=Ikhusi Elingenanto
+ Name[x-test]=xxBlank Screenxx
+-Name[xh]=Ikhusi Elingenanto
+ Name[zh_CN]=黑屏幕
+ Name[zh_TW]=空白螢幕
+ 
+@@ -165,8 +165,8 @@
+ Name[uz@cyrillic]=Ўрнатиш
+ Name[vi]=Thiết lập...
+ Name[wa]=Apontyî...
++Name[xh]=Iyacwangciswa...
+ Name[x-test]=xxSetup...xx
+-Name[xh]=Iyacwangciswa...
+ Name[zh_CN]=设置...
+ Name[zh_TW]=設定...
+ Icon=kscreensaver
+--- workspace/kscreensaver/krandom_screensaver/krandom.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kscreensaver/krandom_screensaver/krandom.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -81,8 +81,8 @@
+ Name[uz@cyrillic]=Тасодифий
+ Name[vi]=Ngẫu nhiên
+ Name[wa]=A l' astcheyance
++Name[xh]=Ngaphandle kwenjongo
+ Name[x-test]=xxRandomxx
+-Name[xh]=Ngaphandle kwenjongo
+ Name[zh_CN]=随机
+ Name[zh_TW]=隨機
+ 
+@@ -165,8 +165,8 @@
+ Name[uz@cyrillic]=Ўрнатиш
+ Name[vi]=Thiết lập...
+ Name[wa]=Apontyî...
++Name[xh]=Iyacwangciswa...
+ Name[x-test]=xxSetup...xx
+-Name[xh]=Iyacwangciswa...
+ Name[zh_CN]=设置...
+ Name[zh_TW]=設定...
+ Icon=kscreensaver
+--- workspace/khotkeys/kcm_hotkeys/kcm_module_factory.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/khotkeys/kcm_hotkeys/kcm_module_factory.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -34,7 +34,7 @@
+     registerPlugin<KCMHotkeys>("khotkeys");
+     // registerPlugin<KCMGestures>("gestures");
+     )
+-K_EXPORT_PLUGIN(KCMModuleFactory("kcm_khotkeys"))
++K_EXPORT_PLUGIN(KCMModuleFactory("kcm_khotkeys", "khotkeys"))
+ 
+ 
+ extern "C"
+--- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -1079,7 +1079,7 @@
+ Name[de]=Nächstes Unterfenster aktivieren
+ Name[el]=Ενεργοποίηση επόμενης καρτέλας
+ Name[eo]=Aktivigi la sekvan langeton
+-Name[es]=Activar la siguiente solapa
++Name[es]=Activar la siguiente pestaña
+ Name[et]=Järgmise kaardi aktiveerimine
+ Name[eu]=Aktibatu hurrengo fitxa
+ Name[fa]=فعال کردن تب بعدی
+@@ -1284,7 +1284,7 @@
+ Name[de]=Vorheriges Unterfenster aktivieren
+ Name[el]=Ενεργοποίηση προηγούμενης καρτέλας
+ Name[eo]=Aktivigi antaŭan langeton
+-Name[es]=Activar la solapa anterior
++Name[es]=Activar la pestaña anterior
+ Name[et]=Eelmise kaardi aktiveerimine
+ Name[eu]=Aktibatu aurreko fitxa
+ Name[fa]=فعال کردن تب قبلی
+@@ -1550,7 +1550,7 @@
+ Name[de]=Unterfenster duplizieren
+ Name[el]=Αντίγραφο καρτέλας
+ Name[eo]=Kopii la langeton
+-Name[es]=Duplicar la solapa
++Name[es]=Duplicar la pestaña
+ Name[et]=Kaardi dubleerimine
+ Name[eu]=Bikoiztu fitxa
+ Name[fa]=تب مضاعف
+@@ -2219,8 +2219,8 @@
+ Name[uz@cyrillic]=Уй
+ Name[vi]=Nhà
+ Name[wa]=Måjhon
++Name[xh]=Ikhaya
+ Name[x-test]=xxHomexx
+-Name[xh]=Ikhaya
+ Name[zh_CN]=主文件夹
+ Name[zh_TW]=家目錄
+ Type=KEYBOARD_INPUT_GESTURE_ACTION_DATA
+@@ -2364,7 +2364,7 @@
+ Name[de]=Unterfenster schließen
+ Name[el]=Κλείσιμο καρτέλας
+ Name[eo]=Fermi la langeton
+-Name[es]=Cerrar la solapa
++Name[es]=Cerrar la pestaña
+ Name[et]=Kaardi sulgemine
+ Name[eu]=Itxi fitxa
+ Name[fa]=بستن تب
+@@ -2566,7 +2566,7 @@
+ Name[de]=Neues Unterfenster
+ Name[el]=Νέα καρτέλα
+ Name[eo]=Nova langeto
+-Name[es]=Nueva solapa
++Name[es]=Nueva pestaña
+ Name[et]=Uus kaart
+ Name[eu]=Fitxa berria
+ Name[fa]=تب جدید
+@@ -2836,8 +2836,8 @@
+ Name[uz@cyrillic]=Янги ойна
+ Name[vi]=Cửa sổ mới
+ Name[wa]=Novea purnea
++Name[xh]=Window Entsha
+ Name[x-test]=xxNew Windowxx
+-Name[xh]=Window Entsha
+ Name[zh_CN]=新建窗口
+ Name[zh_TW]=新視窗
+ Type=KEYBOARD_INPUT_GESTURE_ACTION_DATA
+--- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -558,7 +558,7 @@
+ Name[ru]=Ввод "Hello"
+ Name[se]=Čális «Bures»
+ Name[sk]=Napísať 'Hello'
+-Name[sl]=Vnesi »Živjo«
++Name[sl]=Vnesi »Hello«
+ Name[sr]=Унос „Hello“
+ Name[sr@latin]=Unos „Hello“
+ Name[sv]=Skriv 'Hej'
+@@ -773,7 +773,7 @@
+ Name[ru]=Запустить Konsole
+ Name[se]=Vuoje konsolla
+ Name[sk]=Spustiť Konsole
+-Name[sl]=Poženi konzolo
++Name[sl]=Poženi Konzolo
+ Name[sr]=Покрени Конзолу
+ Name[sr@latin]=Pokreni Konsolu
+ Name[sv]=Kör Terminal
+@@ -1017,7 +1017,6 @@
+ Comment[ne]=Qt डिजाइनर
+ Comment[pa]=Qt ਡਿਜ਼ਾਈਨਰ
+ Comment[pt_BR]=Designer Qt
+-Comment[sl]=Snovalnik Qt
+ Comment[sr]=КуТ‑дизајнер
+ Comment[sr@latin]=QtDesigner
+ Comment[ta]=Qt வடிவமைப்பாளர்
+--- workspace/kwin/effects/logout.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/effects/logout.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -78,7 +78,7 @@
+ Comment=Desaturate the desktop when displaying the logout dialog
+ Comment[ar]=إلغاء تشبع ألوان سطح المكتب عن ظهور حور الخروج
+ Comment[bg]=Избледняване на работния плот при показване на прозореца за изход
+-Comment[ca]=Reducció de la saturació de l'escriptori en mostar el diàleg de sortida
++Comment[ca]=Reducció de la saturació de l'escriptori en mostrar el diàleg de sortida
+ Comment[cs]=Odbarvit plochu při zobrazení okna pro odhlášení
+ Comment[da]=Afmæt farverne på desktoppen når log ud-dialogen vises
+ Comment[de]=Färbt die Arbeitsfläche in Grautöne, wenn der Abmelde-Dialog erscheint.
+--- workspace/kwin/clients/kwmtheme/kwmtheme.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/clients/kwmtheme/kwmtheme.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -76,8 +76,8 @@
+ Name[uz@cyrillic]=KWM мавзуси
+ Name[vi]=Sắc thái KWM
+ Name[wa]=Tinme KWM
++Name[xh]=Umxholo we KWM
+ Name[x-test]=xxKWM Themexx
+-Name[xh]=Umxholo we KWM
+ Name[zh_CN]=KWM 主题
+ Name[zh_TW]=KWM 主題
+ X-KDE-Library=kwin3_kwmtheme
+--- workspace/kwin/clients/laptop/laptop.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/clients/laptop/laptop.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -61,8 +61,8 @@
+ Name[uz@cyrillic]=Лаптоп
+ Name[vi]=Máy xách tay
+ Name[wa]=Poirtåve
++Name[xh]=Umphezulu osongiweyo
+ Name[x-test]=xxLaptopxx
+-Name[xh]=Umphezulu osongiweyo
+ Name[zh_CN]=笔记本电脑
+ Name[zh_TW]=筆記型電腦
+ X-KDE-Library=kwin3_laptop
+--- workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -156,8 +156,8 @@
+ Comment[uz@cyrillic]=Ойна сарлавҳасининг ташқи кўринишини мослаш
+ Comment[vi]=Cấu hình giao diện và cảm nhận cho tên cửa sổ
+ Comment[wa]=Apontyî li rivnance eyet l' dujhance des tites des purneas
++Comment[xh]=Qwalasela inkangeleko nemvakalelo yezihloko zeWindow
+ Comment[x-test]=xxConfigure the look and feel of window titlesxx
+-Comment[xh]=Qwalasela inkangeleko nemvakalelo yezihloko zeWindow
+ Comment[zh_CN]=配置窗口标题的观感
+ Comment[zh_TW]=設定視窗標題列的外觀與感覺
+ 
+--- workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -85,8 +85,8 @@
+ Name[uz@cyrillic]=Бир нечта иш столлари
+ Name[vi]=Đa màn hình nền
+ Name[wa]=Multi-scribannes
++Name[xh]=Desktops Ezininzi
+ Name[x-test]=xxMultiple Desktopsxx
+-Name[xh]=Desktops Ezininzi
+ Name[zh_CN]=多个桌面
+ Name[zh_TW]=多重桌面
+ 
+@@ -163,8 +163,8 @@
+ Comment[uz@cyrillic]=Бу ерда виртуал иш столларнинг сонини мослашингиз мумкин
+ Comment[vi]=Bạn có khả năng đặt số màn hình nền ảo ở đây
+ Comment[wa]=Vos ploz apontyî cobén di forveyous scribannes i gn a.
++Comment[xh]=Ungaqwalasela ukuba zizakubangakanani ii desktops ezingabonakaliyo.
+ Comment[x-test]=xxYou can configure how many virtual desktops there are.xx
+-Comment[xh]=Ungaqwalasela ukuba zizakubangakanani ii desktops ezingabonakaliyo.
+ Comment[zh_CN]=您可以在这里配置虚拟桌面的数量。
+ Comment[zh_TW]=您可以在這裡設定要有多少個虛擬桌面。
+ X-KDE-Keywords=desktop,desktops,number,virtual desktop
+--- workspace/kwin/kcmkwin/kwinoptions/kwinfocus.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwinoptions/kwinfocus.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -151,8 +151,8 @@
+ Comment[uz]=Oynani fokuslash qoidasini moslash
+ Comment[uz@cyrillic]=Ойнани фокуслаш қоидасини мослаш
+ Comment[vi]=Cấu hình chính sách về tiêu điểm trên cửa sổ
++Comment[xh]=Qwalasela inkqubo yobekiso lwe window
+ Comment[x-test]=xxConfigure the window focus policyxx
+-Comment[xh]=Qwalasela inkqubo yobekiso lwe window
+ Comment[zh_CN]=配置窗口焦点策略
+ Comment[zh_TW]=設定視窗焦點政策
+ 
+--- workspace/kwin/kcmkwin/kwinoptions/kwinoptions.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwinoptions/kwinoptions.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -87,8 +87,8 @@
+ Name[uz@cyrillic]=Ойнанинг хусусиятлари
+ Name[vi]=Ứng xử của Cửa sổ
+ Name[wa]=Dujhance des purneas
++Name[xh]=Ukuziphatha kwe Window
+ Name[x-test]=xxWindow Behaviorxx
+-Name[xh]=Ukuziphatha kwe Window
+ Name[zh_CN]=窗口行为
+ Name[zh_TW]=視窗行為
+ 
+--- workspace/kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwinoptions/kwinmoving.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -83,8 +83,8 @@
+ Name[uz@cyrillic]=Кўчириш
+ Name[vi]=Di chuyển
+ Name[wa]=Bodjî
++Name[xh]=Iyahamba
+ Name[x-test]=xxMovingxx
+-Name[xh]=Iyahamba
+ Name[zh_CN]=移动
+ Name[zh_TW]=移動
+ 
+@@ -161,8 +161,8 @@
+ Comment[uz@cyrillic]=Ойналарни кўчириш йўлини мослаш
+ Comment[vi]=Cấu hình cách di chuyển cửa sổ
+ Comment[wa]=Apontyî l' manire di bodjî des purneas
++Comment[xh]=Qwalasela iindlela ii windows ezshukunyiswa ngayo
+ Comment[x-test]=xxConfigure the way that windows are movedxx
+-Comment[xh]=Qwalasela iindlela ii windows ezshukunyiswa ngayo
+ Comment[zh_CN]=配置窗口移动的方式
+ Comment[zh_TW]=設定視窗移動的方式
+ 
+--- workspace/kwin/kcmkwin/kwinoptions/kwinactions.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwinoptions/kwinactions.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -84,8 +84,8 @@
+ Name[uz@cyrillic]=Амаллар
+ Name[vi]=Hành động
+ Name[wa]=Accions
++Name[xh]=Iintshukumo
+ Name[x-test]=xxActionsxx
+-Name[xh]=Iintshukumo
+ Name[zh_CN]=动作
+ Name[zh_TW]=動作
+ 
+@@ -162,8 +162,8 @@
+ Comment[uz@cyrillic]=Сичқонча ва тугматагни мослаш
+ Comment[vi]=Cấu hình thiết lập bàn phím và con chuột
+ Comment[wa]=Apontiaedjes del sori eyet del taprece
++Comment[xh]=Qwalasela izicwangciso zebhodi yezitshixho neze mouse
+ Comment[x-test]=xxConfigure keyboard and mouse settingsxx
+-Comment[xh]=Qwalasela izicwangciso zebhodi yezitshixho neze mouse
+ Comment[zh_CN]=配置键盘和鼠标设置
+ Comment[zh_TW]=設定鍵盤與滑鼠的設定值
+ 
+--- workspace/kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kcmkwin/kwinoptions/kwinadvanced.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -65,7 +65,7 @@
+ Name[pa]=ਤਕਨੀਕੀ
+ Name[pl]=Zaawansowane
+ Name[pt]=Avançado
+-Name[pt_BR]=Avançados
++Name[pt_BR]=Avançado
+ Name[ro]=Avansat
+ Name[ru]=Дополнительно
+ Name[se]=Viiddiduvvon
+@@ -84,8 +84,8 @@
+ Name[uz@cyrillic]=Қўшимча
+ Name[vi]=Nâng cao
+ Name[wa]=Sipepieus
++Name[xh]=Ebhekisa phambili
+ Name[x-test]=xxAdvancedxx
+-Name[xh]=Ebhekisa phambili
+ Name[zh_CN]=高级
+ Name[zh_TW]=進階
+ 
+@@ -160,8 +160,8 @@
+ Comment[uz@cyrillic]=Ойна бошқарувнинг кўшимча имкониятларини мослаш
+ Comment[vi]=Cấu hình các tính năng quản lý cửa sổ nâng cao
+ Comment[wa]=Apontiaedje des spepieusès fonccionålités do manaedjaedje des purneas
++Comment[xh]=Qwalasela imisebenzi esemqoka ebhekisa phambili yophatho lwe window
+ Comment[x-test]=xxConfigure advanced window management featuresxx
+-Comment[xh]=Qwalasela imisebenzi esemqoka ebhekisa phambili yophatho lwe window
+ Comment[zh_CN]=配置高级窗口管理特性
+ Comment[zh_TW]=設定進階視窗管理功能
+ 
+--- workspace/kwin/geometrytip.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/geometrytip.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -33,6 +33,7 @@
+     setLineWidth(1);
+     setFrameStyle( QFrame::Raised | QFrame::StyledPanel );
+     setAlignment( Qt::AlignCenter | Qt::AlignTop );
++    setWindowFlags( Qt::X11BypassWindowManagerHint );
+     sizeHints = xSizeHints;
+     if( save_under )
+         {
+--- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -73,8 +73,8 @@
+ Comment[uz]=KDE oyna boshqaruvchi
+ Comment[uz@cyrillic]=KDE ойна бошқарувчи
+ Comment[wa]=Li manaedjeu di purneas da KDE
++Comment[xh]=Umphathi we Window ye KDE
+ Comment[x-test]=xxThe KDE Window Managerxx
+-Comment[xh]=Umphathi we Window ye KDE
+ Comment[zh_CN]=KDE 窗口管理器
+ Comment[zh_TW]=KDE 視窗管理員
+ 
+@@ -151,8 +151,8 @@
+ Name[uz]=Ish stoli 1ga oʻtish
+ Name[uz@cyrillic]=Иш столи 1га ўтиш
+ Name[wa]=Candjî viè Scribanne 1
++Name[xh]=Tshintshela kwi Desktop 1
+ Name[x-test]=xxChange to Desktop 1xx
+-Name[xh]=Tshintshela kwi Desktop 1
+ Name[zh_CN]=更改到桌面 1
+ Name[zh_TW]=切換到桌面 1
+ Comment=Virtual desktop one is selected
+@@ -303,8 +303,8 @@
+ Name[uz]=Ish stoli 2ga oʻtish
+ Name[uz@cyrillic]=Иш столи 2га ўтиш
+ Name[wa]=Candjî viè Scribanne 2
++Name[xh]=Tshintshela kwi Desktop 2
+ Name[x-test]=xxChange to Desktop 2xx
+-Name[xh]=Tshintshela kwi Desktop 2
+ Name[zh_CN]=更改到桌面 2
+ Name[zh_TW]=切換到桌面 2
+ Comment=Virtual desktop two is selected
+@@ -456,8 +456,8 @@
+ Name[uz]=Ish stoli 3ga oʻtish
+ Name[uz@cyrillic]=Иш столи 3га ўтиш
+ Name[wa]=Candjî viè Scribanne 3
++Name[xh]=Tshintshela kwi Desktop 3
+ Name[x-test]=xxChange to Desktop 3xx
+-Name[xh]=Tshintshela kwi Desktop 3
+ Name[zh_CN]=更改到桌面 3
+ Name[zh_TW]=切換到桌面 3
+ Comment=Virtual desktop three is selected
+@@ -609,8 +609,8 @@
+ Name[uz]=Ish stoli 4ga oʻtish
+ Name[uz@cyrillic]=Иш столи 4га ўтиш
+ Name[wa]=Candjî viè Scribanne 4
++Name[xh]=Tshintshela kwi Desktop 4
+ Name[x-test]=xxChange to Desktop 4xx
+-Name[xh]=Tshintshela kwi Desktop 4
+ Name[zh_CN]=更改到桌面 4
+ Name[zh_TW]=切換到桌面 4
+ Comment=Virtual desktop four is selected
+@@ -761,8 +761,8 @@
+ Name[uz]=Ish stoli 5ga oʻtish
+ Name[uz@cyrillic]=Иш столи 5га ўтиш
+ Name[wa]=Candjî viè Scribanne 5
++Name[xh]=Tshintshela kwi Desktop 5
+ Name[x-test]=xxChange to Desktop 5xx
+-Name[xh]=Tshintshela kwi Desktop 5
+ Name[zh_CN]=更改到桌面 5
+ Name[zh_TW]=切換到桌面 5
+ Comment=Virtual desktop five is selected
+@@ -914,8 +914,8 @@
+ Name[uz]=Ish stoli 6ga oʻtish
+ Name[uz@cyrillic]=Иш столи 6га ўтиш
+ Name[wa]=Candjî viè Scribanne 6
++Name[xh]=Tshintshela kwi Desktop 6
+ Name[x-test]=xxChange to Desktop 6xx
+-Name[xh]=Tshintshela kwi Desktop 6
+ Name[zh_CN]=更改到桌面 6
+ Name[zh_TW]=切換到桌面 6
+ Comment=Virtual desktop six is selected
+@@ -1065,8 +1065,8 @@
+ Name[uz]=Ish stoli 7ga oʻtish
+ Name[uz@cyrillic]=Иш столи 7га ўтиш
+ Name[wa]=Candjî viè Scribanne 7
++Name[xh]=Tshintshela kwi Desktop 7
+ Name[x-test]=xxChange to Desktop 7xx
+-Name[xh]=Tshintshela kwi Desktop 7
+ Name[zh_CN]=更改到桌面 7
+ Name[zh_TW]=切換到桌面 7
+ Comment=Virtual desktop seven is selected
+@@ -1218,8 +1218,8 @@
+ Name[uz]=Ish stoli 8ga oʻtish
+ Name[uz@cyrillic]=Иш столи 8га ўтиш
+ Name[wa]=Candjî viè Scribanne 8
++Name[xh]=Tshintshela kwi Desktop 8
+ Name[x-test]=xxChange to Desktop 8xx
+-Name[xh]=Tshintshela kwi Desktop 8
+ Name[zh_CN]=更改到桌面 8
+ Name[zh_TW]=切換到桌面 8
+ Comment=Virtual desktop eight is selected
+@@ -3157,8 +3157,8 @@
+ Name[uz]=Oynani aktivlashtirish
+ Name[uz@cyrillic]=Ойнани активлаштириш
+ Name[wa]=Disperter purnea
++Name[xh]=Yenza i window isebenze
+ Name[x-test]=xxActivate Windowxx
+-Name[xh]=Yenza i window isebenze
+ Name[zh_CN]=激活窗口
+ Name[zh_TW]=啟動視窗
+ Comment=Another window is activated
+@@ -3313,8 +3313,8 @@
+ Name[uz@cyrillic]=Янги ойна
+ Name[vi]=Cửa sổ mới
+ Name[wa]=Novea purnea
++Name[xh]=Window Entsha
+ Name[x-test]=xxNew Windowxx
+-Name[xh]=Window Entsha
+ Name[zh_CN]=新建窗口
+ Name[zh_TW]=新視窗
+ Comment=New window
+@@ -3470,8 +3470,8 @@
+ Name[uz]=Oynani oʻchirish
+ Name[uz@cyrillic]=Ойнани ўчириш
+ Name[wa]=Disfacer purnea
++Name[xh]=Cima i Window
+ Name[x-test]=xxDelete Windowxx
+-Name[xh]=Cima i Window
+ Name[zh_CN]=删除窗口
+ Name[zh_TW]=刪除視窗
+ Comment=Delete window
+@@ -3623,8 +3623,8 @@
+ Name[uz]=Oynani yopish
+ Name[uz@cyrillic]=Ойнани ёпиш
+ Name[wa]=Clojhaedje di purnea
++Name[xh]=Window Iyavala
+ Name[x-test]=xxWindow Closexx
+-Name[xh]=Window Iyavala
+ Name[zh_CN]=窗口关闭
+ Name[zh_TW]=視窗關閉
+ Comment=A window closes
+@@ -3770,8 +3770,8 @@
+ Name[tr]=Pencere Yukarı
+ Name[uk]=Згортає вікно вгору
+ Name[wa]=Ombion d' purnea
++Name[xh]=Window Yenza umthunzi Phezulu
+ Name[x-test]=xxWindow Shade Upxx
+-Name[xh]=Window Yenza umthunzi Phezulu
+ Name[zh_CN]=窗口卷起
+ Name[zh_TW]=視窗層級往上
+ Comment=A window is shaded up
+@@ -3907,8 +3907,8 @@
+ Name[tr]=Pencere Aşağı
+ Name[uk]=Згортає вікно вниз
+ Name[wa]=Met a l' ombion l' purnea
++Name[xh]=Window Yenza umthunzi Ezantsi
+ Name[x-test]=xxWindow Shade Downxx
+-Name[xh]=Window Yenza umthunzi Ezantsi
+ Name[zh_CN]=窗口展开
+ Name[zh_TW]=視窗層級往下
+ Comment=A window is shaded down
+@@ -4341,8 +4341,8 @@
+ Name[uz]=Oynani yoyish
+ Name[uz@cyrillic]=Ойнани ёйиш
+ Name[wa]=Purnea å pu grand
++Name[xh]=Window Yenza nkulu
+ Name[x-test]=xxWindow Maximizexx
+-Name[xh]=Window Yenza nkulu
+ Name[zh_CN]=窗口最大化
+ Name[zh_TW]=視窗最大化
+ Comment=A window is maximized
+@@ -4488,8 +4488,8 @@
+ Name[tr]=Pencereyi Küçült
+ Name[uk]=Скасувати максимізацію вікна
+ Name[wa]=Purnea pus å pu grand
++Name[xh]=Window Sukwenza ubukhulu
+ Name[x-test]=xxWindow Unmaximizexx
+-Name[xh]=Window Sukwenza ubukhulu
+ Name[zh_CN]=窗口取消最大化
+ Name[zh_TW]=視窗解除最大化
+ Comment=A window loses maximization
+@@ -4918,8 +4918,8 @@
+ Name[uz]=Yangi dialog
+ Name[uz@cyrillic]=Янги диалог
+ Name[wa]=Nouve divize
++Name[xh]=Incoko yababini Entsha 
+ Name[x-test]=xxNew Dialogxx
+-Name[xh]=Incoko yababini Entsha 
+ Name[zh_CN]=新对话框
+ Name[zh_TW]=新對話框
+ Comment=Transient window (a dialog) appears
+@@ -5061,8 +5061,8 @@
+ Name[uz]=Dialogni oʻchirish
+ Name[uz@cyrillic]=Диалогни ўчириш
+ Name[wa]=Disfacer divize
++Name[xh]=Cima Incoko yababini
+ Name[x-test]=xxDelete Dialogxx
+-Name[xh]=Cima Incoko yababini
+ Name[zh_CN]=删除对话框
+ Name[zh_TW]=刪除對話框
+ Comment=Transient window (a dialog) is removed
+@@ -5200,8 +5200,8 @@
+ Name[uz]=Oynani koʻchirishni boshlash
+ Name[uz@cyrillic]=Ойнани кўчиришни бошлаш
+ Name[wa]=Cominçmint do movmint do purnea
++Name[xh]=Isiqalo Sentshukumo ye Window
+ Name[x-test]=xxWindow Move Startxx
+-Name[xh]=Isiqalo Sentshukumo ye Window
+ Name[zh_CN]=窗口移动开始
+ Name[zh_TW]=視窗移動開始
+ Comment=A window has begun moving
+@@ -5340,8 +5340,8 @@
+ Name[uz]=Oynani koʻchirishni tugatish
+ Name[uz@cyrillic]=Ойнани кўчиришни тугатиш
+ Name[wa]=Difén do movmint do purnea
++Name[xh]=Isiphelo Sentshukumo ye Window
+ Name[x-test]=xxWindow Move Endxx
+-Name[xh]=Isiphelo Sentshukumo ye Window
+ Name[zh_CN]=窗口移动结束
+ Name[zh_TW]=視窗移動結束
+ Comment=A window has completed its moving
+@@ -5481,8 +5481,8 @@
+ Name[uz]=Oynaning oʻlchamini oʻzgartirish boshlandi
+ Name[uz@cyrillic]=Ойнанинг ўлчамини ўзгартириш бошланди
+ Name[wa]=Cominçmint do candjmint d' grandeu do purnea
++Name[xh]=Isiqalo Soniko kwakhona sobungakanani se Window
+ Name[x-test]=xxWindow Resize Startxx
+-Name[xh]=Isiqalo Soniko kwakhona sobungakanani se Window
+ Name[zh_CN]=窗口重定义大小开始
+ Name[zh_TW]=視窗調整大小開始
+ Comment=A window has begun resizing
+@@ -5621,8 +5621,8 @@
+ Name[uz]=Oynaning oʻlchamini oʻzgartirish tugadi
+ Name[uz@cyrillic]=Ойнанинг ўлчамини ўзгартириш тугади
+ Name[wa]=Difén do candjmint d' grandeu do purnea
++Name[xh]=Isiphelo Sobungakanani kwakhona se Window
+ Name[x-test]=xxWindow Resize Endxx
+-Name[xh]=Isiphelo Sobungakanani kwakhona se Window
+ Name[zh_CN]=窗口重定义大小结束
+ Name[zh_TW]=視窗調整大小結束
+ Comment=A window has finished resizing
+--- workspace/kdm/kfrontend/sessions/ratpoison.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/kdm/kfrontend/sessions/ratpoison.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -81,7 +81,7 @@
+ Comment[ru]=Простой диспетчер окон, моделирующий Screen и управляемый с клавиатуры
+ Comment[se]=Oktageardánis, boallobeavdestivrejuvvon lásegieđahalli, mas lea Screen ovdagovvan
+ Comment[sk]=Jednoduchý správca okien ovládaný iba klávesami podľa programu Screen
+-Comment[sl]=Preprost okenski uporavljalnik na osnovi Screen, upravlja se samo s tipkovnico
++Comment[sl]=Preprost upravljalnik oken na osnovi Screen, upravlja se samo s tipkovnico
+ Comment[sr]=Једноставан менаџер прозора само за тастатуру, по угледу на Скрин
+ Comment[sr@latin]=Jednostavan menadžer prozora samo za tastaturu, po ugledu na Screen
+ Comment[sv]=Enkel fönsterhanterare bara för tangentbord modellerad efter Screen
+--- workspace/ksysguard/example/ksysguard.notifyrc	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/ksysguard/example/ksysguard.notifyrc	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -75,8 +75,8 @@
+ Comment[uz]=KDE tizim nazoratchisi
+ Comment[uz@cyrillic]=KDE тизим назоратчиси
+ Comment[wa]=Gåre sistinme di KDE
++Comment[xh]=KDE Ukhuselo lendlela yokusebenza
+ Comment[x-test]=xxKDE System Guardxx
+-Comment[xh]=KDE Ukhuselo lendlela yokusebenza
+ Comment[zh_CN]=KDE 系统卫士
+ Comment[zh_TW]=KDE 系統守衛
+ 
+@@ -353,7 +353,7 @@
+ Comment[uz]=Sensor havfli chegaradan oʻtdi
+ Comment[uz@cyrillic]=Сенсор ҳавфли чегарадан ўтди
+ Comment[wa]=Li sinteu a stî pus lon kel limite critike
++Comment[xh]=Umda wokufumana ingxaki ekhoyo woluvo
+ Comment[x-test]=xxSensor exceeded critical limitxx
+-Comment[xh]=Umda wokufumana ingxaki ekhoyo woluvo
+ Comment[zh_CN]=传感器达到关键限制
+ Comment[zh_TW]=感應器已超過限制
+--- workspace/plasma/dataengines/hotplug/plasma-dataengine-hotplug.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/dataengines/hotplug/plasma-dataengine-hotplug.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -32,7 +32,7 @@
+ Name[lv]=Hotplug notikumi
+ Name[ml]=ഹോട്ട്പ്ലഗ് സംഭവങ്ങള്‍
+ Name[mr]=Hotplug घटना
+-Name[nb]=Hendelsesdata
++Name[nb]=Tilkoblingshendelser
+ Name[nds]=Tokoppel-Begeefnissen
+ Name[nl]=Hotplug-gebeurtenissen
+ Name[nn]=Hotplug-hendingar
+--- workspace/plasma/dataengines/mouse/plasma-dataengine-mouse.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/dataengines/mouse/plasma-dataengine-mouse.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -111,7 +111,7 @@
+ Comment[sv]=Musdata för Plasmoider
+ Comment[te]=Plasmoids కొరకు మౌస్ డాటా
+ Comment[th]=ข้อมูลเมาส์สำหรับพลาสมอยด์
+-Comment[tr]=Plasma programcıkları için fare verisi
++Comment[tr]=Plasma programcıkları için fare verileri
+ Comment[uk]=Рушій даних мишки для плазмоїдів
+ Comment[wa]=Dinêyes del sori po Plasmoids
+ Comment[x-test]=xxMouse data for Plasmoidsxx
+--- workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/dataengines/places/plasma-dataengine-places.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -94,7 +94,7 @@
+ Comment[lv]=Vietu dati Plazmoīdiem
+ Comment[ml]=പ്ലാസ്മോയിഡ്സിനുള്ള സ്ഥാനങ്ങളെക്കുറിച്ചുള്ള ഡാറ്റ
+ Comment[mr]=Plasmoids करीता माहिती स्थित करतो
+-Comment[nb]=Stedsdata for Plasmoids
++Comment[nb]=Stedsdata for Plasmoider
+ Comment[nds]=Steeddaten för Lüttprogrammen
+ Comment[ne]=प्लासमोइड्सका लागि स्थान डेटा
+ Comment[nl]=Locatiegegevens voor Plasmoids
+@@ -114,7 +114,7 @@
+ Comment[sv]=Platsdata för Plasmoider
+ Comment[te]=Plasmoids కొరకు డాటాను ఉంచుతోంది
+ Comment[th]=ข้อมูลที่หลัก ๆ สำหรับพลาสมอยด์
+-Comment[tr]=Plasma programcıkları için konumlar verisi
++Comment[tr]=Plasma programcıkları için konum verileri
+ Comment[uk]=Рушій даних про місця для плазмоїдів
+ Comment[wa]=Dinêyes d' eplaeçmints po Plasmoids
+ Comment[x-test]=xxPlaces data for Plasmoidsxx
+--- workspace/plasma/dataengines/rss/plasma-dataengine-rss.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/dataengines/rss/plasma-dataengine-rss.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -44,7 +44,7 @@
+ Comment[lv]=RSS ziņu datu dzinējs
+ Comment[ml]=RSS ന്യൂസ് ഡേറ്റാ എഞ്ചിന്‍
+ Comment[mr]=RSS समाचार Data Engine
+-Comment[nb]=RSS nyhetsdata-motor
++Comment[nb]=RSS nyhets-datamotor
+ Comment[nds]=RSS-Stroom-Datenkarn
+ Comment[nl]=RSS-nieuws (gegevensengine)
+ Comment[or]=RSS ଖବର ତଥ୍ୟ ଯନ୍ତ୍ର
+--- workspace/plasma/shells/desktop/panelview.cpp	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/shells/desktop/panelview.cpp	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -575,8 +575,10 @@
+ 
+ void PanelView::pinchContainmentToCurrentScreen()
+ {
++    disconnect(this, SIGNAL(sceneRectAboutToChange()), this, SLOT(pinchContainmentToCurrentScreen()));
+     QRect screenRect = Kephal::ScreenUtils::screenGeometry(containment()->screen());
+     pinchContainment(screenRect);
++    connect(this, SIGNAL(sceneRectAboutToChange()), this, SLOT(pinchContainmentToCurrentScreen()));
+ }
+ 
+ void PanelView::pinchContainment(const QRect &screenGeom)
+--- workspace/plasma/runners/recentdocuments/recentdocuments.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/runners/recentdocuments/recentdocuments.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -65,8 +65,8 @@
+ Name[uz]=Yaqinda ochilgan hujjatlar
+ Name[uz@cyrillic]=Яқинда очилган ҳужжатлар
+ Name[vi]=Tài liệu gần đây
++Name[xh]=Uxwebhu Olusandukusebenziswa
+ Name[x-test]=xxRecent Documentsxx
+-Name[xh]=Uxwebhu Olusandukusebenziswa
+ Name[zh_CN]=最近使用的文档
+ Name[zh_TW]=最近的文件
+ Icon=document-open-recent
+--- workspace/plasma/runners/bookmarks/plasma-runner-bookmarks.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/runners/bookmarks/plasma-runner-bookmarks.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -78,8 +78,8 @@
+ Name[uz@cyrillic]=Хатчўплар
+ Name[vi]=Dấu nhớ
+ Name[wa]=Rimåkes
++Name[xh]=Amanqaku eencwadi
+ Name[x-test]=xxBookmarksxx
+-Name[xh]=Amanqaku eencwadi
+ Name[zh_CN]=书签
+ Name[zh_TW]=書籤
+ Comment=Find and open bookmarks
+--- workspace/plasma/runners/webshortcuts/plasma-runner-webshortcuts.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/runners/webshortcuts/plasma-runner-webshortcuts.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -77,8 +77,8 @@
+ Name[uz@cyrillic]=Веб-қисқартмалари
+ Name[vi]=Lối tắt Mạng
+ Name[wa]=Rascourtis waibe
++Name[xh]=Ezimfutshane ze Web
+ Name[x-test]=xxWeb Shortcutsxx
+-Name[xh]=Ezimfutshane ze Web
+ Name[zh_CN]=网页快捷方式
+ Name[zh_TW]=網頁捷徑
+ Comment=Allows user to use Konqueror's Web shortcuts
+--- workspace/plasma/containments/panel/plasma-containment-panel.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/containments/panel/plasma-containment-panel.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -59,8 +59,8 @@
+ Name[uz@cyrillic]=Панел
+ Name[vi]=Bảng điều khiển
+ Name[wa]=Sicriftôr
++Name[xh]=Iqela lenjongo ethile
+ Name[x-test]=xxPanelxx
+-Name[xh]=Iqela lenjongo ethile
+ Name[zh_CN]=面板
+ Name[zh_TW]=面板
+ Comment=A containment for a panel
+--- workspace/plasma/applets/webbrowser/plasma-applet-webbrowser.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/applets/webbrowser/plasma-applet-webbrowser.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -77,8 +77,8 @@
+ Name[uz@cyrillic]=Веб-браузер
+ Name[vi]=Trình duyệt Mạng
+ Name[wa]=Betchteu waibe
++Name[xh]=Umkhangeli zincwadi we Web
+ Name[x-test]=xxWeb Browserxx
+-Name[xh]=Umkhangeli zincwadi we Web
+ Name[zh_CN]=Web 浏览器
+ Name[zh_TW]=網頁瀏覽器
+ Comment=A simple web browser
+--- workspace/plasma/applets/systemtray/plasma-applet-systemtray.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/applets/systemtray/plasma-applet-systemtray.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -72,8 +72,8 @@
+ Name[uk]=Системний лоток
+ Name[vi]=Khay hệ thống
+ Name[wa]=Boesse ås imådjetes
++Name[xh]=Itreyi Yendlela yokusebenza
+ Name[x-test]=xxSystem Trayxx
+-Name[xh]=Itreyi Yendlela yokusebenza
+ Name[zh_CN]=系统托盘
+ Name[zh_TW]=系統匣
+ Comment=Access hidden applications minimized in the system tray
+--- workspace/plasma/applets/pager/plasma-pager-default.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/applets/pager/plasma-pager-default.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -37,6 +37,7 @@
+ Name[ml]=പേജര്‍
+ Name[mr]=पेजर
+ Name[nb]=Sidebytter
++Name[nds]=Schriefdisch-Översicht
+ Name[ne]=पेजर
+ Name[nn]=Skrivebordsbyttar
+ Name[oc]=Recebedor d'apèl
+--- workspace/plasma/wallpapers/image/plasma-wallpaper-image.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/wallpapers/image/plasma-wallpaper-image.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -52,8 +52,8 @@
+ Name[si]=පිංතූරය
+ Name[sk]=Obrázok
+ Name[sl]=Slika
+-Name[sr]=Слика
+-Name[sr@latin]=Slika
++Name[sr]=слика
++Name[sr@latin]=slika
+ Name[sv]=Bild
+ Name[tg]=Тасвир
+ Name[th]=ภาพ
+@@ -129,8 +129,8 @@
+ Name[si]=පිංතූරය
+ Name[sk]=Obrázok
+ Name[sl]=Slika
+-Name[sr]=Слика
+-Name[sr@latin]=Slika
++Name[sr]=слика
++Name[sr@latin]=slika
+ Name[sv]=Bild
+ Name[tg]=Тасвир
+ Name[th]=ภาพ
+@@ -196,8 +196,8 @@
+ Name[ru]=Слайд-шоу
+ Name[sk]=Prezentácia
+ Name[sl]=Menjanje slik
+-Name[sr]=Слајд‑шоу
+-Name[sr@latin]=Slajd‑šou
++Name[sr]=слајд‑шоу
++Name[sr@latin]=slajd‑šou
+ Name[sv]=Bildspel
+ Name[tg]=Намоиши слайдҳо
+ Name[th]=นำเสนอภาพนิ่ง
+--- workspace/plasma/wallpapers/color/plasma-wallpaper-color.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/wallpapers/color/plasma-wallpaper-color.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -52,8 +52,8 @@
+ Name[si]=වර්‍ණය
+ Name[sk]=Farba
+ Name[sl]=Barva
+-Name[sr]=Боја
+-Name[sr@latin]=Boja
++Name[sr]=боја
++Name[sr@latin]=boja
+ Name[sv]=Färg
+ Name[te]=రంగు
+ Name[tg]=Ранг
+--- workspace/plasma/scriptengines/python/plasma-scriptengine-applet-python.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/scriptengines/python/plasma-scriptengine-applet-python.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -100,7 +100,7 @@
+ Comment[sr@latin]=Podrška plasma vidžeta pisanih u Pythonu
+ Comment[sv]=Stöd för grafisk Plasma-komponent skriven i Python
+ Comment[th]=วิดเจ็ตพลาสมาที่ถูกเขียนด้วยภาษาไพธอน
+-Comment[tr]=Python ile yazılmış Plasma programcık desteği
++Comment[tr]=Python ile yazılmış Plasma gereci desteği
+ Comment[uk]=Віджет Плазми, написаний на Python
+ Comment[x-test]=xxPlasma widget support written in Pythonxx
+ Comment[zh_CN]=Plasma 部件支持用 Python 来编写
+--- workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-applet.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-applet.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -101,7 +101,7 @@
+ Comment[sr@latin]=Samosvojni plasma vidžet napisan u Rubyju
+ Comment[sv]=Inbyggd grafisk Plasma-komponent skriven i Ruby
+ Comment[th]=วิดเจ็ตพลาสมาแท้ที่ถูกเขียนด้วยภาษารูบี้
+-Comment[tr]=Ruby ile yazılmış gerçek Plasma Programcığı
++Comment[tr]=Ruby ile yazılmış gerçek Plasma gereci
+ Comment[uk]=Віджет Плазми, написаний на Ruby
+ Comment[x-test]=xxNative Plasma widget written in Rubyxx
+ Comment[zh_CN]=使用 Ruby 编写的原生 Plasma 部件
+--- workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-dataengine.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/scriptengines/ruby/plasma-scriptengine-ruby-dataengine.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -101,7 +101,7 @@
+ Comment[sr@latin]=Samosvojni plasma vidžet napisan u Rubyju
+ Comment[sv]=Inbyggd grafisk Plasma-komponent skriven i Ruby
+ Comment[th]=วิดเจ็ตพลาสมาแท้ที่ถูกเขียนด้วยภาษารูบี้
+-Comment[tr]=Ruby ile yazılmış gerçek Plasma Programcığı
++Comment[tr]=Ruby ile yazılmış gerçek Plasma gereci
+ Comment[uk]=Віджет Плазми, написаний на Ruby
+ Comment[x-test]=xxNative Plasma widget written in Rubyxx
+ Comment[zh_CN]=使用 Ruby 编写的原生 Plasma 部件
+--- workspace/plasma/scriptengines/javascript/plasma-scriptengine-applet-simple-javascript.desktop	(.../tags/KDE/4.2.3/kdebase)	(wersja 974231)
++++ workspace/plasma/scriptengines/javascript/plasma-scriptengine-applet-simple-javascript.desktop	(.../branches/KDE/4.2/kdebase)	(wersja 974231)
+@@ -107,7 +107,7 @@
+ Comment[sv]=Inbyggd grafisk Plasma-komponent skriven i Javascript
+ Comment[te]=జావాస్క్రిప్‍ట్‌లో వ్రాసిన నేటివ్ ప్లాజ్మా విడ్‍జ్‌ట్
+ Comment[th]=วิดเจ็ตพลาสมาที่ถูกเขียนด้วยจาวาสคริปต์
+-Comment[tr]=JavaScript ile yazılmış gerçek Plasma Programcığı
++Comment[tr]=JavaScript ile yazılmış gerçek Plasma gereci
+ Comment[uk]=Віджет Плазми, написаний на JavaScript
+ Comment[x-test]=xxNative Plasma widget written in JavaScriptxx
+ Comment[zh_CN]=使用 JavaScript 编写的原生 Plasma 部件
