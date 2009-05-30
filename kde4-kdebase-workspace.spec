@@ -2,19 +2,19 @@
 %define		oname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.0
-%define		svn		969966
+%define		svn		973768
 
 # - internal deps (really FUBAR currently)
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.87
+Version:	4.2.88
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
-# Source0-md5:	e4735590484f3f7f0d41763edc420603
+# Source0-md5:	26f4e9df3242d4e59471db9d8ac3e4ad
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
@@ -50,6 +50,7 @@ BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6.3
 BuildRequires:	google-gadgets-qt >= 0.10.5
 BuildRequires:	kde4-kdelibs-devel >= %{version}
+BuildRequires:	kde4-kdelibs-experimental-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
 BuildRequires:	libggadget-qt-devel >= 0.10.5
@@ -72,11 +73,11 @@ BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Requires:	kde4-icons-oxygen >= %{version}
+Requires:	kde4-kdebase-workspace-solid >= %{version}
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
-Requires:	kde4-kdebase-workspace-solid >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
 Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
@@ -1261,7 +1262,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_containment_midpanel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
@@ -1361,7 +1361,6 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
 #%{_datadir}/kde4/services/plasma-scriptengine-applet-simple-javascript.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
-%{_datadir}/kde4/services/plasma-containment-midpanel.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
 %{_datadir}/kde4/services/plasma-containment-panel.desktop
 %{_datadir}/kde4/services/plasma-dataengine-executable.desktop
