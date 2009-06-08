@@ -1,7 +1,7 @@
 # TODO:
 %define		oname		kdebase-workspace
 %define		_state		unstable
-%define		qt4brver	4.5.0
+%define		qt4brver	4.5.1
 %define		svn		973768
 
 # - internal deps (really FUBAR currently)
@@ -9,13 +9,13 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.88
+Version:	4.2.90
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
-# Source0-md5:	26f4e9df3242d4e59471db9d8ac3e4ad
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+# Source0-md5:	97946c6e8ca4eb1c9ecefbe8b387d935
+#Source0:       ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -49,6 +49,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6.3
 BuildRequires:	google-gadgets-qt >= 0.10.5
+BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-experimental-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
@@ -157,8 +158,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
-szybkiego systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
+systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -209,8 +210,7 @@ KDE screensavers.
 Wygaszacze ekranu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop
-Environment.
+Некоторые 3D хранители экрана для K Desktop Environment.
 
 %package solid
 Summary:	Solid - KDE 4 hardware configuration
@@ -297,8 +297,8 @@ aligned next to each other.
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
-obok siebie.
+przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
+siebie.
 
 %package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
@@ -404,8 +404,8 @@ buttons. Between the two area there is a stylish transition.
 
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
-Między obszarami jest stylowy przejście.
+jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
+obszarami jest stylowy przejście.
 
 %package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
@@ -441,8 +441,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the classic, default look.
 
 %description -n kde4-kgreet-classic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - klasyczny, domyślny
-motyw wyglądu.
+Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
+wyglądu.
 
 %package -n kde4-kgreet-generic
 Summary:	KDE greeter libraries - generic version
@@ -454,8 +454,7 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the generic, default look.
 
 %description -n kde4-kgreet-generic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw
-wyglądu.
+Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries - winbind version
@@ -518,7 +517,8 @@ KDE icons - oxygen. This package contains SVG icons.
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
-%setup -q -n %{oname}-%{version}svn%{svn}
+%setup -q -n %{oname}-%{version}
+#%setup -q -n %{oname}-%{version}svn%{svn}
 #%patch100 -p1
 #%patch0 -p1
 %patch1 -p1
@@ -647,7 +647,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
 %attr(755,root,root) %{_bindir}/setscheduler
-%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+#%attr(755,root,root) %{_bindir}/polkit-kde-authorization
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
@@ -657,8 +657,8 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma-desktop.so
 %attr(755,root,root) %{_libdir}/libkickoff.so
-%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
-%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
+#%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
+#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
 %attr(755,root,root) %{_libdir}/libsystemsettingsview.so
 %attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 %attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
@@ -700,8 +700,8 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
-%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
-%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
+#%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
+#%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
 
 # kmenuedit
 %attr(755,root,root) %{_bindir}/kmenuedit
@@ -732,10 +732,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
 %attr(755,root,root) %{_libdir}/kde4/classic_mode.so
 %attr(755,root,root) %{_libdir}/kde4/icon_mode.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
+#%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
 %attr(755,root,root) %{_libdir}/kde4/kded_notificationitemwatcher.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kscreenlocker
-%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
+#%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
 #%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
 %{_datadir}/kde4/services/recentdocuments.desktop
 %{_datadir}/autostart/krunner.desktop
@@ -750,7 +750,7 @@ fi
 %{_datadir}/kde4/services/plasma-engine-metadata.desktop
 %{_datadir}/kde4/services/plasma-geolocation-gps.desktop
 %{_datadir}/kde4/services/plasma-geolocation-ip.desktop
-%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+#%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
 %{_datadir}/kde4/services/kded/kephal.desktop
 %{_datadir}/kde4/services/kded/notificationitemwatcher.desktop
 %{_datadir}/kde4/services/settings-classic-view.desktop
@@ -1005,11 +1005,9 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
+#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-# YES, this is wrong...
-%{_libdir}/cmake/KDE4Workspace-4.2.85
-#%{_libdir}/cmake/KDE4Workspace-%{version}
+%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
