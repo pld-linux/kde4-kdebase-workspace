@@ -1,4 +1,5 @@
 # TODO:
+# - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		oname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.1
@@ -78,6 +79,7 @@ Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
 Suggests:	kde4-style-oxygen >= %{version}
+Obsoletes:	PolicyKit-kde
 Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
 Obsoletes:	kdebase-desktop
@@ -978,6 +980,18 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libkephal.so.?
 #%{_datadir}/kde4/services/kded/kded_kephal.desktop
 %{_datadir}/config.kcfg/plasma-shell-desktop.kcfg
+
+#PolicyKit-kde
+%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
+#%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
+#%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
+%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
+%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
 
 %files libksgrd
 %defattr(644,root,root,755)
