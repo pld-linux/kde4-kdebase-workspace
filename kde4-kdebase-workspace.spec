@@ -2,20 +2,18 @@
 %define		oname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.1
-%define		svn		973768
-
-# - internal deps (really FUBAR currently)
+%define		svn		979380
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.90
+Version:	4.2.91
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	97946c6e8ca4eb1c9ecefbe8b387d935
-#Source0:       ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
+# Source0-md5:	2294ff4aed0ffbe02ab52c57bf18acf1
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -517,8 +515,8 @@ KDE icons - oxygen. This package contains SVG icons.
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
-%setup -q -n %{oname}-%{version}
-#%setup -q -n %{oname}-%{version}svn%{svn}
+##%setup -q -n %{oname}-%{version}
+%setup -q -n %{oname}-%{version}svn%{svn}
 #%patch100 -p1
 #%patch0 -p1
 %patch1 -p1
@@ -1007,7 +1005,9 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-%{_libdir}/cmake/KDE4Workspace-%{version}
+# YES, this is wrong...
+%{_libdir}/cmake/KDE4Workspace-4.2.90
+#%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1097,10 +1097,6 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
 %dir %{_datadir}/apps/kwin
-%{_datadir}/apps/kwin/blur-render.frag
-%{_datadir}/apps/kwin/blur-render.vert
-%{_datadir}/apps/kwin/blur.frag
-%{_datadir}/apps/kwin/blur.vert
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
 %{_datadir}/apps/kwin/snowflake.png
@@ -1129,7 +1125,6 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/desktopthemedetails.desktop
-%{_datadir}/kde4/services/kwin/blur.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/boxswitch_config.desktop
 %{_datadir}/kde4/services/kwin/coverswitch.desktop
