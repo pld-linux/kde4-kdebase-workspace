@@ -8,13 +8,13 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.91
+Version:	4.2.95
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}svn%{svn}.tar.bz2
-# Source0-md5:	2294ff4aed0ffbe02ab52c57bf18acf1
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
+# Source0-md5:	fd95cf684f517bf45f8c26e0896d0593
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -60,7 +60,6 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	polkit-qt-devel
-BuildRequires:	python-PyKDE4 >= 4.2.1
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
@@ -517,8 +516,8 @@ KDE icons - oxygen. This package contains SVG icons.
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
-##%setup -q -n %{oname}-%{version}
-%setup -q -n %{oname}-%{version}svn%{svn}
+%setup -q -n %{oname}-%{version}
+##%setup -q -n %{oname}-%{version}svn%{svn}
 #%patch100 -p1
 #%patch0 -p1
 %patch1 -p1
@@ -757,8 +756,6 @@ fi
 %{_datadir}/kde4/services/settings-icon-view.desktop
 %{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 
 # ksmserver
 %attr(755,root,root) %{_bindir}/ksmserver
@@ -1017,7 +1014,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
 # YES, this is wrong...
 %{_libdir}/cmake/KDE4Workspace-4.2.90
@@ -1143,6 +1140,7 @@ fi
 %{_datadir}/kde4/services/kwin/boxswitch_config.desktop
 %{_datadir}/kde4/services/kwin/coverswitch.desktop
 %{_datadir}/kde4/services/kwin/coverswitch_config.desktop
+%{_datadir}/kde4/services/kwin/cubeslide_config.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid.desktop
 %{_datadir}/kde4/services/kwin/desktopgrid_config.desktop
 %{_datadir}/kde4/services/kwin/dialogparent.desktop
@@ -1327,7 +1325,6 @@ fi
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
-%{_datadir}/apps/plasma_scriptengine_python
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-applet.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %dir %{_datadir}/apps/plasma/services
@@ -1407,8 +1404,6 @@ fi
 %dir %{_datadir}/apps/desktoptheme/default/calendar
 %{_datadir}/apps/desktoptheme/default/calendar/mini-calendar.svgz
 %{_datadir}/autostart/plasma-desktop.desktop
-%{py_sitedir}/PyKDE4/plasmascript.pyc
-%{py_sitedir}/PyKDE4/plasmascript.pyo
 %lang(en) %{_kdedocdir}/en/plasma
 %{_mandir}/man1/plasmaengineexplorer.1*
 
@@ -1469,20 +1464,20 @@ fi
 %files wallpapers
 %defattr(644,root,root,755)
 %{_datadir}/wallpapers/Air
-%{_datadir}/wallpapers/Blue_Curl
+%{_datadir}/wallpapers/Aghi
+%{_datadir}/wallpapers/Atra_Dot
 %{_datadir}/wallpapers/Code_Poets_Dream
 %{_datadir}/wallpapers/Curls_on_Green
 %{_datadir}/wallpapers/EOS
+%{_datadir}/wallpapers/Evening
 %{_datadir}/wallpapers/Fields_of_Peace
 %{_datadir}/wallpapers/Finally_Summer_in_Germany
-%{_datadir}/wallpapers/Flower_drops
 %{_datadir}/wallpapers/Fresh_Morning
-%{_datadir}/wallpapers/HighTide
-%{_datadir}/wallpapers/Ladybuggin
 %{_datadir}/wallpapers/Plasmalicious
 %{_datadir}/wallpapers/Red_Leaf
+%{_datadir}/wallpapers/Spring_Sunray
 %{_datadir}/wallpapers/There_is_Rain_on_the_Table
-%{_datadir}/wallpapers/Vector_Sunset
+%{_datadir}/wallpapers/The_Rings_of_Saturn
 %{_datadir}/wallpapers/default_blue.jpg
 %{_datadir}/wallpapers/default_blue.jpg.desktop
 
