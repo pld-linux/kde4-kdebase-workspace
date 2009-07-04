@@ -517,7 +517,6 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
 %setup -q -n %{oname}-%{version}
-##%setup -q -n %{oname}-%{version}svn%{svn}
 #%patch100 -p1
 #%patch0 -p1
 %patch1 -p1
@@ -527,6 +526,7 @@ install -d build
 cd build
 %cmake \
 	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DLIB_INSTALL_DIR=%{_libdir} \
 	-DKDE4_KDM_PAM_SERVICE=kdm \
 	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
 	-DKDE4_KSCREENSAVER_PAM_SERVICE=kscreensaver \
