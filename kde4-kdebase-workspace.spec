@@ -8,13 +8,13 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.95
+Version:	4.2.96
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	fd95cf684f517bf45f8c26e0896d0593
+# Source0-md5:	ee9a57af00c895afbf949fbf8d2a1590
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -157,8 +157,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
-systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
+szybkiego systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -209,7 +209,8 @@ KDE screensavers.
 Wygaszacze ekranu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop Environment.
+Некоторые 3D хранители экрана для K Desktop
+Environment.
 
 %package solid
 Summary:	Solid - KDE 4 hardware configuration
@@ -296,8 +297,8 @@ aligned next to each other.
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
-siebie.
+przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
+obok siebie.
 
 %package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
@@ -403,8 +404,8 @@ buttons. Between the two area there is a stylish transition.
 
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
-obszarami jest stylowy przejście.
+jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
+Między obszarami jest stylowy przejście.
 
 %package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
@@ -440,8 +441,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the classic, default look.
 
 %description -n kde4-kgreet-classic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
-wyglądu.
+Narzędzia służące do zapytań o hasło - klasyczny, domyślny
+motyw wyglądu.
 
 %package -n kde4-kgreet-generic
 Summary:	KDE greeter libraries - generic version
@@ -453,7 +454,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the generic, default look.
 
 %description -n kde4-kgreet-generic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw wyglądu.
+Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw
+wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries - winbind version
@@ -1017,9 +1019,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-# YES, this is wrong...
-%{_libdir}/cmake/KDE4Workspace-4.2.90
-#%{_libdir}/cmake/KDE4Workspace-%{version}
+%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1273,6 +1273,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_keystate.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_network.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
@@ -1330,6 +1331,7 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %dir %{_datadir}/apps/plasma/services
 %{_datadir}/apps/plasma/services/applicationjobs.operations
+%{_datadir}/apps/plasma/services/modifierkeystate.operations
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
 %{_datadir}/apps/plasma/services/tasks.operations
@@ -1356,6 +1358,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-webbrowser.desktop
 %{_datadir}/kde4/services/plasma-dataengine-applicationjobs.desktop
 %{_datadir}/kde4/services/plasma-dataengine-favicons.desktop
+%{_datadir}/kde4/services/plasma-dataengine-keystate.desktop
 %{_datadir}/kde4/services/plasma-dataengine-notifications.desktop
 %{_datadir}/kde4/services/plasma-dataengine-nowplaying.desktop
 %{_datadir}/kde4/services/plasma-dataengine-systemmonitor.desktop
