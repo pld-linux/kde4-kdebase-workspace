@@ -2,19 +2,19 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		oname		kdebase-workspace
 %define		_state		unstable
-%define		qt4brver	4.5.1
+%define		qt4brver	4.5.2
 %define		svn		979380
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.96
+Version:	4.2.98
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	ee9a57af00c895afbf949fbf8d2a1590
+# Source0-md5:	d4fdf45a38f521a34342303e9e4d291c
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -47,13 +47,13 @@ BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6.3
-BuildRequires:	google-gadgets-qt >= 0.10.5
+BuildRequires:	google-gadgets-qt >= 0.11.0
 BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdelibs-experimental-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
-BuildRequires:	libggadget-qt-devel >= 0.10.5
+BuildRequires:	libggadget-qt-devel >= 0.11.0
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
@@ -66,8 +66,8 @@ BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
-BuildRequires:	soprano-devel >= 2.1.68
-BuildRequires:	strigi-devel
+BuildRequires:	soprano-devel >= 2.3.0
+BuildRequires:	strigi-devel >= 0.6.5
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
