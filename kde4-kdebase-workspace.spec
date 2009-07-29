@@ -3,18 +3,16 @@
 %define		oname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.2
-%define		svn		979380
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.2.98
+Version:	4.3.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	d4fdf45a38f521a34342303e9e4d291c
+# Source0-md5:	e3c441a2e7658ffe0d6ed13b96aa2707
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1019,7 +1017,8 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-%{_libdir}/cmake/KDE4Workspace-%{version}
+#%{_libdir}/cmake/KDE4Workspace-%{version}
+%{_libdir}/cmake/KDE4Workspace-4.2.98
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
