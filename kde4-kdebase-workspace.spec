@@ -41,10 +41,12 @@ BuildRequires:	QtSvg-devel >= %{qt4brver}
 BuildRequires:	QtTest-devel >= %{qt4brver}
 BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	QtWebKit-devel >= %{qt4brver}
+BuildRequires:	akonadi-devel
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6.3
+BuildRequires:	eet-devel
 BuildRequires:	google-gadgets-qt >= 0.11.0
 BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kdelibs-devel >= %{version}
