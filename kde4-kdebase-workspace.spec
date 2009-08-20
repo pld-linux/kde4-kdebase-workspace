@@ -1,18 +1,20 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
-%define		oname		kdebase-workspace
-%define		_state		stable
+%define		orgname		kdebase-workspace
+%define		_state		unstable
 %define		qt4brver	4.5.2
+%define		snap		svn1010339
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.0
-Release:	5
+Version:	4.3.64
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	e56f8af44df7bc8bfbc1de1ff1bf4414
+#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
+# Source0-md5:	63d69abff4aec80624933d0931e3eadc
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -26,7 +28,7 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 URL:		http://www.kde.org/
@@ -519,9 +521,10 @@ KDE icons - oxygen. This package contains SVG icons.
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
-%setup -q -n %{oname}-%{version}
-%patch100 -p1
-#%patch0 -p1
+%setup -q -n %{orgname}-%{version}%{snap}
+#%setup -q -n %{orgname}-%{version}
+#%patch100 -p1
+##%patch0 -p1
 %patch1 -p1
 
 %build
@@ -666,6 +669,8 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 %attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
 
+%{_datadir}/kde4/servicetypes/systemsettingsexternalapp.desktop
+
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
 %{_datadir}/kde4/services/standard_actions.desktop
@@ -731,6 +736,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_windows.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
 %attr(755,root,root) %{_libdir}/kde4/classic_mode.so
@@ -745,6 +751,7 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
+%{_datadir}/kde4/services/plasma-runner-windows.desktop
 %{_datadir}/kde4/services/plasma-applet-panelspacer-internal.desktop
 %{_datadir}/kde4/services/plasma-applet-sm_ram.desktop
 %{_datadir}/kde4/services/plasma-dataengine-calendar.desktop
@@ -766,6 +773,10 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_ksmserver.so
 %{_datadir}/apps/kconf_update/ksmserver.upd
 %{_datadir}/dbus-1/interfaces/org.kde.KSMServerInterface.xml
+
+# kscreenlocker
+%dir %{_datadir}/apps/kscreenlocker
+%{_datadir}/apps/kscreenlocker/kscreenlocker.notifyrc
 
 # ksplash
 %attr(755,root,root) %{_bindir}/ksplashsimple
@@ -1020,7 +1031,8 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-%{_libdir}/cmake/KDE4Workspace-%{version}
+#%{_libdir}/cmake/KDE4Workspace-%{version}
+%{_libdir}/cmake/KDE4Workspace-4.3.60
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1104,12 +1116,18 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
 #%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
+%attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
+%dir %{_datadir}/apps/aurorae
+%dir %{_datadir}/apps/aurorae/themes
+%{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
+%{_datadir}/apps/kwin/aurorae.desktop
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
 %{_datadir}/apps/kwin/snowflake.png
@@ -1134,6 +1152,7 @@ fi
 %{_datadir}/apps/kwin/sphere.vert
 %{_datadir}/apps/kwin/snow.frag
 %{_datadir}/apps/kwin/snow.vert
+%{_datadir}/config/aurorae.knsrc
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
@@ -1165,6 +1184,7 @@ fi
 %{_datadir}/kde4/services/kwin/mousemark_config.desktop
 %{_datadir}/kde4/services/kwin/presentwindows.desktop
 %{_datadir}/kde4/services/kwin/presentwindows_config.desktop
+%{_datadir}/kde4/services/kwin/resize.desktop
 %{_datadir}/kde4/services/kwin/scalein.desktop
 %{_datadir}/kde4/services/kwin/shadow.desktop
 %{_datadir}/kde4/services/kwin/shadow_config.desktop
@@ -1173,6 +1193,7 @@ fi
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
 %{_datadir}/kde4/services/kwin/slide.desktop
+%{_datadir}/kde4/services/kwin/slidingpopups.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside.desktop
 %{_datadir}/kde4/services/kwin/thumbnailaside_config.desktop
 %{_datadir}/kde4/services/kwin/trackmouse.desktop
