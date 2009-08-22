@@ -3,18 +3,18 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.2
-%define		snap		svn1010339
+%define		snap		svn1013471
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.64
+Version:	4.3.65
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	63d69abff4aec80624933d0931e3eadc
+# Source0-md5:	9c0efe57f2007f1e085f2c201fa72b8b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1123,8 +1123,6 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
-%dir %{_datadir}/apps/aurorae
-%dir %{_datadir}/apps/aurorae/themes
 %{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/aurorae.desktop
@@ -1289,8 +1287,15 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_qedje.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_applauncher.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_contextmenu.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_paste.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_switchactivity.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_switchdesktop.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_switchwindow.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_desktop.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_apps.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
@@ -1353,6 +1358,7 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %dir %{_datadir}/apps/plasma/services
 %{_datadir}/apps/plasma/services/applicationjobs.operations
+%{_datadir}/apps/plasma/services/apps.operations
 %{_datadir}/apps/plasma/services/modifierkeystate.operations
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
@@ -1391,8 +1397,15 @@ fi
 %{_datadir}/kde4/services/plasma-scriptengine-applet-web.desktop
 #%{_datadir}/kde4/services/plasma-scriptengine-applet-simple-javascript.desktop
 %{_datadir}/kde4/services/plasma-battery-default.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-applauncher.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-contextmenu.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-paste.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-switchactivity.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-switchdesktop.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-switchwindow.desktop
 %{_datadir}/kde4/services/plasma-containment-desktop.desktop
 %{_datadir}/kde4/services/plasma-containment-panel.desktop
+%{_datadir}/kde4/services/plasma-dataengine-apps.desktop
 %{_datadir}/kde4/services/plasma-dataengine-executable.desktop
 %{_datadir}/kde4/services/plasma-dataengine-dict.desktop
 %{_datadir}/kde4/services/plasma-dataengine-filebrowser.desktop
