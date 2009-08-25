@@ -1,0 +1,13 @@
+--- trunk/KDE/kdebase/workspace/plasma/applets/system-monitor/hdd.cpp	2009/07/25 22:47:08	1002414
++++ trunk/KDE/kdebase/workspace/plasma/applets/system-monitor/hdd.cpp	2009/08/14 07:50:46	1011262
+@@ -260,8 +260,8 @@
+                             data->value("File System Type").toString() <<
+                             data->value("Size").toString();
+         */
+-        if ((data->value("Usage").toString() != "File System" &&
+-             data->value("Usage").toString() != "Raid") ||
++        if ((data->value("Usage").toString() != i18n("File System") &&
++             data->value("Usage").toString() != i18n("Raid")) ||
+             data->value("File System Type").toString() == "swap") {
+             QStringList list = items();
+             list.removeAll(uuid);

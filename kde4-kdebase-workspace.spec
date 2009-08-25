@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.0
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -29,6 +29,7 @@ Source16:	%{name}-session
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
+Patch2:		%{name}-sm_hdd.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
@@ -523,6 +524,8 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 %patch100 -p1
 #%patch0 -p1
 %patch1 -p1
+# upstream patch for system-monitor-hdd
+%patch2 -p4
 
 %build
 install -d build
