@@ -1367,6 +1367,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
 %{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
+%{_datadir}/kde4/services/plasma-applet-ggl-analog-clock.desktop
 %{_datadir}/kde4/services/plasma-applet-icon.desktop
 %{_datadir}/kde4/services/plasma-applet-launcher.desktop
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
