@@ -85,6 +85,7 @@ Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
 Obsoletes:	kdebase-desktop
 Obsoletes:	kdebase4-workspace
+Obsoletes:	kpackagekit
 Conflicts:	kdebase-core
 Conflicts:	kdebase-desktop
 Conflicts:	kdebase4-workspace
