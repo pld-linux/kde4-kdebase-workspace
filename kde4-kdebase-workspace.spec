@@ -785,6 +785,7 @@ fi
 %{_datadir}/kde4/services/settings-icon-view.desktop
 %{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
+%dir %{_datadir}/apps/plasma-desktop
 %{_datadir}/apps/plasma-desktop/plasma-desktop.notifyrc
 
 # ksmserver
