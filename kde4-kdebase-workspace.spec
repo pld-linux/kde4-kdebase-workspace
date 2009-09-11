@@ -689,7 +689,7 @@ fi
 
 # remotewidgets
 %attr(755,root,root) %{_libdir}/kde4/kcm_remotewidgets.so
-%{_datadir}/usr/share/kde4/services/remotewidgets.desktop
+%{_datadir}/kde4/services/remotewidgets.desktop
 
 # autostart
 %attr(755,root,root) %{_libdir}/kde4/kcm_autostart.so
@@ -911,7 +911,7 @@ fi
 # clock
 %attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
 %{_datadir}/kde4/services/clock.desktop
-%{_sysconfdir}/system.d/org.kde.kcontrol.kcmclock.conf
+%{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmclock.conf
 %{_datadir}/PolicyKit/policy/org.kde.kcontrol.kcmclock.policy
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmclock.service
 
@@ -1330,23 +1330,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_newspaper.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_panel.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containment_sal.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_containment_saverdesktop.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_apps.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_keystate.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_network.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_searchlaunch.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_color.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_wallpaper_image.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_activitybar.so
@@ -1358,22 +1341,38 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_temperature.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_system-monitor.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_webbrowser.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containment_saverdesktop.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_akonadi.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_apps.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_applicationjobs.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_calendar.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_dict.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_executable.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_favicons.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_filebrowser.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_geolocation.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_hotplug.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_keystate.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_metadata.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_mouse.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_network.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_nowplaying.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_notifications.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_places.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_powermanagement.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_rss.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_searchlaunch.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_soliddevice.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_systemmonitor.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-gps.so
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-ip.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_panelspacer_internal.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_ram.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_akonadi.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_calendar.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_geolocation.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_metadata.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_engine_searchlaunch.so
 %{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
