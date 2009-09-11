@@ -766,6 +766,7 @@ fi
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
+%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
 %{_datadir}/kde4/services/plasma-runner-windows.desktop
 %{_datadir}/kde4/services/plasma-applet-panelspacer-internal.desktop
