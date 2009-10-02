@@ -3,18 +3,18 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.5.2
-%define		snap		svn1020033
+%define		snap		svn1027298
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.67
+Version:	4.3.69
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	1f93c2ad19ef340b0b68e051a8d138e2
+# Source0-md5:	811a16ed5fba531ed9dd21ac5e742f02
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1047,6 +1047,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkworkspace.so
 %attr(755,root,root) %{_libdir}/libplasmaclock.so
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so
+%attr(755,root,root) %{_libdir}/libplasmagenericshell.so
 %attr(755,root,root) %{_libdir}/libprocesscore.so
 %attr(755,root,root) %{_libdir}/libprocessui.so
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so
@@ -1057,7 +1058,7 @@ fi
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 #%attr(755,root,root) %{_libdir}/libtime_solar.so
 #%{_libdir}/cmake/KDE4Workspace-%{version}
-%{_libdir}/cmake/KDE4Workspace-4.3.60
+%{_libdir}/cmake/KDE4Workspace-4.3.61
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1144,6 +1145,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinscreenedges.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_kwintabbox.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
 #%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
@@ -1156,6 +1158,7 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
 %{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
+%{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
 %{_datadir}/apps/kwin/aurorae.desktop
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
@@ -1186,6 +1189,7 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
 %{_datadir}/kde4/services/desktopthemedetails.desktop
+%{_datadir}/kde4/services/kwintabbox.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/boxswitch_config.desktop
 %{_datadir}/kde4/services/kwin/coverswitch.desktop
@@ -1296,7 +1300,7 @@ fi
 %attr(755,root,root) %{_bindir}/plasmaengineexplorer
 %attr(755,root,root) %{_bindir}/plasmawallpaperviewer
 %attr(755,root,root) %{_bindir}/plasmoidviewer
-#%attr(755,root,root) %{_bindir}/plasma-overlay
+%attr(755,root,root) %{_bindir}/plasma-overlay
 #%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
@@ -1382,13 +1386,15 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libplasma-geolocation-interface.so.?
 %attr(755,root,root) %{_libdir}/libplasmaclock.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libplasmaclock.so.?
+%attr(755,root,root) %{_libdir}/libplasmagenericshell.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libplasmagenericshell.so.?
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %dir %{_datadir}/apps/plasma
 %{_datadir}/apps/plasma/dashboard
 %{_datadir}/autostart/plasma.desktop
 %{_datadir}/config/plasma-themes.knsrc
-#%{_datadir}/config/plasma-overlayrc
+%{_datadir}/config/plasma-overlayrc
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
@@ -1489,6 +1495,7 @@ fi
 %{_datadir}/apps/desktoptheme/default/calendar/mini-calendar.svgz
 %{_datadir}/autostart/plasma-desktop.desktop
 %{_datadir}/apps/plasma-netbook
+%{_datadir}/apps/katepart/syntax/plasma-desktop-js.xml
 %lang(en) %{_kdedocdir}/en/plasma
 %{_mandir}/man1/plasmaengineexplorer.1*
 
@@ -1531,6 +1538,7 @@ fi
 %{_datadir}/kde4/servicetypes/solidbluetoothmanager.desktop
 %{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
 %{_datadir}/kde4/servicetypes/solidpowermanager.desktop
+%{_datadir}/kde4/servicetypes/solid-device-type.desktop
 %dir %{_datadir}/apps/kcmsolidactions
 %{_datadir}/apps/kcmsolidactions/solid-action-template.desktop
 
@@ -1637,11 +1645,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
 %{_datadir}/apps/kwin/modernsystem.desktop
 
-%files -n kde4-decoration-nitrogen
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_nitrogen.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_nitrogen_config.so
-%{_datadir}/apps/kwin/nitrogenclient.desktop
+#%files -n kde4-decoration-nitrogen
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/kde4/kwin3_nitrogen.so
+#%attr(755,root,root) %{_libdir}/kde4/kwin_nitrogen_config.so
+#%{_datadir}/apps/kwin/nitrogenclient.desktop
 
 %files -n kde4-decoration-oxygen
 %defattr(644,root,root,755)
