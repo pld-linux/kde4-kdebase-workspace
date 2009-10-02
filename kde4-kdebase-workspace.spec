@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.1
-Release:	2
+Version:	4.3.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
-# Source0-md5:	48e3674ddd75e63a9a2f405160d02d06
+# Source0-md5:	2966168f421b3093a119a7c7089b87fb
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -29,7 +29,6 @@ Source16:	%{name}-session
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
-Patch2:		%{name}-sm_hdd.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
@@ -525,8 +524,6 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 #%patch100 -p1
 #%patch0 -p1
 %patch1 -p1
-# upstream patch for system-monitor-hdd
-%patch2 -p4
 
 %build
 install -d build
@@ -1024,9 +1021,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/libtime_solar.so
-#%{_libdir}/cmake/KDE4Workspace-%{version}
-# temporary
-%{_libdir}/cmake/KDE4Workspace-4.3.0
+%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
