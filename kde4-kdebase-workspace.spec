@@ -2,7 +2,7 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		oname		kdebase-workspace
 %define		_state		stable
-%define		qt4brver	4.5.2
+%define		qt4brver	4.5.3
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
