@@ -2,19 +2,19 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kdebase-workspace
 %define		_state		unstable
-%define		qt4brver	4.5.2
-%define		snap		svn1027298
+%define		qt4brver	4.6.0
+%define		snap		svn1035674
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.69
+Version:	4.3.72
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	811a16ed5fba531ed9dd21ac5e742f02
+# Source0-md5:	1eca3905645bb72a1ee60eca45c31d6b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -159,8 +159,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
-szybkiego systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
+systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -211,8 +211,7 @@ KDE screensavers.
 Wygaszacze ekranu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop
-Environment.
+Некоторые 3D хранители экрана для K Desktop Environment.
 
 %package solid
 Summary:	Solid - KDE 4 hardware configuration
@@ -662,7 +661,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
-%attr(755,root,root) %{_bindir}/setscheduler
+#%attr(755,root,root) %{_bindir}/setscheduler
 #%attr(755,root,root) %{_bindir}/polkit-kde-authorization
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
@@ -680,7 +679,9 @@ fi
 #%attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 #%attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
 
-%{_datadir}/kde4/servicetypes/systemsettingsexternalapp.desktop
+# workspace options
+%attr(755,root,root) %{_libdir}/kde4/kcm_workspaceoptions.so
+%{_datadir}/kde4/services/workspaceoptions.desktop
 
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
@@ -913,7 +914,7 @@ fi
 # clock
 %attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
 %{_datadir}/kde4/services/clock.desktop
-%{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmclock.conf
+/etc/dbus-1/system.d/org.kde.kcontrol.kcmclock.conf
 %{_datadir}/PolicyKit/policy/org.kde.kcontrol.kcmclock.policy
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmclock.service
 
@@ -1074,6 +1075,8 @@ fi
 %{_includedir}/plasmaclock
 %{_datadir}/apps/cmake/modules/*.cmake
 
+%{_datadir}/kde4/servicetypes/systemsettingsexternalapp.desktop
+
 %files kfontinst
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kfontinst
@@ -1085,7 +1088,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kfontviewpart.so
 %attr(755,root,root) %{_libdir}/kde4/kio_fonts.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kfontprint
-%attr(755,root,root) %{_libdir}/kde4/libexec/kio_fonts_helper
+%attr(755,root,root) %{_libdir}/kde4/libexec/fontinst
+%attr(755,root,root) %{_libdir}/kde4/libexec/fontinst_x11
 %attr(755,root,root) %{_libdir}/strigi/strigita_font.so
 %{_desktopdir}/kde4/kfontview.desktop
 %{_datadir}/apps/kfontinst
@@ -1098,6 +1102,10 @@ fi
 %{_datadir}/kde4/services/kfontviewpart.desktop
 %{_iconsdir}/*/*/apps/kfontview.png
 %{_iconsdir}/*/*/mimetypes/fonts-package.png
+/etc/dbus-1/system.d/org.kde.fontinst.conf
+%{_datadir}/PolicyKit/policy/org.kde.fontinst.policy
+%{_datadir}/dbus-1/services/org.kde.fontinst.service
+%{_datadir}/dbus-1/system-services/org.kde.fontinst.service
 
 %files klipper
 %defattr(644,root,root,755)
@@ -1125,7 +1133,7 @@ fi
 %lang(en) %{_kdedocdir}/en/ksysguard
 
 %{_datadir}/PolicyKit/policy/org.kde.ksysguard.processlisthelper.policy
-%{_sysconfdir}/dbus-1/system.d/org.kde.ksysguard.processlisthelper.conf
+/etc/dbus-1/system.d/org.kde.ksysguard.processlisthelper.conf
 %{_datadir}/dbus-1/system-services/org.kde.ksysguard.processlisthelper.service
 
 
@@ -1525,6 +1533,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
 %attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
 %attr(755,root,root) %{_libdir}/kde4/solid_wicd.so
+%attr(755,root,root) %{_libdir}/kde4/solid_lirc.so
 %dir %{_datadir}/apps/solid
 %dir %{_datadir}/apps/solid/actions
 %dir %{_datadir}/apps/solid/devices
@@ -1539,6 +1548,7 @@ fi
 %{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
 %{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 %{_datadir}/kde4/servicetypes/solid-device-type.desktop
+%{_datadir}/kde4/servicetypes/solidremotecontrolmanager.desktop
 %dir %{_datadir}/apps/kcmsolidactions
 %{_datadir}/apps/kcmsolidactions/solid-action-template.desktop
 
