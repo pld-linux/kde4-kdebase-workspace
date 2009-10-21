@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.72
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -81,6 +81,7 @@ Requires:	xorg-app-xsetroot
 Suggests:	fontconfig
 Suggests:	kde4-style-oxygen >= %{version}
 Obsoletes:	PolicyKit-kde
+Obsoletes:	kde4-decoration-ozone
 Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
 Obsoletes:	kdebase-desktop
@@ -376,18 +377,6 @@ with a convex resize handle on the bottom-right window corner.
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
-
-%package -n kde4-decoration-ozone
-Summary:	KDE Window Decoration - Ozone
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Ozone
-Group:		X11/Amusements
-Requires:	kde4-kdebase-workspace-kwin >= %{version}
-
-%description -n kde4-decoration-ozone
-A window decoration Ozone.
-
-%description -n kde4-decoration-ozone -l pl.UTF-8
-Dekoracja okna Ozone.
 
 %package -n kde4-decoration-plastic
 Summary:	KDE Window Decoration - Plastic
@@ -1665,12 +1654,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_oxygen.so
 %{_datadir}/apps/kwin/oxygenclient.desktop
-
-#%files -n kde4-decoration-ozone
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_ozone.so
-#%{_datadir}/apps/kwin/ozoneclient.desktop
-#%attr(755,root,root) %{_libdir}/kde4/kwin_ozone_config.so
 
 %files -n kde4-decoration-plastic
 %defattr(644,root,root,755)
