@@ -3,18 +3,18 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.6.0
-%define		snap		svn1035674
+%define		snap		svn1040395
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.72
-Release:	2
+Version:	4.3.73
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	1eca3905645bb72a1ee60eca45c31d6b
+# Source0-md5:	3f071dea2eb38a02dc36b34d8d2d3ec2
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -737,7 +737,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_placesrunner.so
-%attr(755,root,root) %{_libdir}/kde4/krunner_plasma-desktop.so
+#%attr(755,root,root) %{_libdir}/kde4/krunner_plasma-desktop.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
@@ -756,7 +756,7 @@ fi
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
-%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
+#%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
 %{_datadir}/kde4/services/plasma-runner-windows.desktop
 %{_datadir}/kde4/services/plasma-applet-panelspacer-internal.desktop
@@ -917,8 +917,8 @@ fi
 %{_datadir}/apps/color-schemes
 
 # energy
-%attr(755,root,root) %{_libdir}/kde4/kcm_energy.so
-%{_datadir}/kde4/services/energy.desktop
+#%attr(755,root,root) %{_libdir}/kde4/kcm_energy.so
+#%{_datadir}/kde4/services/energy.desktop
 
 # randr
 %{_datadir}/kde4/services/randr.desktop
@@ -1486,6 +1486,18 @@ fi
 %{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
 #%{_datadir}/kde4/services/plasma-scriptengine-runner-javascript.desktop
+%{_datadir}/kde4/services/plasma-sal-bookmarks.desktop
+%{_datadir}/kde4/services/plasma-sal-contacts.desktop
+%{_datadir}/kde4/services/plasma-sal-education.desktop
+%{_datadir}/kde4/services/plasma-sal-games.desktop
+%{_datadir}/kde4/services/plasma-sal-graphics.desktop
+%{_datadir}/kde4/services/plasma-sal-internet.desktop
+%{_datadir}/kde4/services/plasma-sal-multimedia.desktop
+%{_datadir}/kde4/services/plasma-sal-office.desktop
+%{_datadir}/kde4/services/plasma-sal-system.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
+%{_datadir}/kde4/servicetypes/plasma-sal-menu.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/calendar
