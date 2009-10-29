@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.73
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -28,7 +28,7 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-#Patch100:	%{name}-branch.diff
+#Patch100: %{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 URL:		http://www.kde.org/
@@ -61,6 +61,7 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	polkit-qt-devel
+BuildRequires:	python-PyKDE4
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
@@ -522,7 +523,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 %setup -q -n %{orgname}-%{version}%{snap}
 #%setup -q -n %{orgname}-%{version}
 #%patch100 -p1
-##%patch0 -p1
+%patch0 -p1
 %patch1 -p1
 
 %build
