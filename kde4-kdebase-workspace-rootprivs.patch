@@ -1,46 +1,21 @@
-diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspace-4.0.72-rootprivs/systemsettings/mainwindow.cpp
---- kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp	2008-04-30 15:58:34.000000000 +0200
-+++ kdebase-workspace-4.0.72-rootprivs/systemsettings/mainwindow.cpp	2008-05-07 01:05:14.000000000 +0200
-@@ -27,6 +27,7 @@
- 
- #include <QLayout>
- #include <QStackedWidget>
-+#include <QProcess>
- 
- #include <KAction>
- #include <KActionCollection>
-@@ -42,6 +43,7 @@
- #include <KStandardAction>
- #include <KTabWidget>
- #include <kcategorizedsortfilterproxymodel.h>
+diff -ur kdebase-workspace-4.3.73svn1040395/systemsettings/core/ModuleView.cpp kdebase-workspace-4.3.73svn1040395.new/systemsettings/core/ModuleView.cpp
+--- kdebase-workspace-4.3.73svn1040395/systemsettings/core/ModuleView.cpp	2009-10-26 10:14:41.000000000 +0100
++++ kdebase-workspace-4.3.73svn1040395.new/systemsettings/core/ModuleView.cpp	2009-10-29 12:38:25.153353926 +0100
+@@ -40,6 +40,7 @@
+ #include <KCModuleProxy>
+ #include <KStandardGuiItem>
+ #include <KDialogButtonBox>
 +#include <KStandardDirs>
- #include <kcategorizedview.h>
- #include <kcategorydrawer.h>
- #include <kiconloader.h>
-@@ -297,9 +299,13 @@
-         return;
+ #include <kauthaction.h>
  
-     MenuItem * mItem = selected.data( Qt::UserRole ).value<MenuItem*>();
-+    bool needsRootPrivs = false;
-     if ( mItem ) {
-         kDebug() << "Selected item: " << mItem->service->name();
-         kDebug() << "Comment:       " << mItem->service->comment();
-+
-+        needsRootPrivs = mItem->service->property( "X-KDE-RootOnly", QVariant::Bool ).toBool();
-+        kDebug() << "Needs root privs:" << needsRootPrivs;
-     } else {
-         kDebug() << ":'( Got dud pointer from " << selected.data( Qt::DisplayRole ).toString();
-         Q_ASSERT(mItem); // Would core dump below. Do it now
-@@ -311,6 +317,35 @@
-     if ( groupWidget )
+ #include "MenuItem.h"
+@@ -124,6 +125,33 @@
          return;
+     }
  
-+    if ( needsRootPrivs )
-+    {
++    if ( menuItem->service()->property( "X-KDE-RootOnly", QVariant::Bool ).toBool() ) {
 +        QString kdesu = KStandardDirs::findExe( "kdesu" );
-+        //kDebug() << "kdesu path:" << kdesu;
-+
-+        QString cmd = mItem->service->exec().trimmed();
++        QString cmd = menuItem->service()->exec().trimmed();
 +
 +        /* Prepare the process to run the kcmshell */
 +        if ( cmd.left(5) == "kdesu" )
@@ -56,14 +31,16 @@ diff -ur kdebase-workspace-4.0.72/systemsettings/mainwindow.cpp kdebase-workspac
 +            cmd = cmd.remove(0,9).trimmed();
 +
 +        QStringList args;
-+        args << "-c" << QString( "%1 %2 --lang %3" ).arg( KStandardDirs::locate("exe", "kcmshell4") ).arg( cmd ).arg( KGlobal::locale()->language() );
++        args << "-i" << QString( menuItem->service()->icon() ) << "-c" << QString( "%1 %2 --lang %3" ).arg( KStandardDirs::locate("exe", "kcmshell4") ).arg( cmd ).arg( KGlobal::locale()->language() );
 +
 +        kDebug() << "Starting root module: " << args;
-+        QProcess::execute( kdesu, args );
++        QProcess::startDetached( kdesu, args );
 +
 +        return;
 +    }
 +
-     groupWidget = moduleItemToWidgetDict[mItem->service];
- 
-     if( !groupWidget ) {
++
+     QList<KCModuleInfo*> modules;
+     if ( menuItem->children().empty() ) {
+         modules << &menuItem->item();
+Tylko w kdebase-workspace-4.3.73svn1040395.new/systemsettings/core: ModuleView.cpp~
