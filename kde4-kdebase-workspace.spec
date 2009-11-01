@@ -62,6 +62,7 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	polkit-qt-devel
 BuildRequires:	python-PyKDE4
+#BuildRequires:	python-PyKDE4 >= %{version}
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
@@ -161,8 +162,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
-systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
+szybkiego systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -213,7 +214,8 @@ KDE screensavers.
 Wygaszacze ekranu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop Environment.
+Некоторые 3D хранители экрана для K Desktop
+Environment.
 
 %package solid
 Summary:	Solid - KDE 4 hardware configuration
@@ -1377,6 +1379,9 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-ip.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_panelspacer_internal.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_ram.so
+%{py_sitedir}/PyKDE4/plasmascript.pyc
+%{py_sitedir}/PyKDE4/plasmascript.pyo
+%{_datadir}/apps/plasma_scriptengine_python
 %{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
