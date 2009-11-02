@@ -61,8 +61,7 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	polkit-qt-devel
-BuildRequires:	python-PyKDE4
-#BuildRequires:	python-PyKDE4 >= %{version}
+BuildRequires:	python-PyKDE4 >= %{version}
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
