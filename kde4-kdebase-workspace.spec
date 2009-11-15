@@ -3,18 +3,18 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.6.0
-%define		snap		svn1040395
+%define		snap		svn1044032
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.73
-Release:	2
+Version:	4.3.74
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	3f071dea2eb38a02dc36b34d8d2d3ec2
+# Source0-md5:	eef40678ff809127e22db33ba27dca53
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -734,8 +734,10 @@ fi
 %attr(755,root,root) %{_bindir}/krunner
 %attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
 #%attr(755,root,root) %{_libdir}/kde4/kcm_krunner_shell.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_krunner_kill.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_bookmarksrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_kill.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_placesrunner.so
@@ -750,7 +752,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/classic_mode.so
 %attr(755,root,root) %{_libdir}/kde4/icon_mode.so
 #%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
-%attr(755,root,root) %{_libdir}/kde4/kded_notificationitemwatcher.so
+%attr(755,root,root) %{_libdir}/kde4/kded_statusnotifierwatcher.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kscreenlocker
 #%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
 #%attr(755,root,root) %{_libdir}/kde4/libexec/krunner_lock
@@ -759,6 +761,8 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
 #%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
+%{_datadir}/kde4/services/plasma-runner-kill.desktop
+%{_datadir}/kde4/services/plasma-runner-kill_config.desktop
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
 %{_datadir}/kde4/services/plasma-runner-windows.desktop
 %{_datadir}/kde4/services/plasma-applet-panelspacer-internal.desktop
@@ -772,7 +776,7 @@ fi
 %{_datadir}/kde4/services/plasma-geolocation-ip.desktop
 #%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
 %{_datadir}/kde4/services/kded/kephal.desktop
-%{_datadir}/kde4/services/kded/notificationitemwatcher.desktop
+%{_datadir}/kde4/services/kded/statusnotifierwatcher.desktop
 %{_datadir}/kde4/services/settings-classic-view.desktop
 %{_datadir}/kde4/services/settings-icon-view.desktop
 %{_datadir}/kde4/servicetypes/systemsettingsview.desktop
