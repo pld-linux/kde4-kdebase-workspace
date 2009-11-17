@@ -3,18 +3,18 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.6.0
-%define		snap		svn1044032
+%define		snap		svn1048496
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.74
+Version:	4.3.75
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 #Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	eef40678ff809127e22db33ba27dca53
+# Source0-md5:	6086e8256f7e57e105eae4439e9c5045
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -667,6 +667,7 @@ fi
 #%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
 %attr(755,root,root) %{_libdir}/libsystemsettingsview.so
+%attr(755,root,root) %ghost %{_libdir}/libsystemsettingsview.so.?
 #%attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 #%attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
 
@@ -741,7 +742,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_locations.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_webshortcuts.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_placesrunner.so
-#%attr(755,root,root) %{_libdir}/kde4/krunner_plasma-desktop.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_plasma-desktop.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
@@ -760,7 +761,7 @@ fi
 %{_datadir}/autostart/krunner.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.krunner.App.xml
 %{_datadir}/dbus-1/services/org.kde.krunner.service
-#%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
+%{_datadir}/kde4/services/plasma-runner-plasma-desktop.desktop
 %{_datadir}/kde4/services/plasma-runner-kill.desktop
 %{_datadir}/kde4/services/plasma-runner-kill_config.desktop
 %{_datadir}/kde4/services/plasma-runner-nepomuksearch.desktop
@@ -865,15 +866,6 @@ fi
 %{_datadir}/kde4/services/powerdevilconfig.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.PowerDevil.xml
 
-# nepomuk - FIXME
-%attr(755,root,root) %{_libdir}/libnepomukquery.so
-%attr(755,root,root) %{_libdir}/libnepomukquery.so.?
-%attr(755,root,root) %{_libdir}/libnepomukquery.so.*.*.*
-%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so
-%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so.?
-%attr(755,root,root) %{_libdir}/libnepomukqueryclient.so.*.*.*
-
-
 # kdisplay
 %attr(755,root,root) %{_libdir}/kde4/kcm_display.so
 %{_datadir}/apps/kdisplay
@@ -954,6 +946,7 @@ fi
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/kded_powerdevil.so
+%attr(755,root,root) %{_libdir}/kde4/kded_randrmonitor.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
 
@@ -1066,7 +1059,6 @@ fi
 %{_includedir}/solid
 %{_includedir}/systemsettingsview
 %{_includedir}/taskmanager
-%{_includedir}/nepomuk
 %{_includedir}/plasmaclock
 %{_datadir}/apps/cmake/modules/*.cmake
 
@@ -1494,7 +1486,8 @@ fi
 %{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
-#%{_datadir}/kde4/services/plasma-scriptengine-runner-javascript.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-runner-python.desktop
+%{_datadir}/kde4/services/plasma-scriptengine-wallpaper-python.desktop
 %{_datadir}/kde4/services/plasma-sal-bookmarks.desktop
 %{_datadir}/kde4/services/plasma-sal-contacts.desktop
 %{_datadir}/kde4/services/plasma-sal-education.desktop
