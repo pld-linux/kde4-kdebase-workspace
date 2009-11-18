@@ -946,9 +946,12 @@ fi
 # ?
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/kded_powerdevil.so
-%attr(755,root,root) %{_libdir}/kde4/kded_randrmonitor.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
 %attr(755,root,root) %{_libdir}/kde4/libexec/kcmdatetimehelper
+
+# krandr monitor
+%attr(755,root,root) %{_libdir}/kde4/kded_randrmonitor.so
+%{_datadir}/kde4/services/kded/randrmonitor.desktop
 
 # session
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/kcheckpass
