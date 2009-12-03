@@ -3,18 +3,17 @@
 %define		orgname		kdebase-workspace
 %define		_state		unstable
 %define		qt4brver	4.6.0
-%define		snap		svn1048496
+%define		snap		svn1053190
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.75
+Version:	4.3.80
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-#Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}%{snap}.tar.bz2
-# Source0-md5:	6086e8256f7e57e105eae4439e9c5045
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
+# Source0-md5:	68177b5c0dd8ab4bebe682393871f82c
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -61,14 +60,14 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
 BuildRequires:	polkit-qt-devel
-BuildRequires:	python-PyKDE4 >= %{version}
+#BuildRequires:	python-PyKDE4 >= %{version}
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
-BuildRequires:	soprano-devel >= 2.3.0
+BuildRequires:	soprano-devel >= 2.3.70
 BuildRequires:	strigi-devel >= 0.6.5
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
@@ -521,8 +520,7 @@ KDE icons - oxygen. This package contains SVG icons.
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %prep
-%setup -q -n %{orgname}-%{version}%{snap}
-#%setup -q -n %{orgname}-%{version}
+%setup -q -n %{orgname}-%{version}
 #%patch100 -p1
 %patch0 -p1
 %patch1 -p1
