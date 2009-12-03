@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.80
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -420,6 +420,17 @@ A window decoration resembling the one from Windows 98.
 %description -n kde4-decoration-redmond -l pl.UTF-8
 Dekoracja okna przypominająca tę z Windows 98.
 
+%package -n kde4-decoration-tabstrip
+Summary:	KDE Window Decoration - Tabstrip
+Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
+Group:		X11/Amusements
+
+%description -n kde4-decoration-tabstrip
+A window decoration.
+
+%description -n kde4-decoration-tabstrip -l pl.UTF-8
+Dekoracja okna.
+
 %package -n kde4-decoration-web
 Summary:	KDE Window Decoration - Web
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
@@ -664,10 +675,12 @@ fi
 %attr(755,root,root) %{_libdir}/libkickoff.so
 #%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
-%attr(755,root,root) %{_libdir}/libsystemsettingsview.so
-%attr(755,root,root) %ghost %{_libdir}/libsystemsettingsview.so.?
 #%attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 #%attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
+
+# qt4 plugins
+%dir %{_libdir}/qt4/plugins/gui_platform
+%attr(755,root,root) %{_libdir}/qt4/plugins/gui_platform/libkde.so
 
 # workspace options
 %attr(755,root,root) %{_libdir}/kde4/kcm_workspaceoptions.so
@@ -745,6 +758,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_services.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_sessions.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_shell.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_solid.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_windows.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
@@ -818,6 +832,7 @@ fi
 
 # systemsettings
 %attr(755,root,root) %{_bindir}/systemsettings
+%attr(755,root,root) %{_libdir}/libsystemsettingsview.so.?
 %{_datadir}/apps/systemsettings
 %{_datadir}/kde4/services/settings-about-me.desktop
 %{_datadir}/kde4/services/settings-accessibility.desktop
@@ -878,10 +893,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/ion_bbcukmet.so
 %attr(755,root,root) %{_libdir}/kde4/ion_envcan.so
 %attr(755,root,root) %{_libdir}/kde4/ion_noaa.so
+%attr(755,root,root) %{_libdir}/kde4/ion_wettercom.so
 %{_datadir}/kde4/services/ion-bbcukmet.desktop
 %{_datadir}/kde4/services/ion-envcan.desktop
 %{_datadir}/kde4/services/ion-noaa.desktop
-#%{_datadir}/kde4/servicetypes/weather_ion.desktop
+%{_datadir}/kde4/services/ion-wettercom.desktop
 
 # launch
 %attr(755,root,root) %{_libdir}/kde4/kcm_launch.so
@@ -1042,6 +1058,7 @@ fi
 %attr(755,root,root) %{_libdir}/libprocessui.so
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so
+%attr(755,root,root) %{_libdir}/libsystemsettingsview.so
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
@@ -1314,6 +1331,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_trash.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_windowlist.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_qedje.so
 #%attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_simple_javascript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
@@ -1431,6 +1449,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-sm_temperature.desktop
 %{_datadir}/kde4/services/plasma-applet-system-monitor.desktop
 %{_datadir}/kde4/services/plasma-applet-webbrowser.desktop
+%{_datadir}/kde4/services/plasma-applet-windowlist.desktop
 %{_datadir}/kde4/services/plasma-dataengine-applicationjobs.desktop
 %{_datadir}/kde4/services/plasma-dataengine-favicons.desktop
 %{_datadir}/kde4/services/plasma-dataengine-keystate.desktop
@@ -1479,6 +1498,7 @@ fi
 %{_datadir}/kde4/services/plasma-runner-services.desktop
 %{_datadir}/kde4/services/plasma-runner-sessions.desktop
 %{_datadir}/kde4/services/plasma-runner-shell.desktop
+%{_datadir}/kde4/services/plasma-runner-solid.desktop
 %{_datadir}/kde4/services/plasma-tasks-default.desktop
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
@@ -1498,6 +1518,7 @@ fi
 %{_datadir}/kde4/services/plasma-sal-multimedia.desktop
 %{_datadir}/kde4/services/plasma-sal-office.desktop
 %{_datadir}/kde4/services/plasma-sal-system.desktop
+%{_datadir}/kde4/services/plasma-sal-utility.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 %{_datadir}/kde4/servicetypes/plasma-sal-menu.desktop
@@ -1686,6 +1707,12 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
 %{_datadir}/apps/kwin/redmond.desktop
+
+%files -n kde4-decoration-tabstrip
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
+%{_datadir}/apps/kwin/tabstrip.desktop
 
 %files -n kde4-decoration-web
 %defattr(644,root,root,755)
