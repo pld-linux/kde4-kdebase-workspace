@@ -42,7 +42,7 @@ BuildRequires:	QtSvg-devel >= %{qt4brver}
 BuildRequires:	QtTest-devel >= %{qt4brver}
 BuildRequires:	QtUiTools-devel >= %{qt4brver}
 BuildRequires:	QtWebKit-devel >= %{qt4brver}
-BuildRequires:	akonadi-devel
+BuildRequires:	akonadi-devel >= 1.2.80
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
@@ -58,7 +58,7 @@ BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
-BuildRequires:	phonon-devel >= 4.3.1
+BuildRequires:	phonon-devel >= 4.3.80
 BuildRequires:	polkit-qt-devel
 #BuildRequires:	python-PyKDE4 >= %{version}
 BuildRequires:	python-sip-devel
@@ -68,7 +68,7 @@ BuildRequires:	qt4-build >= %{qt4brver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	soprano-devel >= 2.3.70
-BuildRequires:	strigi-devel >= 0.6.5
+BuildRequires:	strigi-devel >= 0.7.0
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
