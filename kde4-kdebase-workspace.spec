@@ -9,7 +9,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.80
-Release:	2
+Release:	3.2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -242,13 +242,7 @@ NetworkManager.
 
 %package kwrited
 Summary:	KDE write messaging daemon
-Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą write
-Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:	kde4-kdebase-kwrited
 
-%description kwrited
-A kde daeomn that watches for messages from local users sent with
 write or wall.
 
 %description kwrited -l pl.UTF-8
@@ -263,12 +257,6 @@ Group:		X11/Applications
 %description wallpapers
 KDE 4 wallpapers.
 
-%description wallpapers -l pl.UTF-8
-Tapety KDE 4.
-
-%package -n kde4-kdm
-Summary:	KDE Display Manager
-Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
 Requires:	kde4-kgreet
@@ -299,13 +287,7 @@ aligned next to each other.
 
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
-stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
-obok siebie.
 
-%package -n kde4-decoration-kde2
-Summary:	KDE Window Decoration - kde2
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - kde2
 Group:		X11/Amusements
 
 %description -n kde4-decoration-kde2
@@ -407,29 +389,12 @@ buttons. Between the two area there is a stylish transition.
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
 jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
-Między obszarami jest stylowy przejście.
-
-%package -n kde4-decoration-redmond
-Summary:	KDE Window Decoration - Redmond
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
-Group:		X11/Amusements
 
 %description -n kde4-decoration-redmond
 A window decoration resembling the one from Windows 98.
 
 %description -n kde4-decoration-redmond -l pl.UTF-8
 Dekoracja okna przypominająca tę z Windows 98.
-
-%package -n kde4-decoration-tabstrip
-Summary:	KDE Window Decoration - Tabstrip
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
-Group:		X11/Amusements
-
-%description -n kde4-decoration-tabstrip
-A window decoration.
-
-%description -n kde4-decoration-tabstrip -l pl.UTF-8
-Dekoracja okna.
 
 %package -n kde4-decoration-web
 Summary:	KDE Window Decoration - Web
@@ -1165,6 +1130,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
+%attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
@@ -1197,6 +1164,7 @@ fi
 %{_datadir}/apps/kwin/sphere.vert
 %{_datadir}/apps/kwin/snow.frag
 %{_datadir}/apps/kwin/snow.vert
+%{_datadir}/apps/kwin/tabstrip.desktop
 %{_datadir}/config/aurorae.knsrc
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
@@ -1707,12 +1675,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
 %{_datadir}/apps/kwin/redmond.desktop
-
-%files -n kde4-decoration-tabstrip
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
-%{_datadir}/apps/kwin/tabstrip.desktop
 
 %files -n kde4-decoration-web
 %defattr(644,root,root,755)
