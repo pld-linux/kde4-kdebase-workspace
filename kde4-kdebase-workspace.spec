@@ -1165,6 +1165,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
+%attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
+%attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
@@ -1197,6 +1199,7 @@ fi
 %{_datadir}/apps/kwin/sphere.vert
 %{_datadir}/apps/kwin/snow.frag
 %{_datadir}/apps/kwin/snow.vert
+%{_datadir}/apps/kwin/tabstrip.desktop
 %{_datadir}/config/aurorae.knsrc
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
@@ -1707,12 +1710,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
 %{_datadir}/apps/kwin/redmond.desktop
-
-%files -n kde4-decoration-tabstrip
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
-%{_datadir}/apps/kwin/tabstrip.desktop
 
 %files -n kde4-decoration-web
 %defattr(644,root,root,755)
