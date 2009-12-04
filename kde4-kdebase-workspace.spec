@@ -420,17 +420,6 @@ A window decoration resembling the one from Windows 98.
 %description -n kde4-decoration-redmond -l pl.UTF-8
 Dekoracja okna przypominająca tę z Windows 98.
 
-%package -n kde4-decoration-tabstrip
-Summary:	KDE Window Decoration - Tabstrip
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
-Group:		X11/Amusements
-
-%description -n kde4-decoration-tabstrip
-A window decoration.
-
-%description -n kde4-decoration-tabstrip -l pl.UTF-8
-Dekoracja okna.
-
 %package -n kde4-decoration-web
 Summary:	KDE Window Decoration - Web
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
