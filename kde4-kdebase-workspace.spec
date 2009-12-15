@@ -1,5 +1,7 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
+# - BR: python-PyQT4 + python-PyKDE4 for some plasma-python-scripts
+#
 %define		oname		kdebase-workspace
 %define		_state		stable
 %define		qt4brver	4.5.3
