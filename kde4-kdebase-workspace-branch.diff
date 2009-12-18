@@ -1,5 +1,5 @@
---- workspace/kcontrol/input/logitechmouse.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1057516)
-+++ workspace/kcontrol/input/logitechmouse.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1057516)
+--- workspace/kcontrol/input/logitechmouse.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/input/logitechmouse.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
 @@ -38,6 +38,7 @@
  
  LogitechMouse::LogitechMouse( struct usb_device *usbDev, int mouseCapabilityFlags, QWidget* parent, const char* name )
@@ -50,8 +50,873 @@
                                     USB_TYPE_VENDOR | USB_ENDPOINT_IN,
                                     0x01,
                                     0x000E,
---- workspace/kwin/effects/presentwindows/presentwindows.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1057516)
-+++ workspace/kwin/effects/presentwindows/presentwindows.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1057516)
+--- workspace/kcontrol/randr/randrconfig.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/randr/randrconfig.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -101,7 +101,6 @@
+ 	foreach(RandROutput *output, outputs)
+ 	{
+ 		o = new OutputGraphicsItem(output);
+-		o->setParent(m_scene);
+ 		m_scene->addItem(o);
+ 		
+ 		connect(o,    SIGNAL(itemChanged(OutputGraphicsItem*)), 
+--- workspace/kcontrol/keys/keys.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/keys.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -76,7 +76,7 @@
+ Name[tg]=Глобальные комбинации клавиш
+ Name[th]=ปุ่มพิมพ์ลัดใช้งานส่วนรวม
+ Name[tr]=Genel Klavye Kısayolları
+-Name[uk]=Глобальні клавіатурні скорочення
++Name[uk]=Загальні клавіатурні скорочення
+ Name[wa]=Rascourtis globås del taprece
+ Name[x-test]=xxGlobal Keyboard Shortcutsxx
+ Name[zh_CN]=全局键盘快捷键
+--- workspace/kcontrol/keys/schemes/mac4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/mac4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -100,6 +100,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Ctrl+Shift+3
++Kill Window=Ctrl+Alt+Esc
+ Mouse Emulation=none
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -123,10 +124,43 @@
+ Switch to Desktop 9=Ctrl+F9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=Ctrl+E
+ Walk Through Desktop List (Reverse)=none
+ Walk Through Desktop List=none
+ Walk Through Desktops (Reverse)=Alt+Shift+Tab
+ Walk Through Desktops=Alt+Tab
++Walk Through Windows (Reverse)=Ctrl+Shift+Tab
++Walk Through Windows=Ctrl+Tab
++Window Close=Alt+F4
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=none
++Window Minimize=none
++Window Move=none
++Window Operations Menu=Alt+F3
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Ctrl+Shift+4
++Window Shade=none
++Window to Desktop 10=none
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=none
++Window to Desktop 2=none
++Window to Desktop 3=none
++Window to Desktop 4=none
++Window to Desktop 5=none
++Window to Desktop 6=none
++Window to Desktop 7=none
++Window to Desktop 8=none
++Window to Desktop 9=none
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/old_kde3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_kde3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=Ctrl+Alt+Esc
+ Popup Launch Menu=Alt+F1
+ Reboot Computer=none
+-Show Metadow List=Alt+F5
++Show Window List=Alt+F5
+ Toggle Showing Desktop=Ctrl+Alt+D
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+Tab
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=Alt+F4
+-Metadow Lower=none
+-Metadow Maximize Horizontal=none
+-Metadow Maximize=none
+-Metadow Maximize Vertical=none
+-Metadow Minimize=none
+-Metadow Move=none
+-Metadow Operations Menu=Alt+F3
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Alt+Print
+-Metadow Shade=none
+-Metadow to Desktop 10=none
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 1=none
+-Metadow to Desktop 2=none
+-Metadow to Desktop 3=none
+-Metadow to Desktop 4=none
+-Metadow to Desktop 5=none
+-Metadow to Desktop 6=none
+-Metadow to Desktop 7=none
+-Metadow to Desktop 8=none
+-Metadow to Desktop 9=none
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+B
+@@ -46,8 +12,8 @@
+ Close=Ctrl+W
+ Copy=Ctrl+C; Ctrl+Insert
+ Cut=Ctrl+X; Shift+Del
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/kcontrol/keys/schemes/old_unix3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_unix3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=Alt+F9
+ Popup Launch Menu=Alt+F1
+ Reboot Computer=none
+-Show Metadow List=none
++Show Window List=none
+ Toggle Showing Desktop=Ctrl+Alt+D
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+F11
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=none
+-Metadow Minimize=Alt+F4
+-Metadow Lower=none
+-Metadow Maximize=Alt+Shift+F3
+-Metadow Maximize Horizontal=none
+-Metadow Maximize Vertical=none
+-Metadow Move=Alt+F5
+-Metadow Operations Menu=none
+-Metadow Raise=none
+-Metadow Resize=Alt+F6
+-Metadow Screenshot=none
+-Metadow Shade=none
+-Metadow to Desktop 1=none
+-Metadow to Desktop 10=none
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 2=none
+-Metadow to Desktop 3=none
+-Metadow to Desktop 4=none
+-Metadow to Desktop 5=none
+-Metadow to Desktop 6=none
+-Metadow to Desktop 7=none
+-Metadow to Desktop 8=none
+-Metadow to Desktop 9=none
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+B
+@@ -46,8 +12,8 @@
+ Close=Ctrl+W
+ Copy=Ctrl+C
+ Cut=Ctrl+X
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+S
+--- workspace/kcontrol/keys/schemes/old_wm3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_wm3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=Ctrl+Alt+Esc
+ Popup Launch Menu=Alt+F1
+ Reboot Computer=none
+-Show Metadow List=Alt+F5
++Show Window List=Alt+F5
+ Toggle Showing Desktop=Ctrl+Alt+D
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+Tab
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=Alt+Esc
+-Metadow Minimize=none
+-Metadow Lower=none
+-Metadow Maximize=none
+-Metadow Maximize Horizontal=none
+-Metadow Maximize Vertical=none
+-Metadow Move=none
+-Metadow Operations Menu=Alt+F3
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Alt+Print
+-Metadow Shade=none
+-Metadow to Desktop 1=Ctrl+Alt+1
+-Metadow to Desktop 10=Ctrl+Alt+Shift+1
+-Metadow to Desktop 11=Ctrl+Alt+Shift+2
+-Metadow to Desktop 12=Ctrl+Alt+Shift+3
+-Metadow to Desktop 13=Ctrl+Alt+Shift+4
+-Metadow to Desktop 14=Ctrl+Alt+Shift+5
+-Metadow to Desktop 15=Ctrl+Alt+Shift+6
+-Metadow to Desktop 16=Ctrl+Alt+Shift+7
+-Metadow to Desktop 2=Ctrl+Alt+2
+-Metadow to Desktop 3=Ctrl+Alt+3
+-Metadow to Desktop 4=Ctrl+Alt+4
+-Metadow to Desktop 5=Ctrl+Alt+5
+-Metadow to Desktop 6=Ctrl+Alt+6
+-Metadow to Desktop 7=Ctrl+Alt+7
+-Metadow to Desktop 8=Ctrl+Alt+8
+-Metadow to Desktop 9=Ctrl+Alt+9
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+B
+@@ -46,8 +12,8 @@
+ Close=Ctrl+W
+ Copy=Ctrl+C; Ctrl+Insert
+ Cut=Ctrl+X; Shift+Del
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/kcontrol/keys/schemes/old_kde4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_kde4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=Win+Ctrl+Del
+ Popup Launch Menu=Meta+Menu
+ Reboot Computer=none
+-Show Metadow List=Win+0
++Show Window List=Meta+0
+ Toggle Showing Desktop=Meta+Ctrl+D
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+Tab
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=Alt+Esc; Alt+F4
+-Metadow Minimize=Win+-
+-Metadow Lower=none
+-Metadow Maximize=Win++
+-Metadow Maximize Horizontal=Win+=
+-Metadow Maximize Vertical=Win+|
+-Metadow Move=none
+-Metadow Operations Menu=Alt+Menu
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Alt+Print
+-Metadow Shade=Win+_
+-Metadow to Desktop 1=Win+Alt+F1
+-Metadow to Desktop 10=Win+Alt+F10
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 2=Win+Alt+F2
+-Metadow to Desktop 3=Win+Alt+F3
+-Metadow to Desktop 4=Win+Alt+F4
+-Metadow to Desktop 5=Win+Alt+F5
+-Metadow to Desktop 6=Win+Alt+F6
+-Metadow to Desktop 7=Win+Alt+F7
+-Metadow to Desktop 8=Win+Alt+F8
+-Metadow to Desktop 9=Win+Alt+F9
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+B
+@@ -46,8 +12,8 @@
+ Close=Ctrl+Esc; Ctrl+W
+ Copy=Ctrl+C; Ctrl+Insert
+ Cut=Ctrl+X; Shift+Del
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/kcontrol/keys/schemes/kde3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/kde3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -95,6 +95,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Ctrl+Print
++Kill Window=Ctrl+Alt+Esc
+ Mouse Emulation=Alt+F12
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -118,10 +119,43 @@
+ Switch to Desktop 9=Ctrl+F9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=Ctrl+Shift+Tab
+ Walk Through Desktop List=Ctrl+Tab
+ Walk Through Desktops (Reverse)=none
+ Walk Through Desktops=none
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+Tab
++Window Close=Alt+F4
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=none
++Window Minimize=none
++Window Move=none
++Window Operations Menu=Alt+F3
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Alt+Print
++Window Shade=none
++Window to Desktop 10=none
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=none
++Window to Desktop 2=none
++Window to Desktop 3=none
++Window to Desktop 4=none
++Window to Desktop 5=none
++Window to Desktop 6=none
++Window to Desktop 7=none
++Window to Desktop 8=none
++Window to Desktop 9=none
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/unix3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/unix3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -100,6 +100,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=none
++Kill Window=Alt+F9
+ Mouse Emulation=Alt+F12
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -123,10 +124,43 @@
+ Switch to Desktop 9=Ctrl+F9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=Ctrl+Shift+Tab
+ Walk Through Desktop List=none
+ Walk Through Desktops (Reverse)=none
+ Walk Through Desktops=Ctrl+Tab
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+F11
++Window Close=none
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=Alt+Shift+F3
++Window Minimize=Alt+F4
++Window Move=Alt+F5
++Window Operations Menu=none
++Window Raise=none
++Window Resize=Alt+F6
++Window Screenshot to Clipboard=none
++Window Shade=none
++Window to Desktop 10=none
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=none
++Window to Desktop 2=none
++Window to Desktop 3=none
++Window to Desktop 4=none
++Window to Desktop 5=none
++Window to Desktop 6=none
++Window to Desktop 7=none
++Window to Desktop 8=none
++Window to Desktop 9=none
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/wm3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/wm3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -95,6 +95,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Ctrl+Print
++Kill Window=Ctrl+Alt+Esc
+ Mouse Emulation=Alt+F12
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -118,10 +119,43 @@
+ Switch to Desktop 9=Alt+9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=Ctrl+Shift+Tab
+ Walk Through Desktop List=Ctrl+Tab
+ Walk Through Desktops (Reverse)=none
+ Walk Through Desktops=none
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+Tab
++Window Close=Alt+Esc
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=none
++Window Minimize=none
++Window Move=none
++Window Operations Menu=Alt+F3
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Alt+Print
++Window Shade=none
++Window to Desktop 10=Ctrl+Alt+Shift+1
++Window to Desktop 11=Ctrl+Alt+Shift+2
++Window to Desktop 12=Ctrl+Alt+Shift+3
++Window to Desktop 13=Ctrl+Alt+Shift+4
++Window to Desktop 14=Ctrl+Alt+Shift+5
++Window to Desktop 15=Ctrl+Alt+Shift+6
++Window to Desktop 16=Ctrl+Alt+Shift+7
++Window to Desktop 1=Ctrl+Alt+1
++Window to Desktop 2=Ctrl+Alt+2
++Window to Desktop 3=Ctrl+Alt+3
++Window to Desktop 4=Ctrl+Alt+4
++Window to Desktop 5=Ctrl+Alt+5
++Window to Desktop 6=Ctrl+Alt+6
++Window to Desktop 7=Ctrl+Alt+7
++Window to Desktop 8=Ctrl+Alt+8
++Window to Desktop 9=Ctrl+Alt+9
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/kde4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/kde4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -95,6 +95,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Meta+Print
++Kill Window=Meta+Ctrl+Del
+ Mouse Emulation=none
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -118,10 +119,43 @@
+ Switch to Desktop 9=Meta+F9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=none
+ Walk Through Desktop List=none
+ Walk Through Desktops (Reverse)=Meta+Shift+Tab
+ Walk Through Desktops=Meta+Tab
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+Tab
++Window Close=Alt+Esc; Alt+F4
++Window Lower=none
++Window Maximize Horizontal=Meta+=
++Window Maximize Vertical=Meta+|
++Window Maximize=Meta++
++Window Minimize=Meta+-
++Window Move=none
++Window Operations Menu=Alt+Menu
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Alt+Print
++Window Shade=Meta+_
++Window to Desktop 10=Meta+Alt+F10
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=Meta+Alt+F1
++Window to Desktop 2=Meta+Alt+F2
++Window to Desktop 3=Meta+Alt+F3
++Window to Desktop 4=Meta+Alt+F4
++Window to Desktop 5=Meta+Alt+F5
++Window to Desktop 6=Meta+Alt+F6
++Window to Desktop 7=Meta+Alt+F7
++Window to Desktop 8=Meta+Alt+F8
++Window to Desktop 9=Meta+Alt+F9
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Meta+Ctrl+K
+--- workspace/kcontrol/keys/schemes/old_win3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_win3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=none
+ Popup Launch Menu=Ctrl+Esc
+ Reboot Computer=none
+-Show Metadow List=none
++Show Window List=none
+ Toggle Showing Desktop=Ctrl+Alt+D
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+Tab
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=Alt+F4
+-Metadow Minimize=none
+-Metadow Lower=none
+-Metadow Maximize=none
+-Metadow Maximize Horizontal=none
+-Metadow Maximize Vertical=none
+-Metadow Move=none
+-Metadow Operations Menu=Alt+Space
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Alt+Print
+-Metadow Shade=none
+-Metadow to Desktop 1=none
+-Metadow to Desktop 10=none
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 2=none
+-Metadow to Desktop 3=none
+-Metadow to Desktop 4=none
+-Metadow to Desktop 5=none
+-Metadow to Desktop 6=none
+-Metadow to Desktop 7=none
+-Metadow to Desktop 8=none
+-Metadow to Desktop 9=none
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+D
+@@ -46,8 +12,8 @@
+ Close=Ctrl+F4; Ctrl+W
+ Copy=Ctrl+C; Ctrl+Insert
+ Cut=Ctrl+X; Shift+Del
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/kcontrol/keys/schemes/old_win4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_win4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=none
+ Popup Launch Menu=Ctrl+Esc
+ Reboot Computer=none
+-Show Metadow List=none
++Show Window List=none
+ Toggle Showing Desktop=Meta+D; Win+M
+-Toggle Metadow Raise/Lower=none
+-Walk Through Metadows=Alt+Tab
+-Walk Through Metadows (Reverse)=Alt+Shift+Tab
+-Metadow Close=Alt+F4
+-Metadow Minimize=none
+-Metadow Lower=none
+-Metadow Maximize=none
+-Metadow Maximize Horizontal=none
+-Metadow Maximize Vertical=none
+-Metadow Move=none
+-Metadow Operations Menu=Alt+Space
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Alt+Print
+-Metadow Shade=none
+-Metadow to Desktop 1=none
+-Metadow to Desktop 10=none
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 2=none
+-Metadow to Desktop 3=none
+-Metadow to Desktop 4=none
+-Metadow to Desktop 5=none
+-Metadow to Desktop 6=none
+-Metadow to Desktop 7=none
+-Metadow to Desktop 8=none
+-Metadow to Desktop 9=none
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+D
+@@ -46,8 +12,8 @@
+ Close=Ctrl+F4; Ctrl+W
+ Copy=Ctrl+C; Ctrl+Insert
+ Cut=Ctrl+X; Shift+Del
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/kcontrol/keys/schemes/win3.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/win3.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -100,6 +100,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Ctrl+Print
++Kill Window=none
+ Mouse Emulation=none
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -123,10 +124,43 @@
+ Switch to Desktop 9=none
+ Switch to Next Desktop=Alt+Shift+Tab
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=none
+ Walk Through Desktop List=none
+ Walk Through Desktops (Reverse)=Ctrl+Alt+Shift+Tab
+ Walk Through Desktops=Ctrl+Alt+Tab
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+Tab
++Window Close=Alt+F4
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=none
++Window Minimize=none
++Window Move=none
++Window Operations Menu=Alt+Space
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Alt+Print
++Window Shade=none
++Window to Desktop 10=none
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=none
++Window to Desktop 2=none
++Window to Desktop 3=none
++Window to Desktop 4=none
++Window to Desktop 5=none
++Window to Desktop 6=none
++Window to Desktop 7=none
++Window to Desktop 8=none
++Window to Desktop 9=none
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/win4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/win4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -100,6 +100,7 @@
+ 
+ [kwin][Global Shortcuts]
+ Desktop Screenshot to Clipboard=Print
++Kill Window=none
+ Mouse Emulation=none
+ Switch One Desktop Down=none
+ Switch One Desktop Up=none
+@@ -123,10 +124,43 @@
+ Switch to Desktop 9=Meta+F9
+ Switch to Next Desktop=none
+ Switch to Previous Desktop=none
++Toggle Window Raise/Lower=none
+ Walk Through Desktop List (Reverse)=none
+ Walk Through Desktop List=none
+ Walk Through Desktops (Reverse)=Meta+Shift+Tab
+ Walk Through Desktops=Meta+Tab
++Walk Through Windows (Reverse)=Alt+Shift+Tab
++Walk Through Windows=Alt+Tab
++Window Close=Alt+F4
++Window Lower=none
++Window Maximize Horizontal=none
++Window Maximize Vertical=none
++Window Maximize=none
++Window Minimize=none
++Window Move=none
++Window Operations Menu=Alt+Space
++Window Raise=none
++Window Resize=none
++Window Screenshot to Clipboard=Alt+Print
++Window Shade=none
++Window to Desktop 10=none
++Window to Desktop 11=none
++Window to Desktop 12=none
++Window to Desktop 13=none
++Window to Desktop 14=none
++Window to Desktop 15=none
++Window to Desktop 16=none
++Window to Desktop 1=none
++Window to Desktop 2=none
++Window to Desktop 3=none
++Window to Desktop 4=none
++Window to Desktop 5=none
++Window to Desktop 6=none
++Window to Desktop 7=none
++Window to Desktop 8=none
++Window to Desktop 9=none
++Window to Next Desktop=none
++Window to Previous Desktop=none
+ 
+ [kxkb][Global Shortcuts]
+ Switch to Next Keyboard Layout=Ctrl+Alt+K
+--- workspace/kcontrol/keys/schemes/old_mac4.kksrc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kcontrol/keys/schemes/old_mac4.kksrc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1,44 +1,10 @@
+ 
+ [Global Shortcuts]
+ Halt Computer=none
+-Kill Metadow=Ctrl+Alt+Esc
+ Popup Launch Menu=Alt+F1
+ Reboot Computer=none
+-Show Metadow List=Alt+F5
++Show Window List=Alt+F5
+ Toggle Showing Desktop=Ctrl+Alt+D
+-Toggle Metadow Raise/Lower=Ctrl+E
+-Walk Through Metadows=Ctrl+Tab
+-Walk Through Metadows (Reverse)=Ctrl+Shift+Tab
+-Metadow Close=Alt+F4
+-Metadow Minimize=none
+-Metadow Lower=none
+-Metadow Maximize=none
+-Metadow Maximize Horizontal=none
+-Metadow Maximize Vertical=none
+-Metadow Move=none
+-Metadow Operations Menu=Alt+F3
+-Metadow Raise=none
+-Metadow Resize=none
+-Metadow Screenshot=Ctrl+Shift+4
+-Metadow Shade=none
+-Metadow to Desktop 1=none
+-Metadow to Desktop 10=none
+-Metadow to Desktop 11=none
+-Metadow to Desktop 12=none
+-Metadow to Desktop 13=none
+-Metadow to Desktop 14=none
+-Metadow to Desktop 15=none
+-Metadow to Desktop 16=none
+-Metadow to Desktop 2=none
+-Metadow to Desktop 3=none
+-Metadow to Desktop 4=none
+-Metadow to Desktop 5=none
+-Metadow to Desktop 6=none
+-Metadow to Desktop 7=none
+-Metadow to Desktop 8=none
+-Metadow to Desktop 9=none
+-Metadow to Next Desktop=none
+-Metadow to Previous Desktop=none
+ 
+ [Shortcuts]
+ AddBookmark=Ctrl+B
+@@ -46,8 +12,8 @@
+ Close=Ctrl+W
+ Copy=Ctrl+C
+ Cut=Ctrl+X
+-DelWordBack=Ctrl+Backspace
+-DelWordForward=Ctrl+Delete
++DeleteWordBack=Ctrl+Backspace
++DeleteWordForward=Ctrl+Del
+ Deselect=Ctrl+Shift+A
+ End=Ctrl+End
+ Find=Ctrl+F
+--- workspace/libs/kephal/xrandr12/randrscreen.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/libs/kephal/xrandr12/randrscreen.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -204,24 +204,33 @@
+             qDebug() << "RandRScreen::handleRandREvent - CrtcChange";
+             crtcEvent = (XRRCrtcChangeNotifyEvent*)event;
+             c = crtc(crtcEvent->crtc);
+-            Q_ASSERT(c);
+-            c->handleEvent(crtcEvent);
++            if (c) {
++                c->handleEvent(crtcEvent);
++            } else {
++                qDebug() << "RandRScreen::handleRandREvent - crtc not found";
++            }
+             return;
+ 
+         case RRNotify_OutputChange:
+             qDebug() << "RandRScreen::handleRandREvent - OutputChange";
+             outputEvent = (XRROutputChangeNotifyEvent*)event;
+             o = output(outputEvent->output);
+-            Q_ASSERT(o);
+-            o->handleEvent(outputEvent);
++            if (o) {
++                o->handleEvent(outputEvent);
++            } else {
++                qDebug() << "RandRScreen::handleRandREvent - output not found";
++            }
+             return;
+ 
+         case RRNotify_OutputProperty:
+             qDebug() << "RandRScreen::handleRandREvent - OutputProperty";
+             propertyEvent = (XRROutputPropertyNotifyEvent*)event;
+             o = output(propertyEvent->output);
+-            Q_ASSERT(o);
+-            o->handlePropertyEvent(propertyEvent);
++            if (o) {
++                o->handlePropertyEvent(propertyEvent);
++            } else {
++                qDebug() << "RandRScreen::handleRandREvent - output not found";
++            }
+             return;
+             
+         default:
+--- workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/khotkeys/data/konqueror_gestures_kde321.khotkeys	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -683,7 +683,7 @@
+ Name[se]=Heaitte viežžamis
+ Name[si]=පූරණය නවතන්න
+ Name[sk]=Zastaviť načítanie
+-Name[sl]=Prenehaj nalagati
++Name[sl]=Ustavi nalaganje
+ Name[sr]=Заустави учитавање
+ Name[sr@latin]=Zaustavi učitavanje
+ Name[sv]=Stoppa laddning
+--- workspace/kwin/effects/presentwindows/presentwindows.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/effects/presentwindows/presentwindows.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
 @@ -42,7 +42,7 @@
  Name[ml]=നിലവിലുള്ള ജാലകങ്ങള്‍
  Name[mr]=वर्तमान चौकट
@@ -61,8 +926,8 @@
  Name[ne]=हालको सञ्झ्याल
  Name[nl]=Vensters presenteren
  Name[nn]=Presenter vindauge
---- workspace/kwin/effects/presentwindows/presentwindows_config.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1057516)
-+++ workspace/kwin/effects/presentwindows/presentwindows_config.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1057516)
+--- workspace/kwin/effects/presentwindows/presentwindows_config.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/effects/presentwindows/presentwindows_config.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
 @@ -49,7 +49,7 @@
  Name[ml]=നിലവിലുള്ള ജാലകങ്ങള്‍
  Name[mr]=वर्तमान चौकट
@@ -72,8 +937,198 @@
  Name[ne]=हालको सञ्झ्याल
  Name[nl]=Vensters presenteren
  Name[nn]=Presenter vindauge
---- workspace/plasma/applets/kickoff/simpleapplet/plasma-applet-simplelauncher.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1057516)
-+++ workspace/plasma/applets/kickoff/simpleapplet/plasma-applet-simplelauncher.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1057516)
+--- workspace/kwin/effects/showpaint/showpaint.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/effects/showpaint/showpaint.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -71,7 +71,7 @@
+ Comment=Highlight areas of the desktop that have been recently updated
+ Comment[ar]=تبرز المناطق التي تم تحديثها مؤخرا في سطح المكتب
+ Comment[bg]=Открояване на частите от екрана, които са били променени скоро
+-Comment[ca]=Resalta les àrees de l'escriptori que s'han actualitzat darrerament
++Comment[ca]=Ressalta les àrees de l'escriptori que s'han actualitzat darrerament
+ Comment[ca@valencia]=Resalta les àrees de l'escriptori que s'han actualitzat darrerament
+ Comment[cs]=Zvýrazní ty oblasti na obrazovce, které byly právě vykresleny
+ Comment[da]=Fremhæv områder af skrivebordet som er blevet opdateret for nyligt
+--- workspace/kwin/scene_opengl.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/scene_opengl.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -232,6 +232,7 @@
+             glXDestroyPixmap( display(), last_pixmap );
+         glXDestroyContext( display(), ctxdrawable );
+         }
++    EffectFrame::cleanup();
+     checkGLError( "Cleanup" );
+     }
+ 
+--- workspace/kwin/lib/kwineffects.cpp	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/lib/kwineffects.cpp	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -1118,7 +1118,7 @@
+ 
+ WindowMotionManager::WindowMotionManager( bool useGlobalAnimationModifier )
+     :   m_useGlobalAnimationModifier( useGlobalAnimationModifier )
+-    ,   m_movingWindows( 0 )
++
+     { // TODO: Allow developer to modify motion attributes
+     } // TODO: What happens when the window moves by an external force?
+ 
+@@ -1156,23 +1156,22 @@
+ 
+     QPointF diffT = m_managedWindows[ w ].translation.distance();
+     QPointF diffS = m_managedWindows[ w ].scale.distance();
+-    if( diffT.x() != 0.0 || diffT.y() != 0.0 || diffS.x() != 0.0 || diffS.y() != 0.0 )
+-        m_movingWindows--; // Window was moving
+ 
++    m_movingWindowsSet.remove( w );
+     m_managedWindows.remove( w );
+     }
+ 
+ void WindowMotionManager::unmanageAll()
+     {
+     m_managedWindows.clear();
+-    m_movingWindows = 0;
++    m_movingWindowsSet.clear();
+     }
+ 
+ void WindowMotionManager::calculate( int time )
+     {
+     if( !effects->animationTimeFactor() )
+         { // Just skip it completely if the user wants no animation
+-        m_movingWindows = 0;
++        m_movingWindowsSet.clear();
+         QHash<EffectWindow*, WindowMotion>::iterator it = m_managedWindows.begin();
+         for(; it != m_managedWindows.end(); it++ )
+             {
+@@ -1221,7 +1220,7 @@
+ 
+         // We just finished this window's motion
+         if( stopped && diffT == QPoint( 0.0, 0.0 ) && diffS == QPoint( 0.0, 0.0 ))
+-            m_movingWindows--;
++            m_movingWindowsSet.remove( it.key() );
+         }
+     }
+ 
+@@ -1281,9 +1280,7 @@
+     m_managedWindows[ w ].translation.setTarget( target );
+     m_managedWindows[ w ].scale.setTarget( scalePoint );
+ 
+-    if( m_managedWindows[ w ].translation.velocity() == QPointF( 0.0, 0.0 ) &&
+-        m_managedWindows[ w ].scale.velocity() == QPointF( 0.0, 0.0 ))
+-        m_movingWindows++;
++    m_movingWindowsSet << w;
+     }
+ 
+ QRectF WindowMotionManager::transformedGeometry( EffectWindow *w ) const
+@@ -1804,6 +1801,14 @@
+ #endif
+     }
+ 
++void EffectFrame::cleanup()
++    {
++#ifdef KWIN_HAVE_OPENGL_COMPOSITING
++    delete m_unstyledTexture;
++    m_unstyledTexture = NULL;
++#endif
++    }
++
+ void EffectFrame::updateUnstyledTexture()
+     {
+ #ifdef KWIN_HAVE_OPENGL_COMPOSITING
+--- workspace/kwin/lib/kwineffects.h	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kwin/lib/kwineffects.h	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -170,7 +170,7 @@
+ 
+ #define KWIN_EFFECT_API_MAKE_VERSION( major, minor ) (( major ) << 8 | ( minor ))
+ #define KWIN_EFFECT_API_VERSION_MAJOR 0
+-#define KWIN_EFFECT_API_VERSION_MINOR 83
++#define KWIN_EFFECT_API_VERSION_MINOR 85
+ #define KWIN_EFFECT_API_VERSION KWIN_EFFECT_API_MAKE_VERSION( \
+     KWIN_EFFECT_API_VERSION_MAJOR, KWIN_EFFECT_API_VERSION_MINOR )
+ 
+@@ -1577,7 +1577,7 @@
+          * or not. Can be used to see if an effect should be
+          * processed and displayed or not.
+          */
+-        inline bool areWindowsMoving() { return m_movingWindows > 0; }
++        inline bool areWindowsMoving() { return !m_movingWindowsSet.isEmpty(); }
+ 
+     private:
+         bool m_useGlobalAnimationModifier;
+@@ -1587,7 +1587,7 @@
+             Motion2D scale; // xScale and yScale
+             };
+         QHash<EffectWindow*, WindowMotion> m_managedWindows;
+-        uint m_movingWindows;
++        QSet<EffectWindow*> m_movingWindowsSet;
+     };
+ 
+ /**
+@@ -1663,6 +1663,12 @@
+          */
+         static QColor styledTextColor();
+ 
++        /**
++         * Clean up all static texture data. Called when compositing is being disabled.
++         * @internal
++         */
++        static void cleanup();
++
+     private Q_SLOTS:
+         void plasmaThemeChanged();
+ 
+--- workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/kdm/kfrontend/sessions/oroborus.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -90,7 +90,7 @@
+ Comment[be@latin]=Prosty akońnik z matyvami
+ Comment[bg]=Лек мениджър с много теми
+ Comment[bn]=হাল্কা থীমযুক্ত উইণ্ডো ম্যানেজার
+-Comment[ca]=Un gestor de finestres temíblement lleuger
++Comment[ca]=Un gestor de finestres lleuger que permet temes
+ Comment[ca@valencia]=Un gestor de finestres temíblement lleuger
+ Comment[cs]=Malý správce oken s tématy
+ Comment[csb]=Menadżera òknów ò môłëch żądanich, z mòżnotą zmianë wëzdrzatkù
+--- workspace/ksysguard/gui/SensorDisplayLib/ListView.h	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/ksysguard/gui/SensorDisplayLib/ListView.h	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -48,7 +48,7 @@
+ 		return true;
+ 	}
+ 
+-	virtual void timerTickEvent()
++	virtual void timerTick()
+ 	{
+ 		updateList();
+ 	}
+--- workspace/ksysguard/gui/SensorDisplayLib/ListView.cc	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/ksysguard/gui/SensorDisplayLib/ListView.cc	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -174,6 +174,7 @@
+ 					mModel.setItem(i, j, item);
+ 				}
+ 			}
++			mModel.setRowCount(answer.count());
+ 			break;
+ 		}
+ 	}
+--- workspace/plasma/shells/desktop/plasma-desktop.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/plasma/shells/desktop/plasma-desktop.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -6,7 +6,7 @@
+ Name[be@latin]=Rabočy abšar stała „Plasma”
+ Name[bg]=Работно пространство Plasma
+ Name[bn_IN]=Plasma ডেস্কটপ কর্মক্ষেত্র
+-Name[ca]=Espai de treball de l'escriptori del Plasma
++Name[ca]=Espai de treball de l'escriptori Plasma
+ Name[ca@valencia]=Espai de treball de l'escriptori del Plasma
+ Name[cs]=Pracovní plocha Plasma
+ Name[da]=Plasma Desktop Workspace
+--- workspace/plasma/animators/default/plasma-animator-default.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/plasma/animators/default/plasma-animator-default.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
+@@ -5,7 +5,7 @@
+ Name[be@latin]=Zmoŭčany animatar „Plasma”
+ Name[bg]=Аниматор за Plasma
+ Name[bn_IN]=ডিফল্ট Plasma অ্যানিমেটর
+-Name[ca]=Animador de plasma per omissió
++Name[ca]=Animador del Plasma per omissió
+ Name[ca@valencia]=Animador de plasma per omissió
+ Name[cs]=Výchozí animátor Plasma
+ Name[csb]=Domëslny animator plazmë
+--- workspace/plasma/applets/kickoff/simpleapplet/plasma-applet-simplelauncher.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/plasma/applets/kickoff/simpleapplet/plasma-applet-simplelauncher.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
 @@ -109,7 +109,7 @@
  Comment[ml]=പരമ്പരാഗതമായ മെനുഅടിസ്ഥാനമാക്കിയുള്ള പ്രയോഗവിക്ഷേപിണി
  Comment[mr]=पारंपारिक मेन्यू आधारीत अनुप्रयोग प्रक्षेपक
@@ -83,8 +1138,8 @@
  Comment[nl]=Traditioneel menu voor het starten van programma's
  Comment[nn]=Tradisjonell menybasert programstartar
  Comment[or]=ପ୍ରଥାଗତ ତାଲିକା ଆଧାରିତ ପ୍ରୟୋଗ ଆରମ୍ଭକର୍ତ୍ତା
---- workspace/plasma/applets/kickoff/applet/plasma-applet-launcher.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1057516)
-+++ workspace/plasma/applets/kickoff/applet/plasma-applet-launcher.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1057516)
+--- workspace/plasma/applets/kickoff/applet/plasma-applet-launcher.desktop	(.../tags/KDE/4.3.4/kdebase)	(wersja 1063411)
++++ workspace/plasma/applets/kickoff/applet/plasma-applet-launcher.desktop	(.../branches/KDE/4.3/kdebase)	(wersja 1063411)
 @@ -46,7 +46,7 @@
  Name[ml]=പ്രയോഗവിക്ഷേപിണി
  Name[mr]=अनुप्रयोग प्रकक्षेपक
