@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.80
-Release:	2
+Version:	4.3.85
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	68177b5c0dd8ab4bebe682393871f82c
+# Source0-md5:	b727b668858a4ddbe4649643f62ebd4a
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -30,6 +30,7 @@ Source16:	%{name}-session
 #Patch100: %{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
+Patch2:		%{name}-installFP.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
@@ -524,6 +525,7 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 #%patch100 -p1
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 %build
 install -d build
@@ -667,9 +669,8 @@ fi
 #%attr(755,root,root) %ghost %{_libdir}/libtime_solar.so.?
 #%attr(755,root,root) %{_libdir}/libtime_solar.so.*.*.*
 
-# qt4 plugins
-%dir %{_libdir}/qt4/plugins/gui_platform
-%attr(755,root,root) %{_libdir}/qt4/plugins/gui_platform/libkde.so
+%dir %{_libdir}/kde4/plugins/gui_platform
+%attr(755,root,root) %{_libdir}/kde4/plugins/gui_platform/libkde.so
 
 # workspace options
 %attr(755,root,root) %{_libdir}/kde4/kcm_workspaceoptions.so
@@ -1053,8 +1054,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 #%attr(755,root,root) %{_libdir}/libtime_solar.so
-#%{_libdir}/cmake/KDE4Workspace-%{version}
-%{_libdir}/cmake/KDE4Workspace-4.3.61
+%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1157,6 +1157,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_tabbox_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
@@ -1283,6 +1284,7 @@ fi
 %{_datadir}/apps/kconf_update/kwinupdatewindowsettings.upd
 %{_datadir}/apps/kconf_update/plasma-to-plasmadesktop-shortcuts.upd
 %{_datadir}/apps/kconf_update/plasmarc-to-plasmadesktoprc.upd
+%{_datadir}/apps/kconf_update/kwin_update_tabbox_settings.upd
 #%{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
 %{_iconsdir}/oxygen/16x16/apps/kwin.png
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
@@ -1385,9 +1387,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-ip.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_panelspacer_internal.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_ram.so
-%{py_sitedir}/PyKDE4/plasmascript.pyc
-%{py_sitedir}/PyKDE4/plasmascript.pyo
-%{_datadir}/apps/plasma_scriptengine_python
 %{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
@@ -1499,8 +1498,6 @@ fi
 %{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-runner-python.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-wallpaper-python.desktop
 %{_datadir}/kde4/services/plasma-sal-bookmarks.desktop
 %{_datadir}/kde4/services/plasma-sal-contacts.desktop
 %{_datadir}/kde4/services/plasma-sal-education.desktop
@@ -1511,8 +1508,6 @@ fi
 %{_datadir}/kde4/services/plasma-sal-office.desktop
 %{_datadir}/kde4/services/plasma-sal-system.desktop
 %{_datadir}/kde4/services/plasma-sal-utility.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-applet-python.desktop
-%{_datadir}/kde4/services/plasma-scriptengine-dataengine-python.desktop
 %{_datadir}/kde4/servicetypes/plasma-sal-menu.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
@@ -1585,15 +1580,15 @@ fi
 %defattr(644,root,root,755)
 %{_datadir}/wallpapers/Air
 %{_datadir}/wallpapers/Aghi
-%{_datadir}/wallpapers/Atra_Dot
 %{_datadir}/wallpapers/Code_Poets_Dream
 %{_datadir}/wallpapers/Curls_on_Green
-%{_datadir}/wallpapers/EOS
 %{_datadir}/wallpapers/Evening
 %{_datadir}/wallpapers/Fields_of_Peace
 %{_datadir}/wallpapers/Finally_Summer_in_Germany
 %{_datadir}/wallpapers/Fresh_Morning
+%{_datadir}/wallpapers/Media_Life
 %{_datadir}/wallpapers/Plasmalicious
+%{_datadir}/wallpapers/Quadros
 %{_datadir}/wallpapers/Red_Leaf
 %{_datadir}/wallpapers/Spring_Sunray
 %{_datadir}/wallpapers/There_is_Rain_on_the_Table
