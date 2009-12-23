@@ -60,7 +60,7 @@ BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.80
-BuildRequires:	polkit-qt-devel
+BuildRequires:	polkit-qt-devel >= 0.9.3
 #BuildRequires:	python-PyKDE4 >= %{version}
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
