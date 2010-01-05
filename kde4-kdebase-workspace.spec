@@ -1,7 +1,7 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 # NOTE:
-# - don't add BR: python-PyQT4 + python-PyKDE4 for plasma-python-scripts-crap
+# - don't add BR: python-PyQT4 + python-PyKDE4 for python-plasma
 #
 %define		oname		kdebase-workspace
 %define		_state		stable
@@ -11,7 +11,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.4
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -33,6 +33,7 @@ Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-trunk-fixes.patch
+Patch3:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
@@ -524,12 +525,22 @@ KDE icons - oxygen. This package contains SVG icons.
 %description svg-icons -l pl.UTF-8
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
+%package -n python-plasma
+Summary:	Python plasma for KDE
+Group:		Libraries/Python
+Requires:	%{name}-plasma = %{version}-%{release}
+Requires:	python-PyKDE4
+
+%description -n python-plasma
+Python plasma for KDE.
+
 %prep
 %setup -q -n %{oname}-%{version}
 %patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 install -d build
@@ -1620,3 +1631,10 @@ fi
 %files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
+
+%files -n python-plasma
+%defattr(644,root,root,755)
+%{py_sitedir}/PyKDE4/plasmascript.py[co]
+%dir %{_datadir}/apps/plasma_scriptengine_python
+%{_datadir}/apps/plasma_scriptengine_python/*.py[co]
+%{_datadir}/kde4/services/*.desktop
