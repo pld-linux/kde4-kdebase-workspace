@@ -11,7 +11,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.3.4
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{oname}-%{version}.tar.bz2
@@ -602,7 +602,7 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_postclean
+# don't clean .py files!
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -1636,5 +1636,6 @@ fi
 %defattr(644,root,root,755)
 %{py_sitedir}/PyKDE4/plasmascript.py[co]
 %dir %{_datadir}/apps/plasma_scriptengine_python
+%{_datadir}/apps/plasma_scriptengine_python/*.py
 %{_datadir}/apps/plasma_scriptengine_python/*.py[co]
 %{_datadir}/kde4/services/*.desktop
