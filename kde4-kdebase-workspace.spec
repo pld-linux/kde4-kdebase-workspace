@@ -536,7 +536,7 @@ Python plasma for KDE.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
-%patch3 -p1
+%patch3 -p0
 
 %build
 install -d build
