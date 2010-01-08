@@ -8,12 +8,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.85
+Version:	4.3.90
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	b727b668858a4ddbe4649643f62ebd4a
+# Source0-md5:	21c77cd85d4c47553678d6fde8300947
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -31,6 +31,7 @@ Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-installFP.patch
+Patch3:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
@@ -520,12 +521,22 @@ KDE icons - oxygen. This package contains SVG icons.
 %description svg-icons -l pl.UTF-8
 Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
+%package -n python-plasma
+Summary:       Python plasma for KDE
+Group:         Libraries/Python
+Requires:      %{name}-plasma = %{version}-%{release}
+Requires:      python-PyKDE4
+
+%description -n python-plasma
+Python plasma for KDE.
+
 %prep
 %setup -q -n %{orgname}-%{version}
 #%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
+%patch3 -p1
 
 %build
 install -d build
@@ -587,7 +598,7 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_postclean
+ # don't clean .py files!
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -654,6 +665,7 @@ fi
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
 #%attr(755,root,root) %{_bindir}/setscheduler
 #%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+%attr(755,root,root) %{_libdir}/libksignalplotter.so.*
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
@@ -682,8 +694,8 @@ fi
 %{_datadir}/kde4/services/settings-input-actions.desktop
 
 # remotewidgets
-%attr(755,root,root) %{_libdir}/kde4/kcm_remotewidgets.so
-%{_datadir}/kde4/services/remotewidgets.desktop
+#%attr(755,root,root) %{_libdir}/kde4/kcm_remotewidgets.so
+#%{_datadir}/kde4/services/remotewidgets.desktop
 
 # autostart
 %attr(755,root,root) %{_libdir}/kde4/kcm_autostart.so
@@ -1041,6 +1053,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkwineffects.so
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
 %attr(755,root,root) %{_libdir}/libkworkspace.so
+%attr(755,root,root) %{_libdir}/libksignalplotter.so
 %attr(755,root,root) %{_libdir}/libplasmaclock.so
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so
 %attr(755,root,root) %{_libdir}/libplasmagenericshell.so
@@ -1118,6 +1131,7 @@ fi
 %attr(755,root,root) %{_bindir}/ksysguardd
 %attr(755,root,root) %{_libdir}/libkdeinit4_ksysguard.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/ksysguardprocesslist_helper
+%attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksignalplotterwidgets.so
 %attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardwidgets.so
 %attr(755,root,root) %{_libdir}/kde4/plugins/designer/ksysguardlsofwidgets.so
 %{_desktopdir}/kde4/ksysguard.desktop
@@ -1161,7 +1175,7 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
-%{_datadir}/apps/aurorae
+#%{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
 %{_datadir}/apps/kwin/aurorae.desktop
@@ -1335,6 +1349,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_applauncher.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_contextmenu.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_minimalcontextmenu.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_paste.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_switchactivity.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_containmentactions_switchdesktop.so
@@ -1387,7 +1402,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-ip.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_panelspacer_internal.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_sm_ram.so
-%{_datadir}/apps/plasma/plasmoids
+#%{_datadir}/apps/plasma/plasmoids
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so.*.*.*
@@ -1421,7 +1436,7 @@ fi
 %{_datadir}/kde4/services/plasma-applet-currentappcontrol.desktop
 %{_datadir}/kde4/services/plasma-applet-devicenotifier.desktop
 %{_datadir}/kde4/services/plasma-applet-digitalclock.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-analog-clock.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-analog-clock.desktop
 %{_datadir}/kde4/services/plasma-applet-icon.desktop
 %{_datadir}/kde4/services/plasma-applet-launcher.desktop
 %{_datadir}/kde4/services/plasma-applet-lockout.desktop
@@ -1494,8 +1509,8 @@ fi
 %{_datadir}/kde4/services/plasma-containment-saverdesktop.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-color.desktop
 %{_datadir}/kde4/services/plasma-wallpaper-image.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
-%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-photos.desktop
+#%{_datadir}/kde4/services/plasma-applet-ggl-rss.desktop
 %{_datadir}/kde4/services/plasma-packagestructure-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-googlegadgets.desktop
 %{_datadir}/kde4/services/plasma-sal-bookmarks.desktop
@@ -1723,3 +1738,11 @@ fi
 %files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
+
+%files -n python-plasma
+%defattr(644,root,root,755)
+%{py_sitedir}/PyKDE4/plasmascript.py[co]
+%dir %{_datadir}/apps/plasma_scriptengine_python
+%{_datadir}/apps/plasma_scriptengine_python/*.py
+%{_datadir}/apps/plasma_scriptengine_python/*.py[co]
+%{_datadir}/kde4/services/*.desktop
