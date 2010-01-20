@@ -76,6 +76,7 @@ BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	kde4-kdebase-workspace-solid >= %{version}
+Requires:	xorg-app-setxkbmap
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
