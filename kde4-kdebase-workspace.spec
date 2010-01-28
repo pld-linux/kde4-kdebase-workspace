@@ -136,12 +136,12 @@ Requires:	kde4-kdelibs-devel >= %{version}
 This package contains header files needed to develop KDE applications.
 
 %description devel -l pl.UTF-8
-Pakiet zawiera pliki nagłówkowe niezbędne do programowania
-aplikacji KDE.
+Pakiet zawiera pliki nagłówkowe niezbędne do programowania aplikacji
+KDE.
 
 %description devel -l pt_BR.UTF-8
-Este pacote contém os arquivos de inclusão que são necessários
-para compilar aplicativos que usem bibliotecas do kdebase.
+Este pacote contém os arquivos de inclusão que são necessários para
+compilar aplicativos que usem bibliotecas do kdebase.
 
 %package kfontinst
 Summary:	K Font Installer
@@ -165,8 +165,8 @@ A tool extending the clipboard support for KDE. Note that it requires
 a powerful computer.
 
 %description klipper -l pl.UTF-8
-Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono
-szybkiego systemu.
+Narzędzie rozszerzające obsługę schowka dla KDE. Wymaga ono szybkiego
+systemu.
 
 %package ksysguard
 Summary:	System Guard
@@ -217,8 +217,7 @@ KDE screensavers.
 Wygaszacze ekranu KDE.
 
 %description screensavers -l ru.UTF-8
-Некоторые 3D хранители экрана для K Desktop
-Environment.
+Некоторые 3D хранители экрана для K Desktop Environment.
 
 %package solid
 Summary:	Solid - KDE 4 hardware configuration
@@ -276,6 +275,7 @@ Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires(post,preun):	/sbin/chkconfig
+Requires:	/usr/bin/X
 Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
@@ -305,8 +305,8 @@ aligned next to each other.
 %description -n kde4-decoration-b2 -l pl.UTF-8
 Podobna do Beos dekoracja okien z prostokątnym tytułem okna po lewej
 stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
-przypadkach gdyby dwie dekoracje się zasłaniały, są one układane
-obok siebie.
+przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
+siebie.
 
 %package -n kde4-decoration-kde2
 Summary:	KDE Window Decoration - kde2
@@ -412,8 +412,8 @@ buttons. Between the two area there is a stylish transition.
 
 %description -n kde4-decoration-quartz -l pl.UTF-8
 Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków.
-Między obszarami jest stylowy przejście.
+jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
+obszarami jest stylowy przejście.
 
 %package -n kde4-decoration-redmond
 Summary:	KDE Window Decoration - Redmond
@@ -449,8 +449,8 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the classic, default look.
 
 %description -n kde4-kgreet-classic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - klasyczny, domyślny
-motyw wyglądu.
+Narzędzia służące do zapytań o hasło - klasyczny, domyślny motyw
+wyglądu.
 
 %package -n kde4-kgreet-generic
 Summary:	KDE greeter libraries - generic version
@@ -462,8 +462,7 @@ Provides:	kde4-kgreet
 Tools for asking for passwords in the generic, default look.
 
 %description -n kde4-kgreet-generic -l pl.UTF-8
-Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw
-wyglądu.
+Narzędzia służące do zapytań o hasło - zwykły, domyślny motyw wyglądu.
 
 %package -n kde4-kgreet-winbind
 Summary:	KDE greeter libraries - winbind version
