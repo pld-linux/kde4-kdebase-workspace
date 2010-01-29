@@ -1,5 +1,5 @@
 --- ksplash/ksplashx/qpngio.cpp.orig	2010-01-29 16:27:02.398253472 +0100
-+++ ksplash/ksplashx/qpngio.cpp	2010-01-29 16:27:29.884454527 +0100
++++ ksplash/ksplashx/qpngio.cpp	2010-01-29 16:39:33.557014806 +0100
 @@ -151,7 +151,7 @@
  		image.setColor( i, qRgba(c,c,c,0xff) );
  	    }
@@ -9,3 +9,12 @@
  		if (g < ncols) {
  		    image.setAlphaBuffer(true);
  		    image.setColor(g, image.color(g) & RGB_MASK);
+@@ -179,7 +179,7 @@
+ 		    info_ptr->palette[i].red,
+ 		    info_ptr->palette[i].green,
+ 		    info_ptr->palette[i].blue,
+-		    info_ptr->trans[i]
++		    info_ptr->trans_alpha[i]
+ 		    )
+ 		);
+ 		i++;
