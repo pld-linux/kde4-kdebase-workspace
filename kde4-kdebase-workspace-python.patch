@@ -1,9 +1,16 @@
 --- kdebase-workspace-4.3.4/CMakeLists.txt~	2009-11-27 14:01:58.000000000 +0100
 +++ kdebase-workspace-4.3.4/CMakeLists.txt	2010-01-05 14:23:22.615963105 +0100
-@@ -59,10 +59,7 @@
- endif(PYQT4_FOUND AND PYQT4_VERSION STRLESS "040400")
- 
- macro_optional_find_package(PyKDE4)
+@@ -52,17 +52,7 @@
+  
+ include(SIPMacros)
+  
+-macro_optional_find_package(PyQt4)
+-if(PYQT4_FOUND AND PYQT4_VERSION STRLESS "040400")
+-  message(STATUS "The version of PyQt found is too old. 4.4.0 or later is required.")
+-  set(PYQT4_FOUND)
+-endif(PYQT4_FOUND AND PYQT4_VERSION STRLESS "040400")
+-
+-macro_optional_find_package(PyKDE4)
 -set(PythonSupport_FOUND FALSE)
 -if(PYTHONLIBRARY_FOUND AND SIP_FOUND AND PYQT4_FOUND AND PYKDE4_FOUND)
 -  set(PythonSupport_FOUND TRUE)
