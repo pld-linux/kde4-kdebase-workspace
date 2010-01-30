@@ -65,17 +65,22 @@ BuildRequires:	libusb-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.1
+BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-devel
+BuildRequires:	python-PyKDE4
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
 BuildRequires:	qt4-build >= %{qt4brver}
+BuildRequires:	qt4-qmake >= %{qt4brver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	soprano-devel >= 2.3.0
 BuildRequires:	strigi-devel >= 0.6.5
 BuildRequires:	utempter-devel
 BuildRequires:	xmms-devel
+BuildRequires:	xorg-lib-libXcomposite-devel
+BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
 Requires:	kde4-icons-oxygen >= %{version}
