@@ -283,6 +283,8 @@ Requires(post,preun):	/sbin/chkconfig
 Requires:	/usr/bin/X
 Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
+# xorg-app-xinit-xinitrc-1.0.8-1 doesn't provide it. this should pull xinitrc-ng in
+Requires:	/etc/X11/xinit/Xclients
 Requires:	rc-scripts
 Provides:	XDM
 Obsoletes:	kdm < 9:3.0.0
