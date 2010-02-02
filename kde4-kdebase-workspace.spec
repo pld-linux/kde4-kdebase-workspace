@@ -48,7 +48,7 @@ BuildRequires:	akonadi-devel >= 1.2.80
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
-BuildRequires:	cmake >= 2.6.3
+BuildRequires:	cmake >= 2.8.0
 BuildRequires:	eet-devel
 BuildRequires:	google-gadgets-qt >= 0.11.0
 BuildRequires:	gpsd-devel
