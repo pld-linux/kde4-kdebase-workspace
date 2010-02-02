@@ -2,7 +2,7 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kdebase-workspace
 %define		_state		unstable
-%define		qt4brver	4.6.0
+%define		qtver		4.6.0
 %define		snap		svn1053190
 
 Summary:	KDE 4 base workspace components
@@ -36,14 +36,14 @@ URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.0-0.svn4027.1
 BuildRequires:	OpenGL-devel
-BuildRequires:	Qt3Support-devel >= %{qt4brver}
-BuildRequires:	QtDesigner-devel >= %{qt4brver}
-BuildRequires:	QtGui-devel >= %{qt4brver}
-BuildRequires:	QtScript-devel >= %{qt4brver}
-BuildRequires:	QtSvg-devel >= %{qt4brver}
-BuildRequires:	QtTest-devel >= %{qt4brver}
-BuildRequires:	QtUiTools-devel >= %{qt4brver}
-BuildRequires:	QtWebKit-devel >= %{qt4brver}
+BuildRequires:	Qt3Support-devel >= %{qtver}
+BuildRequires:	QtDesigner-devel >= %{qtver}
+BuildRequires:	QtGui-devel >= %{qtver}
+BuildRequires:	QtScript-devel >= %{qtver}
+BuildRequires:	QtSvg-devel >= %{qtver}
+BuildRequires:	QtTest-devel >= %{qtver}
+BuildRequires:	QtUiTools-devel >= %{qtver}
+BuildRequires:	QtWebKit-devel >= %{qtver}
 BuildRequires:	akonadi-devel >= 1.2.80
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
@@ -66,8 +66,8 @@ BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
-BuildRequires:	qt4-build >= %{qt4brver}
-BuildRequires:	qt4-qmake >= %{qt4brver}
+BuildRequires:	qt4-build >= %{qtver}
+BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	soprano-devel >= 2.3.70
