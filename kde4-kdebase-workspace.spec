@@ -72,6 +72,7 @@ BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	soprano-devel >= 2.3.70
 BuildRequires:	strigi-devel >= 0.7.0
+BuildRequires:	utempter-devel
 BuildRequires:	xmms-devel
 BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXdamage-devel
