@@ -1,18 +1,18 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kdebase-workspace
-%define		_state		unstable
+%define		_state		stable
 %define		qtver		4.6.1
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.3.98
+Version:	4.4.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	34baa70da178a8599746407e88b1c184
+# Source0-md5:	03a38c029108978e8347e5320b623816
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
