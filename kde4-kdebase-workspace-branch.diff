@@ -1,5 +1,44 @@
---- workspace/doc/klipper/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/klipper/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kcontrol/randr/outputconfig.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kcontrol/randr/outputconfig.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
+@@ -45,6 +45,8 @@
+ 	connect(m_output, SIGNAL(outputChanged(RROutput, int)),
+ 	        this,     SLOT(outputChanged(RROutput, int)));
+ 		  
++	load();
++
+ 	connect(sizeCombo,    SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
+ 	connect(refreshCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
+ 	connect(orientationCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
+@@ -63,7 +65,6 @@
+ 	updatePositionListTimer.setSingleShot( true );
+ 	connect( &updatePositionListTimer, SIGNAL( timeout()), SLOT( updatePositionListDelayed()));
+ 
+-	load();
+ }
+ 
+ OutputConfig::~OutputConfig()
+@@ -294,6 +295,9 @@
+ 
+ void OutputConfig::updatePositionListDelayed()
+ {
++	disconnect(positionCombo,    SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
++	disconnect(positionOutputCombo,    SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
++
+ 	bool enable = !resolution().isEmpty();
+ 	positionCombo->setEnabled( enable );
+ 	positionLabel->setEnabled( enable );
+@@ -338,6 +342,9 @@
+ 		if(index != -1)
+ 			positionOutputCombo->setCurrentIndex(index);
+ 	}*/
++
++	connect(positionCombo,    SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
++	connect(positionOutputCombo,    SIGNAL(currentIndexChanged(int)), this, SLOT(setConfigDirty()));
+ }
+ 
+ void OutputConfig::updateRotationList(void)
+--- workspace/doc/klipper/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/klipper/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -30,8 +30,8 @@
  
  <legalnotice>&FDLNotice;</legalnotice>
@@ -246,8 +285,8 @@
  
  <screenshot>
  <screeninfo>&klipper; icon</screeninfo>
---- workspace/doc/kcontrol/kwinscreenedges/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/kwinscreenedges/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/kwinscreenedges/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/kwinscreenedges/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -14,12 +14,12 @@
  <!-- TRANS:ROLES_OF_TRANSLATORS -->
  </authorgroup>
@@ -289,8 +328,8 @@
 +<guilabel>Navigate Through Windows</guilabel></ulink> page.</para>
 +
  </article>
---- workspace/doc/kcontrol/mouse/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/mouse/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/mouse/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/mouse/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -174,9 +174,8 @@
  whereas larger movements of the physical device will move the mouse
  pointer rapidly to different areas on the screen.</para>
@@ -303,8 +342,8 @@
  
  <tip><para>In general, the higher you set the <guilabel>Pointer
  acceleration</guilabel> value, the higher you will want to set the
---- workspace/doc/kcontrol/clock/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/clock/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/clock/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/clock/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -43,7 +43,12 @@
  <sect2 id="date-change">
  <title><guilabel>Date and Time</guilabel> tab</title>
@@ -332,8 +371,8 @@
  </sect1>
  
  </article>
---- workspace/doc/kcontrol/kcmaccess/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/kcmaccess/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/kcmaccess/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/kcmaccess/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -97,7 +97,8 @@
  <sect3 id="access-modifier-keys">
  <title><guilabel>Modifier keys</guilabel></title>
@@ -344,8 +383,8 @@
  
  <variablelist>
  <varlistentry>
---- workspace/doc/kcontrol/desktopthemedetails/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/desktopthemedetails/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/desktopthemedetails/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/desktopthemedetails/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -13,77 +13,80 @@
  <!-- TRANS:ROLES_OF_TRANSLATORS -->
  </authorgroup>
@@ -529,8 +568,8 @@
  </para>
  </sect2>
  
---- workspace/doc/kcontrol/fontinst/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/fontinst/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/fontinst/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/fontinst/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -94,7 +94,7 @@
  <sect2 id="font-preview">
  <title>Preview</title>
@@ -540,8 +579,8 @@
  </sect2>
  </sect1>
  </article>
---- workspace/doc/kcontrol/kwintabbox/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/kwintabbox/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/kwintabbox/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/kwintabbox/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -11,7 +11,7 @@
  <!-- TRANS:ROLES_OF_TRANSLATORS -->
  </authorgroup>
@@ -616,8 +655,8 @@
  </para>
  </sect2>
  
---- workspace/doc/kcontrol/keys/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kcontrol/keys/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kcontrol/keys/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kcontrol/keys/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -75,10 +75,11 @@
  <title><guilabel>Standard Keyboard Shortcuts</guilabel> tab</title>
  <para>At the bottom of this dialog you see an input box, where you can
@@ -656,8 +695,8 @@
  </itemizedlist>
  
  </sect3>
---- workspace/doc/kdm/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/doc/kdm/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/doc/kdm/index.docbook	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/doc/kdm/index.docbook	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -341,19 +341,20 @@
  
  <para>You can view the &kdmrc; file currently in use on your system, and you
@@ -1379,8 +1418,8 @@
  </sect1>
  
  </chapter>
---- workspace/klipper/klipper.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/klipper/klipper.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/klipper/klipper.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/klipper/klipper.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -22,6 +22,8 @@
     Boston, MA 02110-1301, USA.
  */
@@ -1469,8 +1508,8 @@
 +}
 +
  #include "klipper.moc"
---- workspace/klipper/klipper.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/klipper/klipper.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/klipper/klipper.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/klipper/klipper.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -45,6 +45,20 @@
  class HistoryItem;
  class KlipperSessionManager;
@@ -1500,8 +1539,8 @@
  };
  
  #endif
---- workspace/wallpapers/Quadros/metadata.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/wallpapers/Quadros/metadata.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/wallpapers/Quadros/metadata.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/wallpapers/Quadros/metadata.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -12,6 +12,7 @@
  Name[fr]=Quadros
  Name[fy]=Quadros
@@ -1510,8 +1549,8 @@
  Name[id]=Quadros
  Name[it]=Quadri
  Name[kk]=Квадрос
---- workspace/wallpapers/Media_Life/metadata.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/wallpapers/Media_Life/metadata.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/wallpapers/Media_Life/metadata.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/wallpapers/Media_Life/metadata.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -11,6 +11,7 @@
  Name[fr]=Vie des média
  Name[fy]=Media Life
@@ -1520,8 +1559,8 @@
  Name[id]=Hidup Media
  Name[it]=Vita nei media
  Name[kk]=Медиа өмірі
---- workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/krunner/interfaces/quicksand/qs_matchview.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -206,6 +206,7 @@
          d->m_items << items;
      }
@@ -1530,8 +1569,8 @@
  
      foreach(MatchItem *item, d->m_items) {
          if (item) {
---- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -258,7 +258,7 @@
  }
  void Interface::setConfigWidget(QWidget *w)
@@ -1561,8 +1600,45 @@
          return;
      }
  
---- workspace/libs/plasmagenericshell/widgetsexplorer/applettooltip.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/libs/plasmagenericshell/widgetsexplorer/applettooltip.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/krunner/lock/lockdlg.cc	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/krunner/lock/lockdlg.cc	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
+@@ -85,7 +85,8 @@
+     : KDialog(parent, Qt::X11BypassWindowManagerHint),
+       mPlugin( plugin ),
+       mCapsLocked(-1),
+-      mUnlockingFailed(false)
++      mUnlockingFailed(false),
++      sNot(0)
+ {
+     QWidget* w = mainWidget();
+ 
+@@ -317,9 +318,14 @@
+ {
+     sNot->setEnabled( false );
+     sNot->deleteLater();
++    sNot = 0;
+     ::close( sFd );
+     int status;
+-    ::waitpid( sPid, &status, 0 );
++    while (::waitpid( sPid, &status, 0 ) < 0)
++        if (errno != EINTR) { // This should not happen ...
++            cantCheck();
++            return;
++        }
+     if (WIFEXITED(status))
+         switch (WEXITSTATUS(status)) {
+         case AuthOk:
+@@ -434,6 +440,8 @@
+     int sfd[2];
+     char fdbuf[16];
+ 
++    if (sNot)
++        return;
+     if (::socketpair(AF_LOCAL, SOCK_STREAM, 0, sfd)) {
+         cantCheck();
+         return;
+--- workspace/libs/plasmagenericshell/widgetsexplorer/applettooltip.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/libs/plasmagenericshell/widgetsexplorer/applettooltip.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -218,6 +218,10 @@
  
  void AppletInfoWidget::uninstall()
@@ -1574,8 +1650,8 @@
      Plasma::PackageStructure installer;
      installer.uninstallPackage(m_appletItem->pluginName(),
                                 KStandardDirs::locateLocal("data", "plasma/plasmoids/"));
---- workspace/libs/ksysguard/processui/scripting.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/libs/ksysguard/processui/scripting.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/libs/ksysguard/processui/scripting.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/libs/ksysguard/processui/scripting.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -70,16 +70,13 @@
  QScriptValue setHtml(QScriptContext *context, QScriptEngine *engine)
  {
@@ -1653,8 +1729,8 @@
      QString filename = context->argument(0).toString();
      QFile file(filename);
      if(!file.open(QIODevice::ReadOnly)) {
---- workspace/khotkeys/kcm_hotkeys/settings-input-actions.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/khotkeys/kcm_hotkeys/settings-input-actions.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/khotkeys/kcm_hotkeys/settings-input-actions.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/khotkeys/kcm_hotkeys/settings-input-actions.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -35,7 +35,7 @@
  Name[he]=פעולות קלט
  Name[hi]=इनपुट क्रियाएँ
@@ -1664,8 +1740,8 @@
  Name[hsb]=Zapodawanske akcije
  Name[hu]=Beviteli műveletek
  Name[id]=Aksi Masukan
---- workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -39,7 +39,7 @@
  Name[he]=פעולות קלט
  Name[hi]=इनपुट क्रियाएँ
@@ -1675,8 +1751,8 @@
  Name[hsb]=Zapodawanske akcije
  Name[hu]=Beviteli műveletek
  Name[id]=Aksi Masukan
---- workspace/ksplash/ksplashx/README	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/ksplash/ksplashx/README	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/ksplash/ksplashx/README	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/ksplash/ksplashx/README	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -19,6 +19,7 @@
  NOTES:
  Add a comment in description.txt and update it everytime you change anything.
@@ -1685,8 +1761,8 @@
  
  New images are alphablended (if needed) with what's in the splash window
  and then they replace what's at their position. Animations have all frames
---- workspace/ksplash/ksplashx/splash.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/ksplash/ksplashx/splash.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/ksplash/ksplashx/splash.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/ksplash/ksplashx/splash.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -839,6 +839,12 @@
          exit( 2 );
          }
@@ -1700,8 +1776,8 @@
      double ratiox = double( desc_w ) / screenGeometry(0).width(); // only for coordinates in the description file
      double ratioy = double( desc_h ) / screenGeometry(0).height(); // only for coordinates in the description file
      XSelectInput( qt_xdisplay(), DefaultRootWindow( qt_xdisplay()), SubstructureNotifyMask );
---- workspace/kwin/clients/aurorae/src/aurorae.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/aurorae/src/aurorae.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/aurorae/src/aurorae.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/aurorae/src/aurorae.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -4,7 +4,7 @@
  Name[ca@valencia]=Motor del tema de decoració Aurorae
  Name[csb]=Mòtór dekòracëji wëzdrzatkù Aurorae
@@ -1711,8 +1787,8 @@
  Name[el]=Μηχανισμός διακόσμησης θέματων Aurorae
  Name[en_GB]=Auroræ Decoration Theme Engine
  Name[eo]=Aurorae Ornamaĵ-etosa Modulo
---- workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -39,6 +39,8 @@
      QObject( parent ),
      QList<ClientGroupItemData>(),
@@ -1761,8 +1837,8 @@
  
      }
  
---- workspace/kwin/clients/oxygen/oxygenconfiguration.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygenconfiguration.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygenconfiguration.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygenconfiguration.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -42,7 +42,7 @@
      hideTitleBar_( false ),
      useOxygenShadows_( true ),
@@ -1772,8 +1848,8 @@
      animationsDuration_( 150 ),
      tabsEnabled_( true ),
      useNarrowButtonSpacing_( false )
---- workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygenclientgroupitemdata.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -121,6 +121,14 @@
      bool isDirty( void ) const
      { return dirty_; }
@@ -1799,8 +1875,8 @@
      //! animation
      Animation::Pointer animation_;
  
---- workspace/kwin/clients/oxygen/oxygentitleanimationdata.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygentitleanimationdata.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygentitleanimationdata.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygentitleanimationdata.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -33,6 +33,9 @@
  namespace Oxygen
  {
@@ -1837,8 +1913,8 @@
      void TitleAnimationData::BlendedPixmap::blend( qreal opacity )
      {
  
---- workspace/kwin/clients/oxygen/oxygenclient.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygenclient.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygenclient.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygenclient.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -174,6 +174,7 @@
      glowAnimation().data()->setDuration( configuration_.animationsDuration() );
      titleAnimationData_.data()->setDuration( configuration_.animationsDuration() );
@@ -1938,8 +2014,8 @@
          // adjusts boundingRect accordingly
          QRect boundingRect( item.boundingRect_ );
          boundingRect.setLeft( textRect.left() - layoutMetric( LM_TitleBorderLeft ) );
---- workspace/kwin/clients/oxygen/oxygentitleanimationdata.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygentitleanimationdata.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygentitleanimationdata.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygentitleanimationdata.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -33,8 +33,11 @@
  #include <cassert>
  #include <QtCore/QObject>
@@ -2009,8 +2085,8 @@
          //! title animation
          Animation::Pointer animation_;
  
---- workspace/kwin/clients/oxygen/oxygenclient.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/clients/oxygen/oxygenclient.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/clients/oxygen/oxygenclient.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/clients/oxygen/oxygenclient.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -302,15 +302,6 @@
                  !isPreview();
          }
@@ -2027,8 +2103,8 @@
          //! calculate mask
          QRegion calcMask( void ) const;
  
---- workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -89,7 +89,7 @@
  Name[wa]=Purneas
  Name[x-test]=xxWindowsxx
@@ -2038,8 +2114,8 @@
  
  Comment=Configure the look and feel of window titles
  Comment[af]=Stel die lyk-en-gevoel van venstertitels
---- workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -37,7 +37,7 @@
        m_currentIconIndexX(-1),
        m_currentIconIndexY(-1),
@@ -2120,8 +2196,8 @@
              break;
          }
      }
---- workspace/plasma/netbook/containments/sal/sal.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/netbook/containments/sal/sal.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/netbook/containments/sal/sal.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/netbook/containments/sal/sal.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -113,7 +113,7 @@
      connect(m_toolBox, SIGNAL(visibilityChanged(bool)), this, SIGNAL(toolBoxVisibilityChanged(bool)));
      m_toolBox->show();
@@ -2143,8 +2219,8 @@
  void SearchLaunch::toggleImmutability()
  {
      if (immutability() == Plasma::UserImmutable) {
---- workspace/plasma/netbook/containments/sal/sal.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/netbook/containments/sal/sal.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/netbook/containments/sal/sal.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/netbook/containments/sal/sal.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -68,6 +68,7 @@
      void doSearch(const QString &query, const QString &runner = QString());
  
@@ -2153,8 +2229,8 @@
      void dataUpdated(const QString &sourceName, const Plasma::DataEngine::Data &data);
  
  private Q_SLOTS:
---- workspace/plasma/netbook/containments/sal/itemview.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/netbook/containments/sal/itemview.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/netbook/containments/sal/itemview.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/netbook/containments/sal/itemview.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -30,6 +30,7 @@
      : Plasma::ScrollWidget(parent)
  {
@@ -2175,8 +2251,8 @@
      } else if (watched == m_itemContainer && event->type() == QEvent::GraphicsSceneMove) {
          m_noActivateTimer->start(300);
          ScrollBarFlags scrollBars = NoScrollBar;
---- workspace/plasma/desktop/applets/kickoff/core/systemmodel.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/desktop/applets/kickoff/core/systemmodel.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/desktop/applets/kickoff/core/systemmodel.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/desktop/applets/kickoff/core/systemmodel.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -52,21 +52,22 @@
  
  struct UsageInfo {
@@ -2374,8 +2450,8 @@
  void Kickoff::SystemModel::sourceDataChanged(const QModelIndex &start, const QModelIndex &end)
  {
      if (start.parent().isValid()) return;
---- workspace/plasma/desktop/applets/kickoff/core/systemmodel.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/desktop/applets/kickoff/core/systemmodel.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/desktop/applets/kickoff/core/systemmodel.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/desktop/applets/kickoff/core/systemmodel.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -48,13 +48,12 @@
      virtual int columnCount(const QModelIndex &parent = QModelIndex()) const;
      virtual QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
@@ -2393,8 +2469,8 @@
      void sourceDataChanged(const QModelIndex &start, const QModelIndex &end);
      void sourceRowsAboutToBeInserted(const QModelIndex &parent, int start, int end);
      void sourceRowsInserted(const QModelIndex &parent, int start, int end);
---- workspace/plasma/desktop/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/desktop/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/desktop/applets/kickoff/ui/launcher.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/desktop/applets/kickoff/ui/launcher.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -228,7 +228,7 @@
  
      void setupSystemView()
@@ -2437,8 +2513,8 @@
  
      QWidget::showEvent(e);
  }
---- workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -52,8 +52,12 @@
  void WetterComIon::cleanup()
  {
@@ -2453,8 +2529,8 @@
      }
  }
  
---- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -32,27 +32,26 @@
  {
  }
@@ -2549,8 +2625,8 @@
  QString EnvCanadaIon::station(const QString& source) const
  {
      if (!m_weatherData[source].stationID.isEmpty()) {
---- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -163,6 +163,7 @@
  
  private:
@@ -2559,8 +2635,8 @@
  
      QMap<QString, ConditionIcons> setupConditionIconMappings(void) const;
      QMap<QString, ConditionIcons> setupForecastIconMappings(void) const;
---- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -34,32 +34,29 @@
  
  UKMETIon::~UKMETIon()
@@ -2608,8 +2684,8 @@
  // Get the master list of locations to be parsed
  void UKMETIon::init()
  {
---- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -170,6 +170,7 @@
  
      QDateTime m_dateFormat;
@@ -2618,8 +2694,8 @@
  };
  
  K_EXPORT_PLASMA_DATAENGINE(bbcukmet, UKMETIon)
---- workspace/plasma/generic/applets/devicenotifier/devicenotifier.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/devicenotifier/devicenotifier.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/devicenotifier/devicenotifier.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/devicenotifier/devicenotifier.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -80,11 +80,8 @@
  
  void DeviceNotifier::init()
@@ -2658,8 +2734,8 @@
  QGraphicsWidget *DeviceNotifier::graphicsWidget()
  {
      if (!m_dialog) {
---- workspace/plasma/generic/applets/devicenotifier/devicenotifier.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/devicenotifier/devicenotifier.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/devicenotifier/devicenotifier.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/devicenotifier/devicenotifier.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -112,6 +112,11 @@
  
      public slots:
@@ -2672,8 +2748,8 @@
          * @internal Sets the tooltip content properly before showing.
          */
          void toolTipAboutToShow();
---- workspace/plasma/generic/applets/lock_logout/lockout.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/lock_logout/lockout.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/lock_logout/lockout.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/lock_logout/lockout.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -65,14 +65,6 @@
      m_layout->setContentsMargins(0,0,0,0);
      m_layout->setSpacing(0);
@@ -2709,8 +2785,8 @@
      countButtons();
      showButtons();
  }
---- workspace/plasma/generic/applets/lock_logout/lockout.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/lock_logout/lockout.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/lock_logout/lockout.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/lock_logout/lockout.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -45,6 +45,7 @@
          virtual void constraintsEvent(Plasma::Constraints constraints);
  
@@ -2719,8 +2795,8 @@
          void clickLogout();
          void clickLock();
          void clickSleep();
---- workspace/plasma/generic/applets/webbrowser/webbrowser.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/webbrowser/webbrowser.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/webbrowser/webbrowser.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/webbrowser/webbrowser.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -83,9 +83,6 @@
          return m_graphicsWidget;
      }
@@ -2823,8 +2899,8 @@
  void WebBrowser::fillGroup(BookmarkItem *parentItem, const KBookmarkGroup &group)
  {
      KBookmark it = group.first();
---- workspace/plasma/generic/applets/webbrowser/webbrowser.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/webbrowser/webbrowser.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/webbrowser/webbrowser.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/webbrowser/webbrowser.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -90,7 +90,8 @@
      void loadProgress(int progress);
      void bookmarksModelInit();
@@ -2835,8 +2911,8 @@
  private:
      void fillGroup(BookmarkItem *parentItem, const KBookmarkGroup &group);
  
---- workspace/plasma/generic/applets/systemtray/ui/taskarea.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/systemtray/ui/taskarea.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/systemtray/ui/taskarea.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/systemtray/ui/taskarea.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -68,6 +68,7 @@
  
      QSet<QString> hiddenTypes;
@@ -2887,8 +2963,8 @@
          relayout();relayout();
          QTimer::singleShot(200, this, SLOT(relayout()));
      }
---- workspace/plasma/generic/applets/system-monitor/hdd.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/hdd.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/hdd.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/hdd.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -42,6 +42,7 @@
          virtual void createConfigurationInterface(KConfigDialog *parent);
  
@@ -2897,8 +2973,8 @@
          void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
  
      private slots:
---- workspace/plasma/generic/applets/system-monitor/ram.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/ram.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/ram.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/ram.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -44,10 +44,10 @@
  void SM::Ram::init()
  {
@@ -2925,8 +3001,8 @@
  void SM::Ram::sourceAdded(const QString& name)
  {
      if ((name == phys_source || name == swap_source) && !m_memories.contains(name)) {
---- workspace/plasma/generic/applets/system-monitor/net.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/net.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/net.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/net.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -42,11 +42,11 @@
  void SM::Net::init()
  {
@@ -2954,8 +3030,8 @@
  void SM::Net::sourceAdded(const QString& name)
  {
      if (m_rx.indexIn(name) != -1) {
---- workspace/plasma/generic/applets/system-monitor/hdd.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/hdd.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/hdd.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/hdd.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -41,20 +41,28 @@
  void Hdd::init()
  {
@@ -2990,8 +3066,8 @@
  QStringList Hdd::mounted()
  {
      Plasma::DataEngine::Data data;
---- workspace/plasma/generic/applets/system-monitor/temperature.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/temperature.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/temperature.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/temperature.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -39,6 +39,7 @@
          virtual void init();
  
@@ -3000,8 +3076,8 @@
          void dataUpdated(const QString &name, const Plasma::DataEngine::Data &data);
          void createConfigurationInterface(KConfigDialog *parent);
  
---- workspace/plasma/generic/applets/system-monitor/ram.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/ram.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/ram.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/ram.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -45,6 +45,7 @@
          void sourceAdded(const QString &name);
          void sourcesAdded();
@@ -3010,8 +3086,8 @@
  
      private:
          Ui::config ui;
---- workspace/plasma/generic/applets/system-monitor/net.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/net.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/net.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/net.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -43,6 +43,7 @@
  
      public slots:
@@ -3020,8 +3096,8 @@
          void dataUpdated(const QString &name,
                           const Plasma::DataEngine::Data &data);
          void sourceAdded(const QString &name);
---- workspace/plasma/generic/applets/system-monitor/temperature.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/system-monitor/temperature.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/system-monitor/temperature.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/system-monitor/temperature.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -51,11 +51,11 @@
  void Temperature::init()
  {
@@ -3049,8 +3125,8 @@
  void Temperature::sourceAdded(const QString& name)
  {
      if (m_rx.indexIn(name) != -1) {
---- workspace/plasma/generic/applets/analog-clock/clock.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/analog-clock/clock.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/analog-clock/clock.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/analog-clock/clock.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -63,6 +63,7 @@
  
      protected slots:
@@ -3059,8 +3135,8 @@
          void repaintNeeded();
          void moveSecondHand();
  
---- workspace/plasma/generic/applets/analog-clock/clock.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/analog-clock/clock.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/analog-clock/clock.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/analog-clock/clock.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -80,36 +80,42 @@
  {
      ClockApplet::init();
@@ -3119,8 +3195,8 @@
  void Clock::constraintsEvent(Plasma::Constraints constraints)
  {
      ClockApplet::constraintsEvent(constraints);
---- workspace/plasma/generic/applets/panelspacer/panelspacer.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/panelspacer/panelspacer.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/panelspacer/panelspacer.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/panelspacer/panelspacer.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -34,6 +34,9 @@
      void constraintsEvent(Plasma::Constraints constraints);
      QList<QAction*> contextualActions();
@@ -3131,8 +3207,8 @@
  private Q_SLOTS:
      void updateConfigurationMode(bool config);
      void toggleFixed(bool flexible);
---- workspace/plasma/generic/applets/panelspacer/panelspacer.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/applets/panelspacer/panelspacer.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/applets/panelspacer/panelspacer.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/applets/panelspacer/panelspacer.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -73,13 +73,19 @@
      if (containment()) {
          connect(containment(), SIGNAL(toolBoxVisibilityChanged(bool)), this, SLOT(updateConfigurationMode(bool)));
@@ -3154,8 +3230,8 @@
  }
  
  void PanelSpacer::constraintsEvent(Plasma::Constraints constraints)
---- workspace/plasma/generic/runners/bookmarks/bookmarksrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/bookmarks/bookmarksrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/bookmarks/bookmarksrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/bookmarks/bookmarksrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -55,6 +55,10 @@
  
  BookmarksRunner::~BookmarksRunner()
@@ -3202,8 +3278,8 @@
      }
  }
  
---- workspace/plasma/generic/runners/bookmarks/bookmarksrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/bookmarks/bookmarksrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/bookmarks/bookmarksrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/bookmarks/bookmarksrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -27,6 +27,7 @@
  
  class KBookmark;
@@ -3220,8 +3296,8 @@
  };
  
  K_EXPORT_PLASMA_RUNNER(bookmarksrunner, BookmarksRunner)
---- workspace/plasma/generic/runners/windows/windowsrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/windows/windowsrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/windows/windowsrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/windows/windowsrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -18,6 +18,8 @@
   ***************************************************************************/
  #include "windowsrunner.h"
@@ -3293,8 +3369,8 @@
      QString term = context.query();
  
      if (!context.singleRunnerQueryMode() && (term.length() < 3)) {
---- workspace/plasma/generic/runners/windows/windowsrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/windows/windowsrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/windows/windowsrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/windows/windowsrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -37,6 +37,7 @@
      private Q_SLOTS:
          void prepareForMatchSession();
@@ -3313,8 +3389,8 @@
  };
  
  K_EXPORT_PLASMA_RUNNER(windows, WindowsRunner)
---- workspace/plasma/generic/runners/kill/killrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/kill/killrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/kill/killrunner.cpp	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/kill/killrunner.cpp	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -18,17 +18,19 @@
   */
  
@@ -3399,8 +3475,8 @@
      term = term.right(term.length() - m_triggerWord.length());
  
      if (term.length() < 2)  {
---- workspace/plasma/generic/runners/kill/killrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/runners/kill/killrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/runners/kill/killrunner.h	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/runners/kill/killrunner.h	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -20,8 +20,12 @@
  #ifndef KILLRUNNER_H
  #define KILLRUNNER_H
@@ -3428,8 +3504,8 @@
  };
  K_EXPORT_PLASMA_RUNNER(kill, KillRunner)
  
---- workspace/plasma/generic/scriptengines/python/pyappletscript.py	(.../tags/KDE/4.4.0/kdebase)	(wersja 1089014)
-+++ workspace/plasma/generic/scriptengines/python/pyappletscript.py	(.../branches/KDE/4.4/kdebase)	(wersja 1089014)
+--- workspace/plasma/generic/scriptengines/python/pyappletscript.py	(.../tags/KDE/4.4.0/kdebase)	(wersja 1090080)
++++ workspace/plasma/generic/scriptengines/python/pyappletscript.py	(.../branches/KDE/4.4/kdebase)	(wersja 1090080)
 @@ -57,7 +57,12 @@
              relpath = relpath[:-3]
          relpath = relpath.replace("/",".")
