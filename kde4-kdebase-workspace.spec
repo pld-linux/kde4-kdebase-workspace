@@ -26,7 +26,7 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Patch100: %{name}-branch.diff
+Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-installFP.patch
@@ -56,7 +56,7 @@ BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
 BuildRequires:	libggadget-qt-devel >= 0.11.0
 BuildRequires:	libtirpc-devel
-BuildRequires:	libusb-devel
+BuildRequires:	libusb-compat-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.3.80
@@ -69,6 +69,7 @@ BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
+BuildRequires:	shared-desktop-ontologies-devel
 BuildRequires:	soprano-devel >= 2.3.70
 BuildRequires:	strigi-devel >= 0.7.0
 BuildRequires:	utempter-devel
@@ -85,8 +86,8 @@ Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
 Suggests:	fontconfig
-Suggests:	kde4-style-oxygen >= %{version}
 Suggests:	kde4-decoration-oxygen >= %{version}
+Suggests:	kde4-style-oxygen >= %{version}
 Obsoletes:	PolicyKit-kde
 Obsoletes:	kde4-decoration-ozone
 Obsoletes:	kde4-kdebase-workspace-core
