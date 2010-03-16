@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.4.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -1538,7 +1538,7 @@ fi
 %{_datadir}/autostart/plasma-desktop.desktop
 %{_datadir}/apps/plasma-netbook
 %{_datadir}/apps/katepart/syntax/plasma-desktop-js.xml
-%lang(en) %{_kdedocdir}/en/plasma
+%lang(en) %{_kdedocdir}/en/plasma-desktop
 %{_mandir}/man1/plasmaengineexplorer.1*
 
 %files screensavers
