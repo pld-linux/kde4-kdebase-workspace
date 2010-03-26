@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.4.1
-Release:	3
+Version:	4.4.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	c5a5826ce0e8b0faa760971850b29111
+# Source0-md5:	6251e5d0060bd1529f90b9eaf5f84230
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -539,7 +539,7 @@ Python plasma for KDE.
 
 %prep
 %setup -q -n %{orgname}-%{version}
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
