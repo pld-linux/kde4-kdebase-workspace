@@ -1,4 +1,0 @@
-# Customized settings for kdm
-
-# Skip automatic kdm restarts invoked from rpm installs.
-RPM_SKIP_AUTO_RESTART=yes
