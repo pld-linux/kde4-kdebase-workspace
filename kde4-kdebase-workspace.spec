@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.4.3
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -575,7 +575,6 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 install -d $RPM_BUILD_ROOT/etc/{X11/kdm,pam.d,security}
 install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm \
-	$RPM_BUILD_ROOT%{_datadir}/apps/konqueror \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol/pics \
 	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng \
@@ -651,7 +650,6 @@ fi
 %files
 %defattr(644,root,root,755)
 # dirs
-%dir %{_datadir}/apps/konqueror
 %dir %{_datadir}/apps/kcontrol
 %dir %{_datadir}/apps/kcontrol/pics
 %dir %{_datadir}/apps/konqsidebartng/
@@ -994,7 +992,6 @@ fi
 %dir %{_datadir}/apps/kcminput/pics
 
 %{_datadir}/apps/kconf_update/kaccel.upd
-#%{_datadir}/apps/kconf_update/konqueror_gestures_kde321_update.upd
 %{_datadir}/apps/kconf_update/kwin3_plugin.upd
 %attr(755,root,root) %{_datadir}/apps/kconf_update/convertShortcuts.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kwin3_plugin.pl
