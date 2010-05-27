@@ -637,6 +637,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post	-n kde4-style-oxygen	-p /sbin/ldconfig
+%postun	-n kde4-style-oxygen	-p /sbin/ldconfig
+
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
 
@@ -697,6 +700,7 @@ fi
 %attr(755,root,root) %{_bindir}/oxygen-settings
 #%attr(755,root,root) %{_bindir}/setscheduler
 #%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+%attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/libksignalplotter.so.*
 %attr(755,root,root) %{_libdir}/libkworkspace.so.*
 %attr(755,root,root) %{_libdir}/libprocesscore.so.*
@@ -705,8 +709,8 @@ fi
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-desktop.so
-%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-netbook.so
+%attr(755,root,root) %{_libdir}/libplasmagenericshell.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libplasmagenericshell.so.?
 %attr(755,root,root) %{_libdir}/libkickoff.so
 #%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
@@ -908,8 +912,6 @@ fi
 # styles
 %attr(755,root,root) %{_libdir}/kde4/kcm_style.so
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
-%attr(755,root,root) %ghost %{_libdir}/liboxygenstyle.so.?
-%attr(755,root,root) %{_libdir}/liboxygenstyle.so.*.*.*
 %{_datadir}/apps/kstyle/themes/qtcde.themerc
 %{_datadir}/apps/kstyle/themes/qtcleanlooks.themerc
 %{_datadir}/apps/kstyle/themes/qtgtk.themerc
@@ -1065,7 +1067,6 @@ fi
 %{_datadir}/kde4/services/mouse.desktop
 %{_datadir}/sounds/pop.wav
 # old decoration libs
-%attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindecoration.so
 %{_datadir}/kde4/services/kwindecoration.desktop
 # kephal
@@ -1406,6 +1407,8 @@ fi
 %attr(755,root,root) %{_bindir}/plasmoidviewer
 %attr(755,root,root) %{_bindir}/plasma-overlay
 %attr(755,root,root) %{_bindir}/plasma-windowed
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-desktop.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-netbook.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_plasma-windowed.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
@@ -1497,8 +1500,6 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libplasma-geolocation-interface.so.?
 %attr(755,root,root) %{_libdir}/libplasmaclock.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libplasmaclock.so.?
-%attr(755,root,root) %{_libdir}/libplasmagenericshell.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libplasmagenericshell.so.?
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/plasma_desktop_containment.kwinrules
 %dir %{_datadir}/apps/plasma
@@ -1833,6 +1834,8 @@ fi
 
 %files -n kde4-style-oxygen
 %defattr(644,root,root,755)
+%attr(755,root,root) %ghost %{_libdir}/liboxygenstyle.so.?
+%attr(755,root,root) %{_libdir}/liboxygenstyle.so.*.*.*
 %attr(755,root,root) %{_libdir}/kde4/kstyle_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/plugins/styles/oxygen.so
 %{_datadir}/apps/kstyle/themes/oxygen.themerc
