@@ -823,6 +823,7 @@ fi
 %attr(755,root,root) %{_bindir}/ksmserver
 %attr(755,root,root) %{_libdir}/libkdeinit4_ksmserver.so
 %{_datadir}/apps/kconf_update/ksmserver.upd
+%{_datadir}/apps/kconf_update/ksmserver_shortcuts.upd
 %{_datadir}/dbus-1/interfaces/org.kde.KSMServerInterface.xml
 
 # kscreenlocker
@@ -1217,17 +1218,15 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
-#%attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_videorecord.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwindesktop.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinoptions.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinscreenedges.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwintabbox.so
-#%attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_desktoppaths.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_desktoptheme.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
@@ -1240,7 +1239,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_killer_helper
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_opengl_test
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
-#%{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
 %{_datadir}/apps/kwin/aurorae.desktop
