@@ -663,7 +663,7 @@ fi
 %attr(755,root,root) %{_bindir}/kstartupconfig4
 %attr(755,root,root) %{_bindir}/ksystraycmd
 %attr(755,root,root) %{_bindir}/startkde
-%attr(755,root,root) %{_bindir}/safestartkde
+#%attr(755,root,root) %{_bindir}/safestartkde
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
@@ -695,7 +695,7 @@ fi
 # standard actions
 %attr(755,root,root) %{_libdir}/kde4/kcm_standard_actions.so
 %{_datadir}/kde4/services/standard_actions.desktop
-%{_datadir}/kde4/services/settings-input-actions.desktop
+#%{_datadir}/kde4/services/settings-input-actions.desktop
 
 # remotewidgets
 #%attr(755,root,root) %{_libdir}/kde4/kcm_remotewidgets.so
@@ -831,34 +831,34 @@ fi
 #%{_desktopdir}/kde4/ktip.desktop
 
 # kxkb
-%attr(755,root,root) %{_bindir}/kxkb
-%attr(755,root,root) %{_libdir}/libkdeinit4_kxkb.so
-%lang(en) %{_kdedocdir}/en/kxkb
-%{_iconsdir}/*/*/apps/kxkb.png
+#%attr(755,root,root) %{_bindir}/kxkb
+#%attr(755,root,root) %{_libdir}/libkdeinit4_kxkb.so
+#%lang(en) %{_kdedocdir}/en/kxkb
+#%{_iconsdir}/*/*/apps/kxkb.png
 
 # systemsettings
 %attr(755,root,root) %{_bindir}/systemsettings
 %attr(755,root,root) %{_libdir}/libsystemsettingsview.so.?
 %{_datadir}/apps/systemsettings
-%{_datadir}/kde4/services/settings-about-me.desktop
-%{_datadir}/kde4/services/settings-accessibility.desktop
-%{_datadir}/kde4/services/settings-advanced-user-settings.desktop
-%{_datadir}/kde4/services/settings-advanced.desktop
-%{_datadir}/kde4/services/settings-appearance.desktop
-%{_datadir}/kde4/services/settings-bluetooth.desktop
-%{_datadir}/kde4/services/settings-computer-administration.desktop
-%{_datadir}/kde4/services/settings-desktop.desktop
-%{_datadir}/kde4/services/settings-display.desktop
-%{_datadir}/kde4/services/settings-general.desktop
-%{_datadir}/kde4/services/settings-keyboard-and-mouse.desktop
-%{_datadir}/kde4/services/settings-look-and-feel.desktop
-%{_datadir}/kde4/services/settings-network-and-connectivity.desktop
-%{_datadir}/kde4/services/settings-network-settings.desktop
-%{_datadir}/kde4/services/settings-notifications.desktop
-%{_datadir}/kde4/services/settings-personal.desktop
-%{_datadir}/kde4/services/settings-regional-and-language.desktop
-%{_datadir}/kde4/services/settings-sharing.desktop
-%{_datadir}/kde4/services/settings-system.desktop
+#%{_datadir}/kde4/services/settings-about-me.desktop
+#%{_datadir}/kde4/services/settings-accessibility.desktop
+#%{_datadir}/kde4/services/settings-advanced-user-settings.desktop
+#%{_datadir}/kde4/services/settings-advanced.desktop
+#%{_datadir}/kde4/services/settings-appearance.desktop
+#%{_datadir}/kde4/services/settings-bluetooth.desktop
+#%{_datadir}/kde4/services/settings-computer-administration.desktop
+#%{_datadir}/kde4/services/settings-desktop.desktop
+#%{_datadir}/kde4/services/settings-display.desktop
+#%{_datadir}/kde4/services/settings-general.desktop
+#%{_datadir}/kde4/services/settings-keyboard-and-mouse.desktop
+#%{_datadir}/kde4/services/settings-look-and-feel.desktop
+#%{_datadir}/kde4/services/settings-network-and-connectivity.desktop
+#%{_datadir}/kde4/services/settings-network-settings.desktop
+#%{_datadir}/kde4/services/settings-notifications.desktop
+#%{_datadir}/kde4/services/settings-personal.desktop
+#%{_datadir}/kde4/services/settings-regional-and-language.desktop
+#%{_datadir}/kde4/services/settings-sharing.desktop
+#%{_datadir}/kde4/services/settings-system.desktop
 %{_datadir}/kde4/services/settings-window-behaviour.desktop
 %{_datadir}/kde4/servicetypes/systemsettingscategory.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
@@ -955,7 +955,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_input.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
+#%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
 %{_datadir}/kde4/services/kcm_keyboard.desktop
 %{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
@@ -1013,8 +1013,8 @@ fi
 %{_datadir}/kde4/services/joystick.desktop
 %{_datadir}/kde4/services/kded/networkstatus.desktop
 %{_datadir}/kde4/services/kded/powerdevil.desktop
-%{_datadir}/kde4/services/keyboard.desktop
-%{_datadir}/kde4/services/keyboard_layout.desktop
+#%{_datadir}/kde4/services/keyboard.desktop
+#%{_datadir}/kde4/services/keyboard_layout.desktop
 %{_datadir}/kde4/services/keys.desktop
 %{_datadir}/kde4/services/mouse.desktop
 %{_datadir}/sounds/pop.wav
@@ -1075,7 +1075,7 @@ fi
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
-%{_includedir}/kephal
+#%{_includedir}/kephal
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
 %{_includedir}/ksysguard
@@ -1152,8 +1152,8 @@ fi
 %files kwin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin
-%attr(755,root,root) %{_bindir}/kwin_killer_helper
-%attr(755,root,root) %{_bindir}/kwin_rules_dialog
+#%attr(755,root,root) %{_bindir}/kwin_killer_helper
+#%attr(755,root,root) %{_bindir}/kwin_rules_dialog
 %attr(755,root,root) %{_libdir}/libkwineffects.so.*
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
@@ -1166,10 +1166,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinrules.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwinscreenedges.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwintabbox.so
-%attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
+#%attr(755,root,root) %{_libdir}/kde4/kcm_desktopthemedetails.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
 #%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_videorecord.so
-%attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
+#%attr(755,root,root) %{_libdir}/kde4/kwin_aurorae_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
@@ -1212,7 +1212,7 @@ fi
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
-%{_datadir}/kde4/services/desktopthemedetails.desktop
+#%{_datadir}/kde4/services/desktopthemedetails.desktop
 %{_datadir}/kde4/services/kwintabbox.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/boxswitch_config.desktop
