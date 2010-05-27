@@ -1,18 +1,18 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kdebase-workspace
-%define		_state		stable
+%define		_state		unstable
 %define		qtver		4.6.2
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.4.3
-Release:	3
+Version:	4.4.80
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	c334e70b425cbae2efc5a7e7dda4365f
+# Source0-md5:	21f0c3e5f97ce525d5090ab0538c805a
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -26,12 +26,11 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Patch100:	%{name}-branch.diff
+#Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-installFP.patch
 Patch3:		%{name}-python.patch
-Patch4:		%{name}-pager.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.1
@@ -44,7 +43,7 @@ BuildRequires:	QtSvg-devel >= %{qtver}
 BuildRequires:	QtTest-devel >= %{qtver}
 BuildRequires:	QtUiTools-devel >= %{qtver}
 BuildRequires:	QtWebKit-devel >= %{qtver}
-BuildRequires:	akonadi-devel >= 1.3.1
+BuildRequires:	akonadi-devel >= 1.3.80
 BuildRequires:	automoc4 >= 0.9.88
 BuildRequires:	bluez-libs-devel
 BuildRequires:	boost-devel
@@ -60,7 +59,7 @@ BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
-BuildRequires:	phonon-devel >= 4.3.80
+BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	python-sip-devel
@@ -71,7 +70,7 @@ BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	shared-desktop-ontologies-devel
-BuildRequires:	soprano-devel >= 2.3.70
+BuildRequires:	soprano-devel >= 2.4.63
 BuildRequires:	strigi-devel >= 0.7.0
 BuildRequires:	utempter-devel
 BuildRequires:	xmms-devel
@@ -545,7 +544,6 @@ Python plasma for KDE.
 %patch1 -p1
 %patch2 -p0
 %patch3 -p0
-%patch4 -p1
 
 %build
 install -d build
