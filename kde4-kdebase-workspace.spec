@@ -768,6 +768,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/krunner_windows.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_nepomuksearchrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_recentdocuments.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_windowedwidgets.so
 %attr(755,root,root) %{_libdir}/kde4/classic_mode.so
 %attr(755,root,root) %{_libdir}/kde4/icon_mode.so
 #%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
@@ -802,6 +803,8 @@ fi
 %{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
 %dir %{_datadir}/apps/plasma-desktop
 %{_datadir}/apps/plasma-desktop/plasma-desktop.notifyrc
+%{_datadir}/apps/plasma-desktop/init
+%{_datadir}/apps/plasma-desktop/updates
 
 # ksmserver
 %attr(755,root,root) %{_bindir}/ksmserver
@@ -875,6 +878,17 @@ fi
 # styles
 %attr(755,root,root) %{_libdir}/kde4/kcm_style.so
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
+%attr(755,root,root) %{_libdir}/kde4/kstyle_oxygen_config.so
+%attr(755,root,root) %{_libdir}/kde4/plugins/styles/oxygen.so
+%attr(755,root,root) %ghost %{_libdir}/liboxygenstyle.so.?
+%attr(755,root,root) %{_libdir}/liboxygenstyle.so.*.*.*
+%{_datadir}/apps/kstyle/themes/oxygen.themerc
+%{_datadir}/apps/kstyle/themes/qtcde.themerc
+%{_datadir}/apps/kstyle/themes/qtcleanlooks.themerc
+%{_datadir}/apps/kstyle/themes/qtgtk.themerc
+%{_datadir}/apps/kstyle/themes/qtmotif.themerc
+%{_datadir}/apps/kstyle/themes/qtplastique.themerc
+%{_datadir}/apps/kstyle/themes/qtwindows.themerc
 %{_datadir}/kde4/services/style.desktop
 
 # powerdevil
@@ -955,9 +969,11 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_input.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_joystick.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keyboard.so
-#%attr(755,root,root) %{_libdir}/kde4/kcm_keyboard_layout.so
+%attr(755,root,root) %{_libdir}/kde4/kded_keyboard.so
+%attr(755,root,root) %{_libdir}/kde4/keyboard_layout_widget.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_keys.so
 %{_datadir}/kde4/services/kcm_keyboard.desktop
+%{_datadir}/kde4/services/kded/keyboard.desktop
 %{_datadir}/apps/kcminput/cursor_large_black.pcf.gz
 %{_datadir}/apps/kcminput/cursor_large_white.pcf.gz
 %{_datadir}/apps/kcminput/cursor_small_white.pcf.gz
@@ -1069,13 +1085,12 @@ fi
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
-#%attr(755,root,root) %{_libdir}/libtime_solar.so
+%attr(755,root,root) %{_libdir}/liboxygenstyle.so
 %{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
 %{_includedir}/*.h
-#%{_includedir}/kephal
 %{_includedir}/kworkspace
 %{_includedir}/ksgrd
 %{_includedir}/ksysguard
@@ -1152,8 +1167,6 @@ fi
 %files kwin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin
-#%attr(755,root,root) %{_bindir}/kwin_killer_helper
-#%attr(755,root,root) %{_bindir}/kwin_rules_dialog
 %attr(755,root,root) %{_libdir}/libkwineffects.so.*
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
@@ -1179,6 +1192,9 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
+%attr(755,root,root) %{_libdir}/kde4/libexec/kwin_killer_helper
+%attr(755,root,root) %{_libdir}/kde4/libexec/kwin_opengl_test
+%attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
 #%{_datadir}/apps/aurorae
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
@@ -1285,6 +1301,10 @@ fi
 %{_datadir}/kde4/services/kwin/translucency.desktop
 %{_datadir}/kde4/services/kwin/translucency_config.desktop
 %{_datadir}/kde4/services/kwinscreenedges.desktop
+%{_datadir}/kde4/services/kwin/blur.desktop
+%{_datadir}/kde4/services/kwin/blur_config.desktop
+%{_datadir}/kde4/services/kwin/glide.desktop
+%{_datadir}/kde4/services/kwin/glide_config.desktop
 %{_datadir}/kde4/servicetypes/kwineffect.desktop
 %{_datadir}/apps/kconf_update/plasma-add-shortcut-to-menu.upd
 %{_datadir}/apps/kconf_update/krdb.upd
@@ -1326,7 +1346,8 @@ fi
 %attr(755,root,root) %{_bindir}/plasmawallpaperviewer
 %attr(755,root,root) %{_bindir}/plasmoidviewer
 %attr(755,root,root) %{_bindir}/plasma-overlay
-#%attr(755,root,root) %{_libdir}/libkdeinit4_plasma.so
+%attr(755,root,root) %{_bindir}/plasma-windowed
+%attr(755,root,root) %{_libdir}/libkdeinit4_plasma-windowed.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_animator_default.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
@@ -1348,6 +1369,8 @@ fi
 #%attr(755,root,root) %{_libdir}/kde4/plasma_appletscript_simple_javascript.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_appletscriptengine_webapplet.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_keyboard.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_notifications.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_qedje.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_dashboard.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_packagestructure_web.so
@@ -1400,6 +1423,8 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_tasks.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_time.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_engine_weather.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_devicenotifications.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_engine_statusnotifieritem.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_package_ggl.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_scriptengine_ggl.so
 %attr(755,root,root) %{_libdir}/kde4/plasma-geolocation-gps.so
@@ -1435,6 +1460,8 @@ fi
 %{_datadir}/apps/plasma/services/nowplaying.operations
 %{_datadir}/apps/plasma/services/tasks.operations
 %{_datadir}/apps/plasma/services/searchlaunch.operations
+%{_datadir}/apps/plasma/services/statusnotifieritem.operations
+%{_datadir}/apps/plasma/layout-templates
 %{_datadir}/kde4/services/plasma-animator-default.desktop
 %{_datadir}/kde4/services/plasma-applet-analogclock.desktop
 %{_datadir}/kde4/services/plasma-applet-currentappcontrol.desktop
@@ -1528,6 +1555,7 @@ fi
 %{_datadir}/kde4/services/plasma-sal-system.desktop
 %{_datadir}/kde4/services/plasma-sal-utility.desktop
 %{_datadir}/kde4/servicetypes/plasma-sal-menu.desktop
+%{_datadir}/kde4/servicetypes/plasma-layout-template.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
 %{_datadir}/apps/desktoptheme/default/system-monitor/hdd_panel.svgz
 %dir %{_datadir}/apps/desktoptheme/default/calendar
