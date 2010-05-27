@@ -917,6 +917,7 @@ fi
 %{_datadir}/apps/kstyle/themes/qtplastique.themerc
 %{_datadir}/apps/kstyle/themes/qtwindows.themerc
 %{_datadir}/kde4/services/style.desktop
+%dir %{_libdir}/kde4/plugins/styles
 
 # powerdevil
 %attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilconfig.so
