@@ -146,6 +146,20 @@ KDE.
 Este pacote contém os arquivos de inclusão que são necessários para
 compilar aplicativos que usem bibliotecas do kdebase.
 
+%package infocenter
+Summary:	KDE Info Center
+Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+#Requires:	pciutils
+Obsoletes:	kde4-kdebase-infocenter
+
+%description infocenter
+Application for displaying information about your system.
+
+%description infocenter -l pl.UTF-8
+Centrum informacji o systemie dla KDE.
+
 %package kfontinst
 Summary:	K Font Installer
 Summary(pl.UTF-8):	Instalator fontów dla KDE
@@ -799,7 +813,6 @@ fi
 %{_datadir}/kde4/services/kded/statusnotifierwatcher.desktop
 %{_datadir}/kde4/services/settings-classic-view.desktop
 %{_datadir}/kde4/services/settings-icon-view.desktop
-%{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
 %dir %{_datadir}/apps/plasma-desktop
 %{_datadir}/apps/plasma-desktop/plasma-desktop.notifyrc
@@ -864,6 +877,8 @@ fi
 #%{_datadir}/kde4/services/settings-system.desktop
 %{_datadir}/kde4/services/settings-window-behaviour.desktop
 %{_datadir}/kde4/servicetypes/systemsettingscategory.desktop
+%{_datadir}/kde4/servicetypes/systemsettingsexternalapp.desktop
+%{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
 %{_kdedocdir}/en/systemsettings
 %{_kdedocdir}/en/PolicyKit-kde
@@ -1100,7 +1115,37 @@ fi
 %{_includedir}/plasmaclock
 %{_datadir}/apps/cmake/modules/*.cmake
 
-%{_datadir}/kde4/servicetypes/systemsettingsexternalapp.desktop
+%files infocenter
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/kinfocenter
+%attr(755,root,root) %{_libdir}/kde4/kcm_usb.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_nic.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_info.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_infosummary.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_opengl.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_memory.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_pci.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_samba.so
+%attr(755,root,root) %{_libdir}/kde4/kcm_view1394.so
+%{_datadir}/apps/kinfocenter
+%{_datadir}/kde4/services/kcmview1394.desktop
+%{_datadir}/kde4/services/kcmusb.desktop
+%{_datadir}/kde4/services/nic.desktop
+%{_datadir}/kde4/services/opengl.desktop
+%{_datadir}/kde4/services/scsi.desktop
+%{_datadir}/kde4/services/xserver.desktop
+%{_datadir}/kde4/services/dma.desktop
+%{_datadir}/kde4/services/interrupts.desktop
+%{_datadir}/kde4/services/ioports.desktop
+%{_datadir}/kde4/services/kcm_memory.desktop
+%{_datadir}/kde4/services/kcm_pci.desktop
+%{_datadir}/kde4/services/smbstatus.desktop
+%{_desktopdir}/kde4/kinfocenter.desktop
+%dir %{_datadir}/apps/kcmview1394
+%dir %{_datadir}/apps/kcmusb
+%{_datadir}/apps/kcmview1394/oui.db
+%{_datadir}/apps/kcmusb/usb.ids
+%lang(en) %{_kdedocdir}/en/kinfocenter
 
 %files kfontinst
 %defattr(644,root,root,755)
