@@ -551,6 +551,18 @@ Requires:	python-PyKDE4
 %description -n python-plasma
 Python plasma for KDE.
 
+%package -n kde4-style-oxygen
+Summary:	KDE Oxygen Style
+Summary(pl.UTF-8):	Styl Oxygen dla KDE
+Group:		Themes
+Obsoletes:	kde-style-oxygen
+
+%description -n kde4-style-oxygen
+KDE Oxygen Style.
+
+%description -n kde4-style-oxygen -l pl.UTF-8
+Styl Oxygen dla KDE.
+
 %prep
 %setup -q -n %{orgname}-%{version}
 #%patch100 -p1
@@ -681,6 +693,8 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
+%attr(755,root,root) %{_bindir}/oxygen-demo
+%attr(755,root,root) %{_bindir}/oxygen-settings
 #%attr(755,root,root) %{_bindir}/setscheduler
 #%attr(755,root,root) %{_bindir}/polkit-kde-authorization
 %attr(755,root,root) %{_libdir}/libksignalplotter.so.*
@@ -894,11 +908,8 @@ fi
 # styles
 %attr(755,root,root) %{_libdir}/kde4/kcm_style.so
 %attr(755,root,root) %{_libdir}/kde4/kstyle_keramik_config.so
-%attr(755,root,root) %{_libdir}/kde4/kstyle_oxygen_config.so
-%attr(755,root,root) %{_libdir}/kde4/plugins/styles/oxygen.so
 %attr(755,root,root) %ghost %{_libdir}/liboxygenstyle.so.?
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so.*.*.*
-%{_datadir}/apps/kstyle/themes/oxygen.themerc
 %{_datadir}/apps/kstyle/themes/qtcde.themerc
 %{_datadir}/apps/kstyle/themes/qtcleanlooks.themerc
 %{_datadir}/apps/kstyle/themes/qtgtk.themerc
@@ -996,6 +1007,7 @@ fi
 %{_datadir}/apps/kcminput/pics/mouse_lh.png
 %{_datadir}/apps/kcminput/pics/mouse_rh.png
 # ?
+%attr(755,root,root) %{_libdir}/kde4/kded_freespacenotifier.so
 %attr(755,root,root) %{_libdir}/kde4/kded_networkstatus.so
 %attr(755,root,root) %{_libdir}/kde4/kded_powerdevil.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/krootimage
@@ -1045,6 +1057,7 @@ fi
 %{_datadir}/kde4/services/joystick.desktop
 %{_datadir}/kde4/services/kded/networkstatus.desktop
 %{_datadir}/kde4/services/kded/powerdevil.desktop
+%{_datadir}/kde4/services/kded/freespacenotifier.desktop
 #%{_datadir}/kde4/services/keyboard.desktop
 #%{_datadir}/kde4/services/keyboard_layout.desktop
 %{_datadir}/kde4/services/keys.desktop
@@ -1060,6 +1073,8 @@ fi
 %attr(755,root,root) %ghost %{_libdir}/libkephal.so.?
 #%{_datadir}/kde4/services/kded/kded_kephal.desktop
 %{_datadir}/config.kcfg/plasma-shell-desktop.kcfg
+%{_datadir}/config.kcfg/freespacenotifier.kcfg
+%{_datadir}/apps/freespacenotifier
 
 #PolicyKit-kde
 %attr(755,root,root) %{_bindir}/polkit-kde-authorization
@@ -1629,6 +1644,7 @@ fi
 %attr(755,root,root) %{_bindir}/solid-powermanagement
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so.*
 %attr(755,root,root) %{_libdir}/libsolidcontrolifaces.so.*
+%attr(755,root,root) %{_libdir}/kde4/devinfo.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_solid_actions.so
 %attr(755,root,root) %{_libdir}/kde4/solid_fakenet.so
@@ -1813,6 +1829,12 @@ fi
 %files -n kde4-splash-SimpleSmall
 %defattr(644,root,root,755)
 %{_datadir}/apps/ksplash/Themes/SimpleSmall
+
+%files -n kde4-style-oxygen
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kstyle_oxygen_config.so
+%attr(755,root,root) %{_libdir}/kde4/plugins/styles/oxygen.so
+%{_datadir}/apps/kstyle/themes/oxygen.themerc
 
 %files -n python-plasma
 %defattr(644,root,root,755)
