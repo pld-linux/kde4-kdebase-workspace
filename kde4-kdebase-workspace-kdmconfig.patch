@@ -191,18 +191,6 @@ diff -Nru kdebase-workspace-4.3.73svn1040395/kdm/kfrontend/CMakeLists.txt kdebas
      char *ptr;
      int fd;
  
-diff -Nru kdebase-workspace-4.3.73svn1040395/kdm/kfrontend/kdmctl.c kdebase-workspace-4.3.73svn1040395-new/kdm/kfrontend/kdmctl.c
---- kdebase-workspace-4.3.73svn1040395/kdm/kfrontend/kdmctl.c	2008-01-05 00:55:45.000000000 +0100
-+++ kdebase-workspace-4.3.73svn1040395-new/kdm/kfrontend/kdmctl.c	2009-10-28 22:58:08.000000000 +0100
-@@ -150,7 +150,7 @@
- {
- 	char *dpy = getenv( "DISPLAY" );
- 	const char *ctl = getenv( "DM_CONTROL" );
--	const char *cfg = KDE_CONFDIR "/kdm/kdmrc";
-+	const char *cfg = "/etc/X11/kdm/kdmrc";
- 	char *ptr;
- 	int fd;
- 
 diff -Nru kdebase-workspace-4.3.73svn1040395/kdm/kfrontend/sessions/CMakeLists.txt kdebase-workspace-4.3.73svn1040395-new/kdm/kfrontend/sessions/CMakeLists.txt
 --- kdebase-workspace-4.3.73svn1040395/kdm/kfrontend/sessions/CMakeLists.txt	2008-04-30 15:58:40.000000000 +0200
 +++ kdebase-workspace-4.3.73svn1040395-new/kdm/kfrontend/sessions/CMakeLists.txt	2009-10-28 22:58:08.000000000 +0100
