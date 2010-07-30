@@ -891,7 +891,6 @@ fi
 %{_datadir}/kde4/services/settings-permissions.desktop
 %{_datadir}/kde4/services/settings-personal-information.desktop
 %{_datadir}/kde4/services/settings-removable-devices.desktop
-%{_datadir}/kde4/services/settings-security.desktop
 %{_datadir}/kde4/services/settings-sharing.desktop
 %{_datadir}/kde4/services/settings-shortcuts-and-gestures.desktop
 %{_datadir}/kde4/services/settings-startup-and-shutdown.desktop
@@ -1122,7 +1121,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
-%{_libdir}/cmake/KDE4Workspace-%{version}
+%{_libdir}/cmake/KDE4Workspace-%{version}0
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1198,6 +1197,7 @@ fi
 %{_datadir}/PolicyKit/policy/org.kde.fontinst.policy
 %{_datadir}/dbus-1/services/org.kde.fontinst.service
 %{_datadir}/dbus-1/system-services/org.kde.fontinst.service
+%lang(en) %{_kdedocdir}/en/kfontview
 
 %files klipper
 %defattr(644,root,root,755)
@@ -1386,6 +1386,8 @@ fi
 %{_datadir}/apps/kconf_update/plasma-to-plasmadesktop-shortcuts.upd
 %{_datadir}/apps/kconf_update/plasmarc-to-plasmadesktoprc.upd
 %{_datadir}/apps/kconf_update/kwin_update_tabbox_settings.upd
+%{_datadir}/apps/kconf_update/kwin_blacklist.sh
+%{_datadir}/apps/kconf_update/kwin_blacklist.upd
 #%{_datadir}/apps/kconf_update/khotkeys_printscreen.upd
 %{_iconsdir}/oxygen/16x16/apps/kwin.png
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
@@ -1691,8 +1693,6 @@ fi
 %defattr(644,root,root,755)
 %{_datadir}/wallpapers/Air
 %{_datadir}/wallpapers/Aghi
-%{_datadir}/wallpapers/Code_Poets_Dream
-%{_datadir}/wallpapers/Curls_on_Green
 %{_datadir}/wallpapers/Ethais
 %{_datadir}/wallpapers/Evening
 %{_datadir}/wallpapers/Fields_of_Peace
@@ -1702,10 +1702,12 @@ fi
 %{_datadir}/wallpapers/Plasmalicious
 %{_datadir}/wallpapers/Quadros
 %{_datadir}/wallpapers/Red_Leaf
-%{_datadir}/wallpapers/Spring_Sunray
-%{_datadir}/wallpapers/The_Rings_of_Saturn
-%{_datadir}/wallpapers/default_blue.jpg
-%{_datadir}/wallpapers/default_blue.jpg.desktop
+%{_datadir}/wallpapers/Autumn
+%{_datadir}/wallpapers/Blue_Wood
+%{_datadir}/wallpapers/Grass
+%{_datadir}/wallpapers/Hanami
+%{_datadir}/wallpapers/stripes.png
+%{_datadir}/wallpapers/stripes.png.desktop
 
 %files -n kde4-kdm
 %defattr(644,root,root,755)
@@ -1730,6 +1732,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_kdm.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_config
 %attr(755,root,root) %{_libdir}/kde4/libexec/kdm_greet
+%attr(755,root,root) %{_libdir}/kde4/libexec/kcmkdmhelper
 /etc/X11/sessions
 # XXX move dir below elsewhere
 %dir %{_datadir}/apps/doc
@@ -1739,6 +1742,9 @@ fi
 %{_datadir}/config/kdm.knsrc
 %{_datadir}/kde4/services/kdm.desktop
 %{_datadir}/wallpapers/kdm_pld.png
+%{_datadir}/PolicyKit/policy/org.kde.kcontrol.kcmkdm.policy
+%{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkdm.service
+%{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm
 
 %files svg-icons
