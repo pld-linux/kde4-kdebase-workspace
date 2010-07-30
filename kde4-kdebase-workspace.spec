@@ -30,7 +30,6 @@ Source16:	%{name}-session
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-installFP.patch
-Patch3:		%{name}-python.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.7.1
@@ -569,7 +568,6 @@ Styl Oxygen dla KDE.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
-%patch3 -p0
 
 %build
 install -d build
