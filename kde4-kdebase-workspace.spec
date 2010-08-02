@@ -309,6 +309,17 @@ Also provides graphical login method.
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
 
+%package -n kde4-decoration-aurorae
+Summary:	KDE Window Decoration Engine - Aurorae
+Summary(pl.UTF-8):	Silnik Dekoracji okien dla KDE - Aurorae
+Group:		X11/Amusements
+
+%description -n kde4-decoration-aurorae
+Aurorae is a theme engine for KWin window decorations.
+
+%description -n kde4-decoration-aurorae -l pl.UTF-8
+Aurorae jest silnikiem dekoracji dla okien KWin.
+
 %package -n kde4-decoration-b2
 Summary:	KDE Window Decoration - B2
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - B2
@@ -1248,7 +1259,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktoptheme.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
-%attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_default_rules
@@ -1261,7 +1271,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
-%{_datadir}/apps/kwin/aurorae.desktop
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
 %{_datadir}/apps/kwin/snowflake.png
@@ -1287,7 +1296,6 @@ fi
 %{_datadir}/apps/kwin/snow.frag
 %{_datadir}/apps/kwin/snow.vert
 %{_datadir}/apps/kwin/tabstrip.desktop
-%{_datadir}/config/aurorae.knsrc
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
@@ -1754,6 +1762,12 @@ fi
 %{_iconsdir}/*/scalable/apps/preferences-desktop-font-installer.svgz
 %{_iconsdir}/*/scalable/mimetypes/fonts-package.svgz
 %{_iconsdir}/*/scalable/apps/kwin.svgz
+
+%files -n kde4-decoration-aurorae
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/kde4/kwin3_aurorae.so
+%{_datadir}/config/aurorae.knsrc
+%{_datadir}/apps/kwin/aurorae.desktop
 
 %files -n kde4-decoration-b2
 %defattr(644,root,root,755)
