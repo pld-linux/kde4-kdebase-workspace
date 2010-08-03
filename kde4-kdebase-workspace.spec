@@ -12,7 +12,7 @@ Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	a552e93b963879b97853fe5e4b699d27
+# Source0-md5:	acee4ba4b45bf595bb01d0860fe7c551
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
