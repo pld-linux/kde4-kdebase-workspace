@@ -61,6 +61,7 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-devel >= 0.9.3
+BuildRequires:	polkit-qt-1-devel >= 0.96.1
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
@@ -767,6 +768,12 @@ fi
 %{_datadir}/apps/kaccess
 %{_datadir}/kde4/services/kaccess.desktop
 
+# polkit-1 policies
+%{_datadir}/polkit-1/actions/org.kde.fontinst.policy
+%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmclock.policy
+%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmkdm.policy
+%{_datadir}/polkit-1/actions/org.kde.ksysguard.processlisthelper.policy
+
 # kcontrol
 %{_datadir}/apps/kcontrol/pics/anchor.png
 #%{_datadir}/apps/kcontrol/pics/energybig.png
@@ -789,8 +796,6 @@ fi
 %{_datadir}/dbus-1/interfaces/org.kde.khotkeys.xml
 %{_datadir}/kde4/services/kded/khotkeys.desktop
 %{_datadir}/kde4/services/khotkeys.desktop
-#%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
-#%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
 
 # kmenuedit
 %attr(755,root,root) %{_bindir}/kmenuedit
@@ -993,7 +998,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_clock.so
 %{_datadir}/kde4/services/clock.desktop
 /etc/dbus-1/system.d/org.kde.kcontrol.kcmclock.conf
-%{_datadir}/PolicyKit/policy/org.kde.kcontrol.kcmclock.policy
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmclock.service
 
 # fontthumbnail
@@ -1112,8 +1116,6 @@ fi
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
 %attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
 %attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
-#%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
-#%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
 %{_datadir}/kde4/services/kcm_pkk_authorization.desktop
 %{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
 %{_datadir}/dbus-1/services/org.kde.PolicyKit.service
@@ -1221,7 +1223,6 @@ fi
 %{_iconsdir}/*/*/apps/kfontview.png
 %{_iconsdir}/*/*/mimetypes/fonts-package.png
 /etc/dbus-1/system.d/org.kde.fontinst.conf
-%{_datadir}/PolicyKit/policy/org.kde.fontinst.policy
 %{_datadir}/dbus-1/services/org.kde.fontinst.service
 %{_datadir}/dbus-1/system-services/org.kde.fontinst.service
 %lang(en) %{_kdedocdir}/en/kfontview
@@ -1252,7 +1253,6 @@ fi
 %{_datadir}/config/ksysguard.knsrc
 %lang(en) %{_kdedocdir}/en/ksysguard
 
-%{_datadir}/PolicyKit/policy/org.kde.ksysguard.processlisthelper.policy
 /etc/dbus-1/system.d/org.kde.ksysguard.processlisthelper.conf
 %{_datadir}/dbus-1/system-services/org.kde.ksysguard.processlisthelper.service
 
@@ -1766,7 +1766,6 @@ fi
 %{_datadir}/config/kdm.knsrc
 %{_datadir}/kde4/services/kdm.desktop
 %{_datadir}/wallpapers/kdm_pld.png
-%{_datadir}/PolicyKit/policy/org.kde.kcontrol.kcmkdm.policy
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkdm.service
 %{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm
