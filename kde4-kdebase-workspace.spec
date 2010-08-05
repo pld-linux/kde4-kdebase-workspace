@@ -1105,7 +1105,7 @@ fi
 %{_datadir}/config.kcfg/freespacenotifier.kcfg
 %{_datadir}/apps/freespacenotifier
 
-%files PolicyKit-kde
+%files -n PolicyKit-kde
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/polkit-kde-authorization
 %attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
