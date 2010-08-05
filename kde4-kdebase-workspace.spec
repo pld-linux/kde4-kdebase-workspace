@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.5.0
-Release:	6
+Release:	7
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -60,7 +60,7 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
-BuildRequires:	polkit-qt-1-devel >= 0.96.1
+BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel
@@ -77,7 +77,6 @@ BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
-BuildConflicts:	polkit-qt-devel
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	kde4-kdebase-workspace-solid >= %{version}
 Requires:	xorg-app-setxkbmap
@@ -88,7 +87,6 @@ Requires:	xorg-app-xsetroot
 Suggests:	fontconfig
 Suggests:	kde4-decoration-oxygen >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
-Obsoletes:	PolicyKit-kde
 Obsoletes:	kde4-decoration-ozone
 Obsoletes:	kde4-kdebase-workspace-core
 Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
@@ -574,6 +572,19 @@ KDE Oxygen Style.
 %description -n kde4-style-oxygen -l pl.UTF-8
 Styl Oxygen dla KDE.
 
+%package -n PolicyKit-kde
+Summary:	KDE PolicyKit
+Summary(pl.UTF-8):	PolicyKit dla KDE
+Group:		X11/Applications
+
+%description -n PolicyKit-kde
+PolicyKit-kde provides a D-BUS session bus service that is used to
+bring up authentication dialogs used for obtaining privileges.
+
+%description -n PolicyKit-kde -l pl.UTF-8
+PolicyKit-kde dostarcza sesję D-BUSa, która używana jest do okienek
+dialogowych mających na celu rozszerzenie przywilejów użytkownika.
+
 %prep
 %setup -q -n %{orgname}-%{version}
 #%patch100 -p1
@@ -652,6 +663,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	libksgrd	-p /sbin/ldconfig
 %postun	libksgrd	-p /sbin/ldconfig
+
+%post	-n PolicyKit-kde	-p /sbin/ldconfig
+%postun	-n PolicyKit-kde	-p /sbin/ldconfig
 
 %post -n kde4-kdm
 /sbin/chkconfig --add kdm
@@ -914,7 +928,6 @@ fi
 %{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
 %{_kdedocdir}/en/systemsettings
-#%{_kdedocdir}/en/PolicyKit-kde
 
 # themes
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
@@ -1092,17 +1105,19 @@ fi
 %{_datadir}/config.kcfg/freespacenotifier.kcfg
 %{_datadir}/apps/freespacenotifier
 
-#PolicyKit-kde
-#%attr(755,root,root) %{_bindir}/polkit-kde-authorization
-#%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
-#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
-#%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
-#%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
-##%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
-##%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
-#%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
-#%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
-#%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
+%files PolicyKit-kde
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
+%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
+%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
+#%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
+#%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
+%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
+%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
+%{_kdedocdir}/en/PolicyKit-kde
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -1131,7 +1146,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
+%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
 %{_libdir}/cmake/KDE4Workspace-%{version}0
 %{_includedir}/KDE/Plasma/Weather
