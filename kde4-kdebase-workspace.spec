@@ -914,7 +914,7 @@ fi
 %{_datadir}/kde4/servicetypes/systemsettingsview.desktop
 %{_desktopdir}/kde4/systemsettings.desktop
 %{_kdedocdir}/en/systemsettings
-%{_kdedocdir}/en/PolicyKit-kde
+#%{_kdedocdir}/en/PolicyKit-kde
 
 # themes
 %{_datadir}/apps/kconf_update/mouse_cursor_theme.upd
@@ -1093,16 +1093,16 @@ fi
 %{_datadir}/apps/freespacenotifier
 
 #PolicyKit-kde
-%attr(755,root,root) %{_bindir}/polkit-kde-authorization
-%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
-%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
-%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
-%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
-#%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
-#%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
-%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
-%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
-%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
+#%attr(755,root,root) %{_bindir}/polkit-kde-authorization
+#%attr(755,root,root) %ghost %{_libdir}/libpolkitkdeprivate.so.?
+#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so.*.*.*
+#%attr(755,root,root) %{_libdir}/kde4/kcm_pkk_authorization.so
+#%attr(755,root,root) %{_libdir}/kde4/libexec/polkit-kde-manager
+##%attr(755,root,root) %ghost %{_libdir}/libpolkit-qt.so.?
+##%attr(755,root,root) %{_libdir}/libpolkit-qt.so.*.*.*
+#%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+#%{_datadir}/dbus-1/services/kde-org.freedesktop.PolicyKit.AuthenticationAgent.service
+#%{_datadir}/dbus-1/services/org.kde.PolicyKit.service
 
 %files libksgrd
 %defattr(644,root,root,755)
@@ -1131,7 +1131,7 @@ fi
 %attr(755,root,root) %{_libdir}/libtaskmanager.so
 %attr(755,root,root) %{_libdir}/libweather_ion.so
 %attr(755,root,root) %{_libdir}/liblsofui.so
-%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
+#%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
 %{_libdir}/cmake/KDE4Workspace-%{version}0
 %{_includedir}/KDE/Plasma/Weather
