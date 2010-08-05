@@ -670,7 +670,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre -n kde4-kdm
 %groupadd -g 252 kdm
-%useradd -u 252 -d /etc/X11/kdm -g kdm -c "KDM User" kdm
+%useradd -u 252 -d /etc/X11/kdm -g kdm -c "KDE Display Manager User" kdm
 
 %postun -n kde4-kdm
 if [ "$1" = "0" ]; then
