@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.5.0
-Release:	10
+Release:	11
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -65,7 +65,7 @@ BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	polkit-qt-1-devel >= 0.96.1
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
-BuildRequires:	qimageblitz-devel
+BuildRequires:	qimageblitz-devel >= 0.0.6
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
