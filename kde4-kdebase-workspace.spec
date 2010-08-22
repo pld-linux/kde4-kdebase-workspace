@@ -60,8 +60,8 @@ BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
-BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	polkit-qt-1-devel >= 0.96.1
+BuildRequires:	polkit-qt-devel >= 0.9.3
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel >= 0.0.6
@@ -78,8 +78,10 @@ BuildRequires:	xorg-lib-libXcomposite-devel
 BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xorg-lib-libXft-devel
 BuildRequires:	xorg-lib-libXtst-devel
+Requires(post,preun):	/sbin/chkconfig
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	kde4-kdebase-workspace-solid >= %{version}
+Requires:	rc-scripts
 Requires:	xorg-app-setxkbmap
 Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
@@ -290,9 +292,9 @@ Tapety KDE 4.
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
-Requires(post,preun):	/sbin/chkconfig
 Requires:	/usr/bin/X
 # xorg-app-xinit-xinitrc-1.0.8-1 doesn't provide it. this should pull xinitrc-ng in
+Requires(post,preun):	/sbin/chkconfig
 Requires:	/etc/X11/xinit/Xclients
 Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
