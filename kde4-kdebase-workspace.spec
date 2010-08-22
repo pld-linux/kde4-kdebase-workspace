@@ -69,6 +69,7 @@ BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.202
 BuildRequires:	shared-desktop-ontologies-devel >= 0.5
 BuildRequires:	soprano-devel >= 2.4.64
 BuildRequires:	strigi-devel >= 0.7.0
@@ -295,11 +296,15 @@ Group:		X11/Applications
 Requires:	/usr/bin/X
 # xorg-app-xinit-xinitrc-1.0.8-1 doesn't provide it. this should pull xinitrc-ng in
 Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/bin/id
+Requires(pre):	/usr/sbin/useradd
 Requires:	/etc/X11/xinit/Xclients
 Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Provides:	XDM
+Provides:	user(kdm)
 Obsoletes:	kdm < 9:3.0.0
 Obsoletes:	kdm >= 4.0.0
 
