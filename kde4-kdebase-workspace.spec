@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.5.0
-Release:	13
+Version:	4.5.1
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	effb3a6a7e1c1967588bb92927ef7771
+# Source0-md5:	c030fa3530c3675636778d1561b012bd
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -595,7 +595,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 
 %prep
 %setup -q -n %{orgname}-%{version}
-%patch100 -p1
+#%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
@@ -1167,7 +1167,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 %attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
-%{_libdir}/cmake/KDE4Workspace-%{version}0
+%{_libdir}/cmake/KDE4Workspace-%{version}
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1206,6 +1206,7 @@ fi
 %{_datadir}/kde4/services/kcm_memory.desktop
 %{_datadir}/kde4/services/kcm_pci.desktop
 %{_datadir}/kde4/services/smbstatus.desktop
+%{_datadir}/kde4/servicetypes/kinfocentercategory.desktop
 %{_desktopdir}/kde4/kinfocenter.desktop
 %dir %{_datadir}/apps/kcmview1394
 %dir %{_datadir}/apps/kcmusb
