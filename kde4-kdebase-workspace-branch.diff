@@ -1,2628 +1,1691 @@
---- workspace/ksmserver/kcm/kcmsmserver.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/ksmserver/kcm/kcmsmserver.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -21,6 +21,7 @@
- Name[en_GB]=Session Management
- Name[es]=Gestión de sesiones
- Name[et]=Seansihaldus
-+Name[eu]=Saio kudeaketa
- Name[fi]=Istunnonhallinta
- Name[fr]=Gestion de session
- Name[fy]=Sesjebehear
-@@ -42,6 +43,7 @@
- Name[nb]=Øktbehandling
- Name[nds]=Törns plegen
- Name[nl]=Sessiebeheer
-+Name[nn]=Økthandsamar
- Name[pa]=ਸ਼ੈਸ਼ਨ ਪਰਬੰਧ
- Name[pl]=Zarządzanie sesją
- Name[pt]=Gestão de Sessões
---- workspace/ConfigureChecks.cmake	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/ConfigureChecks.cmake	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -64,6 +64,7 @@
- macro_bool_to_01(FONTCONFIG_FOUND HAVE_FONTCONFIG) # kcontrol/{fonts,kfontinst}
- macro_bool_to_01(FREETYPE_FOUND HAVE_FREETYPE) # kcontrol/fonts
- macro_bool_to_01(OPENGL_FOUND HAVE_OPENGL) # kwin
-+macro_bool_to_01(DBUSMENUQT_FOUND HAVE_DBUSMENUQT) # plasma/dataengine/statusnotifieritem
- macro_bool_to_01(X11_XShm_FOUND HAVE_XSHM) # kwin, ksplash
- macro_bool_to_01(X11_XTest_FOUND HAVE_XTEST) # khotkeys, kxkb, kdm
- macro_bool_to_01(X11_Xcomposite_FOUND HAVE_XCOMPOSITE) # kicker, kwin
---- workspace/kcontrol/dateandtime/kcmclock_actions.actions	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/dateandtime/kcmclock_actions.actions	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -175,7 +175,7 @@
- Description[sv]=Systemets policy förhindrar att du sparar inställningar av datum och tid.
- Description[th]=นโยบายของระบบเพื่อป้องกันจากการจัดเก็บการตั้งค่าต่าง ๆ ของวันและเวลา
- Description[tr]=Sistem politikaları tarih saat ayarlarını kaydetmenizi engelliyor.
--Description[uk]=Згідно до загальносистемних правил, ви не можете зберігати параметри дати/часу.
-+Description[uk]=Відповідно до загальносистемних правил, ви не можете зберігати параметри дати/часу.
- Description[x-test]=xxSystem policies prevent you from saving the date/time settings.xx
- Description[zh_CN]=系统安全策略不允许您保存日期/时间设置。
- Description[zh_TW]=系統政策不允許您儲存日期與時間的設定
---- workspace/kcontrol/desktoptheme/desktoptheme.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/desktoptheme/desktoptheme.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -20,6 +20,7 @@
- Name[en_GB]=Desktop Theme
- Name[es]=Tema de escritorio
- Name[et]=Töölauateema
-+Name[eu]=Mahaigaineko gaia
- Name[fi]=Työpöydän teema
- Name[fr]=Thème de bureau
- Name[fy]=Desktop tema
-@@ -41,6 +42,7 @@
- Name[nb]=Skrivebordstema
- Name[nds]=Schriefdischmuster
- Name[nl]=Bureaubladthema
-+Name[nn]=Skrivebordstema
- Name[pa]=ਡੈਸਕਟਾਪ ਥੀਮ
- Name[pl]=Motyw pulpitu
- Name[pt]=Tema do Ambiente de Trabalho
-@@ -69,11 +71,13 @@
- Comment[en_GB]=Customise the desktop theme
- Comment[es]=Personalizar el tema de escritorio
- Comment[et]=Töölauateema kohandamine
-+Comment[eu]=Pertsonalizatu mahaigaineko gaia
- Comment[fi]=Mukauta työpöytäteema
- Comment[fr]=Personnalise le thème de bureau
- Comment[fy]=It buroblêdtema oanpasse
- Comment[ga]=Saincheap an téama deisce
- Comment[hi]=डेस्कटॉप प्रसंग मनपसंद बनाएँ
-+Comment[hr]=Prilagodba teme radne površine
- Comment[ia]=Personalisar le thema de scriptorio
- Comment[id]=Sesuaikan tema desktop
- Comment[is]=Sérsníða skjáborðsþema
-@@ -88,6 +92,7 @@
- Comment[nb]=Still inn temaet for skrivebordet
- Comment[nds]=Dat Schriefdischmuster topassen
- Comment[nl]=Pas het bureaubladthema aan
-+Comment[nn]=Tilpass skrivebordstemaet
- Comment[pa]=ਡੈਸਕਟਾਪ ਥੀਮ ਕਸਟਮਾਈਜ਼ ਕਰੋ
- Comment[pl]=Konfiguracja elementów motywu pulpitu
- Comment[pt]=Personalizar o tema do ambiente de trabalho
---- workspace/kcontrol/keyboard/xkb_rules.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/xkb_rules.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -22,6 +22,7 @@
- #include <klocale.h>
+--- workspace/kcontrol/dateandtime/helper.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/dateandtime/helper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -58,7 +58,7 @@
+   if(!config_file.exists()) {
+     config_file.open(QIODevice::WriteOnly);
+     config_file.close();
+-    config_file.setPermissions(QFile::ReadOther);
++    config_file.setPermissions(QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup | QFile::ReadOther);
+   }
+   KConfig _config(config_file.fileName(), KConfig::SimpleConfig);
+   KConfigGroup config(&_config, "NTP");
+--- workspace/kcontrol/keyboard/keyboard_hardware.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/keyboard/keyboard_hardware.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -16,19 +16,20 @@
+  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+  */
  
- #include <QtCore/QDebug>
-+#include <QtCore/QDir>
- #include <QtGui/QTextDocument> // for Qt::escape
- #include <QtXml/QXmlAttributes>
+-#include <config-workspace.h>
+-#include <config-X11.h>
+-
++#include <kdebug.h>
+ #include <kconfiggroup.h>
+ #include <ksharedconfig.h>
  
-@@ -120,24 +121,40 @@
- }
+ #include <QtGui/QX11Info>
++#include <QtGui/QCursor>	// WTF? - otherwise compiler complains
  
+ #include <X11/Xlib.h>
  
--static QString findXkbRulesFile()
-+QString Rules::getRulesName()
- {
--	QString rulesFile;
- 	XkbRF_VarDefsRec vd;
- 	char *tmp = NULL;
+ #include <math.h>
  
- 	if (XkbRF_GetNamesProp(QX11Info::display(), &tmp, &vd) && tmp != NULL ) {
- 		// 			qDebug() << "namesprop" << tmp ;
--		QString base;
--		if( QString("/usr/lib/X11") == XLIBDIR ) {
--			base = "/usr/share/X11";
-+		return QString(tmp);
-+	}
++#include "x11_helper.h"
+ 
 +
-+	return QString::null;
-+}
-+
-+static QString findXkbRulesFile()
+ /*
+  Originally comes from NumLockX http://dforce.sh.cvut.cz/~seli/en/numlockx
+ 
+@@ -60,131 +61,114 @@
+ #include <X11/XKBlib.h>
+ #include <X11/keysym.h>
+ 
+-/* the XKB stuff is based on code created by Oswald Buddenhagen <ossi@kde.org> */
+-int xkb_init()
+-    {
+-    int xkb_opcode, xkb_event, xkb_error;
+-    int xkb_lmaj = XkbMajorVersion;
+-    int xkb_lmin = XkbMinorVersion;
+-    return XkbLibraryVersion( &xkb_lmaj, &xkb_lmin )
+-			&& XkbQueryExtension( QX11Info::display(), &xkb_opcode, &xkb_event, &xkb_error,
+-			       &xkb_lmaj, &xkb_lmin );
+-    }
+ 
++static
+ unsigned int xkb_mask_modifier( XkbDescPtr xkb, const char *name )
+-    {
+-    int i;
+-    if( !xkb || !xkb->names )
+-	return 0;
+-    for( i = 0;
+-         i < XkbNumVirtualMods;
+-	 i++ )
+-	{
+-	char* modStr = XGetAtomName( xkb->dpy, xkb->names->vmods[i] );
+-	if( modStr != NULL && strcmp(name, modStr) == 0 )
+-	    {
+-	    unsigned int mask;
+-	    XkbVirtualModsToReal( xkb, 1 << i, &mask );
+-	    return mask;
+-	    }
 +{
-+	QString rulesFile;
-+	QString rulesName = Rules::getRulesName();
++	if( !xkb || !xkb->names )
++		return 0;
 +
-+	if ( ! rulesName.isNull() ) {
-+		QString xkbParentDir;
-+
-+		QString base(XLIBDIR);
-+		if( base.count('/') >= 3 ) {
-+			QDir baseDir(base + "/../../share/X11");
-+			if( baseDir.exists() ) {
-+				xkbParentDir = baseDir.absolutePath();
-+			}
- 		}
--		else {
--			//TODO: is it good enough?
--			base = XLIBDIR;
--			base += "/..";
-+
-+		if( xkbParentDir.isEmpty() ) {
-+			xkbParentDir = "/usr/share/X11";
- 		}
--		rulesFile = base + QString("/xkb/rules/%1.xml").arg(tmp);
-+
-+		rulesFile = QString("%1/xkb/rules/%2.xml").arg(xkbParentDir, rulesName);
++	for(int i = 0; i < XkbNumVirtualMods; i++ ) {
++		char* modStr = XGetAtomName( xkb->dpy, xkb->names->vmods[i] );
++		if( modStr != NULL && strcmp(name, modStr) == 0 ) {
++			unsigned int mask;
++			XkbVirtualModsToReal( xkb, 1 << i, &mask );
++			return mask;
++		}
  	}
+-    return 0;
+-    }
++	return 0;
++}
  
- 	return rulesFile;
---- workspace/kcontrol/keyboard/layout_memory.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/layout_memory.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -22,13 +22,14 @@
- 
- #include <kdebug.h>
- #include <kwindowsystem.h>
--#include <netwm.h>
-+//#include <netwm.h>
- 
- #include "x11_helper.h"
- 
- 
- LayoutMemory::LayoutMemory():
--	switchingPolicy(KeyboardConfig::SWITCH_POLICY_GLOBAL)
-+	switchingPolicy(KeyboardConfig::SWITCH_POLICY_GLOBAL),
-+	layoutList(X11Helper::getLayoutsList())
- {
- 	registerListeners();
- }
-@@ -83,7 +84,7 @@
- 	}
- 	case KeyboardConfig::SWITCH_POLICY_APPLICATION: {
- 		WId wid = KWindowSystem::self()->activeWindow();
--		KWindowInfo winInfo = KWindowSystem::windowInfo(wid, NET::WMWindowType);
-+		KWindowInfo winInfo = KWindowSystem::windowInfo(wid, NET::WMWindowType, NET::WM2WindowClass);
- 		NET::WindowType windowType = winInfo.windowType( NET::NormalMask | NET::DesktopMask | NET::DialogMask );
- 		kDebug() << "window type" << windowType;
- 
-@@ -93,12 +94,12 @@
- 		if( windowType != NET::Unknown && windowType != NET::Normal && windowType != NET::Dialog )
- 			return QString();
- 
--//		KWindowInfo winInfo = KWindowSystem::windowInfo(wid, NET::WM2WindowClass);
--//		return QString(winInfo.windowClassName());
--		//TODO: shall we use pid or window class ???
--		NETWinInfo winInfoForPid( QX11Info::display(), wid, QX11Info::appRootWindow(), NET::WMPid | NET::WM2WindowClass);
--//		return QString(winInfo.windowClassClass());
--		return QString::number(winInfoForPid.pid());
-+		// shall we use pid or window class ??? - class seems better (see e.g. https://bugs.kde.org/show_bug.cgi?id=245507)
-+		// for window class shall we use class.class or class.name? (seem class.class is a bit better - more app-oriented)
-+		kDebug() << "New active window with class.class: " << winInfo.windowClassClass();
-+		return QString(winInfo.windowClassClass());
-+//		NETWinInfo winInfoForPid( QX11Info::display(), wid, QX11Info::appRootWindow(), NET::WMPid);
-+//		return QString::number(winInfoForPid.pid());
- 	}
- 	case KeyboardConfig::SWITCH_POLICY_DESKTOP:
- 		return QString::number(KWindowSystem::self()->currentDesktop());
-@@ -107,9 +108,14 @@
- 	}
- }
- 
--void LayoutMemory::clear()
-+void LayoutMemory::layoutMapChanged()
- {
--	layoutMap.clear();
-+	QList<LayoutUnit> newLayoutList(X11Helper::getLayoutsList());
-+	if( newLayoutList != layoutList ) {
-+		layoutList = newLayoutList;
-+		kDebug() << "Clearing layout memory as layout map has changed";
-+		layoutMap.clear();
++static
+ unsigned int xkb_numlock_mask()
+-    {
+-    XkbDescPtr xkb;
+-    if(( xkb = XkbGetKeyboard( QX11Info::display(), XkbAllComponentsMask, XkbUseCoreKbd )) != NULL )
+-	{
+-        unsigned int mask = xkb_mask_modifier( xkb, "NumLock" );
+-        XkbFreeKeyboard( xkb, 0, True );
+-        return mask;
+-        }
+-    return 0;
+-    }
++{
++	XkbDescPtr xkb;
++	if(( xkb = XkbGetKeyboard( QX11Info::display(), XkbAllComponentsMask, XkbUseCoreKbd )) != NULL ) {
++		unsigned int mask = xkb_mask_modifier( xkb, "NumLock" );
++		XkbFreeKeyboard( xkb, 0, True );
++		return mask;
 +	}
- }
++	else {
++		kError() << "Failed to set numlock: failed to get keyboard";
++	}
++	return 0;
++}
  
- void LayoutMemory::layoutChanged()
---- workspace/kcontrol/keyboard/kcm_view_models.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/kcm_view_models.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -307,8 +307,8 @@
-     	else {
-     		int groupRow = index.row();
-     		const OptionGroupInfo* xkbGroup = rules->optionGroupInfos[groupRow];
--    		foreach(const QString& option, keyboardConfig->xkbOptions) {
--    			if( option.startsWith(xkbGroup->name + Rules::XKB_OPTION_GROUP_SEPARATOR) )
-+    		foreach(const OptionInfo* optionInfo, xkbGroup->optionInfos) {
-+    			if( keyboardConfig->xkbOptions.indexOf(optionInfo->name) != -1 )
-     				return Qt::PartiallyChecked;
-     		}
- 			return Qt::Unchecked;
---- workspace/kcontrol/keyboard/keyboard_daemon.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/keyboard_daemon.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -146,7 +146,7 @@
- 	connect(xEventNotifier, SIGNAL(newPointerDevice()), this, SLOT(configureMouse()));
- 	connect(xEventNotifier, SIGNAL(newKeyboardDevice()), this, SLOT(configureKeyboard()));
- 	connect(xEventNotifier, SIGNAL(layoutChanged()), &layoutMemory, SLOT(layoutChanged()));
--	connect(xEventNotifier, SIGNAL(layoutMapChanged()), &layoutMemory, SLOT(clear()));
-+	connect(xEventNotifier, SIGNAL(layoutMapChanged()), &layoutMemory, SLOT(layoutMapChanged()));
- 	xEventNotifier->start();
- }
- 
-@@ -159,7 +159,7 @@
- 	disconnect(xEventNotifier, SIGNAL(newPointerDevice()), this, SLOT(configureMouse()));
- 	disconnect(xEventNotifier, SIGNAL(newKeyboardDevice()), this, SLOT(configureKeyboard()));
- 	disconnect(xEventNotifier, SIGNAL(layoutChanged()), &layoutMemory, SLOT(layoutChanged()));
--	disconnect(xEventNotifier, SIGNAL(layoutMapChanged()), &layoutMemory, SLOT(clear()));
-+	disconnect(xEventNotifier, SIGNAL(layoutMapChanged()), &layoutMemory, SLOT(layoutMapChanged()));
- }
- 
- void KeyboardDaemon::globalSettingsChanged(int category)
---- workspace/kcontrol/keyboard/plasma_applet_keyboard.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/plasma_applet_keyboard.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -115,6 +115,7 @@
- Comment[nb]=Miniprogram som viser og bytter utforminger
- Comment[nds]=Lüttprogramm för't Wiesen un Wesseln vun Tasttoornen
- Comment[nl]=Applet om indelingen te tonen en om te schakelen
-+Comment[nn]=Miniprogram for å visa og byta oppsett
- Comment[pa]=ਲੇਆਉਟ ਵੇਖਾਉਣ ਤੇ ਬਦਲਣ ਲਈ ਐਪਲਿਟ
- Comment[pl]=Aplet do pokazywania i przełączania układów
- Comment[pt]='Applet' para mostrar e mudar de disposições
---- workspace/kcontrol/keyboard/CMakeLists.txt	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/CMakeLists.txt	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -3,15 +3,12 @@
- 
- if( X11_Xinput_FOUND AND XiGetDevicePresenceNotifyEvent_EXISTS )
-     set(XiGetDevicePresence_FOUND 1)
-+    ADD_DEFINITIONS(-DHAVE_XINPUT_AND_DEVICE_NOTIFY=1)
- else( X11_Xinput_FOUND AND XiGetDevicePresenceNotifyEvent_EXISTS )
-     MESSAGE(STATUS "_XiGetDevicePresenceNotifyEvent is not found, libXi version 1.2.0 or later is required to keep layouts with keyboard hotplugging")
- endif( X11_Xinput_FOUND AND XiGetDevicePresenceNotifyEvent_EXISTS )
- 
--macro_bool_to_01(XiGetDevicePresence_FOUND HAVE_XINPUT)
--ADD_DEFINITIONS(-DHAVE_XINPUT=${HAVE_XINPUT})
- 
--
--
- ### kded daemon ###
- 
- set( kded_keyboard_SRCS
---- workspace/kcontrol/keyboard/xkb_rules.h	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/xkb_rules.h	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -93,6 +93,7 @@
+-int xkb_set_on()
+-    {
+-    unsigned int mask;
+-    if( !xkb_init())
++static
++int xkb_set_numlock(int set)
++{
++    unsigned int mask = xkb_numlock_mask();
++    if( mask == 0 ) {
++    	kError() << "Failed to set numlock: numlock mask is 0";
+         return 0;
+-    mask = xkb_numlock_mask();
+-    if( mask == 0 )
+-        return 0;
+-    XkbLockModifiers ( QX11Info::display(), XkbUseCoreKbd, mask, mask);
+-    return 1;
      }
  
-     static Rules* readRules();
-+    static QString getRulesName();
- };
+-int xkb_set_off()
+-    {
+-    unsigned int mask;
+-    if( !xkb_init())
+-        return 0;
+-    mask = xkb_numlock_mask();
+-    if( mask == 0 )
+-        return 0;
+-    XkbLockModifiers ( QX11Info::display(), XkbUseCoreKbd, mask, 0);
+-    return 1;
+-    }
++    unsigned int values = set ? mask : 0;
++    return XkbLockModifiers ( QX11Info::display(), XkbUseCoreKbd, mask, values);
++}
  
- #endif /* XKB_RULES_H_ */
---- workspace/kcontrol/keyboard/layout_memory.h	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/layout_memory.h	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -36,6 +36,7 @@
-     // if there's some transient windows coming up we'll need to either ignore it
-     // or in case of layout switcher popup menu to apply new layout to previous key
-     QString previousLayoutMapKey;
-+    QList<LayoutUnit> layoutList;
+-void numlock_set_on()
+-    {
+-    if( xkb_set_on())
+-        return;
+-    }
++static
++void numlockx_change_numlock_state( bool set )
++{
++	if( !X11Helper::xkbSupported(NULL) ) {
++    	kError() << "Failed to set numlock: xkb is not supported";
++    	return;
++	}
  
-     void registerListeners();
-     void unregisterListeners();
-@@ -43,7 +44,7 @@
-     void setCurrentLayoutFromMap();
+-void numlock_set_off()
+-    {
+-    if( xkb_set_off())
+-        return;
+-    }
++	if( ! xkb_set_numlock(set) ) {
++    	kError() << "Failed to set numlock: XkbLockModifiers request hasn't been sent";
++	}
++}
  
- public Q_SLOTS:
--	void clear();
-+	void layoutMapChanged();
- 	void layoutChanged();
- 	void windowChanged(WId wId);
- 	void desktopChanged(int desktop);
---- workspace/kcontrol/keyboard/layout_widget.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/layout_widget.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -190,7 +190,7 @@
+-void numlockx_change_numlock_state( bool set_P )
+-    {
+-    if( set_P )
+-        numlock_set_on();
+-    else
+-        numlock_set_off();
+-    }
+-
+ // This code is taken from xset utility from XFree 4.3 (http://www.xfree86.org/)
  
- 	m_notifierItem->setToolTipSubTitle(longText);
- 
--	const QIcon icon(flags->getIcon(layoutUnit.layout));
-+	const QIcon icon(getFlag(layoutUnit.layout));
- 	m_notifierItem->setToolTipIconByPixmap(icon);
- 
- 	QIcon textOrIcon = flags->getIconWithText(layoutUnit, *keyboardConfig);
---- workspace/kcontrol/keyboard/xinput_helper.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/xinput_helper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -27,7 +27,7 @@
- #include <X11/Xlib.h>
- #include <X11/Xatom.h>
- 
--#if HAVE_XINPUT==1
-+#ifdef HAVE_XINPUT_AND_DEVICE_NOTIFY
- #include <X11/extensions/XInput.h>
- #endif
- 
-@@ -75,7 +75,7 @@
- }
- 
- 
--#if HAVE_XINPUT==1
-+#ifdef HAVE_XINPUT_AND_DEVICE_NOTIFY
- 
- extern "C" {
-     extern int _XiGetDevicePresenceNotifyEvent(Display *);
---- workspace/kcontrol/keyboard/keyboard.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/keyboard.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -19,12 +19,14 @@
- Name[en_GB]=Keyboard Dæmon
- Name[es]=Demonio de teclado
- Name[et]=Klaviatuurideemon
-+Name[eu]=Teklatuaren deabrua
- Name[fi]=Näppäimistötaustaprosessi
- Name[fr]=Démon du clavier
- Name[fy]=Toetseboerd Daemon
- Name[ga]=Deamhan Méarchláir
- Name[gu]=કીબોર્ડ ડિમન
- Name[hi]=कुंजीपट डेमन
-+Name[hr]=Tipkovnički servis
- Name[ia]=Demone de Claviero
- Name[id]=Jurik Papan Ketik
- Name[is]=Lyklaborðspúki
-@@ -39,6 +41,7 @@
- Name[nb]=Tastatur-nisse
- Name[nds]=Tastatuur-Dämoon
- Name[nl]=Toetsenbord-daemon
-+Name[nn]=Tastaturteneste
- Name[pa]=ਕੀ-ਬੋਰਡ ਡੈਮਨ
- Name[pl]=Demon klawiatury
- Name[pt]=Servidor do Teclado
---- workspace/kcontrol/keyboard/kcm_keyboard_widget.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/keyboard/kcm_keyboard_widget.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -353,12 +353,18 @@
- void KCMKeyboardWidget::scrollToGroupShortcut()
++static
+ void set_repeatrate(int delay, double rate)
  {
-     this->setCurrentIndex(TAB_ADVANCED);
-+    if( ! uiWidget->configureKeyboardOptionsChk->isChecked() ) {
-+    	uiWidget->configureKeyboardOptionsChk->setChecked(true);
-+    }
- 	((XkbOptionsTreeModel*)uiWidget->xkbOptionsTreeView->model())->gotoGroup(GROUP_SWITCH_GROUP_NAME, uiWidget->xkbOptionsTreeView);
+-  Display* dpy = QX11Info::display();
+-  int xkbmajor = XkbMajorVersion, xkbminor = XkbMinorVersion;
+-  int xkbopcode, xkbevent, xkberror;
++	if( !X11Helper::xkbSupported(NULL) ) {
++		kError() << "Failed to set keyboard repeat rate: xkb is not supported";
++		return;
++	}
+ 
+-  if (XkbQueryExtension(dpy, &xkbopcode, &xkbevent, &xkberror, &xkbmajor,
+-				&xkbminor)) {
+-     XkbDescPtr xkb = XkbAllocKeyboard();
+-     if (xkb) {
+-        int res = XkbGetControls(dpy, XkbRepeatKeysMask, xkb);
+-        xkb->ctrls->repeat_delay = delay;
+-        xkb->ctrls->repeat_interval = (int)floor(1000/rate + 0.5);
+-        res = XkbSetControls(dpy, XkbRepeatKeysMask, xkb);
+-        return;
+-     }
+-  }
++	XkbDescPtr xkb = XkbAllocKeyboard();
++	if (xkb) {
++		Display* dpy = QX11Info::display();
++		int res = XkbGetControls(dpy, XkbRepeatKeysMask, xkb);
++		xkb->ctrls->repeat_delay = delay;
++		xkb->ctrls->repeat_interval = (int)floor(1000/rate + 0.5);
++		res = XkbSetControls(dpy, XkbRepeatKeysMask, xkb);
++		return;
++	}
  }
  
- void KCMKeyboardWidget::scrollTo3rdLevelShortcut()
+-void init_keyboard_hardware()
++static
++void set_volume(int click_percent, bool auto_repeat_mode)
  {
- 	this->setCurrentIndex(TAB_ADVANCED);
-+    if( ! uiWidget->configureKeyboardOptionsChk->isChecked() ) {
-+    	uiWidget->configureKeyboardOptionsChk->setChecked(true);
-+    }
- 	((XkbOptionsTreeModel*)uiWidget->xkbOptionsTreeView->model())->gotoGroup(LV3_SWITCH_GROUP_NAME, uiWidget->xkbOptionsTreeView);
+-    KConfigGroup config(KSharedConfig::openConfig( "kcminputrc" ), "Keyboard");
+-
+ 	XKeyboardState   kbd;
+ 	XKeyboardControl kbdc;
+ 
+ 	XGetKeyboardControl(QX11Info::display(), &kbd);
+-	bool key = config.readEntry("KeyboardRepeating", true);
+-	kbdc.key_click_percent = config.readEntry("ClickVolume", kbd.key_click_percent);
+-	kbdc.auto_repeat_mode = (key ? AutoRepeatModeOn : AutoRepeatModeOff);
+ 
++	if( click_percent != -1 ) {
++		kbdc.key_click_percent = click_percent;
++	}
++	kbdc.auto_repeat_mode = (auto_repeat_mode ? AutoRepeatModeOn : AutoRepeatModeOff);
++
+ 	XChangeKeyboardControl(QX11Info::display(),
+ 						   KBKeyClickPercent | KBAutoRepeatMode,
+ 						   &kbdc);
++}
+ 
+-	if( key ) {
++void init_keyboard_hardware()
++{
++    KConfigGroup config(KSharedConfig::openConfig( "kcminputrc" ), "Keyboard");
++
++	bool key_repeat = config.readEntry("KeyboardRepeating", true);
++	int click_percent = config.readEntry("ClickVolume", -1);
++
++	set_volume(click_percent, key_repeat);
++
++	if( key_repeat ) {
+ 		int delay_ = config.readEntry("RepeatDelay", 250);
+ 		double rate_ = config.readEntry("RepeatRate", 30.);
+ 		set_repeatrate(delay_, rate_);
+@@ -192,6 +176,7 @@
+ 
+ 
+ 	int numlockState = config.readEntry( "NumLock", 2 );
+-	if( numlockState != 2 )
++	if( numlockState != 2 ) {
+ 		numlockx_change_numlock_state( numlockState == 0 );
++	}
+ }
+--- workspace/kcontrol/keyboard/xkb_helper.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/keyboard/xkb_helper.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -24,7 +24,6 @@
+ 
+ class XkbHelper {
+ public:
+-	static bool initializeKeyboardLayouts();
+ 	static bool initializeKeyboardLayouts(KeyboardConfig& config);
+ 
+ //private:
+--- workspace/kcontrol/keyboard/xkb_helper.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/keyboard/xkb_helper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -30,6 +30,7 @@
+ 
+ #include "keyboard_config.h"
+ 
++
+ static const char* SETXKBMAP_EXEC = "setxkbmap";
+ 
+ static bool setxkbmapNotFound = false;
+@@ -71,19 +72,19 @@
+     }
  }
  
---- workspace/kcontrol/randr/module/randrmonitor.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/randr/module/randrmonitor.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Display Management change monitor
- Name[es]=Monitor de cambios en la gestión de pantalla
- Name[et]=Monitori kuvahaldus
-+Name[eu]=Bistaratze kudeatzailearen aldaketa begiralea
- Name[fr]=Affiche la gestion du changement de moniteur
- Name[fy]=Monitor foar feroarings yn skermbehear
- Name[hr]=Prikazuje upravljanje promjenom monitora
-@@ -25,6 +26,7 @@
- Name[nb]=Overvåker endringer i skjermstyring
- Name[nds]=Schirmpleeg - Monitor ännern
- Name[nl]=Monitor voor wijzigingen in schermbeheer
-+Name[nn]=Endra skjerm i skjermhandsaming
- Name[pa]=ਡਿਸਪਲੇਅ ਪਰਬੰਧ ਮਾਨੀਟਰ ਬਦਲਣਾ
- Name[pl]=Zmiana monitora
- Name[pt]=Monitoriza as alterações de Gestão do Ecrã
---- workspace/kcontrol/workspaceoptions/workspaceoptions.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/workspaceoptions/workspaceoptions.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -86,6 +86,7 @@
- Comment[fr]=Options globales pour l'espace de travail Plasma
- Comment[fy]=Globale opsjes foar de Plasma wurkromte
- Comment[ga]=Roghanna comhchoiteanna don spás oibre Plasma
-+Comment[hr]=Globalne opcije za Plasmin radni prostor
- Comment[ia]=Optiones Global pro le spatio de labor de Plasma
- Comment[id]=Opsi global untuk Ruang Kerja Plasma
- Comment[is]=Almennar stillingar Plasma vinnurýmisins
-@@ -100,6 +101,7 @@
- Comment[nb]=Globale valg for Plasma-arbeidsområdet
- Comment[nds]=Globaal Optschonen för dat Plasma-Arbeitrebeet
- Comment[nl]=Globale opties voor de Plasma-werkruimte
-+Comment[nn]=Globale innstillingar for Plasma-arbeidsområdet
- Comment[pa]=ਪਲਾਜ਼ਮਾ ਵਰਕਸਪੇਸ ਲਈ ਗਲੋਬਲ ਚੋਣਾਂ
- Comment[pl]=Globalne opcje przestrzeni roboczej Plazmy
- Comment[pt]=Opções globais para o ambiente de trabalho Plasma
---- workspace/kcontrol/kdm/kdm.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/kdm/kdm.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -5,10 +5,7 @@
- X-KDE-ServiceTypes=KCModule
- X-DocPath=kdm/index.html#configuring-kdm
+-bool XkbHelper::initializeKeyboardLayouts()
+-{
+-	getSetxkbmapExe();
+-	if( ! setxkbmapNotFound ) {
++//bool XkbHelper::initializeKeyboardLayouts()
++//{
++//	getSetxkbmapExe();
++//	if( ! setxkbmapNotFound ) {
++//
++//		KeyboardConfig config;
++//		config.load();
++//
++//		return XkbHelper::initializeKeyboardLayouts(config);
++//	}
++//	return false;
++//}
  
--X-KDE-SubstituteUID=true
+-		KeyboardConfig config;
+-		config.load();
 -
- X-KDE-Library=kcm_kdm
--X-KDE-RootOnly=true
- X-KDE-ParentApp=kcontrol
+-		return XkbHelper::initializeKeyboardLayouts(config);
+-	}
+-	return false;
+-}
+-
+ bool XkbHelper::initializeKeyboardLayouts(KeyboardConfig& config)
+ {
+ 	QStringList setxkbmapCommandArguments;
+--- workspace/kcontrol/keyboard/xinput_helper.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/keyboard/xinput_helper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -91,16 +91,18 @@
+ 			int ndevices;
+ 			XDeviceInfo	*devices = XListInputDevices(xdpne->display, &ndevices);
+ 			if( devices != NULL ) {
+-				kDebug() << "New device id:" << xdpne->deviceid;
++//				kDebug() << "New device id:" << xdpne->deviceid;
+ 				for(int i=0; i<ndevices; i++) {
+-					kDebug() << "id:" << devices[i].id << "name:" << devices[i].name << "used as:" << devices[i].use;
++//					kDebug() << "id:" << devices[i].id << "name:" << devices[i].name << "used as:" << devices[i].use;
+ 					if( devices[i].id == xdpne->deviceid ) {
+ 						if( devices[i].use == IsXKeyboard || devices[i].use == IsXExtensionKeyboard ) {
+ 							newDeviceType = DEVICE_KEYBOARD;
++							kDebug() << "new keyboard device, id:" << devices[i].id << "name:" << devices[i].name << "used as:" << devices[i].use;
+ 							break;
+ 						}
+ 						if( devices[i].use == IsXPointer || devices[i].use == IsXExtensionPointer ) {
+ 							newDeviceType = DEVICE_POINTER;
++							kDebug() << "new pointer device, id:" << devices[i].id << "name:" << devices[i].name << "used as:" << devices[i].use;
+ 							break;
+ 						}
+ 					}
+--- workspace/kcontrol/keyboard/kcm_keyboard_widget.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kcontrol/keyboard/kcm_keyboard_widget.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -70,9 +70,16 @@
+ 	connect(kcmMiscWidget, SIGNAL(changed(bool)), this, SIGNAL(changed(bool)));
+ 	//TODO: connect save/load
  
- X-KDE-System-Settings-Parent-Category=system-administration
---- workspace/kcontrol/kdm/kcmkdm_actions.actions	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kcontrol/kdm/kcmkdm_actions.actions	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -9,10 +9,12 @@
- Name[en_GB]=Login Manager Control Module
- Name[es]=Módulo de control de la gestión de acceso
- Name[et]=Sisselogimishalduri juhtimismoodul
-+Name[eu]=Saio hasiera kudeatzeko aginte modulo bat
- Name[fi]=Kirjautumisruudun ohjausmoduuli
- Name[fr]=Module de contrôle du gestionnaire de connexion
- Name[fy]=Ynlochbehear Konfiguraasjemodule
- Name[ga]=Modúl Rialaithe an Bhainisteora Logála Isteach
-+Name[hr]=Modul za podešavanje upravitelja prijavom
- Name[ia]=Modulo de controlo de Gerente de Accessos de Identification
- Name[id]=Modul Kontrol Manajer Log Masuk
- Name[is]=Stjórneining fyrir innskráningu
-@@ -27,6 +29,7 @@
- Name[nb]=Styremodul for innloggingsbehandler
- Name[nds]=Anmellpleger-Kuntrullmoduul
- Name[nl]=Controlemodule van aanmeldbeheerder
-+Name[nn]=Kontrollmodul for innloggingshandsamaren
- Name[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਕੰਟਰੋਲ ਮੋਡੀਊਲ
- Name[pl]=Moduł menadżera logowania
- Name[pt]=Módulo de Controlo do Gestor de Autenticação
-@@ -56,6 +59,7 @@
- Name[en_GB]=Save the Login Manager settings
- Name[es]=Guardar las preferencias de la gestión de acceso
- Name[et]=Sisselogimishalduri seadistuste salvestamine
-+Name[eu]=Gorde saio hasiera kudeatzailearen ezarpenak
- Name[fi]=Tallenna kirjautumisruudun asetukset
- Name[fr]=Enregistre les paramètres du gestionnaire de connexion
- Name[fy]=De ynloch behear ynstellings bewarje
-@@ -75,6 +79,7 @@
- Name[nb]=Lagre innstillinger for innloggingsbehandler
- Name[nds]=Anmellpleger-Instellen sekern
- Name[nl]=Instellingen aanmeldbeheerder opslaan
-+Name[nn]=Lagra innstillingane for innloggingshandsamaren
- Name[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਸੈਟਿੰਗ ਸੰਭਾਲੋ
- Name[pl]=Zapisz ustawienia menadżera logowania
- Name[pt]=Gravar a configuração do Gestor de Autenticação
-@@ -102,9 +107,11 @@
- Description[en_GB]=Administrator authorisation is required to change the Login Manager settings
- Description[es]=Debe tener permisos de administrador para modificar las preferencias del gestor de acceso
- Description[et]=Sisselogimishalduri seadistuste muutmiseks on vajalik autentimine administraatorina
-+Description[eu]=Administratzailearen autorizazioa behar da saio hasiera kudeatzailearen ezarpenak aldatzeko
- Description[fi]=Kirjautumisruudun asetuksien muuttamiseen tarvitaan pääkäyttäjän valtuudet
- Description[fr]=Les privilèges de l'administrateur son requis pour modifier les paramètres du gestionnaire de connexion
- Description[fy]=Autorisaasjes fan systeembehearder is fereaske om ynstellings fan de oanmeldbehearder te feroarjen
-+Description[hr]=Administracijska je autorizacija potreba za promjenu postavki upravitelja prijavom
- Description[ia]=Autorisation de Administrator es requirite pro modificar le preferentias del Gerente de Accessos de Identification
- Description[id]=Otorisasi administrator diperlukan untuk mengubah pengaturan Manajer Log Masuk
- Description[it]=È richiesta l'autorizzazione amministrativa per cambiare le impostazioni del gestore degli accessi
-@@ -118,6 +125,7 @@
- Description[nb]=Administrator-autorisering kreves for å endre innstillingene for innloggingsbehandler
- Description[nds]=För't Ännern vun Anmellpleger-Instellen deit Systeempleger-Verlööf noot.
- Description[nl]=Autorisatie van systeembeheerder is vereist om instellingen van de aanmeldbeheerder te wijzigen
-+Description[nn]=Det trengst administratortilgang for å endra innstillingane for innloggingshandsamaren
- Description[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਸੈਟਿੰਗ ਬਦਲਣ ਲਈ ਐਡਮਿਨਸਟੇਟਰ ਅਧਿਕਾਰ ਚਾਹੀਦੇ ਹਨ
- Description[pl]=Do zmiany ustawień menadżera logowania potrzebne są uprawnienia administratora
- Description[pt]=É necessária a autorização do administrador para mudar a configuração do Gestor de Autenticação
-@@ -146,6 +154,7 @@
- Name[en_GB]=Manage user images shown in the Login Manager
- Name[es]=Gestionar las imágenes de usuario mostradas en el gestor de acceso
- Name[et]=Sisselogimishalduris näidatavate kasutajapiltide haldamine
-+Name[eu]=Kudeatu saio hasiera kudeatzailean erakutsitako erabiltzaileentzako irudiak
- Name[fi]=Hallinnoi kirjautumisruudussa näkyviä käyttäjien kuvia
- Name[fr]=Gère les images des utilisateurs affichées dans le gestionnaire de connexion
- Name[fy]=Behearen fan ôfbydlings yn de oanmeldbehearder van afbeeldingen in de aanmeldbeheerder
-@@ -164,6 +173,7 @@
- Name[nb]=Styr brukerbilder som vises i innloggingsbehandleren
- Name[nds]=Brukerbiller plegen, de binnen de Anmellen-Schirm wiest warrt
- Name[nl]=Beheren van afbeeldingen in de aanmeldbeheerder
-+Name[nn]=Handsam brukarbileta i innloggingshandsamaren
- Name[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਵਿੱਚ ਵੇਖਾਉਣ ਲਈ ਯੂਜ਼ਰ ਚਿੱਤਰ ਦਾ ਪਰਬੰਧ
- Name[pl]=Zarządzanie obrazami użytkowników pokazywanymi w menadżerze logowania
- Name[pt]=Gerir as imagens dos utilizadores visíveis no Gestor de Autenticação
-@@ -190,6 +200,7 @@
- Description[en_GB]=Administrator authorisation is required to manage user images for the Login Manager
- Description[es]=Debe tener permisos de administrador para modificar las imágenes de usuarios del gestor de acceso
- Description[et]=Sisselogimishalduri kasutajapiltide haldamiseks on vajalik autentimine administraatorina
-+Description[eu]=Administratzailearen autorizazioa behar da saio hasiera kudeatzailearentzako erabiltzaile irudiak kudeatzeko
- Description[fi]=Kirjautumisruudun käyttäjäkuvien hallinnointiin tarvitaan pääkäyttäjän valtuudet
- Description[fr]=Les privilèges de l'administrateur sont requis pour gérer les images des utilisateurs pour le gestionnaire de connexion
- Description[fy]=Autorisaasjes fan systeembehearder is fereaske om de brûkers ôfbyldings foar de oanmeldbehearder te behearen
-@@ -207,6 +218,7 @@
- Description[nb]=Administrator-autorisering kreves for å håndtere brukerbilder i innloggingsbehandler
- Description[nds]=För de Pleeg vun Brukerbiller för den Anmellpleger deit Systeempleger-Verlööf noot.
- Description[nl]=Autorisatie van systeembeheerder is vereist om afbeeldingen in de aanmeldbeheerder te beheren
-+Description[nn]=Det trengst administratortilgang for å handsama brukarbileta i innloggingshandsamaren
- Description[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਲਈ ਯੂਜ਼ਰ ਚਿੱਤਰ ਦਾ ਪਰਬੰਧ ਕਰਨ ਲਈ ਐਡਮਿਨਸਟੇਟਰ ਅਧਿਕਾਰ ਚਾਹੀਦੇ ਹਨ
- Description[pl]=Do zmiany obrazów użytkowników w menadżerze logowania potrzebne są uprawnienia administratora
- Description[pt]=É necessária a autorização do administrador para gerir as imagens dos utilizadores no Gestor de Autenticação
-@@ -236,10 +248,12 @@
- Name[en_GB]=Manage themes for the Login Manager
- Name[es]=Gestionar temas del gestor de acceso
- Name[et]=Sisselogimishalduri teemade haldamine
-+Name[eu]=Kudeatu saio hasiera kudeatzailearentzako gaiak
- Name[fi]=Hallinnoi kirjautumisruudun teemoja
- Name[fr]=Gère les thèmes du gestionnaire de connexion
- Name[fy]=Tema's beheare foar de ynlochbehearder
- Name[ga]=Bainistigh téamaí don Bhainisteoir Logála Isteach
-+Name[hr]=Upravlja temama upravitelja prijavom
- Name[ia]=Gerer themas pro le Gerente de Accessos de Identification
- Name[id]=Atur tema untuk Manajer Log Masuk
- Name[it]=Gestisci i temi del gestore degli accessi
-@@ -253,6 +267,7 @@
- Name[nb]=Håndter temaer for innloggingsbehandleren
- Name[nds]=Mustern för den Anmellpleger plegen
- Name[nl]=Thema's beheren voor de aanmeldbeheerder
-+Name[nn]=Handsam tema for innloggingshandsamaren
- Name[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਲਈ ਥੀਮ ਪਰਬੰਧ
- Name[pl]=Zarządzanie motywami menadżera logowania
- Name[pt]=Gerir os temas do Gestor de Autenticação
-@@ -280,6 +295,7 @@
- Description[en_GB]=Administrator authorisation is required to manage themes for the Login Manager
- Description[es]=Debe tener permisos de administrador para modificar los temas del gestor de acceso
- Description[et]=Sisselogimishalduri teemade haldamiseks on vajalik autentimine administraatorina
-+Description[eu]=Administratzailearen autorizazioa behar da saio hasiera kudeatzailearentzako gaiak kudeatzeko
- Description[fi]=Kirjautumisruudun teemojen hallinnointiin tarvitaan pääkäyttäjän valtuudet
- Description[fr]=Les privilèges de l'administrateur sont requis pour gérer les thèmes du gestionnaire de connexion
- Description[fy]=Autorisaasjes fan systeembehearder is fereaske om de tema's foar de oanmeldbehearder te behearen 
-@@ -297,6 +313,7 @@
- Description[nb]=Administrator-autorisering kreves for å håndtere temaer for innloggingsbehandler
- Description[nds]=För de Pleeg vun Mustern för den Anmellpleger deit Systeempleger-Verlööf noot.
- Description[nl]=Autorisatie van systeembeheerder is vereist om thema's in de aanmeldbeheerder te beheren
-+Description[nn]=Det trengst administratortilgang for å handsama tema for innloggingshandsamaren
- Description[pa]=ਲਾਗਇਨ ਮੈਨੇਜਰ ਲਈ ਥੀਮ ਦਾ ਪਰਬੰਧ ਕਰਨ ਲਈ ਐਡਮਿਨਸਟੇਟਰ ਅਧਿਕਾਰ ਚਾਹੀਦੇ ਹਨ
- Description[pl]=Do zmiany motyw w menadżerze logowania potrzebne są uprawnienia administratora
- Description[pt]=É necessária a autorização do administrador para gerir os temas no Gestor de Autenticação
---- workspace/startkde.cmake	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/startkde.cmake	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -36,18 +36,6 @@
- # we have to unset this for Darwin since it will screw up KDE's dynamic-loading
- unset DYLD_FORCE_FLAT_NAMESPACE
+-    initializeKeyboardModelUI();
+-    initializeXkbOptionsUI();
+-    initializeLayoutsUI();
++    if( rules != NULL ) {
++        initializeKeyboardModelUI();
++    	initializeXkbOptionsUI();
++    	initializeLayoutsUI();
++    }
++    else {
++		uiWidget->tabLayouts->setEnabled(false);
++		uiWidget->tabAdvanced->setEnabled(false);
++		uiWidget->keyboardModelComboBox->setEnabled(false);
++    }
+ }
  
--# Enable lightweight memory corruption checker if not already set
--# -- this is for trunk only, we remove it for releases
--if [ "x$MALLOC_CHECK_" = "x" ] && [ -x /lib/libc.so.6 ]; then
--    # Extract the first two components of the version from the output.
--    glibc_version=$(LC_ALL=C /lib/libc.so.6 | sed -e 's/[^0-9]*\([0-9]\.[0-9]\+\).*/\1/;s/\.\([0-9]\)$/.0\1/;q')
--
--    MALLOC_CHECK_=2 # Default to 2 unless glibc 2.9 or higher.
--    test $glibc_version \> 2.08 && MALLOC_CHECK_=3
--
--    export MALLOC_CHECK_
--fi
--
- # in case we have been started with full pathname spec without being in PATH
- bindir=`echo "$0" | sed -n 's,^\(/.*\)/[^/][^/]*$,\1,p'`
- if [ -n "$bindir" ]; then
-@@ -405,11 +393,11 @@
- # if KDEWM is not set, ksmserver will ensure kwin is started.
- # kwrapper4 is used to reduce startup time and memory usage
- # kwrapper4 does not return useful error codes such as the exit code of ksmserver.
--# We only check for 255 which means that the ksmserver process could not be 
--# started, any problems thereafter, e.g. ksmserver failing to initialize, 
-+# We only check for 255 which means that the ksmserver process could not be
-+# started, any problems thereafter, e.g. ksmserver failing to initialize,
- # will remain undetected.
- test -n "$KDEWM" && KDEWM="--windowmanager $KDEWM"
--kwrapper4 ksmserver $KDEWM 
-+kwrapper4 ksmserver $KDEWM
- if test $? -eq 255; then
-   # Startup error
-   echo 'startkde: Could not start ksmserver. Check your installation.'  1>&2
---- workspace/statusnotifierwatcher/statusnotifierwatcher.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/statusnotifierwatcher/statusnotifierwatcher.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -12,9 +12,11 @@
- Name[en_GB]=Status Notifier Manager
- Name[es]=Gestor del notificador del estado
- Name[et]=Oleku märguannete haldur
-+Name[eu]=Egoera jakinarazle kudeatzailea
- Name[fr]=Gestionnaire du notificateur d'état
- Name[fy]=Tastân melder behearder folger
- Name[hi]=स्थिति संकेत प्रबंधक
-+Name[hr]=Upravitelj glasnika stanja
- Name[ia]=Gerente de Notificator de Stato
- Name[id]=Manajer Notifikasi Status
- Name[is]=Stöðutilkynningaþjónn
-@@ -55,10 +57,11 @@
- Comment[en_GB]=Manages services that provide status notifier user interfaces
- Comment[es]=Gestiona servicios que proporcionan interfaces de usuario para el notificador de estado
- Comment[et]=Teenuste haldamine, mis pakuvad olekumärguannete kasutajaliidest
-+Comment[eu]=Egora jakinarazle erabiltzaile interfazeak hornitzen dituen zerbitzuak kudeatzen ditu
- Comment[fr]=Gère les services qui fournissent des interfaces utilisateurs pour la notification d'état
- Comment[fy]=Beheart tsjinsten dy't tastânmeldingen leverje oan de brûkersomjouwing
- Comment[he]=ניהול שירותים המספקים ממשקי משתמש להודעות מצב
--Comment[hr]=Upravlja uslugama koje pružaju korisničko sučelje za obavještavanje o stanju
-+Comment[hr]=Upravlja uslugama koje omogućuju obavještavanje o stanju korisničkog sučelja
- Comment[ia]=Il gere servicios que forni interfaces de usator pro notificator de stato
- Comment[id]=Atur layanan yang menyediakan notifikasi status antarmuka pengguna
- Comment[is]=Stjórnar þjónustum sem sjá um stöðutilkynningar notandaviðmóta
---- workspace/systemsettings/categories/settings-permissions.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-permissions.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Permissions
- Name[es]=Permisos
- Name[et]=Õigused
-+Name[eu]=Baimenak
- Name[fi]=Oikeudet
- Name[fr]=Permissions
- Name[fy]=Tagongsrjochten
---- workspace/systemsettings/categories/settings-account-details.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-account-details.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Account Details
- Name[es]=Detalles de cuentas
- Name[et]=Konto üksikasjad
-+Name[eu]=Kontu xehetasunak
- Name[fi]=Käyttäjätilin tiedot
- Name[fr]=Détails du compte
- Name[fy]=Akkount details
---- workspace/systemsettings/categories/settings-input-devices.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-input-devices.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Input Devices
- Name[es]=Dispositivos de entrada
- Name[et]=Sisendseadmed
-+Name[eu]=Sarrera gailuak
- Name[fi]=Syöttölaitteet
- Name[fr]=Périphériques d'entrée
- Name[fy]=Ynfier apparaten
---- workspace/systemsettings/categories/settings-workspace-appearance-and-behavior.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-workspace-appearance-and-behavior.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,6 +18,7 @@
- Name[en_GB]=Workspace Appearance and Behaviour
- Name[es]=Apariencia y comportamiento del espacio de trabajo
- Name[et]=Töötsooni välimus ja käitumine
-+Name[eu]=Langunearen itxura eta portaera
- Name[fi]=Työtilan ulkoasu ja käyttäytyminen
- Name[fr]=Apparence et comportement de l'espace de travail
- Name[fy]=Workromte úterlik en gedrach
---- workspace/systemsettings/categories/settings-lost-and-found.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-lost-and-found.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,6 +18,7 @@
- Name[en_GB]=Lost and Found
+ KCMKeyboardWidget::~KCMKeyboardWidget()
+@@ -82,7 +89,10 @@
+ 
+ void KCMKeyboardWidget::save()
+ {
+-    KAction* action = static_cast<KAction*>(actionCollection->action(0));
++	if( rules == NULL )
++		return;
++
++	KAction* action = static_cast<KAction*>(actionCollection->action(0));
+     KShortcut shortcut(uiWidget->kdeKeySequence->keySequence());
+     action->setGlobalShortcut(shortcut, KAction::ActiveShortcut, KAction::NoAutoloading);
+     kDebug() << "Saving keyboard layout KDE shortcut" << shortcut.toString();
+@@ -92,6 +102,9 @@
+ 
+ void KCMKeyboardWidget::updateUI()
+ {
++	if( rules == NULL )
++		return;
++
+ 	uiWidget->layoutsTableView->setModel(uiWidget->layoutsTableView->model());
+ 	((LayoutsTableModel*)uiWidget->layoutsTableView->model())->refresh();
+ 
+@@ -106,6 +119,9 @@
+ 
+ void KCMKeyboardWidget::uiChanged()
+ {
++	if( rules == NULL )
++		return;
++
+ 	((LayoutsTableModel*)uiWidget->layoutsTableView->model())->refresh();
+ // this collapses the tree so use more fine-grained updates
+ //	((LayoutsTableModel*)uiWidget->xkbOptionsTreeView->model())->refresh();
+@@ -465,9 +481,16 @@
+ 		button->setText(i18nc("no shortcuts defined", "None"));
+ 	break;
+ 	case 1: {
++		const QString& option = grpOptions.first();
+ 		const OptionGroupInfo* optionGroupInfo = rules->getOptionGroupInfo(groupName);
+-		const OptionInfo* optionInfo = optionGroupInfo->getOptionInfo(grpOptions.first());
+-		button->setText(optionInfo->description);
++		const OptionInfo* optionInfo = optionGroupInfo->getOptionInfo(option);
++		if( optionInfo == NULL || optionInfo->description == NULL ) {
++			kError() << "Could not find option info for " << option;
++			button->setText(grpOptions.first());
++		}
++		else {
++			button->setText(optionInfo->description);
++		}
+ 	}
+ 	break;
+ 	default:
+--- workspace/kinfocenter/Categories/deviceinfocategory.desktop	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kinfocenter/Categories/deviceinfocategory.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -5,7 +5,9 @@
+ Icon=folder-documents
+ 
+ Name=Lost And Found
++Name[ca]=Perdut i trobat
+ Name[da]=Hittegods
++Name[de]=Nicht zuzuordnen
  Name[es]=Objetos perdidos
  Name[et]=Kaotatud ja leitud
-+Name[eu]=Galdu eta aurkitutakoak
- Name[fi]=Hävinneet ja löydetyt
- Name[fr]=Objets trouvés
- Name[fy]=Ferlerne saken
-@@ -38,6 +39,7 @@
- Name[nb]=Tapt og funnet
- Name[nds]=Passt narms sünst
- Name[nl]=Verloren en gevonden
-+Name[nn]=Tapt og funne
- Name[pa]=ਗੁਆਚੇ ਅਤੇ ਲੱਭੇ
- Name[pl]=Zgubione i znalezione
- Name[pt]=Perdidos e Achados
---- workspace/systemsettings/categories/settings-application-and-system-notifications.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-application-and-system-notifications.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Application and System Notifications
- Name[es]=Notificaciones de aplicaciones y del sistema
- Name[et]=Rakenduste ja süsteemi märguanded
-+Name[eu]=Aplikazio eta sistema jakinarazpenak
- Name[fi]=Ohjelma- ja järjestelmähuomautukset
- Name[fr]=Notifications des applications et du système
- Name[fy]=Programma en systeem notifikaasjes
---- workspace/systemsettings/categories/settings-application-appearance-and-behavior.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-application-appearance-and-behavior.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Common Appearance and Behaviour
- Name[es]=Apariencia y comportamiento comunes
- Name[et]=Üldine välimus ja käitumine
-+Name[eu]=Itxura eta portaera arrunta
- Name[fi]=Yleinen ulkoasu ja käyttäytyminen
- Name[fr]=Apparence et comportement général
- Name[fy]=Algemiene uterlik en gedrach
-@@ -34,11 +35,12 @@
- Name[nb]=Felles utseende og -oppførsel
- Name[nds]=Allgemeen Arbeitrebeet-Utsehn un -Bedregen
- Name[nl]=Gemeenschappelijk uiterlijk en gedrag
-+Name[nn]=Vanleg utsjånad og oppførsel
- Name[pa]=ਆਮ ਦਿੱਖ ਤੇ ਰਵੱਈਆ
- Name[pl]=Jednakowy wygląd i zachowanie
- Name[pt]=Aparência e Comportamento Comuns
- Name[pt_BR]=Aparência e comportamento comuns
--Name[ru]=Основные настройки внешнего вида и поведения
-+Name[ru]=Основные параметры внешнего вида и поведения
- Name[sk]=Spoločný vzhľad a správanie
- Name[sr]=Општи изглед и понашање
- Name[sr@ijekavian]=Општи изглед и понашање
---- workspace/systemsettings/categories/settings-locale.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-locale.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Locale
- Name[es]=Local
- Name[et]=Keeleseadistused
-+Name[eu]=Bertakoa
- Name[fi]=Lokaali
- Name[fr]=Localisation
- Name[fy]=Lokaal
---- workspace/systemsettings/categories/settings-application-appearance.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-application-appearance.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Application Appearance
- Name[es]=Apariencia de las aplicaciones
- Name[et]=Rakenduste välimus
-+Name[eu]=Aplikazioen itxura
- Name[fi]=Sovellusten ulkoasu
- Name[fr]=Apparence de l'application
- Name[fy]=Programma uterlik
---- workspace/systemsettings/categories/settings-network-and-connectivity.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-network-and-connectivity.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Network and Connectivity
- Name[es]=Red y conectividad
- Name[et]=Võrk ja ühendused
-+Name[eu]=Sarea eta konektibitatea
- Name[fi]=Verkko ja yhteydet
- Name[fr]=Réseau et connectivité
- Name[fy]=Netwurk en Konneksje
-@@ -37,6 +38,7 @@
- Name[nb]=Nettverk og tilkoblinger
- Name[nds]=Nettwark un Verbinnen
- Name[nl]=Netwerk en connectiviteit
-+Name[nn]=Nettverk og samband
- Name[pa]=ਨੈੱਟਵਰਕ ਅਤੇ ਕੁਨੈਕਟਵਿਟੀ
- Name[pl]=Sieć i połączenia
- Name[pt]=Rede e Conectividade
---- workspace/systemsettings/categories/settings-desktop-appearance.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-desktop-appearance.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,6 +18,7 @@
- Name[en_GB]=Workspace Appearance
- Name[es]=Apariencia del espacio de trabajo
- Name[et]=Töötsooni välimus
-+Name[eu]=Langunearen itxura
- Name[fi]=Työtilan ulkoasu
- Name[fr]=Apparence de l'espace de travail
- Name[fy]=Wurkromte úterlik
---- workspace/systemsettings/categories/settings-personal-information.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-personal-information.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -17,6 +17,7 @@
- Name[en_GB]=Personal Information
- Name[es]=Información personal
- Name[et]=Isiklik teave
-+Name[eu]=Informazio pertsonala
- Name[fi]=Henkilökohtaiset tiedot
- Name[fr]=Informations personnelles
- Name[fy]=Persoanlike ynformaasje
---- workspace/systemsettings/categories/settings-system-administration.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/systemsettings/categories/settings-system-administration.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -21,6 +21,7 @@
- Name[en_GB]=System Administration
- Name[es]=Administración del sistema
- Name[et]=Süsteemi haldamine
-+Name[eu]=Sistemaren kudeaketa
- Name[fa]=سرپرستی سیستم
- Name[fi]=Järjestelmänhallinta
- Name[fr]=Administration du système
-@@ -45,11 +46,13 @@
- Name[nds]=Systeempleeg
- Name[ne]=प्रणाली प्रशासन
- Name[nl]=Systeemadministratie
-+Name[nn]=Systemadministrasjon
- Name[pa]=ਸਿਸਟਮ ਪਰਸ਼ਾਸ਼ਨ
- Name[pl]=Administracja systemu
- Name[pt]=Administração do Sistema
- Name[pt_BR]=Administração do sistema
- Name[ru]=Системное администрирование
-+Name[se]=Vuogádathálddašeapmi
- Name[sk]=Správa systému
- Name[sl]=Sistemsko upravljanje
- Name[sr]=Администрација система
---- workspace/kwrited/kwrited.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwrited/kwrited.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Write Dæmon
- Name[es]=Demonio de escritura
- Name[et]=Write-deemon
-+Name[eu]=Idazketa deabrua
- Name[fi]=Kirjoitustaustaprosessi
- Name[fr]=Démon d'écriture
- Name[fy]=Skriuwdaemon
---- workspace/wallpapers/Blue_Wood/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Blue_Wood/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Blue Wood
- Name[es]=Bosque azul
- Name[et]=Sinine puit
-+Name[eu]=Egur urdina
- Name[fi]=Sininen puu
- Name[fr]=Bois bleu
- Name[fy]=Blue Wood
---- workspace/wallpapers/Grass/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Grass/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Grass
- Name[es]=Hierba
- Name[et]=Rohi
-+Name[eu]=Belarra
- Name[fi]=Ruoho
- Name[fr]=Herbe
- Name[fy]=Gears
-@@ -28,6 +29,7 @@
- Name[nb]=Gress
- Name[nds]=Gras
- Name[nl]=Gras
-+Name[nn]=Gras
- Name[pa]=ਘਾਹ
- Name[pl]=Trawa
- Name[pt]=Relva
---- workspace/wallpapers/Hanami/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Hanami/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Hanami
- Name[es]=Hanami
- Name[et]=Hanami
-+Name[eu]=Hanami
- Name[fi]=Hanami
- Name[fr]=Hanami
- Name[fy]=Hanami
---- workspace/wallpapers/Fresh_Morning/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Fresh_Morning/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -52,7 +52,7 @@
- Name[pt]=Manhã Fresca
- Name[pt_BR]=Manhã de orvalho
- Name[ro]=Dimineață răcoroasă
--Name[ru]=Ранее утро
-+Name[ru]=Раннее утро
- Name[si]=නැවුම් උදෑසන
- Name[sk]=Svieže ráno
- Name[sl]=Sveže jutro
---- workspace/wallpapers/Autumn/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Autumn/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Autumn
- Name[es]=Otoño
- Name[et]=Sügis
-+Name[eu]=Udazkena
- Name[fi]=Syksy
- Name[fr]=Automne
- Name[fy]=Herfst
---- workspace/wallpapers/Quadros/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Quadros/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -12,7 +12,7 @@
- Name[eo]=Quadros
- Name[es]=Quadros
- Name[et]=Quadros
--Name[eu]=Kuartzoa
-+Name[eu]=Quadros
- Name[fi]=Quadros
- Name[fr]=Quadros
- Name[fy]=Quadros
---- workspace/wallpapers/Media_Life/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/wallpapers/Media_Life/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Media Life
- Name[es]=Vida multimedia
- Name[et]=Meediaelu
-+Name[eu]=Media Life
- Name[fi]=Mediaelämä
- Name[fr]=Vie des média
- Name[fy]=Media Life
---- workspace/solid/networking/kded/networkstatus.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/solid/networking/kded/networkstatus.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Network Status
- Name[es]=Estado de la red
- Name[et]=Võrguolek
-+Name[eu]=Sarearen egoera
- Name[fi]=Verkon tila
- Name[fr]=État du réseau
- Name[fy]=Netwurktastân
-@@ -32,6 +33,7 @@
- Name[nb]=Nettverksstatus
- Name[nds]=Nettwarktostand
- Name[nl]=Netwerkstatus
-+Name[nn]=Nettverksstatus
- Name[pa]=ਨੈੱਟਵਰਕ ਹਾਲਤ
- Name[pl]=Stan sieci
- Name[pt]=Estado da Rede
-@@ -72,7 +74,7 @@
- Comment[gl]=Segue o estado das interfaces de rede e notifica aos programas que usen a rede.
- Comment[gu]=નેટવર્ક ઇન્ટરફેસોની સ્થિતિનો ખ્યાલ રાખે છે અને નેટવર્ક ઉપયોગ કરતાં કાર્યક્રમોને સંદેશાઓ પૂરા પાડે છે.
- Comment[he]=עוקב אחר מצב ממשקי רשת ומספק התרעות ליישומים המשתמשים ברשת
--Comment[hr]=Prati stanja mrežnih sučelja i pruža obavijesti aplikacijama koje koriste mrežu.
-+Comment[hr]=Prati stanja mrežnih sučelja i omogućuje obavijesti aplikacijama koje koriste mrežu.
- Comment[hu]=Figyeli a hálózati csatolók állapotát és értesítéseket küld a csatolókat használó alkalmazásoknak.
- Comment[ia]=Il tracia le stato del interfacies de rete e il forni notification al applicationes que usa le rete.
- Comment[id]=Melacak status antarmuka jaringan dan menyediakan notifikasi ke aplikasi menggunakan jaringan
---- workspace/solid/kcm/kcm_solid.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/solid/kcm/kcm_solid.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -21,6 +21,7 @@
- Name[en_GB]=Information Sources
- Name[es]=Fuentes de información
- Name[et]=Teabeallikad
-+Name[eu]=Informazio iturburuak
- Name[fi]=Tietolähteet
- Name[fr]=Sources d'information
- Name[fy]=Ynformaasje boarnen
---- workspace/CMakeLists.txt	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/CMakeLists.txt	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -22,7 +22,8 @@
- find_package(Strigi REQUIRED)
- find_package(QImageBlitz REQUIRED)
- find_package(ZLIB REQUIRED)
--find_package(DBusMenuQt REQUIRED)
-+macro_optional_find_package(DBusMenuQt)
-+macro_log_feature(DBUSMENUQT_FOUND "DBusMenuQt" "API to import export QMenu instance using DBusMenu protocol" "http://people.canonical.com/~agateau/dbusmenu/" FALSE "" "Needed for the plasma statusnotifier dataengine.")
+ Name[ga]=Earraí Caillte
+--- workspace/kinfocenter/Categories/networkinfocategory.desktop	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kinfocenter/Categories/networkinfocategory.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -5,7 +5,9 @@
+ Icon=folder-documents
  
- if(Q_WS_X11)
-   if(NOT X11_XTest_FOUND)
---- workspace/powerdevil/daemon/powerdevil.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/powerdevil/daemon/powerdevil.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -93,6 +93,7 @@
- Comment[en_GB]=Battery, Display and CPU power management and notification
- Comment[es]=Gestión y notificaciones de energía de la batería, pantalla y CPU
- Comment[et]=Aku, monitori ja protsessori toitehaldus ja märguanded
-+Comment[eu]=Bateria, pantaila eta PUZ energia kudeaketa eta jakinarazpena
- Comment[fi]=Akun, näytön ja suorittimen virranhallinta ja huomautukset
- Comment[fr]=Gestion et notifications pour les batteries, l'affichage, et la gestion de l'énergie du processeur
- Comment[fy]=Batterij, skerm en CPU enerzjy behear en notifikaasje
---- workspace/powerdevil/powerdevil.notifyrc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/powerdevil/powerdevil.notifyrc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -82,6 +82,7 @@
- Comment[en_GB]=Power Management
- Comment[es]=Gestión de energía
- Comment[et]=Toitehaldus
-+Comment[eu]=Energia kudeaketa
- Comment[fi]=Virranhallinta
- Comment[fr]=Gestion de l'énergie
- Comment[fy]=Enerzjybehear
-@@ -103,6 +104,7 @@
- Comment[nb]=Strømstyring
- Comment[nds]=Stroomkuntrull
- Comment[nl]=Energiebeheer
-+Comment[nn]=Straumstyring
- Comment[pa]=ਪਾਵਰ ਮੈਨਿਜਮੈਂਟ
- Comment[pl]=Zarządzanie energią
- Comment[pt]=Gestão de Energia
---- workspace/krunner/interfaces/default/interface.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/krunner/interfaces/default/interface.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -43,6 +43,7 @@
- #include <KLocale>
- #include <KGlobalSettings>
- #include <KPushButton>
-+#include <KStyle>
- #include <KTitleWidget>
- #include <KWindowSystem>
+ Name=Network Information
++Name[ca]=Informació de la xarxa
+ Name[da]=Netværksinformation
++Name[de]=Netzwerkinformationen
+ Name[es]=Información de la red
+ Name[et]=Võrguteave
+ Name[ga]=Faisnéis Líonra
+--- workspace/kinfocenter/Categories/graphicalinfocategory.desktop	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kinfocenter/Categories/graphicalinfocategory.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -5,7 +5,9 @@
+ Icon=folder-documents
  
-@@ -172,9 +173,9 @@
+ Name=Graphical Information
++Name[ca]=Informació gràfica
+ Name[da]=Grafikinformation
++Name[de]=Grafische Informationen
+ Name[es]=Información gráfica
+ Name[et]=Monitoriteave
+ Name[ga]=Faisnéis Ghrafach
+--- workspace/kinfocenter/Categories/kinfocentercategory.desktop	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kinfocenter/Categories/kinfocentercategory.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -2,6 +2,7 @@
+ Type=ServiceType
+ X-KDE-ServiceType=KInfoCenterCategory
+ Name=KInfoCenter Category
++Name[ca]=Categoria del KInfoCenter
+ Name[da]=KInfoCenter-kategori
+ Name[es]=Categoría de KInfoCenter
+ Name[et]=KDE infokeskuse kategooria
+--- workspace/kwin/effects/desktopgrid/desktopgrid.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/effects/desktopgrid/desktopgrid.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -586,7 +586,7 @@
+             }
+         if( d != highlightedDesktop ) // Highlight desktop
+             {
+-            if ( (me->buttons() & Qt::LeftButton) && !wasWindowMove )
++            if ( (me->buttons() & Qt::LeftButton) && !wasWindowMove && d <= effects->numberOfDesktops() )
+                 {
+                 EffectWindowList windows = effects->stackingOrder();
+                 EffectWindowList stack;
+@@ -640,7 +640,7 @@
+             EffectWindow* w = isDesktop ? NULL : windowAt( me->pos());
+             if ( w != NULL )
+                 isDesktop = w->isDesktop();
+-            if( w != NULL && ( w->isMovable() || w->isMovableAcrossScreens() ))
++            if( w != NULL && ( w->isMovable() || w->isMovableAcrossScreens() || isUsingPresentWindows() ))
+                 { // Prepare it for moving
+                 windowMoveDiff = w->pos() - unscalePos( me->pos(), NULL );
+                 windowMove = w;
+@@ -747,6 +747,10 @@
  
-     KrunnerTabFilter *krunnerTabFilter = new KrunnerTabFilter(m_resultsScene, lineEdit, this);
-     m_searchTerm->installEventFilter(krunnerTabFilter);
--    m_singleRunnerSearchTerm->installEventFilter(krunnerTabFilter);
-     connect(krunnerTabFilter, SIGNAL(historyRotated(QString)), this, SLOT(queryTextEdited(QString)));
-     lineEdit->installEventFilter(this);
-+    m_singleRunnerSearchTerm->installEventFilter(this);
+ void DesktopGridEffect::grabbedKeyboardEvent( QKeyEvent* e )
+     {
++    if( timeline.value() != 1 ) // Block user input during animations
++        return;
++    if( windowMove != NULL )
++        return;
+     if( e->type() == QEvent::KeyPress )
+         {
+         // check for global shortcuts
+@@ -1250,6 +1254,11 @@
+         case LayoutPager:
+             orientation = Qt::Horizontal;
+             gridSize = effects->desktopGridSize();
++            // sanity check: pager may report incorrect size in case of one desktop
++            if( numDesktops == 1 )
++                {
++                gridSize = QSize( 1, 1 );
++                }
+             break;
+         case LayoutAutomatic:
+             y = sqrt( float( numDesktops ) ) + 0.5;
+--- workspace/kwin/effects/blur/blur.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/effects/blur/blur.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -224,7 +224,7 @@
+     const QRect screen(0, 0, displayWidth(), displayHeight());
+     bool scaled = !qFuzzyCompare(data.xScale, 1.0) && !qFuzzyCompare(data.yScale, 1.0);
+     bool translated = data.xTranslate || data.yTranslate;
+-    bool transformed = scaled || translated;
++    bool transformed = scaled || translated || mask & PAINT_WINDOW_TRANSFORMED;
+     bool hasAlpha = w->hasAlpha() || (w->hasDecoration() && effects->decorationsHaveAlpha());
+     bool valid = target->valid() && shader->isValid();
  
-     themeUpdated();
-     connect(Plasma::Theme::defaultTheme(), SIGNAL(themeChanged()), this, SLOT(themeUpdated()));
-@@ -373,7 +374,7 @@
-         m_resultsScene->clearQuery();
+--- workspace/kwin/effects/dialogparent/dialogparent.desktop	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/effects/dialogparent/dialogparent.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -113,7 +113,7 @@
+ Comment[mr]=वर्तमान सक्रीय संवादचे मुख्य चौकट काळसर करतो
+ Comment[nb]=Gjør mor-vinduet til den aktive dialogen mørkere
+ Comment[nds]=Maakt dat Moderfinstern vun den aktiven Dialoog düüsterer
+-Comment[nl]=Maakt het venster dat bij het actieve dialoog hoort donkerder
++Comment[nl]=Maakt het venster dat bij de ouder van de actieve dialoog hoort donkerder
+ Comment[nn]=Gjer foreldrevindauget til det aktive dialogvindauget mørkare
+ Comment[pa]=ਮੌਜੂਦਾ ਐਕਟਿਵ ਡਾਈਲਾਗ ਉੱਤੇ ਮੁੱਢਲੇ ਵਿੰਡੋ ਦਾ ਪਰਛਾਵਾਂ
+ Comment[pl]=Przyciemnia okna rodzica aktywnego okna dialogowego
+--- workspace/kwin/clients/aurorae/src/lib/auroraetab.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/clients/aurorae/src/lib/auroraetab.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -57,11 +57,22 @@
+ 
+ void AuroraeTab::activeChanged()
+ {
++    if (scene() == NULL) {
++        return;
++    }
+     const ThemeConfig &config = m_theme->themeConfig();
+     if (!config.useTextShadow()) {
+         return;
      }
-     resetResultsArea();
--    resize(qMax(minimumSizeHint().width(), m_defaultSize.width()), minimumSizeHint().height());
-+    m_minimumHeight = height();
+-    const bool active = static_cast<AuroraeScene*>(scene())->isActive();
++    AuroraeScene *s = static_cast<AuroraeScene*>(scene());
++    if (s->tabCount() > 1) {
++        // graphics effect seems to be not side effect free and drops scheduled updates
++        // rendering tabs unreadable, therefore disabled.
++        m_effect->setEnabled(false);
++    } else {
++        m_effect->setEnabled(true);
++    }
++    const bool active = s->isActive();
+     m_effect->setXOffset(config.textShadowOffsetX());
+     m_effect->setYOffset(config.textShadowOffsetY());
+     m_effect->setColor(active ? config.activeTextShadowColor() : config.inactiveTextShadowColor());
+--- workspace/kwin/clients/aurorae/src/lib/auroraescene.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/clients/aurorae/src/lib/auroraescene.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -820,6 +820,12 @@
+     static_cast<QGraphicsLinearLayout*>(m_title->layout())->addItem(tab);
+     tab->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+     m_title->layout()->invalidate();
++    // have to call active changed on each tab to update shadow effect
++    foreach (QGraphicsItem *item, items()) {
++        if (AuroraeTab *tab = dynamic_cast<AuroraeTab*>(item)) {
++            tab->activeChanged();
++        }
++    }
  }
  
- void Interface::showHelp()
-@@ -472,6 +473,10 @@
+ void AuroraeScene::addTabs(const QStringList &captions)
+@@ -841,10 +847,16 @@
+                 removeItem(tab);
+                 --m_tabCount;
+                 m_title->layout()->invalidate();
+-                return;
++                break;
+             }
+         }
+     }
++    // have to call active changed on each tab to update shadow effect
++    foreach (QGraphicsItem *item, items()) {
++        if (AuroraeTab *tab = dynamic_cast<AuroraeTab*>(item)) {
++            tab->activeChanged();
++        }
++    }
+ }
+ 
+ int AuroraeScene::tabCount() const
+--- workspace/kwin/tiling.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/kwin/tiling.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -175,7 +175,6 @@
+     {
+     if( tilingLayouts.value( c->desktop() ) == NULL )
+         {
+-        c->setGeometry( moveResizeGeom );
+         return;
+         }
+     tilingLayouts[ c->desktop() ]->clientMoved( c, moveResizeGeom, orig );
+--- workspace/plasma/desktop/shell/panelview.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/desktop/shell/panelview.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -205,6 +205,9 @@
+ 
+     void updateStruts();
+ 
++    bool migratedFrom(int screenId) const;
++    void migrateTo(int screenId);
++
+ protected:
+     void moveEvent(QMoveEvent *event);
+     void resizeEvent(QResizeEvent *event);
+--- workspace/plasma/desktop/shell/plasmaapp.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/desktop/shell/plasmaapp.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -152,13 +152,18 @@
+     void wallpaperCheckedIn();
+     void wallpaperCheckInTimeout();
+     void dashboardClosed();
++    void relocatePanels();
+ 
+ private:
+     DesktopCorona *m_corona;
++
+     QList<PanelView*> m_panels;
+     QList<QWeakPointer<Plasma::Containment> > m_panelsWaiting;
++    QList<QWeakPointer<Plasma::Containment> > m_panelRelocationCandidates;
++
++    QList<DesktopView*> m_desktops;
+     QList<QWeakPointer<Plasma::Containment> > m_desktopsWaiting;
+-    QList<DesktopView*> m_desktops;
++
+     QTimer m_panelViewCreationTimer;
+     QTimer m_desktopViewCreationTimer;
+     QWeakPointer<InteractiveConsole> m_console;
+--- workspace/plasma/desktop/shell/panelview.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/desktop/shell/panelview.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -1196,6 +1196,31 @@
+     recreateUnhideTrigger();
+ }
+ 
++bool PanelView:: migratedFrom(int screenId) const
++{
++    KConfigGroup cg = config();
++    QList<int> migrations;
++    migrations = cg.readEntry("Migrations", migrations);
++    return migrations.contains(screenId);
++}
++
++void PanelView::migrateTo(int screenId)
++{
++    KConfigGroup cg = config();
++    QList<int> migrations;
++    migrations = cg.readEntry("Migrations", migrations);
++
++    const int index = migrations.indexOf(screenId);
++    if (index == -1) {
++        migrations.append(screenId);
++    } else {
++        migrations = migrations.mid(0, migrations.length() - index - 1);
++    }
++
++    cg.writeEntry("Migrations", migrations);
++    setScreen(screenId);
++}
++
+ void PanelView::enterEvent(QEvent *event)
+ {
+     // allow unhiding to happen again even if we were delay-unhidden
+--- workspace/plasma/desktop/shell/plasmaapp.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/desktop/shell/plasmaapp.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -664,7 +664,7 @@
+     QList<Kephal::Screen *> screens = Kephal::Screens::self()->screens();
+     screens.removeAll(primary);
+ 
+-    // Now we process panels: if there is room on another sreen for the panel,
++    // Now we process panels: if there is room on another screen for the panel,
+     // we migrate the panel there, otherwise the view is deleted. The primary
+     // screen is preferred in all cases.
+     QMutableListIterator<PanelView*> pIt(m_panels);
+@@ -684,7 +684,7 @@
+             }
+ 
+             if (moveTo) {
+-                panel->containment()->setScreen(moveTo->id());
++                panel->migrateTo(moveTo->id());
+             } else {
+                 pIt.remove();
+                 delete panel;
+@@ -704,6 +704,12 @@
+             m_panelViewCreationTimer.start();
+         }
+     }
++
++    foreach (PanelView *view, m_panels) {
++        if (view->migratedFrom(screen->id())) {
++            view->migrateTo(screen->id());
++        }
++    }
+ }
+ 
+ bool PlasmaApp::canRelocatePanel(PanelView * view, Kephal::Screen *screen)
+@@ -740,7 +746,7 @@
+         if (pv != view &&
+             pv->screen() == screen->id() &&
+             pv->location() == view->location() &&
+-            !pv->geometry().intersects(newGeom)) {
++            pv->geometry().intersects(newGeom)) {
+             return false;
+             break;
+         }
+@@ -919,11 +925,6 @@
+     const QList<QWeakPointer<Plasma::Containment> > containments = m_panelsWaiting;
+     m_panelsWaiting.clear();
+ 
+-    Kephal::Screen *primary = Kephal::Screens::self()->primaryScreen();
+-    QList<Kephal::Screen *> screens = Kephal::Screens::self()->screens();
+-    screens.removeAll(primary);
+-
+-    QList<Plasma::Containment *> relocationCandidates;
+     foreach (QWeakPointer<Plasma::Containment> containmentPtr, containments) {
+         Plasma::Containment *containment = containmentPtr.data();
+         if (!containment) {
+@@ -942,16 +943,32 @@
+ 
+         // try to relocate the panel if it is on a now-non-existent screen
+         if (containment->screen() >= Kephal::ScreenUtils::numScreens()) {
+-            relocationCandidates << containment;
++            m_panelRelocationCandidates << containment;
+             continue;
+         }
+ 
+         createPanelView(containment);
+     }
+ 
++    if (!m_panelRelocationCandidates.isEmpty()) {
++        QTimer::singleShot(0, this, SLOT(relocatePanels()));
++    }
++}
++
++void PlasmaApp::relocatePanels()
++{
+     // we go through relocatables last so that all other panels can be set up first,
+     // preventing panel creation ordering to trip up the canRelocatePanel algorithm
+-    foreach (Plasma::Containment *containment, relocationCandidates) {
++    Kephal::Screen *primary = Kephal::Screens::self()->primaryScreen();
++    QList<Kephal::Screen *> screens = Kephal::Screens::self()->screens();
++    screens.removeAll(primary);
++
++    foreach (QWeakPointer<Plasma::Containment> c, m_panelRelocationCandidates) {
++        Plasma::Containment *containment = c.data();
++        if (!containment) {
++            continue;
++        }
++
+         Kephal::Screen *moveTo = 0;
+         PanelView *panelView = createPanelView(containment);
+         if (canRelocatePanel(panelView, primary)) {
+@@ -966,12 +983,14 @@
+         }
+ 
+         if (moveTo) {
+-            containment->setScreen(moveTo->id(), -1);
++            panelView->migrateTo(moveTo->id());
+         } else {
+             m_panels.removeAll(panelView);
+             delete panelView;
+         }
+     }
++
++    m_panelRelocationCandidates.clear();
+ }
+ 
+ PanelView *PlasmaApp::createPanelView(Plasma::Containment *containment)
+--- workspace/plasma/generic/dataengines/weather/weatherengine.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/weatherengine.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -29,48 +29,32 @@
+ #include <KServiceTypeTrader>
+ 
+ #include <Plasma/DataEngineManager>
++#include <Plasma/DataContainer>
+ 
+ #include "ions/ion.h"
+ 
+-class WeatherEngine::Private
++// Constructor
++WeatherEngine::WeatherEngine(QObject *parent, const QVariantList& args)
++        :  Plasma::DataEngine(parent, args),
++           m_networkAvailable(false)
+ {
+-public:
+-    Private()
+-            : m_networkAvailable(false) {
+-    }
++    Q_UNUSED(args)
+ 
+-    /**
+-     * Get instance of a loaded ion.
+-     * @returns a IonInterface instance of a loaded plugin.
+-     */
+-    IonInterface* ionForSource(const QString& name) const {
+-        int offset = name.indexOf('|');
++    m_reconnectTimer.setSingleShot(true);
++    connect(&m_reconnectTimer, SIGNAL(timeout()), this, SLOT(startReconnect()));
+ 
+-        if (offset < 1) {
+-            return NULL;
+-        }
++    // Globally notify all plugins to remove their sources (and unload plugin)
++    connect(this, SIGNAL(sourceRemoved(QString)), this, SLOT(removeIonSource(QString)));
++    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(unloadIons()));
++}
+ 
+-        QString ionName = name.left(offset);
+-        return qobject_cast<IonInterface *>(Plasma::DataEngineManager::self()->engine(ionName));
+-    }
++// Destructor
++WeatherEngine::~WeatherEngine()
++{
++    // Cleanup all private data.
++    unloadIons();
++}
+ 
+-    /**
+-     * Get plugin name from datasource.
+-     * @returns The plugin name given a datasource.
+-     */
+-    QString ionNameForSource(const QString& source) const {
+-        int offset = source.indexOf('|');
+-        if (offset < 1) {
+-            return QString();
+-        }
+-
+-        return QString(source.left(offset));
+-    }
+-
+-    QStringList m_ions;
+-    bool m_networkAvailable;
+-};
+-
+ /**
+  * Loads an ion plugin given a plugin name found via KService.
+  */
+@@ -93,9 +77,9 @@
+     Plasma::DataEngine *ion = Plasma::DataEngineManager::self()->loadEngine(foundPlugin.pluginName());
+     ion->setObjectName(plugName);
+     connect(ion, SIGNAL(sourceAdded(QString)), this, SLOT(newIonSource(QString)));
+-    connect(ion, SIGNAL(resetCompleted(IonInterface *, bool)), this, SLOT(resetCompleted(IonInterface *, bool)));
++    connect(ion, SIGNAL(forceUpdate(IonInterface*,QString)), this, SLOT(forceUpdate(IonInterface*,QString)));
+ 
+-    d->m_ions << plugName;
++    m_ions << plugName;
+ 
+     return ion;
+ }
+@@ -108,14 +92,14 @@
+ void WeatherEngine::unloadIon(const QString &name)
+ {
+     Plasma::DataEngineManager::self()->unloadEngine(name);
+-    d->m_ions.removeOne(name);
++    m_ions.removeOne(name);
+ }
+ 
+ void WeatherEngine::init()
+ {
+     // Get the list of available plugins but don't load them
+     Solid::Networking::Status status = Solid::Networking::status();
+-    d->m_networkAvailable = (status == Solid::Networking::Connected ||
++    m_networkAvailable = (status == Solid::Networking::Connected ||
+                              status == Solid::Networking::Unknown);
+     connect(Solid::Networking::notifier(), SIGNAL(statusChanged(Solid::Networking::Status)),
+             this, SLOT(networkStatusChanged(Solid::Networking::Status)));
+@@ -156,12 +140,12 @@
+  */
+ void WeatherEngine::removeIonSource(const QString& source)
+ {
+-    IonInterface *ion = d->ionForSource(source);
++    IonInterface *ion = ionForSource(source);
+     if (ion) {
+         ion->removeSource(source);
+         // If plugin has no more sources let's unload the plugin
+         if (ion->isEmpty()) {
+-            unloadIon(d->ionNameForSource(source));
++            unloadIon(ionNameForSource(source));
+         }
+     }
+     kDebug() << "removeIonSource()";
+@@ -176,32 +160,13 @@
+     setData(source, data);
+ }
+ 
+-// Constructor
+-WeatherEngine::WeatherEngine(QObject *parent, const QVariantList& args)
+-        :  Plasma::DataEngine(parent, args), d(new Private())
+-{
+-    Q_UNUSED(args)
+-
+-    // Globally notify all plugins to remove their sources (and unload plugin)
+-    connect(this, SIGNAL(sourceRemoved(QString)), this, SLOT(removeIonSource(QString)));
+-    connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(unloadIons()));
+-}
+-
+-// Destructor
+-WeatherEngine::~WeatherEngine()
+-{
+-    // Cleanup all private data.
+-    unloadIons();
+-    delete d;
+-}
+-
+ void WeatherEngine::unloadIons()
+ {
+-    foreach (const QString &ion, d->m_ions) {
++    foreach (const QString &ion, m_ions) {
+         Plasma::DataEngineManager::self()->unloadEngine(ion);
+     }
+ 
+-    d->m_ions.clear();
++    m_ions.clear();
+ }
+ 
+ /**
+@@ -209,24 +174,25 @@
+  */
+ bool WeatherEngine::sourceRequestEvent(const QString &source)
+ {
+-    Plasma::DataEngine *ion = d->ionForSource(source);
++    Plasma::DataEngine *ion = ionForSource(source);
+ 
+     if (!ion) {
+-        ion = loadIon(d->ionNameForSource(source));
++        ion = loadIon(ionNameForSource(source));
+         if (!ion) {
+             return false;
+         }
+     }
+ 
+-    kDebug() << "sourceRequestEvent(): Network is: " << d->m_networkAvailable;
+-    if (!d->m_networkAvailable) {
++    // we should connect to the ion anyway, even if the network
++    // is down. when it comes up again, then it will be refreshed
++    ion->connectSource(source, this);
++
++    kDebug() << "sourceRequestEvent(): Network is: " << m_networkAvailable;
++    if (!m_networkAvailable) {
+         setData(source, Data());
+         return true;
+     }
+ 
+-    QByteArray str = source.toLocal8Bit();
+-
+-    ion->connectSource(source, this);
+     if (!containerForSource(source)) {
+         // it is an async reply, we need to set up the data anyways
+         setData(source, Data());
+@@ -239,54 +205,72 @@
+  */
+ bool WeatherEngine::updateSourceEvent(const QString& source)
+ {
+-    IonInterface *ion = d->ionForSource(source);
+-
+-    QByteArray str = source.toLocal8Bit();
+-
++    IonInterface *ion = ionForSource(source);
+     if (!ion) {
+         return false;
+     }
+ 
+-    kDebug() << "updateSourceEvent(): Network is: " << d->m_networkAvailable;
+-    if (!d->m_networkAvailable) {
++    kDebug() << "updateSourceEvent(): Network is: " << m_networkAvailable;
++    if (!m_networkAvailable) {
+         return false;
+     }
+ 
+     return ion->updateSourceEvent(source);
+ }
+ 
+-void WeatherEngine::triggerReset() const
++void WeatherEngine::networkStatusChanged(Solid::Networking::Status status)
+ {
+-    kDebug() << "triggerReset()";
+-    foreach(const QString &i, d->m_ions) {
++    kDebug();
++    m_networkAvailable = status == Solid::Networking::Connected || status == Solid::Networking::Unknown;
++    if (m_networkAvailable) {
++        // allow the network to settle down and actually come up
++        m_reconnectTimer.start(5000);
++    }
++}
++
++void WeatherEngine::startReconnect()
++{
++    foreach (const QString &i, m_ions) {
+         IonInterface * ion = qobject_cast<IonInterface *>(Plasma::DataEngineManager::self()->engine(i));
++        kDebug() << "resetting" << ion;
+         if (ion) {
+             ion->reset();
+         }
+     }
+ }
+ 
+-void WeatherEngine::networkStatusChanged(Solid::Networking::Status status)
++void WeatherEngine::forceUpdate(IonInterface *i, const QString &source)
+ {
+-    d->m_networkAvailable = (status == Solid::Networking::Connected || status == Solid::Networking::Unknown);
+-    kDebug() << "networkStatusChanged(): Status changed: " << d->m_networkAvailable << "state: " << status;
++    const QString actualSource(i->pluginName() + '|' + source);
++    Plasma::DataContainer *container = containerForSource(source);
++    if (container) {
++        kDebug() << "immediate update of" << source;
++        container->forceImmediateUpdate();
++    } else {
++        kDebug() << "innexplicable failure of" << source;
++    }
++}
+ 
+-    if (d->m_networkAvailable) {
+-        QTimer::singleShot(6000, this, SLOT(triggerReset()));
++IonInterface* WeatherEngine::ionForSource(const QString& name) const
++{
++    int offset = name.indexOf('|');
++
++    if (offset < 1) {
++        return NULL;
+     }
++
++    QString ionName = name.left(offset);
++    return qobject_cast<IonInterface *>(Plasma::DataEngineManager::self()->engine(ionName));
+ }
+ 
+-void WeatherEngine::resetCompleted(IonInterface * i, bool b) const
++QString WeatherEngine::ionNameForSource(const QString& source) const
+ {
+-    disconnect(i, SIGNAL(resetCompleted(IonInterface*, bool)), this, SLOT(resetCompleted(IonInterface *, bool)));
+-    if (b) {
+-        foreach(const QString &source, sources()) {
+-            IonInterface *ion = d->ionForSource(source);
+-            if (ion == i) {
+-                ion->updateSourceEvent(source);
+-            }
+-        }
++    int offset = source.indexOf('|');
++    if (offset < 1) {
++        return QString();
+     }
++
++    return QString(source.left(offset));
+ }
+ 
+ #include "weatherengine.moc"
+--- workspace/plasma/generic/dataengines/weather/ions/ion.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/ion.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -47,11 +47,17 @@
+  */
+ bool IonInterface::sourceRequestEvent(const QString &source)
+ {
+-    kDebug() << "sourceRequested()";
++    kDebug() << "sourceRequested(): " << source;
++
++    // init anyway the data as it's going to be used
++    // sooner or later (doesnt depend upon initialization
++    // this will avoid problems if updateIonSource() fails for any reason
++    // but later it's able to retrieve the data
++    setData(source, Plasma::DataEngine::Data());
++
++    // if initialized, then we can try to grab the data
+     if (d->initialized) {
+         return updateIonSource(source);
+-    } else {
+-        setData(source, Plasma::DataEngine::Data());
+     }
+ 
+     return true;
+@@ -79,9 +85,7 @@
+     d->initialized = initialized;
+ 
+     if (d->initialized) {
+-        foreach(const QString &source, sources()) {
+-            updateSourceEvent(source);
+-        }
++        updateAllSources();
+     }
+ }
+ 
+--- workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -64,7 +64,8 @@
+ void WetterComIon::reset()
+ {
+     cleanup();
+-    emit resetCompleted(this, true);
++    m_sourcesToReset = sources();
++    updateAllSources();
+ }
+ 
+ void WetterComIon::init()
+@@ -469,6 +470,13 @@
+ 
+ void WetterComIon::fetchForecast(const QString& source)
+ {
++    foreach (const QString &fetching, m_forecastJobList) {
++        if (fetching == source) {
++            // already fetching!
++            return;
++        }
++    }
++
+     QCryptographicHash md5(QCryptographicHash::Md5);
+     md5.addData(QString::fromLatin1(PROJECTNAME).toUtf8());
+     md5.addData(QString::fromLatin1(APIKEY).toUtf8());
+@@ -503,17 +511,31 @@
+ 
+ void WetterComIon::forecast_slotJobFinished(KJob *job)
+ {
+-    setData(m_forecastJobList[job], Data());
++    const QString source(m_forecastJobList.value(job));
++    setData(source, Data());
+     QXmlStreamReader *reader = m_forecastJobXml.value(job);
+ 
+     if (reader) {
+-        parseWeatherForecast(m_forecastJobList[job], *reader);
++        parseWeatherForecast(source, *reader);
+     }
+ 
+     m_forecastJobList.remove(job);
+ 
+     delete m_forecastJobXml[job];
+     m_forecastJobXml.remove(job);
++
++    if (m_sourcesToReset.contains(source)) {
++        m_sourcesToReset.removeAll(source);
++        const QString weatherSource = QString::fromLatin1("wettercom|weather|%1|%2;%3") \
++            .arg(source).arg(m_place[source].placeCode)                 \
++            .arg(m_place[source].displayName);
++
++        // so the weather engine updates it's data
++        forceImmediateUpdateOfAllVisualizations();
++
++        // update the clients of our engine
++        emit forceUpdate(this, weatherSource);
++    }
+ }
+ 
+ void WetterComIon::parseWeatherForecast(const QString& source, QXmlStreamReader& xml)
+--- workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -164,6 +164,7 @@
+     QMap<KJob *, QString> m_forecastJobList;
+ 
+     KIO::TransferJob *m_job;
++    QStringList m_sourcesToReset;
+ };
+ 
+ K_EXPORT_PLASMA_DATAENGINE(wettercom, WetterComIon)
+--- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -24,6 +24,7 @@
+ #include <KIO/Job>
+ #include <KUnitConversion/Converter>
+ #include <Solid/Networking>
++#include <Plasma/DataContainer>
+ 
+ 
+ // ctor, dtor
+@@ -52,9 +53,9 @@
+ void EnvCanadaIon::reset()
+ {
+     deleteForecasts();
+-    setInitialized(false);
+     emitWhenSetup = true;
+-    redoXMLSetup();
++    m_sourcesToReset = sources();
++    getXMLSetup();
+ }
+ 
+ EnvCanadaIon::~EnvCanadaIon()
+@@ -444,9 +445,8 @@
+ // Get a specific Ion's data
+ bool EnvCanadaIon::updateIonSource(const QString& source)
+ {
++    //kDebug() << "updateIonSource()" << source;
+ 
+-    kDebug() << "updateIonSource()";
+-
+     // We expect the applet to send the source in the following tokenization:
+     // ionname|validate|place_name - Triggers validation of place
+     // ionname|weather|place_name - Triggers receiving weather of place
+@@ -483,41 +483,40 @@
+     return false;
+ }
+ 
+-void EnvCanadaIon::redoXMLSetup() const
+-{
+-    getXMLSetup();
+-}
+-
+ // Parses city list and gets the correct city based on ID number
+-void EnvCanadaIon::getXMLSetup() const
++void EnvCanadaIon::getXMLSetup()
+ {
+-    kDebug() << "getXMLSetup()";
++    //kDebug() << "getXMLSetup()";
+ 
+     // If network is down, we need to spin and wait
+ 
+     KIO::TransferJob *job = KIO::get(KUrl("http://dd.weatheroffice.ec.gc.ca/citypage_weather/xml/siteList.xml"), KIO::NoReload, KIO::HideProgressInfo);
+ 
+-    if (job) {
+-        connect(job, SIGNAL(data(KIO::Job *, const QByteArray &)), this,
+-                SLOT(setup_slotDataArrived(KIO::Job *, const QByteArray &)));
+-        connect(job, SIGNAL(result(KJob *)), this, SLOT(setup_slotJobFinished(KJob *)));
+-    }
++    m_xmlSetup.clear();
++    connect(job, SIGNAL(data(KIO::Job *, const QByteArray &)), this,
++            SLOT(setup_slotDataArrived(KIO::Job *, const QByteArray &)));
++    connect(job, SIGNAL(result(KJob *)), this, SLOT(setup_slotJobFinished(KJob *)));
+ }
+ 
+ // Gets specific city XML data
+ void EnvCanadaIon::getXMLData(const QString& source)
+ {
+-    KUrl url;
++    foreach (const QString &fetching, m_jobList) {
++        if (fetching == source) {
++            // already getting this source and awaiting the data
++            return;
++        }
++    }
+ 
+-    kDebug() << "getXMLData()";
++    //kDebug() << source;
+ 
+     // Demunge source name for key only.
+     QString dataKey = source;
+     dataKey.remove("envcan|weather|");
+ 
+-    url = "http://dd.weatheroffice.ec.gc.ca/citypage_weather/xml/" + m_places[dataKey].territoryName + "/" + m_places[dataKey].cityCode + "_e.xml";
++    KUrl url = "http://dd.weatheroffice.ec.gc.ca/citypage_weather/xml/" + m_places[dataKey].territoryName + "/" + m_places[dataKey].cityCode + "_e.xml";
+     //url="file:///home/spstarr/Desktop/s0000649_e.xml";
+-    kDebug() << "Will Try URL: " << url;
++    //kDebug() << "Will Try URL: " << url;
+ 
+     if (m_places[dataKey].territoryName.isEmpty() && m_places[dataKey].cityCode.isEmpty()) {
+         setData(source, "validate", QString("envcan|malformed"));
+@@ -529,11 +528,9 @@
+     m_jobXml.insert(newJob, new QXmlStreamReader);
+     m_jobList.insert(newJob, source);
+ 
+-    if (newJob) {
+-        connect(newJob, SIGNAL(data(KIO::Job *, const QByteArray &)), this,
+-                SLOT(slotDataArrived(KIO::Job *, const QByteArray &)));
+-        connect(newJob, SIGNAL(result(KJob *)), this, SLOT(slotJobFinished(KJob *)));
+-    }
++    connect(newJob, SIGNAL(data(KIO::Job *, const QByteArray &)), this,
++            SLOT(slotDataArrived(KIO::Job *, const QByteArray &)));
++    connect(newJob, SIGNAL(result(KJob *)), this, SLOT(slotJobFinished(KJob *)));
+ }
+ 
+ void EnvCanadaIon::setup_slotDataArrived(KIO::Job *job, const QByteArray &data)
+@@ -541,10 +538,12 @@
+     Q_UNUSED(job)
+ 
+     if (data.isEmpty()) {
++        //kDebug() << "done!";
          return;
      }
  
-+    // We need to keep a copy of the query text before calling close(),
-+    // in order to add it to history later on.
-+    QString currentQuery = m_searchTerm->currentText().trimmed();
+     // Send to xml.
++    //kDebug() << data;
+     m_xmlSetup.addData(data);
+ }
+ 
+@@ -562,7 +561,9 @@
+ void EnvCanadaIon::slotJobFinished(KJob *job)
+ {
+     // Dual use method, if we're fetching location data to parse we need to do this first
+-    setData(m_jobList[job], Data());
++    const QString source = m_jobList.value(job);
++    //kDebug() << source << m_sourcesToReset.contains(source);
++    setData(source, Data());
+     QXmlStreamReader *reader = m_jobXml.value(job);
+     if (reader) {
+         readXMLData(m_jobList[job], *reader);
+@@ -571,21 +572,25 @@
+     m_jobList.remove(job);
+     delete m_jobXml[job];
+     m_jobXml.remove(job);
 +
-     m_running = true;
-     // must run the result first before clearing the interface
-     // in a way that will cause the results scene to be cleared and
-@@ -483,7 +488,7 @@
-     //TODO: check if run is succesful before adding the term to history
-     // Notice that we must add items to history after calling m_resultScene->run()
-     // otherwise the query result could be reset to QString() too early.
--    m_searchTerm->addToHistory(m_searchTerm->currentText().trimmed());
-+    m_searchTerm->addToHistory(currentQuery);
- 
-     resetInterface();
- }
-@@ -546,13 +551,26 @@
-         //kDebug() << "showing!" << minimumSizeHint();
- 
-         QSize s = m_defaultSize;
--        const int minHeight = minimumSizeHint().height();
-         const int resultsHeight = m_resultsScene->viewableHeight() + 2;
--        //kDebug() << minHeight << resultsHeight << s.height();
-+        int spacing = m_layout->spacing();
-+        if (spacing < 0) {
-+            // KStyles allow for variable spacing via the layoutSpacingImplementation() method;
-+            // in this case m_layout->spacing() returns -1 and we should ask for the
-+            // spacing by ourselves.
-+            // This is quite ugly, but at least gives the right guess, so that we avoid
-+            // multiple resize events
-+            spacing = style()->layoutSpacing(QSizePolicy::DefaultType, QSizePolicy::DefaultType, Qt::Vertical);
-+        }
- 
--        if (minHeight + resultsHeight + m_layout->spacing() < s.height()) {
--            s.setHeight(minHeight + resultsHeight + m_layout->spacing());
-+        //kDebug() << m_minimumHeight << resultsHeight << spacing << s.height();
++    if (m_sourcesToReset.contains(source)) {
++        m_sourcesToReset.removeAll(source);
 +
-+        if (m_minimumHeight + resultsHeight + spacing < s.height()) {
-+            s.setHeight(m_minimumHeight + resultsHeight + spacing);
-             m_resultsView->setMinimumHeight(resultsHeight);
-+            // The layout will activate on the next event cycle, but
-+            // we need to update the minimum size now, as we are going to
-+            // resize the krunner window right away.
-+            m_layout->activate();
-         }
- 
-         resize(s);
-@@ -579,14 +597,13 @@
- {
-     searchTermSetFocus();
-     resetResultsArea();
--    resize(qMax(minimumSizeHint().width(), m_defaultSize.width()), minimumSizeHint().height());
++        // so the weather engine updates it's data
++        forceImmediateUpdateOfAllVisualizations();
++
++        // update the clients of our engine
++        emit forceUpdate(this, source);
++    }
  }
  
- void Interface::resetResultsArea()
+ void EnvCanadaIon::setup_slotJobFinished(KJob *job)
  {
-     m_resultsView->hide();
-     setMinimumSize(QSize(MIN_WIDTH, 0));
--    adjustSize();
-+    resize(qMax(minimumSizeHint().width(), m_defaultSize.width()), minimumSizeHint().height());
- }
- 
- #include "interface.moc"
---- workspace/krunner/interfaces/default/interface.h	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/krunner/interfaces/default/interface.h	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -104,6 +104,7 @@
-         KCompletion *m_completion;
-         QGraphicsView *m_resultsView;
-         ResultScene *m_resultsScene;
-+        int m_minimumHeight;
-         QSize m_defaultSize;
-         QLabel *m_singleRunnerIcon;
-         QLabel *m_singleRunnerDisplayName;
---- workspace/krunner/lock/kscreenlocker.notifyrc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/krunner/lock/kscreenlocker.notifyrc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Comment[en_GB]=Screen Saver
- Comment[es]=Salvapantallas
- Comment[et]=Ekraanisäästja
-+Comment[eu]=Pantaila babeslea
- Comment[fi]=Näytönsäästäjä
- Comment[fr]=Écran de veille
- Comment[fy]=Skermbefeiliging
---- workspace/libs/plasmagenericshell/scripting/containment.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/plasmagenericshell/scripting/containment.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -68,6 +68,7 @@
-         }
-     }
- 
-+    reloadConfigIfNeeded();
-     delete d;
- }
- 
---- workspace/libs/plasmagenericshell/scripting/widget.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/plasmagenericshell/scripting/widget.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -50,6 +50,7 @@
- 
- Widget::~Widget()
- {
-+    reloadConfigIfNeeded();
-     delete d;
- }
- 
---- workspace/libs/plasmagenericshell/scripting/applet.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/plasmagenericshell/scripting/applet.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -59,10 +59,6 @@
- 
- Applet::~Applet()
- {
--    if (d->configDirty) {
--        reloadConfig();
+     Q_UNUSED(job)
+     const bool success = readXMLSetup();
++    m_xmlSetup.clear();
++    //kDebug() << success << m_sourcesToReset;
+     setInitialized(success);
+-    if (emitWhenSetup) {
+-        emitWhenSetup = false;
+-        emit(resetCompleted(this, success));
+-    } else if (success) {
+-        foreach(const QString &source, sources()) {
+-            updateIonSource(source);
+-        }
 -    }
+ }
+ 
+ // Parse the city list and store into a QMap
+@@ -596,7 +601,7 @@
+     QString code;
+     QString cityName;
+ 
+-    kDebug() << "readXMLSetup()";
++    //kDebug() << "readXMLSetup()";
+ 
+     while (!m_xmlSetup.atEnd()) {
+         m_xmlSetup.readNext();
+@@ -632,6 +637,7 @@
+         }
+ 
+     }
++
+     return (success && !m_xmlSetup.error());
+ }
+ 
+@@ -677,7 +683,7 @@
+     data.recordHigh = 0.0;
+     data.recordLow = 0.0;
+ 
+-    kDebug() << "readXMLData()";
++    //kDebug() << "readXMLData()";
+ 
+     QString dataKey = source;
+     dataKey.remove("envcan|weather|");
+@@ -1293,7 +1299,7 @@
+ 
+ void EnvCanadaIon::updateWeather(const QString& source)
+ {
+-    kDebug() << "updateWeather()";
++    //kDebug() << "updateWeather()";
+ 
+     QMap<QString, QString> dataFields;
+     Plasma::DataEngine::Data data;
+@@ -1312,7 +1318,7 @@
+     // Real weather - Current conditions
+     data.insert("Observation Period", observationTime(source));
+     data.insert("Current Conditions", i18nc("weather condition", condition(source).toUtf8()));
+-    kDebug() << "i18n condition string: " << qPrintable(condition(source));
++    //kDebug() << "i18n condition string: " << qPrintable(condition(source));
+ 
+     // Tell applet which icon to use for conditions and provide mapping for condition type to the icons to display
+     QMap<QString, ConditionIcons> conditionList;
+@@ -1704,7 +1710,7 @@
+                             .arg(m_weatherData[source].forecasts[i]->forecastTempHigh) \
+                             .arg(m_weatherData[source].forecasts[i]->forecastTempLow) \
+                             .arg(m_weatherData[source].forecasts[i]->popPrecent));
+-        kDebug() << "i18n summary string: " << qPrintable(i18n(m_weatherData[source].forecasts[i]->shortForecast.toUtf8()));
++        //kDebug() << "i18n summary string: " << qPrintable(i18n(m_weatherData[source].forecasts[i]->shortForecast.toUtf8()));
+     }
+     return forecastData;
+ }
+--- workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/envcan/ion_envcan.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -159,8 +159,6 @@
+     void slotDataArrived(KIO::Job *, const QByteArray &);
+     void slotJobFinished(KJob *);
+ 
+-    void redoXMLSetup(void) const;
 -
-     delete d;
- }
- 
-@@ -186,6 +182,13 @@
-     }
- }
- 
-+void Applet::reloadConfigIfNeeded()
-+{
-+    if (d->configDirty) {
-+        reloadConfig();
-+    }
-+}
-+
- void Applet::reloadConfig()
- {
-     Plasma::Applet *app = applet();
---- workspace/libs/plasmagenericshell/scripting/applet.h	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/plasmagenericshell/scripting/applet.h	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -65,6 +65,9 @@
- 
-     virtual Plasma::Applet *applet() const;
- 
-+protected:
-+    void reloadConfigIfNeeded();
-+
- public Q_SLOTS:
-     virtual QVariant readConfig(const QString &key, const QVariant &def = QString()) const;
-     virtual void writeConfig(const QString &key, const QVariant &value);
---- workspace/libs/kworkspace/kactivityinfo.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/kworkspace/kactivityinfo.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -21,9 +21,11 @@
- #include "kactivityinfo.h"
- #include "kactivityinfo_p.h"
- 
-+#ifdef HAVE_SOPRANO_PLUGIN_RAPTORPARSER
- #include "nfo.h"
- #include "nco.h"
- #include "pimo.h"
-+#endif
- 
- // Private
- 
-@@ -60,6 +62,7 @@
- KUrl KActivityInfo::Private::urlForType(KActivityInfo::ResourceType resourceType) const
- {
-     switch (resourceType) {
-+#ifdef HAVE_SOPRANO_PLUGIN_RAPTORPARSER
-         case KActivityInfo::DocumentResource:
-             return Ontologies::nfo::Document();
- 
-@@ -74,7 +77,7 @@
- 
-         case KActivityInfo::LocationResource:
-             return Ontologies::pimo::Location();
--
-+#endif
-         default:
-             return KUrl(QString());
-     }
---- workspace/libs/kworkspace/CMakeLists.txt	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/kworkspace/CMakeLists.txt	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -9,6 +9,8 @@
-                         kactivityinfo.cpp
-    )
- 
-+if(SOPRANO_PLUGIN_RAPTORPARSER_FOUND)
-+
- soprano_add_ontology(
-    kworkspace_LIB_SRCS
-    "${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nfo.trig"
-@@ -33,6 +35,12 @@
-    "trig"
-    )
- 
-+ADD_DEFINITIONS(-DHAVE_SOPRANO_PLUGIN_RAPTORPARSER=1)
-+
-+endif(SOPRANO_PLUGIN_RAPTORPARSER_FOUND)
-+
-+
-+
- set(ksmserver_xml  ${KDEBASE_WORKSPACE_SOURCE_DIR}/ksmserver/org.kde.KSMServerInterface.xml)
- qt4_add_dbus_interface( kworkspace_LIB_SRCS ${ksmserver_xml} ksmserver_interface )
- 
---- workspace/libs/oxygen/oxygenhelper.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/oxygen/oxygenhelper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -482,10 +482,10 @@
-         {
-             QLinearGradient lg(0.0, y+1.5, 0.0, y+h-4);
-             lg.setColorAt(0, light);
--            lg.setColorAt(1, alphaColor(dark, 0) );
-+            lg.setColorAt(1, alphaColor(light, 0) );
- 
--            if( h > 8.5 ) lg.setColorAt(qMax( 0.0, 3.0/(h-5.5) ), dark);
--            if( h > 20.5 ) lg.setColorAt(qMax( 0.0, 1.0 - 12.0/(h-5.5) ), dark);
-+            if( h > 20.5 ) lg.setColorAt(qMax( 0.0, 1.0 - 12.0/(h-5.5) ), alphaColor( light, 0.5 ) );
-+            else if( h > 8.5 ) lg.setColorAt(qMax( 0.0, 3.0/(h-5.5) ), alphaColor( light, 0.5 ) );
- 
-             p->setPen(QPen(lg, 0.8));
-             if( tiles & TileSet::Left ) p->drawLine(QPointF(x+0.6, y+4), QPointF(x+0.6, y+h-4));
-@@ -598,6 +598,8 @@
-     {
-         if( !w ) return NULL;
-         if( w->autoFillBackground() ) return w;
-+        if( w->isWindow() ) return 0;
-+
-         for( const QWidget* parent = w->parentWidget(); parent!=0; parent = parent->parentWidget() )
-         {
-             if( parent->autoFillBackground() ) return parent;
---- workspace/libs/ksysguard/scripts/smaps/smaps.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/ksysguard/scripts/smaps/smaps.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Detailed Memory Information
- Name[es]=Información detallada sobre la memoria
- Name[et]=Üksikasjalik mäluteave
-+Name[eu]=Memoriari buruzko informazio zehatza
- Name[fi]=Yksityiskohtainen muistinkulutus
- Name[fr]=Informations détaillées sur la mémoire
- Name[fy]=Detaillearre ûnthâld ynformaasje
---- workspace/libs/taskmanager/taskgroup.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/libs/taskmanager/taskgroup.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -180,6 +180,14 @@
- 
-     if (item->parentGroup()) {
-         item->parentGroup()->remove(item);
-+    } else if (item->isGroupItem()) {
-+        TaskGroup *group = qobject_cast<TaskGroup*>(item);
-+        if (group) {
-+            foreach (AbstractGroupableItem *subItem, group->members()) {
-+                connect(subItem, SIGNAL(changed(::TaskManager::TaskChanges)),
-+                        item, SLOT(itemChanged(::TaskManager::TaskChanges)), Qt::UniqueConnection);
-+            }
-+        }
-     }
- 
-     d->members.append(item);
-@@ -187,10 +195,12 @@
- 
-     connect(item, SIGNAL(destroyed(AbstractGroupableItem*)),
-             this, SLOT(itemDestroyed(AbstractGroupableItem*)));
-+    //if the item will gain a parent those connections will be added by the if up there
-     if (!isRootGroup()) {
-         connect(item, SIGNAL(changed(::TaskManager::TaskChanges)),
-                 this, SLOT(itemChanged(::TaskManager::TaskChanges)));
-     }
-+
-     //For debug
-    /* foreach (AbstractGroupableItem *item, d->members) {
-         if (item->isGroupItem()) {
---- workspace/freespacenotifier/freespacenotifier.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/freespacenotifier/freespacenotifier.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,11 +10,13 @@
- Name[en_GB]=Free Space Notifier
- Name[es]=Notificador de espacio libre
- Name[et]=Vaba ruumi teavitaja
-+Name[eu]=Leku aske jakinarazlea
- Name[fi]=Vapaan tilan huomautin
- Name[fr]=Notification d'espace libre
- Name[fy]=Frije romte melder
- Name[ga]=Fógróir Spáis Shaoir
- Name[hi]=खाली स्थान सूचक
-+Name[hr]=Glasnik slobodnog prostora
- Name[ia]=Notificator de Spatio libere
- Name[id]=Notifikasi Ruang Kosong
- Name[is]=Tilkynningar um laust pláss
-@@ -30,6 +32,7 @@
- Name[nb]=Ledig plass-varsler
- Name[nds]=Freeruumbescheden
- Name[nl]=Vrije ruimte-melder
-+Name[nn]=Varsel om lite ledig plass
- Name[pa]=ਖਾਲੀ ਥਾਂ ਨੋਟੀਫਾਇਰ
- Name[pl]=Powiadomienie o wolnym miejscu
- Name[pt]=Notificação de Espaço Livre
-@@ -55,6 +58,7 @@
- Comment[en_GB]=Warns when running out of space on your home folder
- Comment[es]=Le avisa cuando se está quedando sin espacio en su carpeta personal
- Comment[et]=Hoiatus, kui kodukataloogis hakkab ruumi nappima
-+Comment[eu]=Abisatzen du zure etxeko karpetan lekurik gabe gelditzen ari zarenean
- Comment[fi]=Varoittaa kun kotikansiosta on tila loppumassa
- Comment[fr]=Avertis lorsque l'espace viens à manquer dans votre dossier utilisateur
- Comment[fy]=Jout in warskôging as de frije romte fan jo persoanlike map oprekket
-@@ -72,6 +76,7 @@
- Comment[nb]=Varsler når det er lite plass igjen i hjemmemappa
- Comment[nds]=Wohrschoen bi to minn free Ruum binnen Dien Tohuusorner
- Comment[nl]=Geeft een waarschuwing bij een lage stand van de vrije ruimte voor uw persoonlijke map
-+Comment[nn]=Varslar når det er lite plass i heimemappa
- Comment[pa]=ਚੇਤਾਵਨੀ ਦਿਉ, ਜਦੋਂ ਤੁਹਾਡੇ ਘਰ ਫੋਲਡਰ ਉੱਤੇ ਥਾਂ ਖਤਮ ਹੋ ਰਹੀ ਹੋਵੇ
- Comment[pl]=Ostrzega, kiedy zaczyna brakować miejsca w katalogu domowym
- Comment[pt]=Avisa de estiver com falta de espaço na sua pasta pessoal
---- workspace/freespacenotifier/freespacenotifier.notifyrc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/freespacenotifier/freespacenotifier.notifyrc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,11 +10,13 @@
- Comment[en_GB]=KDE Free Space Notifier Dæmon
- Comment[es]=Demonio de notificaciones de espacio libre de KDE
- Comment[et]=KDE vaba ruumi teavitamise deemon
-+Comment[eu]=KDE Leku Aske jakinarazpen deabrua
- Comment[fi]=KDE:n vapaan tilan huomautintaustaprosessi
- Comment[fr]=Démon de notification d'espace libre de KDE
- Comment[fy]=KDE frije romte melder Daemon
- Comment[ga]=Fógróir Spáis Shaoir KDE
- Comment[hi]=केडीई खाली स्थान सूचना डेमन
-+Comment[hr]=KDE-ov servis za obavještavanje o slobodnom prostoru
- Comment[ia]=Demone de notification de spatio libere de KDE
- Comment[id]=Jurik Notifikasi RUang Kosong KDE
- Comment[is]=KDE tilkynningaþjónn fyrir laust pláss
-@@ -30,6 +32,7 @@
- Comment[nb]=KDEs varslingsnisse for ledig plass
- Comment[nds]=KDE-Dämoon för Freeruumbescheden
- Comment[nl]=KDE-daemon voor het melden van vrije ruimte
-+Comment[nn]=KDE-varsel om lite plass
- Comment[pa]=KDE ਖਾਲੀ ਥਾਂ ਨੋਟੀਫਿਕੇਸ਼ਨ ਡੈਮਨ
- Comment[pl]=Demon powiadomień o wolnym miejscu KDE
- Comment[pt]=Servidor de Notificação de Espaço Livre do KDE
-@@ -56,6 +59,7 @@
- Name[en_GB]=Low Disk Space
- Name[es]=Poco espacio en disco
- Name[et]=Kettaruumi napib
-+Name[eu]=Diskoan leku gutxi
- Name[fr]=Espace disque faible
- Name[fy]=Weinich skiifromte
- Name[ga]=Easpa Spáis ar an Diosca
-@@ -75,6 +79,7 @@
- Name[nb]=Lite diskplass
- Name[nds]=To minn free Ruum op de Fastplaat
- Name[nl]=Schijf bijna vol
-+Name[nn]=Lite diskplass
- Name[pa]=ਘੱਟ ਡਿਸਕ ਥਾਂ
- Name[pl]=Mało miejsca na dysku
- Name[pt]=Pouco Espaço em Disco
-@@ -256,9 +261,11 @@
- Name[en_GB]=Running low on disk space
- Name[es]=Queda poco espacio en disco
- Name[et]=Kettaruumi napib
-+Name[eu]=Disko leku gutxi gelditzena ari da
- Name[fr]=L'espace disque commence à manquer
- Name[fy]=Skiifromte wurdt krap
- Name[ga]=Tá an diosca ag éirí lán
-+Name[hr]=Ponestajanje diskovnog prostora
- Name[ia]=Il executa super un spatio de disco basse
- Name[id]=Berjalan pada ruang kosong yang tinggal sedikit
- Name[is]=Keyri með litlu diskplássi
-@@ -273,6 +280,7 @@
- Name[nb]=Det er nå lite diskplass
- Name[nds]=De free Ruum op de Fastplaat geiht op de Neeg.
- Name[nl]=Bijna geen vrije schijfruimte meer
-+Name[nn]=Det er lite diskplass att
- Name[pa]=ਡਿਸਕ ਥਾਂ ਖਤਮ ਹੋ ਰਹੀ ਹੈ
- Name[pl]=Zaczyna brakować miejsca na dysku
- Name[pt]=Pouco espaço livre em disco
-@@ -298,9 +306,11 @@
- Comment[en_GB]=You are running low on disk space
- Comment[es]=Se está quedando sin espacio en disco
- Comment[et]=Kettaruumi on vähe järele jäänud
-+Comment[eu]=Disko lekurik gabe gelditzen ari zara
- Comment[fr]=Vous manquez d'espace disque
- Comment[fy]=Skiifromte wurdt krap
- Comment[ga]=Tá an diosca ag éirí lán
-+Comment[hr]=Ponestaje vam diskovnog prostora
- Comment[ia]=Tu es currente super un spatio de disco basse
- Comment[id]=Anda berjalan pada ruang kosong yang tinggal sedikit
- Comment[is]=Þú ert að verða uppiskroppa með diskpláss
-@@ -314,6 +324,7 @@
- Comment[nb]=Du har lite diskplass igjen
- Comment[nds]=De free Ruum op Dien Fastplaat geiht op de Neeg.
- Comment[nl]=U hebt bijna geen vrije schijfruimte meer
-+Comment[nn]=Du har lite diskplass att
- Comment[pa]=ਤੁਹਾਡੇ ਕੋਲ ਡਿਸਕ ਖਾਲੀ ਥਾਂ ਘੱਟ ਰਹੀ ਹੈ
- Comment[pl]=Zaczyna brakować miejsca na dysku
- Comment[pt]=Está a ficar com pouco espaço livre em disco
---- workspace/kstyles/themes/light-v2.themerc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kstyles/themes/light-v2.themerc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -80,7 +80,7 @@
- Comment[be]=Просты і элегантны стыль 2.
- Comment[be@latin]=Druhaja admiena prostaha stylu widžetaŭ z nazvaj „Lohki”.
- Comment[bg]=Втора версия на лекия и елегантен стил
--Comment[ca]=Segona revisió de l'estil d'estris «Light» simple i elegant.
-+Comment[ca]=Segona revisió de l'estil d'estris «Light» senzill i elegant.
- Comment[ca@valencia]=Segona revisió de l'estil d'estris «Light» simple i elegant.
- Comment[cs]=Druhá revize jednoduchého a elegantního stylu Light pro ovládací prvky.
- Comment[csb]=Drëgô wersëjô prostegò ë szëkòwnégò sztélu 'Light'
---- workspace/kstyles/themes/light-v3.themerc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kstyles/themes/light-v3.themerc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -80,7 +80,7 @@
- Comment[be]=Просты і элегантны стыль 3.
- Comment[be@latin]=Treciaja admiena prostaha stylu widžetaŭ z nazvaj „Lohki”.
- Comment[bg]=Трета версия на лекия и елегантен стил
--Comment[ca]=Tercera revisió de l'estil d'estris «Light» simple i elegant.
-+Comment[ca]=Tercera revisió de l'estil d'estris «Light» senzill i elegant.
- Comment[ca@valencia]=Tercera revisió de l'estil d'estris «Light» simple i elegant.
- Comment[cs]=Třetí revize jednoduchého a elegantního stylu Light pro ovládací prvky.
- Comment[csb]=Trzecô wersëjô prostegò ë szëkòwnégò sztélu 'Light'
---- workspace/kstyles/oxygen/animations/oxygenmenubardata.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kstyles/oxygen/animations/oxygenmenubardata.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -90,9 +90,8 @@
-             {
-                 // first need to call proper event processing
-                 // then implement transition
--                object->event( event );
-                 mousePressEvent( object );
--                return true;
-+                break;
-             }
- 
-             default: break;
---- workspace/kstyles/oxygen/animations/oxygenprogressbardata.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kstyles/oxygen/animations/oxygenprogressbardata.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -39,9 +39,9 @@
-         startValue_(0),
-         endValue_(0)
-     {
--        
-+
-         target->installEventFilter( this );
--        
-+
-         // set animation curve shape
-         animation().data()->setEasingCurve( QEasingCurve::InOutQuad );
- 
-@@ -102,7 +102,24 @@
- 
-         // update start and end values
-         bool isRunning( animation().data()->isRunning() );
--        if( !isRunning ) setStartValue( endValue() );
-+        if( isRunning )
-+        {
-+
-+            // in case next value arrives while animation is running,
-+            // end animation, set value immediately
-+            // and trigger target update. This increases responsiveness of progressbars
-+            setStartValue( value );
-+            setEndValue( value );
-+            animation().data()->stop();
-+            setOpacity(0);
-+
-+            if( target() ) target().data()->update();
-+
-+            return;
-+
-+        }
-+
-+        setStartValue( endValue() );
-         setEndValue( value );
- 
-         // start animation only if target is enabled, visible, not running,
---- workspace/kstyles/oxygen/oxygenstyle.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kstyles/oxygen/oxygenstyle.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -2055,7 +2055,6 @@
-     {
- 
-         Q_UNUSED( widget );
--        Q_UNUSED( kOpt );
- 
-         const bool reverseLayout( opt->direction == Qt::RightToLeft );
-         const bool enabled( flags & State_Enabled );
-@@ -4208,6 +4207,9 @@
- 
-         } else if( const QToolButton *tool = qobject_cast<const QToolButton *>(widget)) {
- 
-+            // kOpt returns wrong color for pressed down arrow
-+            color = pal.color( QPalette::Text );
-+
-             const bool reverseLayout( opt->direction == Qt::RightToLeft );
-             const QColor highlight( _helper.viewHoverBrush().brush(pal).color() );
-             color = pal.color( QPalette::WindowText );
-@@ -4615,6 +4617,16 @@
-             widget->setAttribute(Qt::WA_StyledBackground);
-             break;
- 
-+            case Qt::ToolTip:
-+            widget->setAttribute(Qt::WA_TranslucentBackground);
-+
-+            #ifdef Q_WS_WIN
-+            //FramelessWindowHint is needed on windows to make WA_TranslucentBackground work properly
-+            widget->setWindowFlags(widget->windowFlags() | Qt::FramelessWindowHint);
-+            #endif
-+
-+            break;
-+
-             default: break;
- 
-         }
---- workspace/khotkeys/app/khotkeys.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/khotkeys/app/khotkeys.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -109,6 +109,7 @@
- Comment[nb]=Tjeneste for inndata-handlinger, som utfører definerte handlinger for tastetrykk
- Comment[nds]=Ingaavakschonen mit fastleggt Tastendruckakschonen utföhren
- Comment[nl]=Service voor invoeracties die ingestelde acties uitvoert bij toetsen indrukken
-+Comment[nn]=Teneste for innhandlingar som utfører dei oppsette handlingane ved tastetrykk
- Comment[pl]=Usługa wykonująca skonfigurowane akcje po naciśnięciu klawiszy
- Comment[pt]=Serviço de acções de entrada que efectua acções configuradas ao carregar nas teclas
- Comment[pt_BR]=Serviço de ações de entrada que realiza ações configuradas ao pressionar as teclas
---- workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/khotkeys/kcm_hotkeys/khotkeys.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -20,6 +20,7 @@
- Name[en_GB]=Custom Shortcuts
- Name[es]=Accesos rápidos personalizados
- Name[et]=Kohandatud kiirklahvid
-+Name[eu]=Lasterbide pertsonalizatuak
- Name[fi]=Mukautetut pikavalinnat
- Name[fr]=Raccourcis personnalisé
- Name[fy]=Oanpaste fluchtoetsen
-@@ -39,6 +40,7 @@
- Name[nb]=Egendefinerte snarveier
- Name[nds]=Egen Tastkombinatschonen
- Name[nl]=Aangepaste snelkoppelingen
-+Name[nn]=Tilpassa snarvegar
- Name[pa]=ਪਸੰਦੀਦਾ ਸ਼ਾਰਟਕੱਟ
- Name[pl]=Własne skróty
- Name[pt]=Atalhos Personalizados
---- workspace/khotkeys/data/defaults.khotkeys	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/khotkeys/data/defaults.khotkeys	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -291,7 +291,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
---- workspace/khotkeys/data/kde32b1.khotkeys	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/khotkeys/data/kde32b1.khotkeys	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -507,7 +507,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
-@@ -729,7 +729,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
-@@ -980,7 +980,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
-@@ -1445,7 +1445,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
-@@ -1843,7 +1843,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
-@@ -3219,7 +3219,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
---- workspace/khotkeys/data/printscreen.khotkeys	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/khotkeys/data/printscreen.khotkeys	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -336,7 +336,7 @@
- Comment[ar]=إجراء_بسيط
- Comment[be@latin]=Prostaja_aperacyja
- Comment[bg]=Обикновено_действие
--Comment[ca]=Acció_simple
-+Comment[ca]=Acció_senzilla
- Comment[ca@valencia]=Acció_simple
- Comment[cs]=Jednoduchá činnost
- Comment[csb]=Prosté_dzejanié
---- workspace/config-workspace.h.cmake	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/config-workspace.h.cmake	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -147,3 +147,6 @@
- 
- /* type to use in place of socklen_t if not defined */
- #define kde_socklen_t socklen_t
-+
-+/* Defined to 1 if you have the dbusmenuqt library */
-+#cmakedefine HAVE_DBUSMENUQT 1
---- workspace/kinfocenter/Modules/samba/smbstatus.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kinfocenter/Modules/samba/smbstatus.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -121,7 +121,7 @@
- Comment[eo]=Rigardilo por la stato de Samba
- Comment[es]=Monitor de estado de Samba
- Comment[et]=Samba oleku jälgimine
--Comment[eu]=Sambaren egoeraren monitorea
-+Comment[eu]=Sambaren egoeraren begiralea
- Comment[fa]=نمایشگر وضعیت Samba
- Comment[fi]=Samban tilan näyttö
- Comment[fr]=Indicateur d'état de Samba
---- workspace/kinfocenter/Modules/infosummary/kcm_infosummary.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kinfocenter/Modules/infosummary/kcm_infosummary.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -20,6 +20,7 @@
- Name[eo]=Resumo
- Name[es]=Resumen
- Name[et]=Kokkuvõte
-+Name[eu]=Laburpena
- Name[fi]=Yhteenveto
- Name[fr]=Résumé
- Name[fy]=Gearfetting
-@@ -41,11 +42,13 @@
- Name[nb]=Sammendrag
- Name[nds]=Översicht
- Name[nl]=Samenvatting
-+Name[nn]=Samandrag
- Name[pa]=ਸੰਖੇਪ
- Name[pl]=Podsumowanie
- Name[pt]=Resumo
- Name[pt_BR]=Resumo
- Name[ru]=Сводка
-+Name[se]=Čoahkkáigeassu
- Name[sk]=Súhrn
- Name[sr]=Сажетак
- Name[sr@ijekavian]=Сажетак
-@@ -70,12 +73,14 @@
- Comment[en_GB]=Hardware Information Summary
- Comment[es]=Resumen de la información del hardware
- Comment[et]=Riistvarateabe kokkuvõte
-+Comment[eu]=Hardware informazio laburpena
- Comment[fi]=Laitteistoyhteenveto
- Comment[fr]=Résumé sur les informations du matériel
- Comment[fy]=Hudguod ynfomaarje gearfetting
- Comment[ga]=Achoimre ar na Crua-Earraí
- Comment[gu]=હાર્ડવેર જાણકારી સારાંશ
- Comment[hi]=हार्डवेयर जानकारी संक्षेप
-+Comment[hr]=Sažetak informacija o hardveru
- Comment[ia]=Summario de information de hardware
- Comment[id]=Kesimpulan Informasi Peranti Keras
- Comment[is]=Samantekt vélbúnaðarupplýsinga
-@@ -90,6 +95,7 @@
- Comment[nb]=Sammendrag av maskinvareinformasjon
- Comment[nds]=Översicht över de Reedschap-Informatschonen
- Comment[nl]=Hardware-informatie samenvatting
-+Comment[nn]=Samandrag av maskinvareinformasjon
- Comment[pa]=ਹਾਰਡਵੇਅਰ ਜਾਨਾਕਰੀ ਸੰਖੇਪ
- Comment[pl]=Podsumowanie informacji o sprzęcie
- Comment[pt]=Resumo de Informação do 'Hardware'
---- workspace/kinfocenter/Modules/devinfo/devinfo.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kinfocenter/Modules/devinfo/devinfo.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -21,11 +21,13 @@
- Name[en_GB]=Device Viewer
- Name[es]=Visor de dispositivos
- Name[et]=Seadmete näitaja
-+Name[eu]=Gailu erakuslea
- Name[fi]=Laitekatselin
- Name[fr]=Afficheur de périphériques
- Name[fy]=Apparaat werjefteprogramma
- Name[ga]=Amharcán Gléasanna
- Name[hi]=औजार प्रदर्शक
-+Name[hr]=Preglednik uređaja
- Name[ia]=Visor de Dispositivo
- Name[id]=Penampil Divais
- Name[is]=Tækjaskoðun
-@@ -40,6 +42,7 @@
- Name[nb]=Enhetsviser
- Name[nds]=Reedschappenkieker
- Name[nl]=Apparaatweergaveprogramma
-+Name[nn]=Einingsvisar
- Name[pa]=ਜੰਤਰ ਦਰਸ਼ਕ
- Name[pl]=Przeglądarka urządzeń
- Name[pt]=Visualizador de Dispositivos
-@@ -68,11 +71,13 @@
- Comment[en_GB]=Device Viewer
- Comment[es]=Visor de dispositivos
- Comment[et]=Seadmete näitaja
-+Comment[eu]=Gailu erakuslea
- Comment[fi]=Laitekatselin
- Comment[fr]=Afficheur de périphériques
- Comment[fy]=Apparaat werjefteprogramma
- Comment[ga]=Amharcán Gléasanna
- Comment[hi]=औजार प्रदर्शक
-+Comment[hr]=Preglednik uređaja
- Comment[ia]=Visor de dispositivo
- Comment[id]=Penampil Divais
- Comment[is]=Tækjaskoðun
-@@ -87,6 +92,7 @@
- Comment[nb]=Enhetsviser
- Comment[nds]=Reedschappenkieker
- Comment[nl]=Apparaatweergaveprogramma
-+Comment[nn]=Einingsvisar
- Comment[pa]=ਜੰਤਰ ਦਰਸ਼ਕ
- Comment[pl]=Przeglądarka urządzeń
- Comment[pt]=Visualizador de Dispositivos
---- workspace/kinfocenter/Modules/nics/nic.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kinfocenter/Modules/nics/nic.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -74,6 +74,7 @@
- Name[pt_BR]=Interfaces de rede
- Name[ro]=Interfețe de rețea
- Name[ru]=Сетевые интерфейсы
-+Name[se]=Fierbmelavttat
- Name[si]=ජාල මුහුණත
- Name[sk]=Sieťové rozhrania
- Name[sl]=Omrežni vmesniki
---- workspace/kwin/effects/glide/glide_config.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/effects/glide/glide_config.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -20,6 +20,7 @@
- Name[fy]=Glydzje
- Name[ga]=Sleamhnaigh
- Name[hi]=ग्लाइड
-+Name[hr]=Klizanje
- Name[ia]=Glissar
- Name[id]=Glide
- Name[is]=Svífa
-@@ -34,6 +35,7 @@
- Name[nb]=Skyv
- Name[nds]=Glieden
- Name[nl]=Schuiven
-+Name[nn]=Skliding
- Name[pa]=ਗਲਾਈਡ
- Name[pt]=Deslizar
- Name[pt_BR]=Deslizar
---- workspace/kwin/effects/glide/glide.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/effects/glide/glide.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -13,6 +13,7 @@
- Name[fy]=Glydzje
- Name[ga]=Sleamhnaigh
- Name[hi]=ग्लाइड
-+Name[hr]=Klizanje
- Name[ia]=Glissar
- Name[id]=Glide
- Name[is]=Svífa
-@@ -27,6 +28,7 @@
- Name[nb]=Skyv
- Name[nds]=Glieden
- Name[nl]=Schuiven
-+Name[nn]=Skliding
- Name[pa]=ਗਲਾਈਡ
- Name[pt]=Deslizar
- Name[pt_BR]=Deslizar
-@@ -70,6 +72,7 @@
- Comment[nb]=Gjør at vinduer skyves når de åpnes og lukkes
- Comment[nds]=Finstern bi't Op- oder Tomaken glieden laten
- Comment[nl]=Laat vensters schuiven als ze worden geopend of gesloten
-+Comment[nn]=Windows-sklieffekt når dei vert opna og lukka
- Comment[pa]=ਵਿੰਡੋਜ਼ ਗਲਾਇਡ ਪਰਭਾਵ, ਜਦੋਂ ਉਹ ਖੋਲ੍ਹੀਆਂ ਤੇ ਬੰਦ ਕੀਤੀਆਂ ਜਾਣ
- Comment[pt]=Fazer as janelas deslizar ao serem abertas/fechadas
- Comment[pt_BR]=Efeito que faz as janelas deslizarem ao serem abertas/fechadas
---- workspace/kwin/tabbox.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/tabbox.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -185,7 +185,7 @@
-     {
-     foreach( const Client* client, Workspace::self()->stackingOrder() )
-         {
--        if( client->isDesktop() )
-+        if( client->isDesktop() && client->isOnCurrentDesktop() )
-             {
-             return client->tabBoxClient();
-             }
---- workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/kcmkwin/kwindecoration/kwindecoration.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -42,6 +42,7 @@
- Name[nb]=Vinduspynt
- Name[nds]=Finstern opfladusen
- Name[nl]=Vensterdecoraties
-+Name[nn]=Vindaugspynt
- Name[pa]=ਵਿੰਡੋ ਸਜਾਵਟ
- Name[pl]=Dekoracje okna
- Name[pt]=Decorações das Janelas
---- workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/kcmkwin/kwindesktop/desktop.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -22,6 +22,7 @@
- Name[en_GB]=Virtual Desktops
- Name[es]=Escritorios virtuales
- Name[et]=Virtuaalsed töölauad
-+Name[eu]=Alegiazko mahaigaina
- Name[fi]=Virtuaalityöpöydät
- Name[fr]=Bureaux virtuels
- Name[fy]=Firuele buroblêden
-@@ -43,6 +44,7 @@
- Name[nb]=Virtuelle skrivebord
- Name[nds]=Mehr Schriefdischen
- Name[nl]=Virtuele bureaubladen
-+Name[nn]=Virtuelle skrivebord
- Name[pa]=ਵੁਰਚੁਅਲ ਡੈਸਕਟਾਪ
- Name[pl]=Pulpity wirtualne
- Name[pt]=Ecrãs Virtuais
---- workspace/kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/kcmkwin/kwinrules/kwinrules.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -42,6 +42,7 @@
- Name[nb]=Vindusregler
- Name[nds]=Finsterbedregen
- Name[nl]=Vensterregels
-+Name[nn]=Vindaugsreglar
- Name[pa]=ਵਿੰਡੋ ਨਿਯਮ
- Name[pl]=Zachowanie okna
- Name[pt]=Regras das Janelas
---- workspace/kwin/kcmkwin/kwintabbox/kwintabbox.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/kcmkwin/kwintabbox/kwintabbox.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -41,6 +41,7 @@
- Name[nb]=Oppgavebytter
- Name[nds]=Twischen Opgaven wesseln
- Name[nl]=Taakschakelaar
-+Name[nn]=Oppgåvevekslar
- Name[pa]=ਟਾਸਕ ਸਵਿੱਚਰ
- Name[pl]=Przełączanie zadań
- Name[pt]=Mudança de Tarefas
---- workspace/kwin/kwin.notifyrc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/kwin.notifyrc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -32,6 +32,7 @@
- Comment[nb]=KWin vindusbehandler
- Comment[nds]=KWin-Finsterpleger
- Comment[nl]=KWin vensterbeheerder
-+Comment[nn]=KWin – vindaugshandsamar
- Comment[pa]=KWin ਵਿੰਡੋ ਮੈਨੇਜਰ
- Comment[pl]=Menadżer okien KWin
- Comment[pt]=Gestor de Janelas KWin
---- workspace/kwin/geometry.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/geometry.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -876,9 +876,9 @@
-             resizeWithChecks( qMin( area.width(), width()), qMin( area.height(), height()));
-         }
-     if ( geometry().right() > area.right() && width() < area.width() )
--        move( area.right() - width(), y() );
-+        move( area.right() - width() + 1, y() );
-     if ( geometry().bottom() > area.bottom() && height() < area.height() )
--        move( x(), area.bottom() - height() );
-+        move( x(), area.bottom() - height() + 1 );
-     if( !area.contains( geometry().topLeft() ))
-         {
-         int tx = x();
---- workspace/kwin/manage.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kwin/manage.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -165,6 +165,7 @@
-             {
-             ClientList mainclients = mainClients();
-             bool on_current = false;
-+            bool on_all = false;
-             Client* maincl = NULL;
-             // This is slightly duplicated from Placement::placeOnMainWindow()
-             for( ClientList::ConstIterator it = mainclients.constBegin();
-@@ -176,8 +177,12 @@
-                 maincl = *it;
-                 if( (*it)->isOnCurrentDesktop() )
-                     on_current = true;
-+                if( (*it)->isOnAllDesktops() )
-+                    on_all = true;
-                 }
--            if( on_current )
-+            if( on_all )
-+                desk = NET::OnAllDesktops;
-+            else if( on_current )
-                 desk = workspace()->currentDesktop();
-             else if( maincl != NULL )
-                 desk = maincl->desktop();
---- workspace/kdm/kfrontend/pics/stripes.png.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kdm/kfrontend/pics/stripes.png.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -15,6 +15,7 @@
- Name[fy]=Strepen
- Name[ga]=Straidhpeanna
- Name[hi]=पट्टियां
-+Name[hr]=Trake
- Name[ia]=Listas
- Name[id]=Belang
- Name[is]=Strípur
---- workspace/kdm/kfrontend/sessions/ratpoison.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kdm/kfrontend/sessions/ratpoison.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -95,7 +95,7 @@
- Comment[be@latin]=Prosty akońnik dla klavijaturnaha kiravańnia, stvorany pavodle pryncypaŭ prahramy „Screen”
- Comment[bg]=Упростен менидър за клавиатура на базата на Screen
- Comment[bn]=একটি সরল কীবোর্ড-ভিত্তিক উইণ্ডো ম্যানেজার, Screen-এর আদর্শে তৈরি
--Comment[ca]=Un gestor de finestres simple de sols teclat modelat després de Screen
-+Comment[ca]=Un gestor de finestres senzill de sols teclat modelat després de Screen
- Comment[ca@valencia]=Un gestor de finestres simple de sols teclat modelat després de Screen
- Comment[cs]=Jednoduchý správce oken ovládaný pouze klávesnicí vytvořený podle Screenu
- Comment[csb]=Prosti menadżera òknów òbsłùgiwôny blós z klawiaturë, szlachùje za programą screen
---- workspace/kdm/kfrontend/sessions/wmaker.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kdm/kfrontend/sessions/wmaker.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -94,7 +94,7 @@
- Comment[be@latin]=Prosty akońnik, jaki imkniecca vyhladać, jak systema „NeXTStep”
- Comment[bg]=A simple window manager that resembles the NeXTStep look very closely
- Comment[bn]=একটি উইণ্ডো ম্যানেজার যা ভীষণরকম NeXTStep-এর মত দেখতে
--Comment[ca]=Un gestor de finestres simple que s'assembla molt a l'aspecte de NeXTStep
-+Comment[ca]=Un gestor de finestres senzill que s'assembla molt a l'aspecte de NeXTStep
- Comment[ca@valencia]=Un gestor de finestres simple que s'assembla molt a l'aspecte de NeXTStep
- Comment[cs]=Jendoduchý správce oken, který se velmi podobá NeXTStep
- Comment[csb]=Prosti menadżera òknów szlachùjący za NeXTStep
---- workspace/kdm/kfrontend/sessions/lxde.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/kdm/kfrontend/sessions/lxde.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -13,6 +13,7 @@
- Name[en_GB]=LXDE
- Name[es]=LXDE
- Name[et]=LXDE
-+Name[eu]=LXDE
- Name[fi]=LXDE
- Name[fr]=LXDE
- Name[fy]=LXDE
-@@ -33,6 +34,7 @@
- Name[nb]=LXDE
- Name[nds]=LXDE
- Name[nl]=LXDE
-+Name[nn]=LXDE
- Name[pa]=LXDE
- Name[pl]=LXDE
- Name[pt]=LXDE
-@@ -61,6 +63,7 @@
- Comment[en_GB]=Lightweight X11 desktop environment
- Comment[es]=Entorno de escritorio X11 ligero
- Comment[et]=Kerge X11 töökeskkond
-+Comment[eu]=X11 mahaigain ingurune arina
- Comment[fi]=Kevyt X11-työpöytäympäristö
- Comment[fr]=Lightweight X11 Desktop Environment
- Comment[fy]=Lihtgewicht X11 buroblêd omjouwing
-@@ -80,6 +83,7 @@
- Comment[nb]=Lightweight X11 desktop environment
- Comment[nds]=Rank Schriefdisch-Ümgeven för X11
- Comment[nl]=Lichtgewicht X11 bureaublad-omgeving
-+Comment[nn]=Lett X11-skrivebordsmiljø
- Comment[pa]=ਹਲਕਾ X11 ਡੈਸਕਟਾਪ ਇੰਨਵਾਇਰਮੈਂਟ
- Comment[pt]=Um ambiente de trabalho leve do X11
- Comment[pt_BR]=Área de trabalho leve do X11
---- workspace/ksysguard/gui/ksysguard.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/ksysguard/gui/ksysguard.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,7 +18,7 @@
- Name[eo]=Sistemstato-programo
- Name[es]=Monitor del sistema
- Name[et]=Süsteemi jälgija
--Name[eu]=Sistemaren monitorea
-+Name[eu]=Sistemaren begiralea
- Name[fa]=نمایشگر سیستم
- Name[fi]=Järjestelmän valvonta
- Name[fr]=Surveillance du système
-@@ -102,7 +102,7 @@
- GenericName[eo]=Sistemstato-programo
- GenericName[es]=Monitor del sistema
- GenericName[et]=Süsteemi jälgija
--GenericName[eu]=Sistemaren monitorea
-+GenericName[eu]=Sistemaren begiralea
- GenericName[fa]=نمایشگر سیستم
- GenericName[fi]=Järjestelmänvalvontaohjelma
- GenericName[fr]=Indicateurs du système
---- workspace/ksysguard/example/ksysguard.notifyrc	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/ksysguard/example/ksysguard.notifyrc	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Comment[en_GB]=System Monitor
- Comment[es]=Monitor del sistema
- Comment[et]=Süsteemi jälgija
-+Comment[eu]=Sistemaren begiralea
- Comment[fi]=Järjestelmänvalvontaohjelma
- Comment[fr]=Indicateurs du système
- Comment[fy]=Systeemmonitor
-@@ -32,6 +33,7 @@
- Comment[nb]=Systemovervåker
- Comment[nds]=Systeemkieker
- Comment[nl]=Systeemmonitor
-+Comment[nn]=Systemvakt
- Comment[pa]=ਸਿਸਟਮ ਨਿਗਰਾਨ
- Comment[pl]=Monitor systemu
- Comment[pt]=Monitor do Sistema
---- workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/containments/sal/itemcontainer.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -228,6 +228,7 @@
-     } else {
-         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-     }
-+    askRelayout();
- }
- 
- Qt::Orientation ItemContainer::orientation() const
---- workspace/plasma/netbook/containments/sal/sal.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/containments/sal/sal.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -294,12 +294,14 @@
-     }
- 
-     QGraphicsView *ownView = view();
--    
-+
-     //FIXME: the second check is a workaround to a qt bug: when a qwidget has just been created, maptoglobal and mapfromglobal aren't symmetryc. remove as soon as the bug is fixed
-     if (ownView && (ownView->mapFromGlobal(QPoint(0,0)) == -ownView->mapToGlobal(QPoint(0,0)))) {
-         maxRect.moveTopLeft(ownView->mapFromGlobal(maxRect.topLeft()));
-     }
- 
-+    maxRect.moveTopLeft(QPoint(qMax(0, maxRect.left()), qMax(0, maxRect.top())));
-+
-     setContentsMargins(maxRect.left(), maxRect.top(), qMax((qreal)0.0, size().width() - maxRect.right()), qMax((qreal)0.0, size().height() - maxRect.bottom()));
- }
- 
---- workspace/plasma/netbook/containments/newspaper/appletsview.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/containments/newspaper/appletsview.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -48,7 +48,8 @@
- 
- bool AppletsView::sceneEventFilter(QGraphicsItem *watched, QEvent *event)
- {
--    if (m_appletsContainer->expandAll() && m_appletsContainer->orientation() == Qt::Vertical) {
-+    if ((watched != m_appletsContainer && !m_appletsContainer->isAncestorOf(watched)) ||
-+        (m_appletsContainer->expandAll() && m_appletsContainer->orientation() == Qt::Vertical)) {
-         return Plasma::ScrollWidget::sceneEventFilter(watched, event);
-     }
- 
---- workspace/plasma/netbook/containments/newspaper/plasma-containment-newspaper.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/containments/newspaper/plasma-containment-newspaper.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -10,6 +10,7 @@
- Name[en_GB]=Newspaper Activity
- Name[es]=Actividad del diario
- Name[et]=Ajalehetegevus
-+Name[eu]=Egunkari jarduera
- Name[fi]=Sanomalehtiaktiviteetti
- Name[fr]=Activité du journal d'actualité
- Name[fy]=Krante aktiviteit
-@@ -29,6 +30,7 @@
- Name[nb]=Avisaktivitet
- Name[nds]=Blattstriepen-Aktiviteet
- Name[nl]=Krantactiviteit
-+Name[nn]=Avisaktivitet
- Name[pa]=ਨਿਊਜ਼ਪੇਪਰ ਸਰਗਰਮੀ
- Name[pl]=Dwie kolumny (gazeta)
- Name[pt]=Actividade de Jornal
---- workspace/plasma/netbook/containments/newspaper/newspaper.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/containments/newspaper/newspaper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -131,6 +131,12 @@
-     addAction("expand widgets", a);
-     m_toolBox->addTool(a);
-     connect(a, SIGNAL(triggered()), this, SLOT(toggleExpandAllApplets()));
-+    if (m_expandAll) {
-+        a->setIcon(KIcon("view-restore"));
-+        a->setText(i18n("Collapse widgets"));
-+    }
-+    a->setEnabled(m_orientation == Qt::Vertical);
-+    a->setVisible(m_orientation == Qt::Vertical);
- 
- 
-     a = action("configure");
-@@ -232,6 +238,11 @@
-     m_orientation = orientation;
-     m_container->setOrientation(m_orientation);
-     m_externalLayout->setOrientation(m_orientation);
-+    QAction *expandAction = action("expand widgets");
-+    if (expandAction) {
-+        expandAction->setEnabled(orientation == Qt::Vertical);
-+        expandAction->setVisible(orientation == Qt::Vertical);
-+    }
- 
-     if (m_orientation == Qt::Vertical) {
-         m_container->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
---- workspace/plasma/netbook/shell/data/layouts/plasma-layout-org.kde.plasma-netbook.defaultPage.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/shell/data/layouts/plasma-layout-org.kde.plasma-netbook.defaultPage.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Page one
- Name[es]=Página uno
- Name[et]=Esimene lehekülg
-+Name[eu]=Bat orrialdea
- Name[fi]=Sivu yksi
- Name[fr]=Page une
- Name[fy]=Side ien
---- workspace/plasma/netbook/shell/data/layouts/org.kde.plasma-netbook.defaultPage/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/shell/data/layouts/org.kde.plasma-netbook.defaultPage/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Page one
- Name[es]=Página uno
- Name[et]=Esimene lehekülg
-+Name[eu]=Bat orrialdea
- Name[fi]=Sivu yksi
- Name[fr]=Page une
- Name[fy]=Side ien
---- workspace/plasma/netbook/shell/data/layouts/plasma-layout-org.kde.plasma-netbook.defaultSal.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/shell/data/layouts/plasma-layout-org.kde.plasma-netbook.defaultSal.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Search and launch
- Name[es]=Búsqueda y ejecución
- Name[et]=Otsimine ja käivitamine
-+Name[eu]=Bilatu eta jaurti
- Name[fi]=Etsi ja käynnistä
- Name[fr]=Rechercher et de lancer
- Name[fy]=Sykje en útfiere
-@@ -31,6 +32,7 @@
- Name[nb]=Søk og start
- Name[nds]=Söken un opropen
- Name[nl]=Zoeken en starten
-+Name[nn]=Søk og køyr
- Name[pa]=ਖੋਜ ਅਤੇ ਚਲਾਓ
- Name[pl]=Znajdź i uruchom
- Name[pt]=Pesquisa e lançamento
---- workspace/plasma/netbook/shell/data/layouts/org.kde.plasma-netbook.defaultSal/metadata.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/netbook/shell/data/layouts/org.kde.plasma-netbook.defaultSal/metadata.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Search and launch
- Name[es]=Búsqueda y ejecución
- Name[et]=Otsimine ja käivitamine
-+Name[eu]=Bilatu eta jaurti
- Name[fi]=Etsi ja käynnistä
- Name[fr]=Rechercher et de lancer
- Name[fy]=Sykje en útfiere
-@@ -31,6 +32,7 @@
- Name[nb]=Søk og start
- Name[nds]=Söken un opropen
- Name[nl]=Zoeken en starten
-+Name[nn]=Søk og køyr
- Name[pa]=ਖੋਜ ਅਤੇ ਚਲਾਓ
- Name[pl]=Znajdź i uruchom
- Name[pt]=Pesquisa e lançamento
---- workspace/plasma/desktop/shell/panelappletoverlay.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/desktop/shell/panelappletoverlay.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -294,7 +294,7 @@
-         }
- 
-         QPointF pos = view->mapFromGlobal(event->globalPos());
--        if (view != m_applet->view()) {
-+        if (view != m_applet->view() && (event->buttons() & Qt::LeftButton)) {
-             Plasma::Containment *c = view->containment();
-             if (!c) {
-                 return;
-@@ -359,7 +359,7 @@
-         if (m_layout) {
-             m_layout->removeItem(m_applet);
-             m_layout->insertItem(m_index, m_spacer);
--	}
-+        }
-     }
- 
-     QPoint p = mapToParent(event->pos());
-@@ -375,29 +375,31 @@
-     m_applet->setGeometry(g);
- 
-     //FIXME: assumption on how panel containment works, presence of a non applet spacer in last position (if they were swapped would be impossible to save and restore)
--    if (m_index > 0 && m_layout->itemAt(m_index - 1)) {
-+    if ((m_index > 0 && m_layout->itemAt(m_index - 1)) || m_index == 0) {
-         const bool prevIsApplet = dynamic_cast<Plasma::Applet*>(m_layout->itemAt(m_index - 1)) != 0;
-         const bool nextIsApplet = dynamic_cast<Plasma::Applet*>(m_layout->itemAt(m_index + 1)) != 0;
- 
-+        QPointF mousePos = event->pos() + g.topLeft();
- 
-         // swap items if we pass completely over the next/previous item or cross
-         // more than halfway across it, whichever comes first
-         if (m_orientation == Qt::Horizontal) {
-             //kDebug() << prevIsApplet << m_prevGeom << g << nextIsApplet << m_nextGeom;
-             if (QApplication::layoutDirection() == Qt::RightToLeft) {
--                if (prevIsApplet && m_prevGeom.isValid() && g.right() >= m_prevGeom.right()) {
-+                if (prevIsApplet && m_prevGeom.isValid() && mousePos.x() >= m_prevGeom.right()) {
-                     swapWithPrevious();
--                } else if (nextIsApplet && m_nextGeom.isValid() && g.left() <= m_nextGeom.left()) {
-+                } else if (nextIsApplet && m_nextGeom.isValid() && mousePos.x() <= m_nextGeom.left()) {
-                     swapWithNext();
-                 }
--            } else if (prevIsApplet && m_prevGeom.isValid() && g.left() <= m_prevGeom.left()) {
-+            } else if (prevIsApplet && m_prevGeom.isValid() && mousePos.x() <= m_prevGeom.left()) {
-                 swapWithPrevious();
--            } else if (nextIsApplet && m_nextGeom.isValid() && g.right() >= m_nextGeom.right()) {
-+            } else if (nextIsApplet && m_nextGeom.isValid() && mousePos.x() >= m_nextGeom.right()) {
-                 swapWithNext();
-             }
--        } else if (prevIsApplet && m_prevGeom.isValid() && g.top() <= m_prevGeom.top()) {
-+
-+        } else if (prevIsApplet && m_prevGeom.isValid() && mousePos.y() <= m_prevGeom.top()) {
-             swapWithPrevious();
--        } else if (nextIsApplet && m_nextGeom.isValid() && g.bottom() >= m_nextGeom.bottom()) {
-+        } else if (nextIsApplet && m_nextGeom.isValid() && mousePos.y() >= m_nextGeom.bottom()) {
-             swapWithNext();
-         }
-     }
---- workspace/plasma/generic/dataengines/devicenotifications/plasma-dataengine-devicenotifications.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/devicenotifications/plasma-dataengine-devicenotifications.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Device Notifications
- Name[es]=Notificaciones de dispositivo
- Name[et]=Seadmete märguanded
-+Name[eu]=Gailuen jakinarazpenak
- Name[fi]=Laitehuomautukset
- Name[fr]=Notifications des périphériques
- Name[fy]=Meldingen fan apparaten
---- workspace/plasma/generic/dataengines/systemmonitor/plasma-dataengine-systemmonitor.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/systemmonitor/plasma-dataengine-systemmonitor.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -19,7 +19,7 @@
- Name[eo]=Sistemstato-programo
- Name[es]=Monitor del sistema
- Name[et]=Süsteemi jälgija
--Name[eu]=Sistemaren monitorea
-+Name[eu]=Sistemaren begiralea
- Name[fa]=نمایشگر سیستم
- Name[fi]=Järjestelmän valvonta
- Name[fr]=Surveillance du système
---- workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.h	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/weather/ions/wetter.com/ion_wettercom.h	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -40,7 +40,7 @@
- #define PROJECTNAME "weatherion"
- #define SEARCH_URL "http://api.wetter.com/location/index/search/%1/project/" PROJECTNAME "/cs/%2"
- #define FORECAST_URL "http://api.wetter.com/forecast/weather/city/%1/project/" PROJECTNAME "/cs/%2"
--#define APIKEY "14747763f53dc0e27f42c945e96532ef"
-+#define APIKEY "07025b9a22b4febcf8e8ec3e6f1140e8"
- #define MIN_POLL_INTERVAL 3600000L // 1 h
- 
- class WeatherData
---- workspace/plasma/generic/dataengines/statusnotifieritem/statusnotifieritemsource.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/statusnotifieritem/statusnotifieritemsource.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -19,6 +19,8 @@
-  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA .        *
-  ***************************************************************************/
- 
-+#include "config-workspace.h"
-+
- #include "statusnotifieritemsource.h"
- #include "systemtraytypes.h"
- #include "statusnotifieritemservice.h"
-@@ -41,6 +43,7 @@
- 
- #include <netinet/in.h>
- 
-+#ifdef HAVE_DBUSMENUQT
- #include <dbusmenuimporter.h>
- #ifndef DBUSMENUQT_VERSION
- // DBUSMENUQT_VERSION was introduced in DBusMenuQt 0.4.0
-@@ -64,6 +67,7 @@
  private:
-     KIconLoader *m_iconLoader;
- };
-+#endif // HAVE_DBUSMENUQT
+     /* Environment Canada Methods - Internal for Ion */
+     void deleteForecasts();
+@@ -202,7 +200,7 @@
+     QMap<QString, QString> weatherRecords(const QString& source) const;
  
- StatusNotifierItemSource::StatusNotifierItemSource(const QString &notifierItemId, QObject *parent)
-     : Plasma::DataContainer(parent),
-@@ -237,6 +241,7 @@
-         setData("Title", properties["Title"]);
-         setData("Id", properties["Id"]);
-         setData("WindowId", properties["WindowId"]);
-+        setData("ItemIsMenu", properties["ItemIsMenu"]);
+     // Load and Parse the place XML listing
+-    void getXMLSetup(void) const;
++    void getXMLSetup(void);
+     bool readXMLSetup(void);
  
-         //Attention Movie
-         setData("AttentionMovieName", properties["AttentionMovieName"]);
-@@ -327,6 +332,7 @@
-             }
-         }
+     // Load and parse the specific place(s)
+@@ -248,8 +246,9 @@
+     QHash<QString, WeatherData> m_weatherData;
  
-+#ifdef HAVE_DBUSMENUQT
-         //Menu
-         if (!m_menuImporter) {
-             QString menuObjectPath = properties["Menu"].value<QDBusObjectPath>().path();
-@@ -344,6 +350,7 @@
-                 }
-             }
-         }
-+#endif // HAVE_DBUSMENUQT
-     }
+     // Store KIO jobs
+-    QMap<KJob *, QXmlStreamReader*> m_jobXml;
+-    QMap<KJob *, QString> m_jobList;
++    QHash<KJob *, QXmlStreamReader*> m_jobXml;
++    QHash<KJob *, QString> m_jobList;
++    QStringList m_sourcesToReset;
+     QXmlStreamReader m_xmlSetup;
+     Plasma::DataEngine *m_timeEngine;
  
-     checkForUpdate();
-@@ -352,6 +359,7 @@
+--- workspace/plasma/generic/dataengines/weather/ions/ion.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/ion.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -97,11 +97,7 @@
+     virtual void reset() = 0;
  
- void StatusNotifierItemSource::contextMenuReady()
+ Q_SIGNALS:
+-   
+-    /**
+-     * Triggered when we get initial setup data for ions that provide a list of places
+-     */ 
+-    void resetCompleted(IonInterface *, bool);
++    void forceUpdate(IonInterface *ion, const QString &source);
+ 
+ protected:
+ 
+--- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -40,10 +40,10 @@
+ void UKMETIon::reset()
  {
-+#ifdef HAVE_DBUSMENUQT
- #if DBUSMENUQT_VERSION < 0x000400
-     // Work around to avoid infinite recursion because menuReadyToBeShown() is emitted
-     // by DBusMenuImporter at the end of its slot connected to aboutToShow()
-@@ -359,6 +367,7 @@
-     disconnect(m_menuImporter, SIGNAL(menuReadyToBeShown()), this, SLOT(contextMenuReady()));
- #endif
-     emit contextMenuReady(m_menuImporter->menu());
-+#endif // HAVE_DBUSMENUQT
+     deleteForecasts();
+-    emit(resetCompleted(this, true));
++    m_sourcesToReset = sources();
++    updateAllSources();
  }
  
- QPixmap StatusNotifierItemSource::KDbusImageStructToPixmap(const KDbusImageStruct &image) const
-@@ -460,6 +469,7 @@
- void StatusNotifierItemSource::contextMenu(int x, int y)
+-
+ void UKMETIon::deleteForecasts()
  {
-     if (m_menuImporter) {
-+#ifdef HAVE_DBUSMENUQT
-     #if DBUSMENUQT_VERSION >= 0x000400
-         m_menuImporter->updateMenu();
-     #else
-@@ -470,6 +480,7 @@
-         connect(m_menuImporter, SIGNAL(menuReadyToBeShown()), this, SLOT(contextMenuReady()));
-         QMetaObject::invokeMethod(menu, "aboutToShow");
-     #endif
-+#endif // HAVE_DBUSMENUQT
-     } else {
-         kWarning() << "Could not find DBusMenu interface, falling back to calling ContextMenu()";
-         if (m_statusNotifierItemInterface && m_statusNotifierItemInterface->isValid()) {
---- workspace/plasma/generic/dataengines/statusnotifieritem/plasma_engine_statusnotifieritem.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/statusnotifieritem/plasma_engine_statusnotifieritem.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -9,9 +9,11 @@
- Name[en_GB]=Status Notifier Information
- Name[es]=Información de notificación de estado
- Name[et]=Oleku märguandja teave
-+Name[eu]=Egoera jakinarazlearen informazioa
- Name[fr]=Informations sur le notificateur d'état
- Name[fy]=Meldingen fan tastânynformaasje
- Name[hi]=तंत्र सूचक जानकारी
-+Name[hr]=Informacije glasnika stanja
- Name[ia]=Informationes de Notificator de Status
- Name[id]=Informasi Notifikasi Status
- Name[is]=Stöðutilkynningaþjónn
-@@ -52,6 +54,7 @@
- Comment[et]=Rakenduse olekuteabe mootor Status Notifieri protokolli alusel.
- Comment[fr]=Moteur d'informations sur l'état des applications utilisant le protocole de notification d'état.
- Comment[fy]=Motor foar tastânynformaasje fan applikaasjes bassearre op it tastân meldings protokol.
-+Comment[hr]=Mehanizam za statusne informacije aplikacija baziran na protokolu glasnika stanja.
- Comment[ia]=Motor pro information de stato de Applicationes basate su le protocollo de Notificator de Stato
- Comment[id]=Mesin untuk informasi status aplikasi, berbasis protokol Notifikasi Status.
- Comment[it]=Motore per le informazioni di stato delle applicazioni, basato sul protocollo del notificatore di stato.
---- workspace/plasma/generic/dataengines/statusnotifieritem/CMakeLists.txt	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/dataengines/statusnotifieritem/CMakeLists.txt	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -1,7 +1,15 @@
- project(plasma-statusnotifieritem_engine)
- 
-+if ( DBUSMENUQT_FOUND )
-+   set( _plasma_DBUSMENUQT_INCLUDE_DIR ${DBUSMENUQT_INCLUDE_DIR} )
-+   set( _plasma_DBUSMENUQT_LIBRARIES ${DBUSMENUQT_LIBRARIES} )
-+else ( DBUSMENUQT_FOUND )
-+   set( _plasma_DBUSMENUQT_INCLUDE_DIR )
-+   set( _plasma_DBUSMENUQT_LIBRARIES )
-+endif ( DBUSMENUQT_FOUND )
+     // Destroy each forecast stored in a QVector
+@@ -226,6 +226,13 @@
+ // Gets specific city XML data
+ void UKMETIon::getXMLData(const QString& source)
+ {
++    foreach (const QString &fetching, m_obsJobList) {
++        if (fetching == source) {
++            // already getting this source and awaiting the data
++            return;
++        }
++    }
 +
- include_directories(${KDEBASE_WORKSPACE_SOURCE_DIR}/statusnotifierwatcher)
--include_directories(${DBUSMENUQT_INCLUDE_DIR})
-+include_directories(${_plasma_DBUSMENUQT_INCLUDE_DIR})
+     KUrl url;
+     url = m_place[source].XMLurl;
  
- # We add our source code here
- set(statusnotifieritem_engine_SRCS
-@@ -25,7 +33,7 @@
- QT4_ADD_DBUS_INTERFACE(statusnotifieritem_engine_SRCS ${statusnotifieritem_xml} statusnotifieritem_interface)
+@@ -407,7 +414,8 @@
  
- kde4_add_plugin(plasma_engine_statusnotifieritem ${statusnotifieritem_engine_SRCS})
--target_link_libraries(plasma_engine_statusnotifieritem ${KDE4_KDEUI_LIBS} ${KDE4_PLASMA_LIBS} ${DBUSMENUQT_LIBRARIES})
-+target_link_libraries(plasma_engine_statusnotifieritem ${KDE4_KDEUI_LIBS} ${KDE4_PLASMA_LIBS} ${_plasma_DBUSMENUQT_LIBRARIES})
+ void UKMETIon::observation_slotJobFinished(KJob *job)
+ {
+-    setData(m_obsJobList[job], Data());
++    const QString source = m_obsJobList.value(job);
++    setData(source, Data());
  
- install(TARGETS plasma_engine_statusnotifieritem DESTINATION ${PLUGIN_INSTALL_DIR})
- install(FILES plasma_engine_statusnotifieritem.desktop DESTINATION ${SERVICES_INSTALL_DIR})
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-system-monitor.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-system-monitor.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,7 +18,7 @@
- Name[eo]=Sistemstato-programo
- Name[es]=Monitor del sistema
- Name[et]=Süsteemi jälgija
--Name[eu]=Sistemaren monitorea
-+Name[eu]=Sistemaren begiralea
- Name[fa]=نمایشگر سیستم
- Name[fi]=Järjestelmän valvonta
- Name[fr]=Surveillance du système
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_cpu.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_cpu.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=CPU Monitor
- Name[es]=Monitor de CPU
- Name[et]=Protsessori jälgija
-+Name[eu]=PUZ begiralea
- Name[fi]=Suoritinnäyttö
- Name[fr]=Moniteur du processeur
- Name[fy]=CPU monitor
-@@ -64,7 +65,7 @@
- Comment[eo]=Monitoro de procezila uzo
- Comment[es]=Monitor de uso de la CPU
- Comment[et]=Protsessori kasutuse jälgija
--Comment[eu]=PUZaren monitorea
-+Comment[eu]=PUZ begiralea
- Comment[fi]=Suoritinkäytön näyttäjä
- Comment[fr]=Un moniteur de surveillance de l'usage du processeur central
- Comment[fy]=In CPU brûkme monitor
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_hwinfo.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_hwinfo.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Hardware Info
- Name[es]=Información del hardware
- Name[et]=Riistvara teave
-+Name[eu]=Hardware Info
- Name[fi]=Laitteistotiedot
- Name[fr]=Information sur le matériel
- Name[fy]=Hurdguod ynfo
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_temperature.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_temperature.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Hardware Temperature
- Name[es]=Temperatura del hardware
- Name[et]=Riistvara temperatuur
-+Name[eu]=Hardware tenperatura
- Name[fi]=Laitteiston lämpötilat
- Name[fr]=Température du matériel
- Name[fy]=Hurdguod tempratuur
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_ram.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_ram.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Memory Status
- Name[es]=Estado de la memoria
- Name[et]=Mälu olek
-+Name[eu]=Memoria egoera
- Name[fi]=Muistin käyttö
- Name[fr]=État de la mémoire
- Name[fy]=Unthâld tastân
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_net.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_net.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Network Monitor
- Name[es]=Monitor de red
- Name[et]=Võrgujälgija
-+Name[eu]=Sare begiralea
- Name[fi]=Verkkonäyttö
- Name[fr]=Moniteur réseau
- Name[fy]=Netwurk monitor
-@@ -65,7 +66,7 @@
- Comment[en_GB]=A network usage monitor
- Comment[es]=Monitor de uso de la red
- Comment[et]=Võrgukasutuse jälgija
--Comment[eu]=Sarearen erabileraren begiralea
-+Comment[eu]=Sare erabileraren begiralea
- Comment[fi]=Verkon käytön näyttäjä
- Comment[fr]=Un moniteur de surveillance de l'usage réseau
- Comment[fy]=In netwurk brûkme monitor
---- workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_hdd.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/system-monitor/plasma-applet-sm_hdd.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -11,6 +11,7 @@
- Name[en_GB]=Hard Disk Status
- Name[es]=Estado del disco duro
- Name[et]=Kõvaketta olek
-+Name[eu]=Disko zurrun egoera
- Name[fi]=Kiintolevyn käyttö
- Name[fr]=État des disques durs
- Name[fy]=Fêste skiif tastân
-@@ -64,7 +65,7 @@
- Comment[eo]=Monitoro de uzado de malmola disko
- Comment[es]=Monitor del uso de disco
- Comment[et]=Kõvaketta kasutuse jälgija
--Comment[eu]=Diskaren erabileraren begiralea
-+Comment[eu]=Diska erabileraren begiralea
- Comment[fi]=Kiintolevykäytön näyttäjä
- Comment[fr]=Un moniteur de surveillance du disque dur
- Comment[fy]=In fêste skiif brûkme monitor
---- workspace/plasma/generic/applets/battery/plasma-battery-default.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/battery/plasma-battery-default.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,7 +18,7 @@
- Name[eo]=Bateristata programo
- Name[es]=Monitor de batería
- Name[et]=Aku jälgija
--Name[eu]=Bateriraren monitorea
-+Name[eu]=Bateriraren begiralea
- Name[fi]=Akkujen valvontaohjelma
- Name[fr]=Indicateur de batterie
- Name[fy]=Batterij monitor
---- workspace/plasma/generic/applets/battery/battery.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/applets/battery/battery.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -505,6 +505,19 @@
-         m_extenderApplet->updateConstraints(Plasma::StartupCompletedConstraint);
-         m_controlsLayout->addItem(m_extenderApplet, 1, 2, 2, 1);
- 
-+        m_profileLabel = createBuddyLabel(m_controls);
-+        m_profileLabel->setText(i18n("Power Profile:"));
-+        m_controlsLayout->addItem(m_profileLabel, row, 0);
+     QXmlStreamReader *reader = m_obsJobXml.value(job);
+     if (reader) {
+@@ -417,6 +425,11 @@
+     m_obsJobList.remove(job);
+     delete m_obsJobXml[job];
+     m_obsJobXml.remove(job);
 +
-+        m_profileCombo = new Plasma::ComboBox(m_controls);
-+        // This is necessary until Qt task #217874 is fixed
-+        m_profileCombo->setZValue(110);
-+        connect(m_profileCombo, SIGNAL(activated(QString)),
-+                this, SLOT(setProfile(QString)));
++    if (m_sourcesToReset.contains(source)) {
++        m_sourcesToReset.removeAll(source);
++        emit forceUpdate(this, source);
++    }
+ }
+ 
+ void UKMETIon::forecast_slotDataArrived(KIO::Job *job, const QByteArray &data)
+--- workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/bbcukmet/ion_bbcukmet.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -141,6 +141,8 @@
+     void parseWeatherForecast(const QString& source, QXmlStreamReader& xml);
+     void parseUnknownElement(QXmlStreamReader& xml) const;
+ 
++    void deleteForecasts();
 +
-+        m_controlsLayout->addItem(m_profileCombo, row, 1, 1, 2);
-+        row++;
-+
-         m_brightnessLabel = createBuddyLabel(m_controls);
- #if KDE_IS_VERSION(4, 5, 60)
-         m_brightnessLabel->setText(i18n("Screen Brightness:"));
-@@ -525,21 +538,6 @@
-         m_controlsLayout->addItem(m_brightnessSlider, row, 1, 1, 2);
-         row++;
+     struct XMLMapInfo {
+         QString place;
+         QString XMLurl;
+@@ -169,8 +171,7 @@
+     Plasma::DataEngine *m_timeEngine;
  
--        m_profileLabel = createBuddyLabel(m_controls);
--        m_profileLabel->setText(i18n("Power Profile:"));
--        m_controlsLayout->addItem(m_profileLabel, row, 0);
+     QDateTime m_dateFormat;
 -
--
--        m_profileCombo = new Plasma::ComboBox(m_controls);
--        // This is necessary until Qt task #217874 is fixed
--        m_profileCombo->setZValue(110);
--        connect(m_profileCombo, SIGNAL(activated(QString)),
--                this, SLOT(setProfile(QString)));
--
--        m_controlsLayout->addItem(m_profileCombo, row, 1, 1, 2);
--
--        row++;
--
-         QGraphicsLinearLayout *buttonLayout = new QGraphicsLinearLayout;
-         buttonLayout->setSpacing(0.0);
-         buttonLayout->addStretch();
---- workspace/plasma/generic/runners/services/plasma-runner-services.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/runners/services/plasma-runner-services.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -102,7 +102,7 @@
- Comment[eo]=Trovi aplikaĵojn, stirpanelojn kaj servojn
- Comment[es]=Aplicaciones, paneles de control y servicios
- Comment[et]=Rakenduste, juhtpaneelide ja teenuste otsimine
--Comment[eu]=Aurkitu aplikazioak, aginte taulak eta zerbitzuak
-+Comment[eu]=Aurkitu aplikazioak, aginte panelak eta zerbitzuak
- Comment[fi]=Etsi ohjelmat, asetukset ja palvelut
- Comment[fr]=Trouver des applications, panneaux de contrôles et services
- Comment[fy]=Sykje om applikaasjes, konfiguraasjemodules en tsjinsten
---- workspace/plasma/generic/runners/nepomuksearch/nepomuksearchrunner.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/runners/nepomuksearch/nepomuksearchrunner.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,6 +18,8 @@
+-    void deleteForecasts();
++    QStringList m_sourcesToReset;
+ };
  
- #include "nepomuksearchrunner.h"
- #include "queryclientwrapper.h"
-+#include "nie.h"
-+#include "nfo.h"
+ K_EXPORT_PLASMA_DATAENGINE(bbcukmet, UKMETIon)
+--- workspace/plasma/generic/dataengines/weather/ions/noaa/ion_noaa.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/noaa/ion_noaa.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -68,8 +68,7 @@
  
- #include <QMenu>
+ void NOAAIon::reset()
+ {
+-    emitWhenSetup = true;
+-    setInitialized(false);
++    m_sourcesToReset = sources();
+     getXMLSetup();
+ }
  
-@@ -27,6 +29,7 @@
- #include <KUrl>
- 
- #include <Nepomuk/Resource>
-+#include <Nepomuk/Variant>
- #include <Nepomuk/ResourceManager>
- #include <Nepomuk/Query/QueryServiceClient>
- 
-@@ -35,7 +38,6 @@
- #include <KFileItemListProperties>
- #include <KIO/NetAccess>
- 
--Q_DECLARE_METATYPE(Nepomuk::Resource)
- 
- namespace {
-     /**
-@@ -123,8 +125,13 @@
-             return;
+@@ -145,7 +144,6 @@
+             setData(source, "validate", QString("noaa|invalid|single|").append(sourceAction[2]));
+             return true;
          }
-     }
-+
-     Nepomuk::Resource res = match.data().value<Nepomuk::Resource>();
-     KUrl url = res.resourceUri();
-+    if (res.hasType(Nepomuk::Vocabulary::NFO::FileDataObject()) &&
-+        KUrl(res.property(Nepomuk::Vocabulary::NIE::url()).toUrl()).isLocalFile()) {
-+        url = res.property(Nepomuk::Vocabulary::NIE::url()).toUrl();
+-
+     } else if (sourceAction[1] == "weather" && sourceAction.size() > 2) {
+         getXMLData(source);
+         return true;
+@@ -174,11 +172,16 @@
+ // Gets specific city XML data
+ void NOAAIon::getXMLData(const QString& source)
+ {
+-    KUrl url;
++    foreach (const QString &fetching, m_jobList) {
++        if (fetching == source) {
++            // already getting this source and awaiting the data
++            return;
++        }
 +    }
  
-     (void)new KRun(url, 0);
- }
---- workspace/plasma/generic/runners/nepomuksearch/queryclientwrapper.cpp	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/runners/nepomuksearch/queryclientwrapper.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -18,8 +18,11 @@
+     QString dataKey = source;
+     dataKey.remove("noaa|weather|");
+-    url = m_places[dataKey].XMLurl;
++    KUrl url = m_places[dataKey].XMLurl;
  
- #include "queryclientwrapper.h"
- #include "nepomuksearchrunner.h"
-+#include "nie.h"
-+#include "nfo.h"
+     // If this is empty we have no valid data, send out an error and abort.
+     if (url.url().isEmpty()) {
+@@ -192,7 +195,7 @@
  
- #include <Nepomuk/Resource>
-+#include <Nepomuk/Variant>
- #include <Nepomuk/Types/Class>
- #include <Nepomuk/Query/QueryServiceClient>
- #include <Nepomuk/Query/Result>
-@@ -40,10 +43,6 @@
- #include <QtCore/QMutex>
- 
- 
--#ifndef KDE_USE_FINAL
--Q_DECLARE_METATYPE(Nepomuk::Resource)
--#endif
--
- static const int s_maxResults = 10;
- 
- Nepomuk::QueryClientWrapper::QueryClientWrapper(SearchRunner* runner, Plasma::RunnerContext* context)
-@@ -101,21 +100,29 @@
-         Nepomuk::Resource res = result.resource();
- 
-         QString type;
--        if (res.hasType(Soprano::Vocabulary::Xesam::File()) ||
--            res.resourceUri().scheme() == "file") {
--            type = KMimeType::findByUrl(res.resourceUri())->comment();
--        } else {
-+        QString iconName;
-+
-+        if (res.hasType(Nepomuk::Vocabulary::NFO::FileDataObject()) &&
-+            KUrl(res.property(Nepomuk::Vocabulary::NIE::url()).toUrl()).isLocalFile()) {
-+            const KUrl url = res.property(Nepomuk::Vocabulary::NIE::url()).toUrl();
-+            KMimeType::Ptr mimetype = KMimeType::findByUrl(url);
-+            if (mimetype) {
-+                type = mimetype->comment();
-+                iconName = mimetype->iconName(url);
-+            }
-+        }
-+
-+        if (type.isEmpty() ) {
-             type = Nepomuk::Types::Class(res.resourceType()).label();
-+            iconName = res.genericIcon();
-         }
- 
-         match.setText(res.genericLabel());
-         match.setSubtext(type);
-+        match.setIcon(KIcon(iconName.isEmpty() ? QString::fromLatin1("nepomuk") : iconName));
- 
--        QString s = res.genericIcon();
--        match.setIcon(KIcon(s.isEmpty() ? QString("nepomuk") : s));
--
-         match.setData(qVariantFromValue(res));
--        match.setId(res.resourceUri().toString());
-+        match.setId(KUrl(res.resourceUri()).url());
-         matches << match;
+     if (m_job) {
+         connect(m_job, SIGNAL(data(KIO::Job *, const QByteArray &)), this,
+-             SLOT(slotDataArrived(KIO::Job *, const QByteArray &)));
++                SLOT(slotDataArrived(KIO::Job *, const QByteArray &)));
+         connect(m_job, SIGNAL(result(KJob *)), this, SLOT(slotJobFinished(KJob *)));
      }
-     m_runnerContext->addMatches(m_runnerContext->query(), matches);
---- workspace/plasma/generic/runners/nepomuksearch/CMakeLists.txt	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/runners/nepomuksearch/CMakeLists.txt	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -12,6 +12,17 @@
-     queryclientwrapper.cpp
- )
- 
-+soprano_add_ontology(nepomuksearchrunner_SRCS
-+  ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nfo.trig
-+  "NFO"
-+  "Nepomuk::Vocabulary"
-+  "trig")
-+soprano_add_ontology(nepomuksearchrunner_SRCS
-+  ${SHAREDDESKTOPONTOLOGIES_ROOT_DIR}/nie/nie.trig
-+  "NIE"
-+  "Nepomuk::Vocabulary"
-+  "trig")
+ }
+@@ -222,7 +225,8 @@
+ void NOAAIon::slotJobFinished(KJob *job)
+ {
+     // Dual use method, if we're fetching location data to parse we need to do this first
+-    removeAllData(m_jobList[job]);
++    const QString source(m_jobList.value(job));
++    removeAllData(source);
+     QXmlStreamReader *reader = m_jobXml.value(job);
+     if (reader) {
+         readXMLData(m_jobList[job], *reader);
+@@ -241,9 +245,9 @@
+     Q_UNUSED(job)
+     const bool success = readXMLSetup();
+     setInitialized(success);
+-    if (emitWhenSetup) {
+-        emitWhenSetup = false;
+-        emit(resetCompleted(this, success));
 +
- kde4_add_plugin(krunner_nepomuksearchrunner ${nepomuksearchrunner_SRCS})
++    foreach (const QString &source, m_sourcesToReset) {
++        updateSourceEvent(source);
+     }
+ }
  
- target_link_libraries(krunner_nepomuksearchrunner
---- workspace/plasma/generic/runners/windowedwidgets/plasma-runner-windowedwidgets.desktop	(.../tags/KDE/4.5.0/kdebase)	(wersja 1165573)
-+++ workspace/plasma/generic/runners/windowedwidgets/plasma-runner-windowedwidgets.desktop	(.../branches/KDE/4.5/kdebase)	(wersja 1165573)
-@@ -9,6 +9,7 @@
- Name[en_GB]=Windowed widgets
- Name[es]=Componentes en ventana
- Name[et]=Akendesse paigutatavad vidinad
-+Name[eu]=Leihodun tramankuluak
- Name[fi]=Ikkunoidut sovelmat
- Name[fr]=Éléments visuels fenêtrés
- Name[fy]=Widgets sjen litte yn finsters
+@@ -840,8 +844,9 @@
+ void NOAAIon::forecast_slotJobFinished(KJob *job)
+ {
+     QXmlStreamReader *reader = m_jobXml.value(job);
++    const QString source = m_jobList.value(job);
++
+     if (reader) {
+-        QString source = m_jobList[job];
+         readForecast(source, *reader);
+         updateWeather(source);
+     }
+@@ -849,6 +854,16 @@
+     m_jobList.remove(job);
+     delete m_jobXml[job];
+     m_jobXml.remove(job);
++
++    if (m_sourcesToReset.contains(source)) {
++        m_sourcesToReset.removeAll(source);
++
++        // so the weather engine updates it's data
++        forceImmediateUpdateOfAllVisualizations();
++
++        // update the clients of our engine
++        emit forceUpdate(this, source);
++    }
+ }
+ 
+ void NOAAIon::readForecast(const QString& source, QXmlStreamReader& xml)
+--- workspace/plasma/generic/dataengines/weather/ions/noaa/ion_noaa.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/ions/noaa/ion_noaa.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -176,7 +176,7 @@
+     Plasma::DataEngine *m_timeEngine;
+     QDateTime m_dateFormat;
+     bool emitWhenSetup;
+-
++    QStringList m_sourcesToReset;
+ };
+ 
+ K_EXPORT_PLASMA_DATAENGINE(noaa, NOAAIon)
+--- workspace/plasma/generic/dataengines/weather/weatherengine.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/dataengines/weather/weatherengine.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -20,6 +20,8 @@
+ #ifndef WEATHERENGINE_H
+ #define WEATHERENGINE_H
+ 
++#include <QTimer>
++
+ #include <KService>
+ #include <KGenericFactory>
+ 
+@@ -81,15 +83,8 @@
+      */
+     void dataUpdated(const QString& source, Plasma::DataEngine::Data data);
+ 
+-    /**
+-    * Reimplemented from Plasma::DataEngine.
+-    * @param source The datasource to be updated.
+-    * @param data The new data updated.
+-    */
+-    void resetCompleted(IonInterface *, bool) const;
++    void forceUpdate(IonInterface *ion, const QString &source);
+ 
+-    void triggerReset(void) const;
+-
+     /**
+      * Notify WeatherEngine a new ion has data sources.
+      * @arg source datasource name.
+@@ -110,6 +105,7 @@
+      * Whenever networking changes, take action
+      */
+     void networkStatusChanged(Solid::Networking::Status);
++    void startReconnect();
+ 
+     /**
+      * Cleans up the ions that are currently loaded
+@@ -122,8 +118,21 @@
+     void updateIonList(const QStringList &changedResources = QStringList());
+ 
+ private:
+-    class Private;
+-    Private *const d;
++    /**
++     * Get instance of a loaded ion.
++     * @returns a IonInterface instance of a loaded plugin.
++     */
++    IonInterface* ionForSource(const QString& name) const;
++
++    /**
++     * Get plugin name from datasource.
++     * @returns The plugin name given a datasource.
++     */
++    QString ionNameForSource(const QString& source) const;
++
++    QStringList m_ions;
++    bool m_networkAvailable;
++    QTimer m_reconnectTimer;
+ };
+ 
+ K_EXPORT_PLASMA_DATAENGINE(weather, WeatherEngine)
+--- workspace/plasma/generic/applets/battery/battery.h	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/applets/battery/battery.h	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -44,7 +44,7 @@
+ class Battery : public Plasma::PopupApplet
+ {
+     Q_OBJECT
+-    Q_PROPERTY(qreal labelAlpha READ labelAlpha WRITE setLabelAlpha NOTIFY labelAlphaChanged)
++    Q_PROPERTY(qreal labelAlpha READ labelAlpha WRITE setLabelAlpha )
+     Q_PROPERTY(qreal acAlpha READ acAlpha WRITE setAcAlpha)
+ 
+     public:
+--- workspace/plasma/generic/applets/battery/battery.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/applets/battery/battery.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -46,6 +46,7 @@
+ #include <KConfigDialog>
+ #include <KGlobalSettings>
+ #include <KPushButton>
++#include <KComboBox>
+ 
+ #include <kworkspace/kworkspace.h>
+ 
+@@ -510,7 +511,14 @@
+         m_controlsLayout->addItem(m_profileLabel, row, 0);
+ 
+         m_profileCombo = new Plasma::ComboBox(m_controls);
+-        // This is necessary until Qt task #217874 is fixed
++        // Workaround for bug 219873
++#if (QT_VERSION >= QT_VERSION_CHECK(4, 7, 0))
++        m_profileCombo->nativeWidget()->setMaxVisibleItems(4);
++#else
++        // Value passed needs to be one less than intended on Qt < 4.7.0
++        m_profileCombo->nativeWidget()->setMaxVisibleItems(3);
++#endif
++        // This is necessary until QTBUG-2368 is fixed
+         m_profileCombo->setZValue(110);
+         connect(m_profileCombo, SIGNAL(activated(QString)),
+                 this, SLOT(setProfile(QString)));
+--- workspace/plasma/generic/runners/kill/killrunner.cpp	(.../tags/KDE/4.5.1/kdebase)	(wersja 1170567)
++++ workspace/plasma/generic/runners/kill/killrunner.cpp	(.../branches/KDE/4.5/kdebase)	(wersja 1170567)
+@@ -104,6 +104,7 @@
+         m_prepLock.lockForWrite();
+         if (!m_processes) {
+             m_processes = new KSysGuard::Processes();
++            m_processes->updateAllProcesses();
+         }
+     }
+     m_prepLock.unlock();

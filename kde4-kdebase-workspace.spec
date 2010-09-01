@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.5.1
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -596,7 +596,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 
 %prep
 %setup -q -n %{orgname}-%{version}
-#%patch100 -p1
+%patch100 -p1
 %patch0 -p1
 %patch1 -p1
 %patch2 -p0
