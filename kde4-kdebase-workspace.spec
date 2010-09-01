@@ -874,6 +874,7 @@ fi
 %{_datadir}/kde4/services/plasma-geolocation-gps.desktop
 %{_datadir}/kde4/services/plasma-geolocation-ip.desktop
 #%{_datadir}/kde4/services/kcm_pkk_authorization.desktop
+%{_datadir}/kde4/services/graphicalinfocategory.desktop
 %{_datadir}/kde4/services/kded/kephal.desktop
 %{_datadir}/kde4/services/kded/statusnotifierwatcher.desktop
 %{_datadir}/kde4/servicetypes/plasma-geolocationprovider.desktop
@@ -920,6 +921,8 @@ fi
 %attr(755,root,root) %{_bindir}/systemsettings
 %attr(755,root,root) %{_libdir}/libsystemsettingsview.so.?
 %{_datadir}/apps/systemsettings
+%{_datadir}/kde4/services/lostfoundcategory.desktop
+%{_datadir}/kde4/services/networkinfocategory.desktop
 %{_datadir}/kde4/services/settings-accessibility.desktop
 %{_datadir}/kde4/services/settings-account-details.desktop
 %{_datadir}/kde4/services/settings-application-and-system-notifications.desktop
@@ -1195,6 +1198,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_samba.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_view1394.so
 %{_datadir}/apps/kinfocenter
+%{_datadir}/kde4/services/kcm_infosummary.desktop
 %{_datadir}/kde4/services/kcmview1394.desktop
 %{_datadir}/kde4/services/kcmusb.desktop
 %{_datadir}/kde4/services/nic.desktop
@@ -1334,7 +1338,8 @@ fi
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
-#%{_datadir}/kde4/services/desktopthemedetails.desktop
+%{_datadir}/kde4/services/desktoppath.desktop
+%{_datadir}/kde4/services/desktoptheme.desktop
 %{_datadir}/kde4/services/kwintabbox.desktop
 %{_datadir}/kde4/services/kwin/boxswitch.desktop
 %{_datadir}/kde4/services/kwin/boxswitch_config.desktop
@@ -1662,6 +1667,18 @@ fi
 %{_datadir}/kde4/services/plasma-sal-office.desktop
 %{_datadir}/kde4/services/plasma-sal-system.desktop
 %{_datadir}/kde4/services/plasma-sal-utility.desktop
+%{_datadir}/kde4/services/plasma-applet-notifications.desktop
+%{_datadir}/kde4/services/plasma-containment-desktopdashboard.desktop
+%{_datadir}/kde4/services/plasma-containmentactions-minimalcontextmenu.desktop
+%{_datadir}/kde4/services/plasma-dataengine-devicenotifications.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-desktop.defaultPanel.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-netbook.defaultPage.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-netbook.defaultPanel.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-netbook.defaultSal.desktop
+%{_datadir}/kde4/services/plasma-runner-windowedwidgets.desktop
+%{_datadir}/kde4/services/plasma-sal-development.desktop
+%{_datadir}/kde4/services/plasma_applet_keyboard.desktop
+%{_datadir}/kde4/services/plasma_engine_statusnotifieritem.desktop
 %{_datadir}/kde4/servicetypes/plasma-sal-menu.desktop
 %{_datadir}/kde4/servicetypes/plasma-layout-template.desktop
 %dir %{_datadir}/apps/desktoptheme/default/system-monitor
@@ -1709,6 +1726,8 @@ fi
 %dir %{_datadir}/apps/solidfakenetbackend
 %{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
 %{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
+%{_datadir}/kde4/services/deviceinfocategory.desktop
+%{_datadir}/kde4/services/devinfo.desktop
 %{_datadir}/kde4/services/kcm_solid.desktop
 %{_datadir}/kde4/services/solidbackends
 %{_datadir}/kde4/services/solid-actions.desktop
@@ -1903,4 +1922,4 @@ fi
 %dir %{_datadir}/apps/plasma_scriptengine_python
 %{_datadir}/apps/plasma_scriptengine_python/*.py
 %{_datadir}/apps/plasma_scriptengine_python/*.py[co]
-%{_datadir}/kde4/services/*.desktop
+%{_datadir}/kde4/services/plasma*python*.desktop
