@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.5.1
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -215,6 +215,7 @@ KWin - zarządca okien KDE 4.
 Summary:	Plasma - KDE 4 panels and desktop work area
 Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
 Group:		X11/Applications
+Requires:	libdbusmenu-qt >= 0.6.0
 Suggests:	google-gadgets-qt >= 0.10.4
 
 %description plasma
