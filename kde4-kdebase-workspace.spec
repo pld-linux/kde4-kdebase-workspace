@@ -714,7 +714,6 @@ fi
 
 %preun -n kde4-kdm
 if [ "$1" = "0" ]; then
-	%service kdm stop
 	/sbin/chkconfig --del kdm
 fi
 
