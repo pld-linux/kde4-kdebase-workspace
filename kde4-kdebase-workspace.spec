@@ -62,7 +62,7 @@ BuildRequires:	lm_sensors-devel
 BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-1-devel >= 0.96.1
-BuildRequires:	polkit-qt-gui-devel >= 0.9.3
+BuildRequires:	polkit-qt-gui-devel >= 0.9.4
 BuildRequires:	python-sip-devel
 BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel >= 0.0.6
