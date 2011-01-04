@@ -2,7 +2,7 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kdebase-workspace
 %define		_state		stable
-%define		qtver		4.7.0
+%define		qtver		4.7.1
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
@@ -70,7 +70,7 @@ BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.202
+BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	shared-desktop-ontologies-devel >= 0.5
 BuildRequires:	soprano-devel >= 2.4.64
 BuildRequires:	strigi-devel >= 0.7.0
@@ -606,16 +606,10 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 install -d build
 cd build
 %cmake \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-	-DLIB_INSTALL_DIR=%{_libdir} \
 	-DLIBEXEC_INSTALL_DIR=%{_libdir}/kde4/libexec \
 	-DKDE4_KDM_PAM_SERVICE=kdm \
 	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
 	-DKDE4_KSCREENSAVER_PAM_SERVICE=kscreensaver \
-	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64 \
-%endif
 	../
 
 %{__make}
