@@ -22,15 +22,14 @@ diff -Nru kdebase-workspace-4.3.73svn1040395/kcontrol/fonts/fonts.cpp kdebase-wo
         " properly with real DPI value better fonts should be used or configuration"
         " of font hinting should be checked.</p>" );
     comboForceDpi->setWhatsThis(whatsthis);
---- kdebase-workspace-4.5.0/kcontrol/kdm/kdm-users.cpp.orig	2010-05-27 19:23:09.000000000 +0200
-+++ kdebase-workspace-4.5.0/kcontrol/kdm/kdm-users.cpp	2010-07-30 20:37:06.492035540 +0200
-@@ -103,8 +103,7 @@
-     defmaxuid = "65000";
+--- kdebase-workspace-4.6.0/kdm/kcm/kdm-users.cpp~	2011-01-19 23:05:22.000000000 +0100
++++ kdebase-workspace-4.6.0/kdm/kcm/kdm-users.cpp	2011-01-21 15:14:17.634951865 +0100
+@@ -104,7 +104,7 @@
  #endif
  
--    m_userPixDir = config->group("X-*-Greeter").readEntry("FaceDir",
+     m_userPixDir = config->group("X-*-Greeter").readEntry("FaceDir",
 -            KStandardDirs::installPath("data") + "kdm/faces") + '/';
-+    m_userPixDir = config->group( "X-*-Greeter" ).readEntry( "FaceDir", "/etc/X11/kdm/faces" ) + '/';
++            "/etc/X11/kdm/faces" ) + '/';
  
      if (!getpwnam("nobody"))
          KMessageBox::sorry(this, i18n(
