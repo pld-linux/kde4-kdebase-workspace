@@ -1610,6 +1610,7 @@ fi
 %{_datadir}/apps/plasma/services/tasks.operations
 %{_datadir}/apps/plasma/services/searchlaunch.operations
 %{_datadir}/apps/plasma/services/statusnotifieritem.operations
+%dir %{_datadir}/apps/plasma/shareprovider
 %{_datadir}/apps/plasma/shareprovider/imgur/contents/code/main.js
 %{_datadir}/apps/plasma/shareprovider/imgur/metadata.desktop
 %{_datadir}/apps/plasma/shareprovider/pastebincom/contents/code/main.js
