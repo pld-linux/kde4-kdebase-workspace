@@ -345,28 +345,6 @@ stronie. Nie zajmuje ona więcej niż 20-30% szerokości ekranu, a w
 przypadkach gdyby dwie dekoracje się zasłaniały, są one układane obok
 siebie.
 
-%package -n kde4-decoration-kde2
-Summary:	KDE Window Decoration - kde2
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - kde2
-Group:		X11/Amusements
-
-%description -n kde4-decoration-kde2
-KDE Window Decoration - kde2.
-
-%description -n kde4-decoration-kde2 -l pl.UTF-8
-Dekoracja okna dla KDE - kde2.
-
-%package -n kde4-decoration-keramik
-Summary:	KDE Window Decoration - keramik
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - keramik
-Group:		X11/Amusements
-
-%description -n kde4-decoration-keramik
-KDE Window Decoration - keramik.
-
-%description -n kde4-decoration-keramik -l pl.UTF-8
-Dekoracja okna dla KDE - keramik.
-
 %package -n kde4-decoration-nitrogen
 Summary:	KDE Window Decoration - nitrogen
 Summary(pl.UTF-8):	Dekoracja okna dla KDE - nitrogen
@@ -390,21 +368,6 @@ window buttons.
 %description -n kde4-decoration-laptop -l pl.UTF-8
 Dekoracja okna z paskowanym tytułem okna oraz lekko wypukłymi
 przyciskami okna.
-
-%package -n kde4-decoration-modernsys
-Summary:	KDE Window Decoration - ModernSys
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - ModernSys
-Group:		X11/Amusements
-
-%description -n kde4-decoration-modernsys
-A window decoration with small, top-aligned window buttons and a
-window title with gray lines surronding the text of the title. Also
-with a convex resize handle on the bottom-right window corner.
-
-%description -n kde4-decoration-modernsys -l pl.UTF-8
-Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
-tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
-służący do zmiany rozmiaru w prawym dolnym rogu okna.
 
 %package -n kde4-decoration-oxygen
 Summary:	KDE Window Decoration - Oxygen
@@ -435,45 +398,6 @@ with a convex resize handle on the bottom-right window corner.
 Dekoracja okna z małymi, wyrównanymi do góry przyciskami okna oraz
 tytułem okna otoczonym szarymi liniami. Ma również wypukły uchwyt
 służący do zmiany rozmiaru w prawym dolnym rogu okna.
-
-%package -n kde4-decoration-quartz
-Summary:	KDE Window Decoration - Quartz
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Quartz
-Group:		X11/Amusements
-
-%description -n kde4-decoration-quartz
-A window decoration with solid borders. The window caption consists of
-a lighter area for the window title and a darker area for window
-buttons. Between the two area there is a stylish transition.
-
-%description -n kde4-decoration-quartz -l pl.UTF-8
-Dekoracja okna z pełnymi krawędziami. Nagłówek okna składa się z
-jasnego obszaru dla tytułu okna i ciemniejszego dla przycisków. Między
-obszarami jest stylowy przejście.
-
-%package -n kde4-decoration-redmond
-Summary:	KDE Window Decoration - Redmond
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Redmond
-Group:		X11/Amusements
-
-%description -n kde4-decoration-redmond
-A window decoration resembling the one from Windows 98.
-
-%description -n kde4-decoration-redmond -l pl.UTF-8
-Dekoracja okna przypominająca tę z Windows 98.
-
-%package -n kde4-decoration-web
-Summary:	KDE Window Decoration - Web
-Summary(pl.UTF-8):	Dekoracja okna dla KDE - Web
-Group:		X11/Amusements
-
-%description -n kde4-decoration-web
-A completely flat window decoration with rounded corners and visible,
-thin borders.
-
-%description -n kde4-decoration-web -l pl.UTF-8
-Zupełnie płaska dekoracja okna z zaokrąglonymi brzegami oraz
-widocznymi, cienkimi krawędziami.
 
 %package -n kde4-kgreet-classic
 Summary:	KDE greeter libraries - classic version
@@ -1894,34 +1818,10 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin_b2_config.so
 %{_datadir}/apps/kwin/b2.desktop
 
-%files -n kde4-decoration-kde2
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_kde2.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_kde2_config.so
-#%{_datadir}/apps/kwin/kde2.desktop
-
-%files -n kde4-decoration-keramik
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_keramik.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_keramik_config.so
-#%{_datadir}/apps/kwin/keramik.desktop
-
 %files -n kde4-decoration-laptop
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/kde4/kwin3_laptop.so
 %{_datadir}/apps/kwin/laptop.desktop
-
-%files -n kde4-decoration-modernsys
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_modernsys.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_modernsys_config.so
-#%{_datadir}/apps/kwin/modernsystem.desktop
-
-#%files -n kde4-decoration-nitrogen
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_nitrogen.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_nitrogen_config.so
-#%{_datadir}/apps/kwin/nitrogenclient.desktop
 
 %files -n kde4-decoration-oxygen
 %defattr(644,root,root,755)
@@ -1933,22 +1833,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kwin3_plastik.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_plastik_config.so
 %{_datadir}/apps/kwin/plastik.desktop
-
-%files -n kde4-decoration-quartz
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_quartz.so
-#%attr(755,root,root) %{_libdir}/kde4/kwin_quartz_config.so
-#%{_datadir}/apps/kwin/quartz.desktop
-
-%files -n kde4-decoration-redmond
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_redmond.so
-#%{_datadir}/apps/kwin/redmond.desktop
-
-%files -n kde4-decoration-web
-%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/kde4/kwin3_web.so
-#%{_datadir}/apps/kwin/web.desktop
 
 %files -n kde4-kgreet-classic
 %defattr(644,root,root,755)
