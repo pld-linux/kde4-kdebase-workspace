@@ -80,6 +80,7 @@ Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
+Suggests:	UPower
 Suggests:	fontconfig
 Suggests:	kde4-decoration-oxygen >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
