@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.6.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -236,6 +236,7 @@ Wygaszacze ekranu KDE.
 Summary:	Solid - KDE 4 hardware configuration
 Summary(pl.UTF-8):	Solid - konfiguracja sprzętu w KDE 4
 Group:		X11/Applications
+Suggests:	udisks
 
 %description solid
 Solid - KDE 4 hardware configuration.
