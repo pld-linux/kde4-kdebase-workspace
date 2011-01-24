@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.6.0
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -80,7 +80,6 @@ Requires:	xorg-app-xmessage
 Requires:	xorg-app-xprop
 Requires:	xorg-app-xset
 Requires:	xorg-app-xsetroot
-Suggests:	UPower
 Suggests:	fontconfig
 Suggests:	kde4-decoration-oxygen >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
@@ -207,6 +206,7 @@ KWin - zarządca okien KDE 4.
 Summary:	Plasma - KDE 4 panels and desktop work area
 Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
 Group:		X11/Applications
+Requires:	%{name}-solid = %{version}-%{release}
 Requires:	libdbusmenu-qt >= 0.6.0
 Suggests:	google-gadgets-qt >= 0.10.4
 
@@ -237,6 +237,7 @@ Summary:	Solid - KDE 4 hardware configuration
 Summary(pl.UTF-8):	Solid - konfiguracja sprzętu w KDE 4
 Group:		X11/Applications
 Suggests:	udisks
+Suggests:	upower
 
 %description solid
 Solid - KDE 4 hardware configuration.
