@@ -269,7 +269,7 @@ Requires:	%{name} = %{version}-%{release}
 Obsoletes:	kde4-kdebase-kwrited
 
 %description kwrited
-A kde daeomn that watches for messages from local users sent with
+A kde daemon that watches for messages from local users sent with
 write or wall.
 
 %description kwrited -l pl.UTF-8
