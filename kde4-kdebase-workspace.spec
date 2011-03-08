@@ -47,10 +47,12 @@ BuildRequires:	libcaptury-devel
 BuildRequires:	libdbusmenu-qt-devel >= 0.6.0
 BuildRequires:	libdmtx-devel
 BuildRequires:	libggadget-qt-devel >= 0.11.0
+BuildRequires:	libraw1394-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-compat-devel
 BuildRequires:	libxklavier-devel
 BuildRequires:	lm_sensors-devel
+BuildRequires:	pciutils-devel
 BuildRequires:	phonon-devel >= 4.4.1
 BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-1-gui-devel >= 0.99.0
