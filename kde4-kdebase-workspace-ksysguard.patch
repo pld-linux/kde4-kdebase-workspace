@@ -1,0 +1,10 @@
+--- kdebase-workspace-4.6.2/ksysguard/ksysguardd/modules.h~	2011-04-01 12:52:43.000000000 +0200
++++ kdebase-workspace-4.6.2/ksysguard/ksysguardd/modules.h	2011-04-14 18:00:27.000000000 +0200
+@@ -23,6 +23,7 @@
+ #ifndef KSG_MODULES_H
+ #define KSG_MODULES_H
+ 
++#include "config-ksysguardd.h"
+ #include "Command.h"
+ #include "conf.h"
+ #include "ksysguardd.h"
