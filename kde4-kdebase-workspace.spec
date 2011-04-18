@@ -30,9 +30,10 @@ Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-ksysguard.patch
+Patch3:		%{name}-nm-09-compat.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
-BuildRequires:	NetworkManager-devel >= 0.7.1
+BuildRequires:	NetworkManager-devel >= 0.8.998
 BuildRequires:	OpenGL-devel
 BuildRequires:	akonadi-devel >= 1.3.80
 BuildRequires:	automoc4 >= 0.9.88
@@ -522,6 +523,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 install -d build
