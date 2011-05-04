@@ -1,30 +1,6 @@
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp.foo kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp.foo	2011-03-22 20:02:37.298879915 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp	2011-03-22 20:03:40.423090754 -0500
-@@ -118,16 +118,16 @@ QObject *NMNetworkManager::createNetwork
-     uint deviceType = devIface.deviceType();
-     NMNetworkInterface * createdInterface = 0;
-     switch ( deviceType ) {
--        case DEVICE_TYPE_802_3_ETHERNET:
-+        case NM_DEVICE_TYPE_ETHERNET:
-             createdInterface = new NMWiredNetworkInterface(uni, this, 0); // these are deleted by the frontend manager
-             break;
--        case DEVICE_TYPE_802_11_WIRELESS:
-+        case NM_DEVICE_TYPE_WIFI:
-             createdInterface = new NMWirelessNetworkInterface(uni, this, 0);
-             break;
--        case DEVICE_TYPE_GSM:
-+        case 3:
-             createdInterface = new NMGsmNetworkInterface(uni, this, 0);
-             break;
--        case DEVICE_TYPE_CDMA:
-+        case 4:
-             createdInterface = new NMCdmaNetworkInterface(uni, this, 0);
-             break;
-             /*
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml.compat	2011-03-22 22:37:57.592360205 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml	2011-03-22 22:38:02.782295329 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-active-connection.xml	2011-04-30 08:39:45.504050737 +0200
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8" ?>
  
@@ -34,9 +10,33 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <property name="ServiceName" type="s" access="read">
        <tp:docstring>The D-Bus service name providing this connection.</tp:docstring>
      </property>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device.xml.compat	2011-03-22 22:44:02.289800865 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device.xml	2011-03-22 22:44:08.398724494 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml	2011-04-30 08:39:45.541050273 +0200
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+ 
+ <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+-  <interface name="org.freedesktop.NetworkManager.Device.Wired">
++  <interface name="org.freedesktop.NetworkManagerCompat.Device.Wired">
+ 
+     <property name="HwAddress" type="s" access="read">
+       <tp:docstring>
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml	2011-04-30 08:39:45.545050225 +0200
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+ 
+ <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+-  <interface name="org.freedesktop.NetworkManager.Device.Wireless">
++  <interface name="org.freedesktop.NetworkManagerCompat.Device.Wireless">
+     <method name="GetAccessPoints">
+       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_device_get_access_points"/>
+       <arg name="access_points" type="ao" direction="out">
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-device.xml	2011-04-30 08:39:45.509050673 +0200
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8" ?>
  
@@ -46,9 +46,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <property name="Udi" type="s" access="read">
        <tp:docstring>
          Unique Device Identifier.
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml.compat	2011-03-22 21:21:03.447044965 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml	2011-03-22 21:21:13.615917837 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-exported-connection.xml	2011-04-30 08:39:45.515050599 +0200
 @@ -2,7 +2,7 @@
  
  <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
@@ -67,9 +67,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
          <tp:docstring>
              Secrets have a separate interface so that they can be locked down.
          </tp:docstring>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml.compat	2011-03-22 22:39:58.308851042 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml	2011-03-22 22:40:03.794782464 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager-client.xml	2011-04-30 08:39:45.519050549 +0200
 @@ -13,7 +13,7 @@ object.  dbus-glib generates the same bo
  -->
  
@@ -79,9 +79,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <method name="GetDevices">
        <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_manager_get_devices"/>
        <arg name="devices" type="ao" direction="out"/>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml.compat	2011-03-22 22:40:35.208389741 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml	2011-03-22 22:40:41.365312768 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-manager.xml	2011-04-30 08:39:45.522050512 +0200
 @@ -8,7 +8,7 @@
  -->
  
@@ -91,9 +91,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <method name="GetDevices">
        <tp:docstring>
          Get the list of network devices.
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml.compat	2011-03-22 21:27:09.861464155 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml	2011-03-22 21:28:04.230784445 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings-connection.xml	2011-04-30 08:39:45.524050486 +0200
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8"?>
  <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
@@ -112,10 +112,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <method name="GetSecrets">
        <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_connection_settings_get_secrets"/>
        <annotation name="org.freedesktop.DBus.GLib.Async" value=""/>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-system.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings-system.xml
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml.compat	2011-03-22 21:27:55.513893420 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml	2011-03-22 21:28:01.964812774 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-settings.xml	2011-04-30 08:39:45.525050473 +0200
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8" ?>
  
@@ -125,9 +124,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <tp:docstring>
        The NetworkManagerSettings interface is provided by the service which provides connections to NetworkManager.
      </tp:docstring>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml.compat	2011-03-22 22:38:16.725121014 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml	2011-03-22 22:38:27.426987227 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/introspection/nm-vpn-connection.xml	2011-04-30 08:39:45.527050449 +0200
 @@ -1,7 +1,7 @@
  <?xml version="1.0" encoding="UTF-8" ?>
  
@@ -146,9 +145,21 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-
      <tp:docstring>
        Represents an active connection to a Virtual Private Network.
      </tp:docstring>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-deviceinterface.h.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-deviceinterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-deviceinterface.h.compat	2011-03-22 22:45:42.681545791 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-deviceinterface.h	2011-03-22 22:45:57.396361835 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h	2011-04-30 08:39:45.543050249 +0200
+@@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerDevice
+     Q_OBJECT
+ public:
+     static inline const char *staticInterfaceName()
+-    { return "org.freedesktop.NetworkManager.Device.Wired"; }
++    { return "org.freedesktop.NetworkManagerCompat.Device.Wired"; }
+ 
+ public:
+     OrgFreedesktopNetworkManagerDeviceWiredInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-deviceinterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-deviceinterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-deviceinterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-deviceinterface.h	2011-04-30 08:39:45.529050425 +0200
 @@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerDevice
      Q_OBJECT
  public:
@@ -158,9 +169,21 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-deviceinterfac
  
  public:
      OrgFreedesktopNetworkManagerDeviceInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h.compat	2011-03-22 22:35:56.539873577 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h	2011-03-22 22:47:32.353174713 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h	2011-04-30 08:39:45.547050199 +0200
+@@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerDevice
+     Q_OBJECT
+ public:
+     static inline const char *staticInterfaceName()
+-    { return "org.freedesktop.NetworkManager.Device.Wireless"; }
++    { return "org.freedesktop.NetworkManagerCompat.Device.Wireless"; }
+ 
+ public:
+     OrgFreedesktopNetworkManagerDeviceWirelessInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-exported-connectioninterface.h	2011-04-30 08:39:45.531050399 +0200
 @@ -31,7 +31,7 @@ class OrgFreedesktopNetworkManagerSettin
      Q_OBJECT
  public:
@@ -179,9 +202,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-exported-conne
  
  public:
      OrgFreedesktopNetworkManagerSettingsConnectionSecretsInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h.compat	2011-03-22 22:42:14.897143461 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h	2011-03-22 22:42:22.576047460 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-manager-clientinterface.h	2011-04-30 08:39:45.533050373 +0200
 @@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerInterf
      Q_OBJECT
  public:
@@ -191,9 +214,9 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-manager-client
  
  public:
      OrgFreedesktopNetworkManagerInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h.compat	2011-03-22 22:39:22.821294703 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h	2011-03-22 22:39:28.974217781 -0500
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h.nm-09-compat	2011-02-25 22:54:49.000000000 +0100
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/dbus/nm-vpn-connectioninterface.h	2011-04-30 08:39:45.535050349 +0200
 @@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerVPNCon
      Q_OBJECT
  public:
@@ -203,10 +226,18 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-vpn-connection
  
  public:
      OrgFreedesktopNetworkManagerVPNConnectionInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp.compat	2011-03-22 22:48:32.189426653 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp	2011-03-22 22:48:52.074178063 -0500
-@@ -31,12 +31,12 @@ along with this program.  If not, see <h
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.cpp.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.cpp
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.cpp.nm-09-compat	2011-04-01 12:52:43.000000000 +0200
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.cpp	2011-04-30 08:46:01.279352899 +0200
+@@ -21,7 +21,6 @@ along with this program.  If not, see <h
+ #include "manager_p.h"
+ 
+ #include <KDebug>
+-#include <NetworkManager.h>
+ 
+ #include "dbus/nm-deviceinterface.h"
+ #include "networkmanagerdefinitions.h"
+@@ -31,12 +30,12 @@ along with this program.  If not, see <h
  #include "networkcdmainterface.h"
  
  const QString NMNetworkManager::DBUS_SERVICE(QString::fromLatin1("org.freedesktop.NetworkManager"));
@@ -221,51 +252,66 @@ diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/manager.cpp.compat kde
  {
      kDebug(1441) << NMNetworkManager::DBUS_SERVICE;
  }
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml.compat	2011-03-23 10:58:34.591823501 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-ethernet.xml	2011-03-23 10:58:39.481762370 -0500
-@@ -1,7 +1,7 @@
- <?xml version="1.0" encoding="UTF-8" ?>
+@@ -118,16 +117,16 @@ QObject *NMNetworkManager::createNetwork
+     uint deviceType = devIface.deviceType();
+     NMNetworkInterface * createdInterface = 0;
+     switch ( deviceType ) {
+-        case DEVICE_TYPE_802_3_ETHERNET:
++        case NM_DEVICE_TYPE_ETHERNET:
+             createdInterface = new NMWiredNetworkInterface(uni, this, 0); // these are deleted by the frontend manager
+             break;
+-        case DEVICE_TYPE_802_11_WIRELESS:
++        case NM_DEVICE_TYPE_WIFI:
+             createdInterface = new NMWirelessNetworkInterface(uni, this, 0);
+             break;
+-        case DEVICE_TYPE_GSM:
++        case NM_DEVICE_TYPE_GSM:
+             createdInterface = new NMGsmNetworkInterface(uni, this, 0);
+             break;
+-        case DEVICE_TYPE_CDMA:
++        case NM_DEVICE_TYPE_CDMA:
+             createdInterface = new NMCdmaNetworkInterface(uni, this, 0);
+             break;
+             /*
+diff -up kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.h.nm-09-compat kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.h
+--- kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.h.nm-09-compat	2011-04-30 08:41:40.275615895 +0200
++++ kdebase-workspace-4.6.2/solid/networkmanager-0.7/manager.h	2011-04-30 08:42:18.320140272 +0200
+@@ -25,6 +25,27 @@ along with this program.  If not, see <h
+ #include <QDBusObjectPath>
+ #include <kdemacros.h>
  
- <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
--  <interface name="org.freedesktop.NetworkManager.Device.Wired">
-+  <interface name="org.freedesktop.NetworkManagerCompat.Device.Wired">
++// for 0.8 compatibility reason
++typedef enum NMState
++{
++    NM_STATE_UNKNOWN = 0,
++    NM_STATE_ASLEEP,
++    NM_STATE_CONNECTING,
++    NM_STATE_CONNECTED,
++    NM_STATE_DISCONNECTED
++} NMState;
++
++typedef enum NMDeviceType
++{
++    NM_DEVICE_TYPE_UNKNOWN = 0,
++    NM_DEVICE_TYPE_ETHERNET,
++    NM_DEVICE_TYPE_WIFI,
++    NM_DEVICE_TYPE_GSM,
++    NM_DEVICE_TYPE_CDMA,
++    NM_DEVICE_TYPE_BT,  /* Bluetooth */
++    NM_DEVICE_TYPE_OLPC_MESH
++} NMDeviceType;
++
+ class NMNetworkInterface;
+ class NMNetworkManagerPrivate;
  
-     <property name="HwAddress" type="s" access="read">
-       <tp:docstring>
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h.compat kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h.compat	2011-03-23 10:58:48.815645681 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-ethernetinterface.h	2011-03-23 10:58:53.599585872 -0500
-@@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerDevice
-     Q_OBJECT
- public:
-     static inline const char *staticInterfaceName()
--    { return "org.freedesktop.NetworkManager.Device.Wired"; }
-+    { return "org.freedesktop.NetworkManagerCompat.Device.Wired"; }
+--- kdebase-workspace-4.6.3/solid/CMakeLists.txt~	2011-05-04 13:56:34.371290192 +0200
++++ kdebase-workspace-4.6.3/solid/CMakeLists.txt	2011-05-04 14:07:07.630285468 +0200
+@@ -19,7 +19,7 @@
+     add_subdirectory(networkmanager-0.6)
+   endif (NM_0_6)
  
- public:
-     OrgFreedesktopNetworkManagerDeviceWiredInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml.bar kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml.bar	2011-03-23 11:00:13.977581010 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/introspection/nm-device-wifi.xml	2011-03-23 11:00:19.949506349 -0500
-@@ -1,7 +1,7 @@
- <?xml version="1.0" encoding="UTF-8" ?>
- 
- <node name="/" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
--  <interface name="org.freedesktop.NetworkManager.Device.Wireless">
-+  <interface name="org.freedesktop.NetworkManagerCompat.Device.Wireless">
-     <method name="GetAccessPoints">
-       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_device_get_access_points"/>
-       <arg name="access_points" type="ao" direction="out">
-diff -up kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h.bar kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h
---- kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h.bar	2011-03-23 11:00:32.229352829 -0500
-+++ kdebase-workspace-4.6.1/solid/networkmanager-0.7/dbus/nm-device-wifiinterface.h	2011-03-23 11:00:38.372276033 -0500
-@@ -28,7 +28,7 @@ class OrgFreedesktopNetworkManagerDevice
-     Q_OBJECT
- public:
-     static inline const char *staticInterfaceName()
--    { return "org.freedesktop.NetworkManager.Device.Wireless"; }
-+    { return "org.freedesktop.NetworkManagerCompat.Device.Wireless"; }
- 
- public:
-     OrgFreedesktopNetworkManagerDeviceWirelessInterface(const QString &service, const QString &path, const QDBusConnection &connection, QObject *parent = 0);
+-  macro_ensure_version_range("0.7.0" ${NETWORKMANAGER_VERSION} "0.9.0" NM_0_7)
++  macro_ensure_version_range("0.7.0" "0.8.0" "0.9.0" NM_0_7)
+   if (NM_0_7)
+     message(STATUS "Will build networkmanager-0.7")
+     set(HAVE_NETWORKMANAGER TRUE)

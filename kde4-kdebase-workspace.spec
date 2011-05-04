@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.6.2
-Release:	3
+Version:	4.6.3
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	c544190b7f145df58f0e0bad5b46e0b3
+# Source0-md5:	1e481727c3a5c2e4b751b9c56bd56583
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -29,11 +29,11 @@ Source16:	%{name}-session
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
-Patch2:		%{name}-ksysguard.patch
-Patch3:		%{name}-nm-09-compat.patch
+Patch2:		%{name}-nm-09-compat.patch
+Patch3:		kdebase-workspace-4.6.2-kwin-opengltest-kde-bug-23270942.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
-BuildRequires:	NetworkManager-devel >= 0.8.998
+BuildRequires:	NetworkManager-devel >= 0.8.999
 BuildRequires:	OpenGL-devel
 BuildRequires:	akonadi-devel >= 1.3.80
 BuildRequires:	automoc4 >= 0.9.88
