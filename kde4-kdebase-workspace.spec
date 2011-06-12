@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.6.3
-Release:	2
+Version:	4.6.4
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	1e481727c3a5c2e4b751b9c56bd56583
+# Source0-md5:	eeb5a8d65b74adaefbe86cadb4bf8ede
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -49,6 +49,7 @@ BuildRequires:	libcaptury-devel
 BuildRequires:	libdbusmenu-qt-devel >= 0.6.0
 BuildRequires:	libdmtx-devel
 BuildRequires:	libggadget-qt-devel >= 0.11.0
+BuildRequires:	libqalculate-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libtirpc-devel
 BuildRequires:	libusb-compat-devel
