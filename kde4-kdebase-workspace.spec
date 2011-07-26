@@ -1,18 +1,18 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
-%define		orgname		kdebase-workspace
+%define		orgname		kde-workspace
 %define		_state		stable
 %define		qtver		4.7.3
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.6.5
-Release:	1
+Version:	4.7.0
+Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	105faa1f1a0c4d79afec08a2dc7b5e0d
+# Source0-md5:	92d2623901816f9b12681a34bd2cea22
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -30,7 +30,6 @@ Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-nm-09-compat.patch
-Patch3:		kdebase-workspace-4.6.2-kwin-opengltest-kde-bug-23270942.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.8.999
@@ -279,17 +278,6 @@ write or wall.
 Demon KDE, który monitoruje wiadomości jakie lokalni użytkownicy
 wysyłają za pomocą komend write lub wall.
 
-%package wallpapers
-Summary:	KDE 4 wallpapers
-Summary(pl.UTF-8):	Tapety KDE 4
-Group:		X11/Applications
-
-%description wallpapers
-KDE 4 wallpapers.
-
-%description wallpapers -l pl.UTF-8
-Tapety KDE 4.
-
 %package -n kde4-kdm
 Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
@@ -523,8 +511,8 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 #%%patch100 -p1
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
+# what to do with this?
+# %patch2 -p1
 
 %build
 install -d build
@@ -566,7 +554,6 @@ install %{SOURCE5}	$RPM_BUILD_ROOT/etc/sysconfig/kdm
 install %{SOURCE11}	$RPM_BUILD_ROOT/etc/X11/kdm/Xsession
 
 install %{SOURCE6}	$RPM_BUILD_ROOT%{_datadir}/apps/kdm/pics/pldlogo.png
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_datadir}/wallpapers/kdm_pld.png
 
 install %{SOURCE16} $RPM_BUILD_ROOT%{_bindir}/kde4-session
 install %{SOURCE15} $RPM_BUILD_ROOT/etc/X11/sessions/kde4.desktop
@@ -659,6 +646,7 @@ fi
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
 %attr(755,root,root) %{_bindir}/oxygen-demo
 %attr(755,root,root) %{_bindir}/oxygen-settings
+%attr(755,root,root) %{_bindir}/oxygen-shadow-demo
 #%attr(755,root,root) %{_bindir}/setscheduler
 %attr(755,root,root) %{_libdir}/libkdecorations.so.*
 %attr(755,root,root) %{_libdir}/libksignalplotter.so.*
@@ -690,7 +678,7 @@ fi
 #%{_datadir}/kde4/services/settings-input-actions.desktop
 
 # remotewidgets
-#%attr(755,root,root) %{_libdir}/kde4/kcm_remotewidgets.so
+%attr(755,root,root) %{_bindir}/remote-widgets-browser
 #%{_datadir}/kde4/services/remotewidgets.desktop
 
 # autostart
@@ -725,6 +713,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kded_khotkeys.so
 #%attr(755,root,root) %{_libdir}/kconf_update_bin/khotkeys_update
 %attr(755,root,root) %{_libdir}/kconf_update_bin/krdb_clearlibrarypath
+%{_datadir}/apps/kcmkeyboard
 %{_datadir}/apps/kcmkeys
 #%{_datadir}/apps/kconf_update/khotkeys_32b1_update.upd
 %{_datadir}/apps/khotkeys
@@ -749,6 +738,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkdeinit4_krunner.so
 #%attr(755,root,root) %{_libdir}/kde4/kcm_krunner_shell.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_krunner_kill.so
+%attr(755,root,root) %{_libdir}/kde4/krunner_activities.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_bookmarksrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_calculatorrunner.so
 %attr(755,root,root) %{_libdir}/kde4/krunner_kill.so
@@ -936,10 +926,12 @@ fi
 
 # ion
 %attr(755,root,root) %{_libdir}/kde4/ion_bbcukmet.so
+%attr(755,root,root) %{_libdir}/kde4/ion_debianweather.so
 %attr(755,root,root) %{_libdir}/kde4/ion_envcan.so
 %attr(755,root,root) %{_libdir}/kde4/ion_noaa.so
 %attr(755,root,root) %{_libdir}/kde4/ion_wettercom.so
 %{_datadir}/kde4/services/ion-bbcukmet.desktop
+%{_datadir}/kde4/services/ion-debianweather.desktop
 %{_datadir}/kde4/services/ion-envcan.desktop
 %{_datadir}/kde4/services/ion-noaa.desktop
 %{_datadir}/kde4/services/ion-wettercom.desktop
@@ -1041,6 +1033,7 @@ fi
 %{_datadir}/config/background.knsrc
 %{_datadir}/config/colorschemes.knsrc
 %{_datadir}/config/wallpaper.knsrc
+%{_datadir}/config/xcursor.knsrc
 %{_iconsdir}/*/*/apps/kcmkwm.png
 %{_iconsdir}/*/*/apps/computer.png
 %{_iconsdir}/*/*/apps/daemon.png
@@ -1072,6 +1065,9 @@ fi
 %{_datadir}/config.kcfg/plasma-shell-desktop.kcfg
 %{_datadir}/config.kcfg/freespacenotifier.kcfg
 %{_datadir}/apps/freespacenotifier
+
+%{_datadir}/wallpapers/stripes.png
+%{_datadir}/wallpapers/stripes.png.desktop
 
 #%files -n PolicyKit-kde
 #%defattr(644,root,root,755)
@@ -1115,7 +1111,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
-%{_libdir}/cmake/KDE4Workspace-%{version}*
+%{_libdir}/cmake/KDE4Workspace
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
 %{_includedir}/plasma/weather
@@ -1254,31 +1250,32 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_opengl_test
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
 %dir %{_datadir}/apps/kwin
+%{_datadir}/apps/kwin/*.glsl
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
 %{_datadir}/apps/kwin/circle-edgy.png
 %{_datadir}/apps/kwin/circle.png
-%{_datadir}/apps/kwin/snowflake.png
+#%{_datadir}/apps/kwin/snowflake.png
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
 %{_datadir}/apps/kwin/explosion-end.png
 %{_datadir}/apps/kwin/explosion-start.png
 %{_datadir}/apps/kwin/explosion.frag
-%{_datadir}/apps/kwin/explosion.vert
+#%{_datadir}/apps/kwin/explosion.vert
 %{_datadir}/apps/kwin/invert.frag
-%{_datadir}/apps/kwin/invert.vert
+#%{_datadir}/apps/kwin/invert.vert
 %{_datadir}/apps/kwin/kwin.notifyrc
 %{_datadir}/apps/kwin/lookingglass.frag
-%{_datadir}/apps/kwin/lookingglass.vert
-%{_datadir}/apps/kwin/shadow-texture.png
-%{_datadir}/apps/kwin/sharpen.frag
-%{_datadir}/apps/kwin/sharpen.vert
+#%{_datadir}/apps/kwin/lookingglass.vert
+#%{_datadir}/apps/kwin/shadow-texture.png
+#%{_datadir}/apps/kwin/sharpen.frag
+#%{_datadir}/apps/kwin/sharpen.vert
 %{_datadir}/apps/kwin/trackmouse.png
 %{_datadir}/apps/kwin/cubecap.png
 %{_datadir}/apps/kwin/cylinder.frag
 %{_datadir}/apps/kwin/cylinder.vert
 %{_datadir}/apps/kwin/sphere.vert
-%{_datadir}/apps/kwin/snow.frag
-%{_datadir}/apps/kwin/snow.vert
+#%{_datadir}/apps/kwin/snow.frag
+#%{_datadir}/apps/kwin/snow.vert
 %{_datadir}/apps/kwin/tabstrip.desktop
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
@@ -1314,16 +1311,17 @@ fi
 %{_datadir}/kde4/services/kwin/minimizeanimation.desktop
 %{_datadir}/kde4/services/kwin/mousemark.desktop
 %{_datadir}/kde4/services/kwin/mousemark_config.desktop
+%{_datadir}/kde4/services/kwin/outline.desktop
 %{_datadir}/kde4/services/kwin/presentwindows.desktop
 %{_datadir}/kde4/services/kwin/presentwindows_config.desktop
 %{_datadir}/kde4/services/kwin/resize.desktop
 %{_datadir}/kde4/services/kwin/resize_config.desktop
 %{_datadir}/kde4/services/kwin/scalein.desktop
 %{_datadir}/kde4/services/kwin/screenshot.desktop
-%{_datadir}/kde4/services/kwin/shadow.desktop
-%{_datadir}/kde4/services/kwin/shadow_config.desktop
-%{_datadir}/kde4/services/kwin/sharpen.desktop
-%{_datadir}/kde4/services/kwin/sharpen_config.desktop
+#%{_datadir}/kde4/services/kwin/shadow.desktop
+#%{_datadir}/kde4/services/kwin/shadow_config.desktop
+#%{_datadir}/kde4/services/kwin/sharpen.desktop
+#%{_datadir}/kde4/services/kwin/sharpen_config.desktop
 %{_datadir}/kde4/services/kwin/showfps.desktop
 %{_datadir}/kde4/services/kwin/showpaint.desktop
 %{_datadir}/kde4/services/kwin/slide.desktop
@@ -1346,8 +1344,8 @@ fi
 %{_datadir}/kde4/services/kwinrules.desktop
 %{_datadir}/kde4/services/kwin/flipswitch.desktop
 %{_datadir}/kde4/services/kwin/flipswitch_config.desktop
-%{_datadir}/kde4/services/kwin/snow.desktop
-%{_datadir}/kde4/services/kwin/snow_config.desktop
+#%{_datadir}/kde4/services/kwin/snow.desktop
+#%{_datadir}/kde4/services/kwin/snow_config.desktop
 %{_datadir}/kde4/services/kwin/showfps_config.desktop
 %{_datadir}/kde4/services/kwin/wobblywindows.desktop
 %{_datadir}/kde4/services/kwin/wobblywindows_config.desktop
@@ -1379,6 +1377,7 @@ fi
 %{_datadir}/apps/kconf_update/kwin_focus2.upd
 %{_datadir}/apps/kconf_update/kwin_fsp_workarounds_1.upd
 %{_datadir}/apps/kconf_update/kwin_on_off.upd
+%{_datadir}/apps/kconf_update/kwin_remove_effects.upd
 %{_datadir}/apps/kconf_update/kwin_window_shortcuts.sh
 %{_datadir}/apps/kconf_update/kwin_window_shortcuts.upd
 %{_datadir}/apps/kconf_update/kwiniconify.upd
@@ -1428,6 +1427,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_pager.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_quicklaunch.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_searchbox.so
+%attr(755,root,root) %{_libdir}/kde4/plasma_applet_showActivityManager.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_simplelauncher.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_systemtray.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_tasks.so
@@ -1522,6 +1522,12 @@ fi
 %dir %{_datadir}/apps/plasma_scriptengine_ruby
 %{_datadir}/apps/plasma_scriptengine_ruby/applet.rb
 %{_datadir}/apps/plasma_scriptengine_ruby/data_engine.rb
+%{_datadir}/kde4/services/plasma-applet-org.kde.showActivityManager.desktop
+%{_datadir}/kde4/services/plasma-dataengine-share-addon-imgsusepasteorg.desktop
+%{_datadir}/kde4/services/plasma-dataengine-share-addon-kde.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-desktop.SaL.desktop
+%{_datadir}/kde4/services/plasma-layout-org.kde.plasma-desktop.desktopIcons.desktop
+%{_datadir}/kde4/services/plasma-runner-activityrunner.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-applet.desktop
 %{_datadir}/kde4/services/plasma-scriptengine-ruby-dataengine.desktop
 %dir %{_datadir}/apps/plasma/services
@@ -1537,7 +1543,9 @@ fi
 %{_datadir}/apps/plasma/services/searchlaunch.operations
 %{_datadir}/apps/plasma/services/statusnotifieritem.operations
 %dir %{_datadir}/apps/plasma/shareprovider
+%{_datadir}/apps/plasma/shareprovider/imgsusepasteorg
 %{_datadir}/apps/plasma/shareprovider/imgur
+%{_datadir}/apps/plasma/shareprovider/kde
 %{_datadir}/apps/plasma/shareprovider/pastebincom
 %{_datadir}/apps/plasma/shareprovider/pasteopensuseorg
 %{_datadir}/apps/plasma/shareprovider/pasteubuntucom
@@ -1710,7 +1718,7 @@ fi
 #%attr(755,root,root) %{_libdir}/kde4/solid_hal_power.so
 #%attr(755,root,root) %{_libdir}/kde4/solid_bluez.so
 %attr(755,root,root) %{_libdir}/kde4/solid_wicd.so
-%attr(755,root,root) %{_libdir}/kde4/solid_lirc.so
+#%attr(755,root,root) %{_libdir}/kde4/solid_lirc.so
 %dir %{_datadir}/apps/solid
 %dir %{_datadir}/apps/solid/actions
 %dir %{_datadir}/apps/solid/devices
@@ -1727,14 +1735,14 @@ fi
 %{_datadir}/kde4/servicetypes/solidnetworkmanager.desktop
 #%{_datadir}/kde4/servicetypes/solidpowermanager.desktop
 %{_datadir}/kde4/servicetypes/solid-device-type.desktop
-%{_datadir}/kde4/servicetypes/solidremotecontrolmanager.desktop
+#%{_datadir}/kde4/servicetypes/solidremotecontrolmanager.desktop
 %dir %{_datadir}/apps/kcmsolidactions
 %{_datadir}/apps/kcmsolidactions/solid-action-template.desktop
 
 %files networkmanager
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager07.so
-%{_iconsdir}/*/*x*/apps/networkmanager.png
+#%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager07.so
+#%{_iconsdir}/*/*x*/apps/networkmanager.png
 
 %files kwrited
 %defattr(644,root,root,755)
@@ -1742,26 +1750,6 @@ fi
 %{_datadir}/kde4/services/kded/kwrited.desktop
 %dir %{_datadir}/apps/kwrited
 %{_datadir}/apps/kwrited/kwrited.notifyrc
-
-%files wallpapers
-%defattr(644,root,root,755)
-%{_datadir}/wallpapers/Air
-%{_datadir}/wallpapers/Aghi
-%{_datadir}/wallpapers/Evening
-%{_datadir}/wallpapers/Fields_of_Peace
-%{_datadir}/wallpapers/Finally_Summer_in_Germany
-%{_datadir}/wallpapers/Fresh_Morning
-%{_datadir}/wallpapers/Horos
-%{_datadir}/wallpapers/Media_Life
-%{_datadir}/wallpapers/Plasmalicious
-%{_datadir}/wallpapers/Quadros
-%{_datadir}/wallpapers/Red_Leaf
-%{_datadir}/wallpapers/Autumn
-%{_datadir}/wallpapers/Blue_Wood
-%{_datadir}/wallpapers/Grass
-%{_datadir}/wallpapers/Hanami
-%{_datadir}/wallpapers/stripes.png
-%{_datadir}/wallpapers/stripes.png.desktop
 
 %files -n kde4-kdm
 %defattr(644,root,root,755)
@@ -1795,7 +1783,6 @@ fi
 %{_datadir}/apps/kdm/*
 %{_datadir}/config/kdm.knsrc
 %{_datadir}/kde4/services/kdm.desktop
-%{_datadir}/wallpapers/kdm_pld.png
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkdm.service
 %{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm

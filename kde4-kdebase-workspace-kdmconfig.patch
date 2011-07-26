@@ -28,8 +28,8 @@ diff -Nru kdebase-workspace-4.3.73svn1040395/kcontrol/fonts/fonts.cpp kdebase-wo
  #endif
  
      m_userPixDir = config->group("X-*-Greeter").readEntry("FaceDir",
--            KStandardDirs::installPath("data") + "kdm/faces") + '/';
-+            "/etc/X11/kdm/faces" ) + '/';
+-            QString(KStandardDirs::installPath("data") + "kdm/faces" + '/'));
++            QString("/etc/X11/kdm/faces/"));
  
      if (!getpwnam("nobody"))
          KMessageBox::sorry(this, i18n(
