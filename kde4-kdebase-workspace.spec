@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.7.0
+Version:	4.7.1
 Release:	0.1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	92d2623901816f9b12681a34bd2cea22
+# Source0-md5:	128738157adc30030aa590f90109dbb9
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1742,6 +1742,7 @@ fi
 %files networkmanager
 %defattr(644,root,root,755)
 #%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager07.so
+%attr(755,root,root) %{_libdir}/kde4/solid_networkmanager09_fake.so
 #%{_iconsdir}/*/*x*/apps/networkmanager.png
 
 %files kwrited
