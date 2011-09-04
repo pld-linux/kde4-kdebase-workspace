@@ -211,6 +211,7 @@ Summary:	Plasma - KDE 4 panels and desktop work area
 Summary(pl.UTF-8):	Plasma - panele i pulpit KDE 4
 Group:		X11/Applications
 Requires:	%{name}-solid = %{version}-%{release}
+Requires:	%{name}-ksysguard = %{version}-%{release}
 Requires:	libdbusmenu-qt >= 0.6.0
 Suggests:	google-gadgets-qt >= 0.10.4
 
