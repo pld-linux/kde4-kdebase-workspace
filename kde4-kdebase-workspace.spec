@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.7.1
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -30,6 +30,7 @@ Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-nm-09-compat.patch
+Patch3:		%{name}-performance-bugfix.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	NetworkManager-devel >= 0.8.999
@@ -514,6 +515,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch1 -p1
 # what to do with this?
 # %patch2 -p1
+%patch3 -p1
 
 %build
 install -d build
