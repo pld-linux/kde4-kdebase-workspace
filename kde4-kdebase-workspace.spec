@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.7.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -96,6 +96,7 @@ Obsoletes:	kdebase4-workspace
 Conflicts:	kdebase-core
 Conflicts:	kdebase-desktop
 Conflicts:	kdebase4-workspace
+Conflicts:	kde4-kdebase-workspace-wallpapers < 4.6.99
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
