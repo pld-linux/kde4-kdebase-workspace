@@ -1,7 +1,6 @@
 [Unit]
 Description=KDE Display Manager
-Requires=dev-tty9.device
-After=dev-tty9.device systemd-user-sessions.service
+After=systemd-user-sessions.service
 
 [Service]
 ExecStart=/usr/bin/kdm -nodaemon
