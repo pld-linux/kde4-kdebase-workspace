@@ -26,6 +26,7 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
+Source17:	kdm.service
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
@@ -307,6 +308,14 @@ Also provides graphical login method.
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
 
+%package -n kde4-kdm-systemd
+Summary:	systemd unit for KDE Display Manager
+Group:		X11/Applications
+Requires:	kde4-kdm = %{version}-%{release}
+
+%description -n kde4-kdm-systemd
+systemd unit for KDE Display Manager.
+
 %package -n kde4-decoration-aurorae
 Summary:	KDE Window Decoration Engine - Aurorae
 Summary(pl.UTF-8):	Silnik Dekoracji okien dla KDE - Aurorae
@@ -567,6 +576,10 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
  # don't clean .py files!
 
+# systemd
+install -d $RPM_BUILD_ROOT/%{systemdunitdir}
+cp -p %{SOURCE17} $RPM_BUILD_ROOT/%{systemdunitdir}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -621,6 +634,15 @@ fi
 if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
+
+%post -n kde4-kdm-systemd
+%systemd_post kdm.service
+
+%preun -n kde4-kdm-systemd
+%systemd_preun kdm.service
+
+%postun -n kde4-kdm-systemd
+%systemd_reload
 
 %files
 %defattr(644,root,root,755)
@@ -1787,6 +1809,10 @@ fi
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkdm.service
 %{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm
+
+%files -n kde4-kdm-systemd
+%defattr(644,root,root,755)
+%{systemdunitdir}/kdm.service
 
 %files svg-icons
 %defattr(644,root,root,755)
