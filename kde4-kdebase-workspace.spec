@@ -2,17 +2,17 @@
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kde-workspace
 %define		_state		stable
-%define		qtver		4.7.4
+%define		qtver		4.8.0
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.7.4
-Release:	3
+Version:	4.8.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
-# Source0-md5:	42492b9669b1bb8d549b59223b8732cb
+# Source0-md5:	4a80d477c659bc1fed4c1829065db01b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -42,6 +42,7 @@ BuildRequires:	cmake >= 2.8.0
 BuildRequires:	eet-devel
 BuildRequires:	google-gadgets-qt >= 0.11.0
 BuildRequires:	gpsd-devel
+BuildRequires:	kde4-kactivities-devel >= %{version}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	libcaptury-devel
@@ -666,6 +667,7 @@ fi
 %attr(755,root,root) %{_bindir}/kcminit
 %attr(755,root,root) %{_bindir}/kcminit_startup
 %attr(755,root,root) %{_bindir}/kdostartupconfig4
+%attr(755,root,root) %{_bindir}/ksplashqml
 %attr(755,root,root) %{_bindir}/oxygen-demo
 %attr(755,root,root) %{_bindir}/oxygen-settings
 %attr(755,root,root) %{_bindir}/oxygen-shadow-demo
@@ -677,6 +679,8 @@ fi
 %attr(755,root,root) %{_libdir}/libprocessui.so.*
 %attr(755,root,root) %{_libdir}/libtaskmanager.so.*
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
+%attr(755,root,root) %{_libdir}/libkwinglutils.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkwinglutils.so.?
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libplasmagenericshell.so.*.*.*
@@ -829,8 +833,8 @@ fi
 %attr(755,root,root) %{_bindir}/ksplashx_scale
 %attr(755,root,root) %{_libdir}/kde4/kcm_ksplashthemes.so
 %dir %{_datadir}/apps/ksplash
-%dir %{_datadir}/apps/ksplash/Themes/None
-%{_datadir}/apps/ksplash/Themes/None/Theme.rc
+%{_datadir}/apps/ksplash/Themes/None
+%{_datadir}/apps/ksplash/Themes/Minimalistic
 %{_datadir}/config/ksplash.knsrc
 %{_datadir}/kde4/services/ksplashthememgr.desktop
 %{_iconsdir}/*/*/apps/ksplash.png
@@ -850,6 +854,7 @@ fi
 %attr(755,root,root) %{_bindir}/systemsettings
 %attr(755,root,root) %{_libdir}/libsystemsettingsview.so.?
 %{_datadir}/apps/systemsettings
+%{_datadir}/applications/kde4/kdesystemsettings.desktop
 %{_datadir}/kde4/services/lostfoundcategory.desktop
 %{_datadir}/kde4/services/networkinfocategory.desktop
 %{_datadir}/kde4/services/settings-accessibility.desktop
@@ -906,11 +911,11 @@ fi
 
 # powerdevil
 %attr(755,root,root) %{_libdir}/kde4/libexec/backlighthelper
+%attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilactivitiesconfig.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilglobalconfig.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_powerdevilprofilesconfig.so
 %attr(755,root,root) %{_libdir}/kde4/powerdevilbrightnesscontrolaction_config.so
 %attr(755,root,root) %{_libdir}/kde4/powerdevildimdisplayaction_config.so
-%attr(755,root,root) %{_libdir}/kde4/powerdevildisabledesktopeffectsaction_config.so
 %attr(755,root,root) %{_libdir}/kde4/powerdevildpmsaction.so
 %attr(755,root,root) %{_libdir}/kde4/powerdevildpmsaction_config.so
 %attr(755,root,root) %{_libdir}/kde4/powerdevilhandlebuttoneventsaction_config.so
@@ -918,15 +923,19 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/powerdevilsuspendsessionaction_config.so
 %attr(755,root,root) %{_libdir}/libpowerdevilcore.so.0
 %attr(755,root,root) %{_libdir}/libpowerdevilcore.so.*.*
+%attr(755,root,root) %{_libdir}/libpowerdevilconfigcommonprivate.so.4
+%attr(755,root,root) %{_libdir}/libpowerdevilconfigcommonprivate.so.*.*
+%attr(755,root,root) %{_libdir}/libpowerdevilui.so.4
+%attr(755,root,root) %{_libdir}/libpowerdevilui.so.*.*
 %attr(755,root,root) %{_libdir}/libpowerdevilui.so
 /etc/dbus-1/system.d/org.kde.powerdevil.backlighthelper.conf
 %{_datadir}/dbus-1/system-services/org.kde.powerdevil.backlighthelper.service
 %dir %{_datadir}/apps/powerdevil
 %{_datadir}/apps/powerdevil/powerdevil.notifyrc
 %{_datadir}/polkit-1/actions/org.kde.powerdevil.backlighthelper.policy
+%{_datadir}/kde4/services/powerdevilactivitiesconfig.desktop
 %{_datadir}/kde4/services/powerdevilbrightnesscontrolaction.desktop
 %{_datadir}/kde4/services/powerdevildimdisplayaction.desktop
-%{_datadir}/kde4/services/powerdevildisabledesktopeffectsaction.desktop
 %{_datadir}/kde4/services/powerdevildpmsaction.desktop
 %{_datadir}/kde4/services/powerdevilglobalconfig.desktop
 %{_datadir}/kde4/services/powerdevilhandlebuttoneventsaction.desktop
@@ -1047,11 +1056,14 @@ fi
 
 %{_datadir}/apps/kconf_update/kaccel.upd
 %{_datadir}/apps/kconf_update/kwin3_plugin.upd
+%{_datadir}/apps/kconf_update/kwin_remove_delay_focus.upd
+%{_datadir}/apps/kconf_update/kwin_update_tabbox_qml_settings.upd
 %attr(755,root,root) %{_datadir}/apps/kconf_update/convertShortcuts.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/kwin3_plugin.pl
 %attr(755,root,root) %{_datadir}/apps/kconf_update/move_session_config.sh
 %attr(755,root,root) %{_datadir}/apps/kconf_update/on-off_to_true-false.sh
 %attr(755,root,root) %{_datadir}/apps/kconf_update/pluginlibFix.pl
+%attr(755,root,root) %{_datadir}/apps/kconf_update/kwin_remove_delay_focus.sh
 %{_datadir}/config/background.knsrc
 %{_datadir}/config/colorschemes.knsrc
 %{_datadir}/config/wallpaper.knsrc
@@ -1116,6 +1128,7 @@ fi
 %attr(755,root,root) %{_libdir}/libkscreensaver.so
 %attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libkwineffects.so
+%attr(755,root,root) %{_libdir}/libkwinglutils.so
 #%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
 %attr(755,root,root) %{_libdir}/libkworkspace.so
 %attr(755,root,root) %{_libdir}/libksignalplotter.so
@@ -1123,6 +1136,7 @@ fi
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so
 %attr(755,root,root) %{_libdir}/libplasmagenericshell.so
 %attr(755,root,root) %{_libdir}/libpowerdevilcore.so
+%attr(755,root,root) %{_libdir}/libpowerdevilconfigcommonprivate.so
 %attr(755,root,root) %{_libdir}/libprocesscore.so
 %attr(755,root,root) %{_libdir}/libprocessui.so
 %attr(755,root,root) %{_libdir}/libsolidcontrol.so
@@ -1133,6 +1147,7 @@ fi
 %attr(755,root,root) %{_libdir}/liblsofui.so
 #%attr(755,root,root) %{_libdir}/libpolkitkdeprivate.so
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so
+%attr(755,root,root) %{_libdir}/liboxygenstyleconfig.so
 %{_libdir}/cmake/KDE4Workspace
 %{_includedir}/KDE/Plasma/Weather
 %{_includedir}/plasma/geolocation
@@ -1200,6 +1215,7 @@ fi
 %{_datadir}/apps/kfontinst
 %{_datadir}/apps/kfontview
 %{_datadir}/apps/konqsidebartng/virtual_folders/services/fonts.desktop
+%{_datadir}/config/kfontinst.knsrc
 %{_datadir}/kde4/services/ServiceMenus/installfont.desktop
 %{_datadir}/kde4/services/fontinst.desktop
 %{_datadir}/kde4/services/fonts.desktop
@@ -1268,14 +1284,15 @@ fi
 %attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_window_settings
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-add-shortcut-to-menu
 %attr(755,root,root) %{_libdir}/kconf_update_bin/plasma-to-plasma-desktop
+%attr(755,root,root) %{_libdir}/kconf_update_bin/kwin_update_tabbox_qml_settings
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_killer_helper
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_opengl_test
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
 %dir %{_datadir}/apps/kwin
 %{_datadir}/apps/kwin/*.glsl
 %{_datadir}/apps/kwin/DefaultTabBoxLayouts.xml
-%{_datadir}/apps/kwin/circle-edgy.png
-%{_datadir}/apps/kwin/circle.png
+#%{_datadir}/apps/kwin/circle-edgy.png
+#%{_datadir}/apps/kwin/circle.png
 #%{_datadir}/apps/kwin/snowflake.png
 %dir %{_datadir}/apps/kwin/default_rules
 %{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
@@ -1291,6 +1308,7 @@ fi
 #%{_datadir}/apps/kwin/shadow-texture.png
 #%{_datadir}/apps/kwin/sharpen.frag
 #%{_datadir}/apps/kwin/sharpen.vert
+%{_datadir}/apps/kwin/tabbox
 %{_datadir}/apps/kwin/trackmouse.png
 %{_datadir}/apps/kwin/cubecap.png
 %{_datadir}/apps/kwin/cylinder.frag
@@ -1299,6 +1317,7 @@ fi
 #%{_datadir}/apps/kwin/snow.frag
 #%{_datadir}/apps/kwin/snow.vert
 %{_datadir}/apps/kwin/tabstrip.desktop
+%{_datadir}/apps/kwin/kcm_kwintabbox
 %{_datadir}/config.kcfg/kwin.kcfg
 %{_datadir}/dbus-1/interfaces/org.kde.KWin.xml
 %dir %{_datadir}/kde4/services/kwin
@@ -1325,6 +1344,7 @@ fi
 %{_datadir}/kde4/services/kwin/invert.desktop
 %{_datadir}/kde4/services/kwin/invert_config.desktop
 %{_datadir}/kde4/services/kwin/login.desktop
+%{_datadir}/kde4/services/kwin/login_config.desktop
 %{_datadir}/kde4/services/kwin/logout.desktop
 %{_datadir}/kde4/services/kwin/lookingglass.desktop
 %{_datadir}/kde4/services/kwin/lookingglass_config.desktop
@@ -1415,15 +1435,10 @@ fi
 %{_iconsdir}/oxygen/32x32/apps/kwin.png
 %{_iconsdir}/oxygen/48x48/apps/kwin.png
 %{_iconsdir}/Oxygen_Black
-%{_iconsdir}/Oxygen_Black_Big
 %{_iconsdir}/Oxygen_Blue
-%{_iconsdir}/Oxygen_Blue_Big
 %{_iconsdir}/Oxygen_White
-%{_iconsdir}/Oxygen_White_Big
 %{_iconsdir}/Oxygen_Yellow
-%{_iconsdir}/Oxygen_Yellow_Big
 %{_iconsdir}/Oxygen_Zion
-%{_iconsdir}/Oxygen_Zion_Big
 
 %files plasma
 %defattr(644,root,root,755)
@@ -1441,7 +1456,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_battery.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_clock.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_currentappcontrol.so
-%attr(755,root,root) %{_libdir}/kde4/plasma_applet_devicenotifier.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_dig_clock.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_icon.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_applet_launcher.so
@@ -1527,7 +1541,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_desktoptoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_nettoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_paneltoolbox.so
-#%{_datadir}/apps/plasma/plasmoids
+%{_datadir}/apps/plasma/plasmoids/notifier
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so.*.*.*
@@ -1556,10 +1570,12 @@ fi
 %{_datadir}/apps/plasma/services/activities.operations
 %{_datadir}/apps/plasma/services/applicationjobs.operations
 %{_datadir}/apps/plasma/services/apps.operations
+%{_datadir}/apps/plasma/services/hotplug.operations
 %{_datadir}/apps/plasma/services/modifierkeystate.operations
 %{_datadir}/apps/plasma/services/notifications.operations
 %{_datadir}/apps/plasma/services/nowplaying.operations
 %{_datadir}/apps/plasma/services/org.kde.places.operations
+%{_datadir}/apps/plasma/services/powermanagementservice.operations
 %{_datadir}/apps/plasma/services/share.operations
 %{_datadir}/apps/plasma/services/tasks.operations
 %{_datadir}/apps/plasma/services/searchlaunch.operations
@@ -1748,6 +1764,7 @@ fi
 %dir %{_datadir}/apps/solidfakenetbackend
 %{_datadir}/apps/solid/actions/test-predicate-openinwindow.desktop
 %{_datadir}/apps/solidfakenetbackend/fakenetworking.xml
+%{_datadir}/apps/plasma/services/soliddevice.operations
 %{_datadir}/kde4/services/deviceinfocategory.desktop
 %{_datadir}/kde4/services/devinfo.desktop
 %{_datadir}/kde4/services/kcm_solid.desktop
@@ -1878,6 +1895,8 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/liboxygenstyle.so.?
 %attr(755,root,root) %{_libdir}/liboxygenstyle.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/liboxygenstyleconfig.so.?
+%attr(755,root,root) %{_libdir}/liboxygenstyleconfig.so.*.*.*
 %attr(755,root,root) %{_libdir}/kde4/kstyle_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/plugins/styles/oxygen.so
 %{_datadir}/apps/kstyle/themes/oxygen.themerc
