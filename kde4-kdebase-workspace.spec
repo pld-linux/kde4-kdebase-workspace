@@ -1541,6 +1541,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_desktoptoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_nettoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_paneltoolbox.so
+%dir %{_datadir}/apps/plasma/plasmoids
 %{_datadir}/apps/plasma/plasmoids/notifier
 %attr(755,root,root) %{_libdir}/libplasma_applet-system-monitor.so.*
 %{_libdir}/libplasma_applet-system-monitor.so
@@ -1721,6 +1722,7 @@ fi
 %{_datadir}/apps/desktoptheme/default/calendar/mini-calendar.svgz
 %{_datadir}/autostart/plasma-desktop.desktop
 %{_datadir}/apps/plasma-netbook
+%dir %{_datadir}/apps/katepart
 %{_datadir}/apps/katepart/syntax/plasma-desktop-js.xml
 %{_datadir}/config/activities.knsrc
 %lang(en) %{_kdedocdir}/en/plasma-desktop
