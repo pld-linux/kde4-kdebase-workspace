@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.8.0
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.bz2
@@ -297,6 +297,7 @@ Requires:	dbus-x11
 Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
+Requires:	systemd-units >= 0.38
 Provides:	XDM
 Provides:	user(kdm)
 Obsoletes:	kdm < 9:3.0.0
@@ -309,14 +310,6 @@ Also provides graphical login method.
 %description -n kde4-kdm -l pl.UTF-8
 Program służący do zarządzania zarówno lokalnymi jak i zdalnymi
 sesjami X11. Udostępnia także graficzny tryb logowania.
-
-%package -n kde4-kdm-systemd
-Summary:	systemd unit for KDE Display Manager
-Group:		X11/Applications
-Requires:	kde4-kdm = %{version}-%{release}
-
-%description -n kde4-kdm-systemd
-systemd unit for KDE Display Manager.
 
 %package -n kde4-decoration-aurorae
 Summary:	KDE Window Decoration Engine - Aurorae
@@ -633,20 +626,20 @@ Run "/sbin/service kdm start" to start kdm.
 
 EOF
 fi
+NORESTART=1
+%systemd_post kdm.service
 
 %preun -n kde4-kdm
 if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
-
-%post -n kde4-kdm-systemd
-%systemd_post kdm.service
-
-%preun -n kde4-kdm-systemd
 %systemd_preun kdm.service
 
-%postun -n kde4-kdm-systemd
+%postun -n kde4-kdm
 %systemd_reload
+
+%triggerpostun -n kde4-kdm -- kde4-kdm < 4.8.0-5
+%systemd_trigger kdm.service
 
 %files
 %defattr(644,root,root,755)
@@ -1831,9 +1824,6 @@ fi
 %{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkdm.service
 %{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm
-
-%files -n kde4-kdm-systemd
-%defattr(644,root,root,755)
 %{systemdunitdir}/kdm.service
 
 %files svg-icons
