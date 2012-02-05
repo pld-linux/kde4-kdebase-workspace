@@ -601,6 +601,7 @@ if [ "$1" = "0" ]; then
         %userremove kdm
         %groupremove kdm
 fi
+%systemd_reload
 
 %post -n kde4-kdm
 /sbin/chkconfig --add kdm
@@ -634,9 +635,6 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
 %systemd_preun kdm.service
-
-%postun -n kde4-kdm
-%systemd_reload
 
 %triggerpostun -n kde4-kdm -- kde4-kdm < 4.8.0-5
 %systemd_trigger kdm.service
