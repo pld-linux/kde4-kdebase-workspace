@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.8.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
@@ -26,7 +26,6 @@ Source10:	%{name}-kscreensaver.pam
 Source11:	kdebase-kdm.Xsession
 Source15:	%{name}.desktop
 Source16:	%{name}-session
-Source17:	kdm.service
 Patch100:	%{name}-branch.diff
 Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
@@ -287,7 +286,6 @@ Summary:	KDE Display Manager
 Summary(pl.UTF-8):	Zarządca ekranów KDE
 Group:		X11/Applications
 Requires:	/usr/bin/X
-# xorg-app-xinit-xinitrc-1.0.8-1 doesn't provide it. this should pull xinitrc-ng in
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/bin/id
@@ -298,6 +296,7 @@ Requires:	kde4-kgreet
 Requires:	pam >= 0.99.7.1
 Requires:	rc-scripts
 Requires:	systemd-units >= 0.38
+Requires:	xinitrc-ng >= 1.0
 Provides:	XDM
 Provides:	user(kdm)
 Obsoletes:	kde4-kdm-systemd
@@ -572,11 +571,11 @@ touch $RPM_BUILD_ROOT/etc/security/blacklist.kdm
 
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
- # don't clean .py files!
+# don't clean .py files!
 
 # systemd
 install -d $RPM_BUILD_ROOT/%{systemdunitdir}
-cp -p %{SOURCE17} $RPM_BUILD_ROOT/%{systemdunitdir}
+ln -s /dev/null $RPM_BUILD_ROOT/%{systemdunitdir}/kdm.service
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -628,17 +627,12 @@ Run "/sbin/service kdm start" to start kdm.
 
 EOF
 fi
-NORESTART=1
-%systemd_post kdm.service
+%systemd_reload
 
 %preun -n kde4-kdm
 if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del kdm
 fi
-%systemd_preun kdm.service
-
-%triggerpostun -n kde4-kdm -- kde4-kdm < 4.8.0-5
-%systemd_trigger kdm.service
 
 %files
 %defattr(644,root,root,755)
