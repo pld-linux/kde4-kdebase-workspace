@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.8.1
-Release:	2
+Version:	4.8.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	e4549dab07507e602a868bededb740ec
+# Source0-md5:	3744e8eea1d0e25bd8646415e193873f
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -32,6 +32,7 @@ Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-kdm_revertcrashlogic.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
+BuildRequires:	Mesa-libGLES-devel
 BuildRequires:	NetworkManager-devel >= 0.8.999
 BuildRequires:	OpenGL-devel
 BuildRequires:	akonadi-devel >= 1.3.80
@@ -670,6 +671,8 @@ fi
 %attr(755,root,root) %{_libdir}/libweather_ion.so.*
 %attr(755,root,root) %{_libdir}/libkwinglutils.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libkwinglutils.so.?
+%attr(755,root,root) %{_libdir}/libkwinglesutils.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libkwinglesutils.so.?
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kcminit_startup.so
 %attr(755,root,root) %{_libdir}/libplasmagenericshell.so.*.*.*
@@ -1118,6 +1121,7 @@ fi
 %attr(755,root,root) %{_libdir}/libksgrd.so
 %attr(755,root,root) %{_libdir}/libkwineffects.so
 %attr(755,root,root) %{_libdir}/libkwinglutils.so
+%attr(755,root,root) %{_libdir}/libkwinglesutils.so
 #%attr(755,root,root) %{_libdir}/libkwinnvidiahack.so
 %attr(755,root,root) %{_libdir}/libkworkspace.so
 %attr(755,root,root) %{_libdir}/libksignalplotter.so
@@ -1250,9 +1254,11 @@ fi
 %files kwin
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kwin
+%attr(755,root,root) %{_bindir}/kwin_gles
 %attr(755,root,root) %{_libdir}/libkwineffects.so.*
 %attr(755,root,root) %{_libdir}/libkwinnvidiahack.so.*
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin.so
+%attr(755,root,root) %{_libdir}/libkdeinit4_kwin_gles.so
 %attr(755,root,root) %{_libdir}/libkdeinit4_kwin_rules_dialog.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwin4_effect_builtins.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_kwincompositing.so
@@ -1265,6 +1271,7 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktoppaths.so
 %attr(755,root,root) %{_libdir}/kde4/kcm_desktoptheme.so
 %attr(755,root,root) %{_libdir}/kde4/kwin4_effect_builtins.so
+%attr(755,root,root) %{_libdir}/kde4/kwin4_effect_gles_builtins.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_oxygen_config.so
 %attr(755,root,root) %{_libdir}/kde4/kwin3_tabstrip.so
 %attr(755,root,root) %{_libdir}/kde4/kwin_tabstrip_config.so
