@@ -14,7 +14,7 @@
  
      if (!controls.isEmpty()) {
          m_cachedBrightness = brightness(Screen);
-+	m_cachedBrightness_timer.start();
++        m_cachedBrightness_timer.start();
          kDebug() << "current screen brightness: " << m_cachedBrightness;
      }
  
@@ -23,11 +23,23 @@
  void PowerDevilUPowerBackend::brightnessKeyPressed(PowerDevil::BackendInterface::BrightnessKeyType type)
  {
 +    if (m_cachedBrightness_timer.elapsed() < 100)
-+        return; // two key pressed delivered at once; 100ms marign
++        return; // two key presses delivered for single physical key press; 100ms marign
 +
      BrightnessControlsList controls = brightnessControlsAvailable();
      QList<QString> screenControls = controls.keys(Screen);
  
+@@ -169,9 +169,9 @@
+     if (qFuzzyCompare(currentBrightness, m_cachedBrightness)) {
+         float newBrightness;
+         if (type == Increase) {
+-            newBrightness = qMin(100.0f, currentBrightness + 10);
++            newBrightness = qMin(100.0f, currentBrightness + 6);
+         } else {
+-            newBrightness = qMax(0.0f, currentBrightness - 10);
++            newBrightness = qMax(0.0f, currentBrightness - 6);
+         }
+ 
+         if (setBrightness(newBrightness, Screen)) {
 @@ -174,11 +178,14 @@
              newBrightness = brightness(Screen);
              if (!qFuzzyCompare(newBrightness, m_cachedBrightness)) {
