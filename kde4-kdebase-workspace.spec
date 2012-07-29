@@ -1554,6 +1554,12 @@ fi
 %{_datadir}/kde4/services/plasma-applet-sm_hdd_activity.desktop
 %{_datadir}/kde4/services/plasma-dataengine-mpris2.desktop
 %dir %{_datadir}/apps/plasma/services
+%{_datadir}/apps/plasma/packages/org.kde.desktop.activitymanager
+%{_datadir}/apps/plasma/packages/org.kde.desktop.widgetexplorer
+%{_datadir}/apps/plasma/plasmoids/battery
+%{_datadir}/apps/plasma/plasmoids/lockout
+%{_datadir}/apps/plasma/plasmoids/notifier
+%{_datadir}/apps/plasma/plasmoids/org.kde.showActivityManager
 %{_datadir}/apps/plasma/services/activities.operations
 %{_datadir}/apps/plasma/services/applicationjobs.operations
 %{_datadir}/apps/plasma/services/apps.operations
