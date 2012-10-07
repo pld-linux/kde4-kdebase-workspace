@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.9.1
-Release:	2
+Version:	4.9.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	3c22dc4406aa657f1985d7b09a955e9b
+# Source0-md5:	03feb2d606c5c03b87a8e0082c54009b
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -31,7 +31,6 @@ Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-kdm_revertcrashlogic.patch
 Patch3:		kde4-kdebase-workspace-brightness.patch
-Patch4:		kde4-kdebase-workspace-bug-306260.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	Mesa-libGLES-devel
@@ -524,7 +523,6 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 # https://bugs.kde.org/show_bug.cgi?id=281862
 #%patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 install -d build
@@ -1290,7 +1288,18 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_killer_helper
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_opengl_test
 %attr(755,root,root) %{_libdir}/kde4/libexec/kwin_rules_dialog
-%{_datadir}/apps/kwin
+%dir %{_datadir}/apps/kwin
+%{_datadir}/apps/kwin/*.glsl
+%{_datadir}/apps/kwin/*.png
+%{_datadir}/apps/kwin/*.frag
+%{_datadir}/apps/kwin/*.vert
+%dir %{_datadir}/apps/kwin/default_rules
+%{_datadir}/apps/kwin/default_rules/fsp_workarounds_1.kwinrules
+%{_datadir}/apps/kwin/effects
+%{_datadir}/apps/kwin/kcm_*
+%{_datadir}/apps/kwin/kwin.notifyrc
+%{_datadir}/apps/kwin/scripts
+%{_datadir}/apps/kwin/tabbox
 %{_datadir}/config/kwinscripts.knsrc
 %{_datadir}/config/kwinswitcher.knsrc
 %{_datadir}/config.kcfg/kwin.kcfg
