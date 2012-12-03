@@ -1,7 +1,25 @@
-diff -urN kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp
+diff -ur kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp
 --- kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp	2012-11-30 08:24:40.000000000 +0100
-+++ kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp	2012-12-02 11:58:03.781622657 +0100
-@@ -165,9 +165,9 @@
++++ kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp	2012-12-03 09:18:49.162194544 +0100
+@@ -108,6 +108,7 @@
+ 
+     if (!controls.isEmpty()) {
+         m_cachedBrightness = brightness(Screen);
++        m_cachedBrightness_timer.start();
+         kDebug() << "current screen brightness: " << m_cachedBrightness;
+     }
+ 
+@@ -153,6 +154,9 @@
+ 
+ void PowerDevilUPowerBackend::brightnessKeyPressed(PowerDevil::BackendInterface::BrightnessKeyType type)
+ {
++    if (m_cachedBrightness_timer.elapsed() < 100)
++        return; // two key presses delivered for single physical key press; 100ms marign
++
+     BrightnessControlsList controls = brightnessControlsAvailable();
+     QList<QString> screenControls = controls.keys(Screen);
+ 
+@@ -165,14 +169,16 @@
      if (qFuzzyCompare(currentBrightness, m_cachedBrightness)) {
          float newBrightness;
          if (type == Increase) {
@@ -13,3 +31,43 @@ diff -urN kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilup
          }
  
          setBrightness(newBrightness, Screen);
+     } else {
+         m_cachedBrightness = currentBrightness;
++        m_cachedBrightness_timer.restart();
++        onBrightnessChanged(Screen, m_cachedBrightness);
+     }
+ }
+ 
+@@ -209,6 +215,10 @@
+ bool PowerDevilUPowerBackend::setBrightness(float brightnessValue, PowerDevil::BackendInterface::BrightnessControlType type)
+ {
+     bool success = false;
++
++    if (m_cachedBrightness_timer.elapsed() < 100)
++        return success;
++
+     if (type == Screen) {
+         kDebug() << "set screen brightness: " << brightnessValue;
+         if (m_brightnessControl->isSupported()) {
+@@ -236,6 +246,7 @@
+         float newBrightness = brightness(Screen);
+         if (!qFuzzyCompare(newBrightness, m_cachedBrightness)) {
+             m_cachedBrightness = newBrightness;
++            m_cachedBrightness_timer.restart();
+             onBrightnessChanged(Screen, m_cachedBrightness);
+         }
+         return true;
+Tylko w kde-workspace-4.9.4/powerdevil/daemon/backends/upower: powerdevilupowerbackend.cpp~
+Tylko w kde-workspace-4.9.4/powerdevil/daemon/backends/upower: powerdevilupowerbackend.cpp.orig
+Tylko w kde-workspace-4.9.4/powerdevil/daemon/backends/upower: powerdevilupowerbackend.cpp.rej
+diff -ur kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilupowerbackend.h kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.h
+--- kde-workspace-4.9.4.org/powerdevil/daemon/backends/upower/powerdevilupowerbackend.h	2012-11-30 08:24:40.000000000 +0100
++++ kde-workspace-4.9.4/powerdevil/daemon/backends/upower/powerdevilupowerbackend.h	2012-12-03 08:17:04.465869449 +0100
+@@ -70,6 +70,7 @@
+ 
+     // brightness
+     float m_cachedBrightness;
++    QElapsedTimer m_cachedBrightness_timer;
+     XRandrBrightness         *m_brightnessControl;
+     OrgFreedesktopUPowerInterface *m_upowerInterface;
+     OrgFreedesktopUPowerKbdBacklightInterface *m_kbdBacklight;
