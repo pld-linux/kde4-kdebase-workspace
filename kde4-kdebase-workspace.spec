@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.10.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
@@ -142,6 +142,7 @@ Requires:	%{name}-plasma = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-libksgrd = %{version}-%{release}
 Requires:	kde4-kdebase-workspace-screensavers = %{version}-%{release}
 Requires:	kde4-kdelibs-devel >= %{version}
+Conflicts:	kde4-kdebase-workspace < %{version}-%{release}
 
 %description devel
 This package contains header files needed to develop KDE applications.
@@ -528,7 +529,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch1 -p1
 # https://bugs.kde.org/show_bug.cgi?id=281862
 #%patch2 -p1
-%patch3 -p1
+#%patch3 -p1
 
 %build
 install -d build
