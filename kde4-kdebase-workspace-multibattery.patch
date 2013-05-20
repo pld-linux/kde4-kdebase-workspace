@@ -347,3 +347,26 @@ index 3df38e2..bffc755 100644
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+From: Kai Uwe Broulik <kde@privat.broulik.de>
+Date: Mon, 20 May 2013 19:52:21 +0000
+Subject: No linebreak in tooltip. We do them manually anyways.
+X-Git-Url: http://quickgit.kde.org/?p=kde-workspace.git&a=commitdiff&h=175e902b88a2c6a1c1ca37f428208e83c1660937
+---
+No linebreak in tooltip. We do them manually anyways.
+
+CCBUG: 317404
+---
+
+
+--- a/plasma/generic/applets/batterymonitor/contents/code/logic.js
++++ b/plasma/generic/applets/batterymonitor/contents/code/logic.js
+@@ -96,7 +96,7 @@
+         text += i18nc("tooltip", "AC Adapter:") + " ";
+         text += pmSource.data["AC Adapter"]["Plugged in"] ? i18nc("tooltip", "<b>Plugged in</b>") : i18nc("tooltip", "<b>Not plugged in</b>");
+     }
+-    batteries.tooltipText = text;
++    batteries.tooltipText = "<p style='white-space: nowrap'>" + text + "</p>";
+ }
+ 
+ function updateBrightness() {
+
