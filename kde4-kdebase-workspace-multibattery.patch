@@ -1,0 +1,349 @@
+diff --git a/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp b/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp
+index d1b9519..a79f5ab 100644
+--- a/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp
++++ b/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp
+@@ -115,27 +115,31 @@ bool PowermanagementEngine::sourceRequestEvent(const QString &name)
+         foreach (const Solid::Device &deviceBattery, listBattery) {
+             const Solid::Battery* battery = deviceBattery.as<Solid::Battery>();
+ 
+-            if (battery && (battery->type() == Solid::Battery::PrimaryBattery ||
+-                            battery->type() == Solid::Battery::UpsBattery)) {
+-                const QString source = QString("Battery%1").arg(index++);
+-
+-                batterySources << source;
+-                m_batterySources[deviceBattery.udi()] = source;
+-
+-                connect(battery, SIGNAL(chargeStateChanged(int,QString)), this,
+-                        SLOT(updateBatteryChargeState(int,QString)));
+-                connect(battery, SIGNAL(chargePercentChanged(int,QString)), this,
+-                        SLOT(updateBatteryChargePercent(int,QString)));
+-                connect(battery, SIGNAL(plugStateChanged(bool,QString)), this,
+-                        SLOT(updateBatteryPlugState(bool,QString)));
+-
+-                // Set initial values
+-                updateBatteryChargeState(battery->chargeState(), deviceBattery.udi());
+-                updateBatteryChargePercent(battery->chargePercent(), deviceBattery.udi());
+-                updateBatteryPlugState(battery->isPlugged(), deviceBattery.udi());
+-            }
++            const QString source = QString("Battery%1").arg(index++);
++
++            batterySources << source;
++            m_batterySources[deviceBattery.udi()] = source;
++
++            connect(battery, SIGNAL(chargeStateChanged(int,QString)), this,
++                    SLOT(updateBatteryChargeState(int,QString)));
++            connect(battery, SIGNAL(chargePercentChanged(int,QString)), this,
++                    SLOT(updateBatteryChargePercent(int,QString)));
++            connect(battery, SIGNAL(plugStateChanged(bool,QString)), this,
++                    SLOT(updateBatteryPlugState(bool,QString)));
++
++            // Set initial values
++            updateBatteryChargeState(battery->chargeState(), deviceBattery.udi());
++            updateBatteryChargePercent(battery->chargePercent(), deviceBattery.udi());
++            updateBatteryPlugState(battery->isPlugged(), deviceBattery.udi());
++            updateBatteryPowerSupplyState(battery->isPowerSupply(), deviceBattery.udi());
++
++            setData(source, "Vendor", deviceBattery.vendor());
++            setData(source, "Product", deviceBattery.product());
++            setData(source, "Type", batteryType(battery));
+         }
+ 
++        updateBatteryNames();
++
+         setData("Battery", "Has Battery", !batterySources.isEmpty());
+         if (!batterySources.isEmpty()) {
+             setData("Battery", "Sources", batterySources);
+@@ -199,6 +203,37 @@ bool PowermanagementEngine::sourceRequestEvent(const QString &name)
+     return true;
+ }
+ 
++QString PowermanagementEngine::batteryType(const Solid::Battery* battery)
++{
++  switch(battery->type()) {
++      case Solid::Battery::PrimaryBattery:
++          return QString("Battery");
++          break;
++      case Solid::Battery::UpsBattery:
++          return QString("Ups");
++          break;
++      case Solid::Battery::MonitorBattery:
++          return QString("Monitor");
++          break;
++      case Solid::Battery::MouseBattery:
++          return QString("Mouse");
++          break;
++      case Solid::Battery::KeyboardBattery:
++          return QString("Keyboad");
++          break;
++      case Solid::Battery::PdaBattery:
++          return QString("Pda");
++          break;
++      case Solid::Battery::PhoneBattery:
++          return QString("Phone");
++          break;
++      default:
++          return QString("Unknown");
++  }
++
++  return QString("Unknown");
++}
++
+ bool PowermanagementEngine::updateSourceEvent(const QString &source)
+ {
+     if (source == "UserActivity") {
+@@ -244,6 +279,38 @@ void PowermanagementEngine::updateBatteryChargePercent(int newValue, const QStri
+     setData(source, "Percent", newValue);
+ }
+ 
++void PowermanagementEngine::updateBatteryPowerSupplyState(bool newState, const QString& udi)
++{
++    const QString source = m_batterySources[udi];
++    setData(source, "Is Power Supply", newState);
++}
++
++void PowermanagementEngine::updateBatteryNames()
++{
++    uint unnamedBatteries = 0;
++    foreach (QString source, m_batterySources) {
++        DataContainer *batteryDataContainer = containerForSource(source);
++        if (batteryDataContainer) {
++            const QString batteryVendor = batteryDataContainer->data()["Vendor"].toString();
++            const QString batteryProduct = batteryDataContainer->data()["Product"].toString();
++            if (!batteryProduct.isEmpty() && batteryProduct != "Unknown Battery") {
++                if (!batteryVendor.isEmpty()) {
++                    setData(source, "Pretty Name", QString(batteryVendor + ' ' + batteryProduct));
++                } else {
++                    setData(source, "Pretty Name", batteryProduct);
++                }
++            } else {
++                ++unnamedBatteries;
++                if (unnamedBatteries > 1) {
++                    setData(source, "Pretty Name", i18nc("Placeholder is the battery number", "Battery %1", unnamedBatteries));
++                } else {
++                    setData(source, "Pretty Name", i18n("Battery"));
++                }
++            }
++        }
++    }
++}
++
+ void PowermanagementEngine::updateAcPlugState(bool newState)
+ {
+     setData("AC Adapter", "Plugged in", newState);
+@@ -292,14 +359,23 @@ void PowermanagementEngine::deviceAdded(const QString& udi)
+                     SLOT(updateBatteryChargePercent(int,QString)));
+             connect(battery, SIGNAL(plugStateChanged(bool,QString)), this,
+                     SLOT(updateBatteryPlugState(bool,QString)));
++            connect(battery, SIGNAL(powerSupplyStateChanged(bool,QString)), this,
++                    SLOT(updateBatteryPowerSupplyState(bool,QString)));
+ 
+             // Set initial values
+             updateBatteryChargeState(battery->chargeState(), device.udi());
+             updateBatteryChargePercent(battery->chargePercent(), device.udi());
+             updateBatteryPlugState(battery->isPlugged(), device.udi());
++            updateBatteryPowerSupplyState(battery->isPowerSupply(), device.udi());
++
++            setData(source, "Vendor", device.vendor());
++            setData(source, "Product", device.product());
++            setData(source, "Type", batteryType(battery));
+ 
+             setData("Battery", "Sources", sourceNames);
+             setData("Battery", "Has Battery", !sourceNames.isEmpty());
++
++            updateBatteryNames();
+         }
+     }
+ }
+diff --git a/plasma/generic/dataengines/powermanagement/powermanagementengine.h b/plasma/generic/dataengines/powermanagement/powermanagementengine.h
+index 35e9ecf..319a17c 100644
+--- a/plasma/generic/dataengines/powermanagement/powermanagementengine.h
++++ b/plasma/generic/dataengines/powermanagement/powermanagementengine.h
+@@ -54,7 +54,10 @@ private slots:
+     void updateBatteryChargeState(int newState, const QString& udi);
+     void updateBatteryPlugState(bool newState, const QString& udi);
+     void updateBatteryChargePercent(int newValue, const QString& udi);
++    void updateBatteryPowerSupplyState(bool newState, const QString& udi);
+     void updateAcPlugState(bool newState);
++    void updateBatteryNames();
++
+     void deviceRemoved(const QString& udi);
+     void deviceAdded(const QString& udi);
+     void batteryRemainingTimeChanged(qulonglong time);
+@@ -64,6 +67,7 @@ private slots:
+     void brightnessControlsAvailableChanged(bool available);
+ 
+ private:
++    QString batteryType(const Solid::Battery *battery);
+     QStringList basicSourceNames() const;
+ 
+     QStringList m_sources;
+diff --git a/plasma/generic/applets/batterymonitor/contents/code/logic.js b/plasma/generic/applets/batterymonitor/contents/code/logic.js
+index 974694a..34a5060 100644
+--- a/plasma/generic/applets/batterymonitor/contents/code/logic.js
++++ b/plasma/generic/applets/batterymonitor/contents/code/logic.js
+@@ -23,19 +23,24 @@ var disk = 1
+ 
+ function updateCumulative() {
+     var sum = 0;
++    var count = 0;
+     var charged = true;
+     for (var i=0; i<batteries.count; i++) {
+         var b = batteries.get(i);
++        if (!b["Is Power Supply"]) {
++          continue;
++        }
+         if (b["Plugged in"]) {
+             sum += b["Percent"];
+         }
+         if (b["State"] != "NoCharge") {
+             charged = false;
+         }
++        count++;
+     }
+ 
+     if (batteries.count > 0) {
+-        batteries.cumulativePercent = Math.round(sum/batteries.count);
++        batteries.cumulativePercent = Math.round(sum/count);
+     } else {
+         batteries.cumulativePercent = 0;
+     }
+@@ -46,34 +51,40 @@ function stringForState(batteryData) {
+     var pluggedIn = batteryData["Plugged in"];
+     var percent = batteryData["Percent"];
+     var state = batteryData["State"];
++    var powerSupply = batteryData["Is Power Supply"];
+ 
++    var text="<b>";
+     if (pluggedIn) {
+-        if (state == "NoCharge") {
+-            return i18n("<b>%1% (charged)</b>", percent);
+-        } else if (state == "Discharging") {
+-            return i18n("<b>%1% (discharging)</b>", percent);
+-        } else {//charging
+-            return i18n("<b>%1% (charging)</b>", percent);
++        // According to UPower spec, the chargeState is only valid for primary batteries
++        if (powerSupply) {
++            switch(state) {
++                case "NoCharge": text += i18n("%1% (charged)", percent); break;
++                case "Discharging": text += i18n("%1% (discharging)", percent); break;
++                default: text += i18n("%1% (charging)", percent);
++            }
++        } else {
++            text += i18n("%1%", percent);
+         }
++    } else {
++        text += i18nc("Battery is not plugged in", "Not present");
+     }
++    text += "</b>";
+ 
+-    return i18nc("Battery is not plugged in", "<b>Not present</b>");
++    return text;
+ }
+ 
+ function updateTooltip() {
+     var text="";
+-    for (var i=0; i<batteries.count; i++) {
+-        if (batteries.count == 1) {
+-            text += i18n("Battery:");
+-        } else {
+-            if (text != "") {
+-                text += "<br/>";
+-            }
+ 
+-            text += i18nc("tooltip: placeholder is the battery ID", "Battery %1:", i+1);
++    for (var i=0; i<batteries.count; i++) {
++        var b = batteries.get(i);
++        if (text != "") {
++            text += "<br/>";
+         }
+ 
+-        text += " ";
++        text += b["Pretty Name"];
++
++        text += ": ";
+         text += stringForState(pmSource.data["Battery"+i]);
+     }
+ 
+diff --git a/plasma/generic/applets/batterymonitor/contents/config/main.xml b/plasma/generic/applets/batterymonitor/contents/config/main.xml
+index fc31b3e..28e4a8a 100644
+--- a/plasma/generic/applets/batterymonitor/contents/config/main.xml
++++ b/plasma/generic/applets/batterymonitor/contents/config/main.xml
+@@ -9,9 +9,6 @@
+     <entry name="showBatteryString" type="Bool">
+       <default>false</default>
+     </entry>
+-    <entry name="showMultipleBatteries" type="Bool">
+-      <default>false</default>
+-    </entry>
+     <entry name="showRemainingTime" type="Bool">
+       <default>false</default>
+     </entry>
+diff --git a/plasma/generic/applets/batterymonitor/contents/ui/PopupDialog.qml b/plasma/generic/applets/batterymonitor/contents/ui/PopupDialog.qml
+index 3ffb15f..bd9f491 100644
+--- a/plasma/generic/applets/batterymonitor/contents/ui/PopupDialog.qml
++++ b/plasma/generic/applets/batterymonitor/contents/ui/PopupDialog.qml
+@@ -52,7 +52,7 @@ Item {
+         Repeater {
+             model: dialog.model
+             Components.Label {
+-                text: model.count>1 ? i18nc("Placeholder is the battery ID", "Battery %1:", index+1) : i18n("Battery:")
++                text: model["Pretty Name"] + ':'
+                 width: labels.width
+                 horizontalAlignment: Text.AlignRight
+             }
+diff --git a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
+index c69c3a5..3a58aae 100644
+--- a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
++++ b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
+@@ -49,13 +49,12 @@ Item {
+             property int minimumHeight
+ 
+             property bool showOverlay: false
+-            property bool showMultipleBatteries: false
+             property bool hasBattery: pmSource.data["Battery"]["Has Battery"]
+ 
+             property QtObject pmSource: plasmoid.rootItem.pmSource
+             property QtObject batteries: plasmoid.rootItem.batteries
+ 
+-            property bool singleBattery: isConstrained() || !showMultipleBatteries || !hasBattery
++            property bool singleBattery: isConstrained() || !hasBattery
+ 
+             model: singleBattery ? 1 : batteries
+ 
+@@ -63,6 +62,7 @@ Item {
+ 
+             anchors.fill: parent
+             orientation: ListView.Horizontal
++            interactive: false
+ 
+             function isConstrained() {
+                 return (plasmoid.formFactor == Vertical || plasmoid.formFactor == Horizontal);
+@@ -78,7 +78,6 @@ Item {
+ 
+             function configChanged() {
+                 showOverlay = plasmoid.readConfig("showBatteryString");
+-                showMultipleBatteries = plasmoid.readConfig("showMultipleBatteries");
+             }
+ 
+             delegate: Item {
+diff --git a/plasma/generic/applets/batterymonitor/contents/ui/config.ui b/plasma/generic/applets/batterymonitor/contents/ui/config.ui
+index 3df38e2..bffc755 100644
+--- a/plasma/generic/applets/batterymonitor/contents/ui/config.ui
++++ b/plasma/generic/applets/batterymonitor/contents/ui/config.ui
+@@ -25,16 +25,6 @@
+     </widget>
+    </item>
+    <item>
+-    <widget class="QCheckBox" name="kcfg_showMultipleBatteries">
+-     <property name="toolTip">
+-      <string/>
+-     </property>
+-     <property name="text">
+-      <string>Show the state for &amp;each battery present</string>
+-     </property>
+-    </widget>
+-   </item>
+-   <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
