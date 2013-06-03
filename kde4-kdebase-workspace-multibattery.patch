@@ -370,3 +370,28 @@ CCBUG: 317404
  
  function updateBrightness() {
 
+From: Kai Uwe Broulik <kde@privat.broulik.de>
+Date: Tue, 21 May 2013 08:43:16 +0000
+Subject: Consider All The Batteries[tm]
+X-Git-Url: http://quickgit.kde.org/?p=kde-workspace.git&a=commitdiff&h=2fd181ef31382e071126ea2a401506d3b1aaa4af
+---
+Consider All The Batteries[tm]
+When a new device was added, it wasn't added to the dataengine right away
+
+CCBUG: 317404
+---
+
+
+--- a/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp
++++ b/plasma/generic/dataengines/powermanagement/powermanagementengine.cpp
+@@ -341,8 +341,7 @@
+     if (device.isValid()) {
+         const Solid::Battery* battery = device.as<Solid::Battery>();
+ 
+-        if (battery && (battery->type() == Solid::Battery::PrimaryBattery ||
+-                        battery->type() == Solid::Battery::UpsBattery)) {
++        if (battery) {
+             int index = 0;
+             QStringList sourceNames(m_batterySources.values());
+             while (sourceNames.contains(QString("Battery%1").arg(index))) {
+
