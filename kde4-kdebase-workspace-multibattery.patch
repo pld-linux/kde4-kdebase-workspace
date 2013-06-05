@@ -2224,3 +2224,33 @@ index aa57ab8..0000000
 -    return false;
 -}
 -
+diff --git a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
+index 357c2dc..feda7bc 100644
+--- a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
++++ b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
+@@ -84,13 +84,19 @@ Item {
+         }
+     }
+ 
+-    property QtObject batteries: PlasmaCore.DataModel {
++    property QtObject batteries: PlasmaCore.SortFilterModel {
+         id: batteries
+-        dataSource: pmSource
+-        sourceFilter: "Battery[0-9]+"
+-
+-        onDataChanged: {
+-            updateLogic()
++        filterRole: "Is Power Supply"
++        sortOrder: Qt.DescendingOrder
++        sourceModel: PlasmaCore.SortFilterModel {
++            sortRole: "Pretty Name"
++            sortOrder: Qt.AscendingOrder
++            sourceModel: PlasmaCore.DataModel {
++                dataSource: pmSource
++                sourceFilter: "Battery[0-9]+"
++
++                onDataChanged: updateLogic()
++            }
+         }
+ 
+         property int cumulativePercent
