@@ -446,16 +446,17 @@ index 533c00a..c9abbf9 100644
 +    </group>
  </kcfg>
 diff --git a/plasma/generic/applets/batterymonitor/contents/code/logic.js b/plasma/generic/applets/batterymonitor/contents/code/logic.js
-index 974694a..9bd618d 100644
+index 974694a..d1c08c1 100644
 --- a/plasma/generic/applets/batterymonitor/contents/code/logic.js
 +++ b/plasma/generic/applets/batterymonitor/contents/code/logic.js
-@@ -18,74 +18,159 @@
+@@ -18,74 +18,178 @@
   *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
   */
  
 -var ram = 0
 -var disk = 1
--
++var powermanagementDisabled = false;
+ 
  function updateCumulative() {
      var sum = 0;
 +    var count = 0;
@@ -509,20 +510,40 @@ index 974694a..9bd618d 100644
 -            return i18n("<b>%1% (charging)</b>", percent);
 +function plasmoidStatus() {
 +    var status = "PassiveStatus";
++    if (powermanagementDisabled) {
++        status = "ActiveStatus";
++    }
++
 +    if (batteries.cumulativePluggedin) {
 +        if (batteries.cumulativePercent <= 10) {
 +            status = "NeedsAttentionStatus";
 +        } else if (!batteries.allCharged) {
 +            status = "ActiveStatus";
-+        }
+         }
 +    } else if (batteries.count > 0) { // in case your mouse gets low
 +        if (batteries.cumulativePercent && batteries.cumulativePercent <= 10) {
 +            status = "NeedsAttentionStatus";
-         }
-     }
--
--    return i18nc("Battery is not plugged in", "<b>Not present</b>");
++        }
++    }
 +    return status;
++}
++
++function lowestBattery() {
++    if (batteries.count == 0) {
++        return;
+     }
+ 
+-    return i18nc("Battery is not plugged in", "<b>Not present</b>");
++    var lowestPercent = 100;
++    var lowestBattery;
++    for(var i=0; i<batteries.count; i++) {
++        var b = batteries.get(i);
++        if (b["Percent"] && b["Percent"] < lowestPercent) {
++            lowestPercent = b["Percent"];
++            lowestBattery = b;
++        }
++    }
++    return b;
  }
  
 -function updateTooltip() {
@@ -533,27 +554,6 @@ index 974694a..9bd618d 100644
 -        } else {
 -            if (text != "") {
 -                text += "<br/>";
--            }
-+function lowestBattery() {
-+    if (batteries.count == 0) {
-+        return;
-+    }
- 
--            text += i18nc("tooltip: placeholder is the battery ID", "Battery %1:", i+1);
-+    var lowestPercent = 100;
-+    var lowestBattery;
-+    for(var i=0; i<batteries.count; i++) {
-+        var b = batteries.get(i);
-+        if (b["Percent"] && b["Percent"] < lowestPercent) {
-+            lowestPercent = b["Percent"];
-+            lowestBattery = b;
-         }
-+    }
-+    return b;
-+}
- 
--        text += " ";
--        text += stringForState(pmSource.data["Battery"+i]);
 +function stringForBatteryState(batteryData) {
 +    if (batteryData["Plugged in"]) {
 +        switch(batteryData["State"]) {
@@ -564,7 +564,7 @@ index 974694a..9bd618d 100644
 +        }
 +    } else {
 +        return i18nc("Battery is currently not present in the bay","Not present");
-     }
++    }
 +}
 +
 +function iconForBattery(batteryData,pluggedIn) {
@@ -593,10 +593,9 @@ index 974694a..9bd618d 100644
 +                fill = "caution";
 +            } else {
 +                fill = "low";
-+            }
+             }
  
--    if (text != "") {
--        text += "<br/>";
+-            text += i18nc("tooltip: placeholder is the battery ID", "Battery %1:", i+1);
 +            if (pluggedIn && batteryData["Is Power Supply"]) {
 +                return "battery-charging-" + fill;
 +            } else {
@@ -605,7 +604,7 @@ index 974694a..9bd618d 100644
 +                }
 +                return "battery-" + fill;
 +            }
-     }
++    }
 +}
 +
 +function updateTooltip() {
@@ -613,27 +612,38 @@ index 974694a..9bd618d 100644
 +    var text = "";
 +    if (batteries.count == 0) {
 +        image = "battery-missing";
-+        text = i18n("No Batteries Available");
++        if (!powermanagementDisabled) {
++            text = i18n("No batteries available");
+         }
 +    } else {
 +        var hasPowerSupply = false;
-+
+ 
+-        text += " ";
+-        text += stringForState(pmSource.data["Battery"+i]);
+-    }
 +        text = "<table style='white-space: nowrap'>";
 +        for(var i=0; i<batteries.count; i++) {
 +            var b = batteries.get(i);
 +            text += "<tr>";
 +            text += "<td align='right'>" + i18nc("Placeholder is battery name", "%1:", b["Pretty Name"]) + " </td>";
-+            text += "<td>" + i18nc("Placeholder is battery percentage", "%1%", b["Percent"]) + "</td>";
++            text += "<td><b>";
++            if (b["Plugged in"]) {
++                text += i18nc("Placeholder is battery percentage", "%1%", b["Percent"]);
++            } else {
++                text += i18n("N/A")
++            }
++            text += "</b></td>";
 +            text += "</tr>";
- 
--    if (pmSource.data["AC Adapter"]) {
--        text += i18nc("tooltip", "AC Adapter:") + " ";
--        text += pmSource.data["AC Adapter"]["Plugged in"] ? i18nc("tooltip", "<b>Plugged in</b>") : i18nc("tooltip", "<b>Not plugged in</b>");
++
 +            if (b["Is Power Supply"]) { hasPowerSupply = true; }
 +        }
 +        text += "</table>";
-+
+ 
+-    if (text != "") {
+-        text += "<br/>";
 +        if (hasPowerSupply) {
 +            var b = [];
++            b["Type"] = "Battery";
 +            b["Percent"] = batteries.cumulativePercent;
 +            image = iconForBattery(b, pmSource.data["AC Adapter"]["Plugged in"] ? true : false);
 +        } else {
@@ -641,12 +651,19 @@ index 974694a..9bd618d 100644
 +            image = iconForBattery(b, false);
 +        }
      }
+ 
+-    if (pmSource.data["AC Adapter"]) {
+-        text += i18nc("tooltip", "AC Adapter:") + " ";
+-        text += pmSource.data["AC Adapter"]["Plugged in"] ? i18nc("tooltip", "<b>Plugged in</b>") : i18nc("tooltip", "<b>Not plugged in</b>");
++    if (powermanagementDisabled) {
++        text += i18n("Power management is disabled");
+     }
      batteries.tooltipText = text;
 +    batteries.tooltipImage = image;
  }
  
  function updateBrightness() {
-@@ -94,16 +179,26 @@ function updateBrightness() {
+@@ -94,16 +198,26 @@ function updateBrightness() {
          return;
      }
      dialogItem.disableBrightnessUpdate = true;
@@ -898,10 +915,10 @@ index 080ab51..6a49d34 100644
      PlasmaCore.SvgItem {
 diff --git a/plasma/generic/applets/batterymonitor/contents/ui/BatteryItem.qml b/plasma/generic/applets/batterymonitor/contents/ui/BatteryItem.qml
 new file mode 100644
-index 0000000..81779ff
+index 0000000..3317aea
 --- /dev/null
 +++ b/plasma/generic/applets/batterymonitor/contents/ui/BatteryItem.qml
-@@ -0,0 +1,310 @@
+@@ -0,0 +1,312 @@
 +/*
 + *   Copyright 2012-2013 Daniel Nicoletti <dantti12@gmail.com>
 + *   Copyright 2013 Kai Uwe Broulik <kde@privat.broulik.de>
@@ -941,7 +958,9 @@ index 0000000..81779ff
 +    property bool expanded
 +    property bool showChargeAnimation
 +
-+    property bool isPresent: !model["Is Power Supply"] || model["Plugged in"]
++    // NOTE: According to the UPower spec this property is only valid for primary batteries, however
++    // UPower seems to set the Present property false when a device is added but not probed yet
++    property bool isPresent: model["Plugged in"]
 +
 +    function updateSelection() {
 +        var containsMouse = mouseArea.containsMouse;
@@ -1183,7 +1202,7 @@ index 0000000..81779ff
 +                    width: parent.width
 +                    elide: Text.ElideRight
 +                    text: i18nc("Placeholder is battery capacity", "%1%", model["Capacity"])
-+                    visible: model["Capacity"] != "" && model["Capacity"] !== undefined
++                    visible: model["Is Power Supply"] &&  model["Capacity"] != "" && model["Capacity"] !== undefined
 +                    font.pointSize: theme.smallestFont.pointSize
 +                    color: "#99"+(theme.textColor.toString().substr(1))
 +                }
@@ -1309,7 +1328,7 @@ index 0000000..34c596c
 +
 diff --git a/plasma/generic/applets/batterymonitor/contents/ui/CompactRepresentation.qml b/plasma/generic/applets/batterymonitor/contents/ui/CompactRepresentation.qml
 new file mode 100644
-index 0000000..e9dc772
+index 0000000..ebab135
 --- /dev/null
 +++ b/plasma/generic/applets/batterymonitor/contents/ui/CompactRepresentation.qml
 @@ -0,0 +1,112 @@
@@ -1378,7 +1397,7 @@ index 0000000..e9dc772
 +
 +        property bool hasBattery: view.singleBattery ? batteries.count : model["Plugged in"]
 +        property int percent: view.singleBattery ? batteries.cumulativePercent : model["Percent"]
-+        property bool pluggedIn: pmSource.data["AC Adapter"]["Plugged in"]
++        property bool pluggedIn: view.singleBattery ? pmSource.data["AC Adapter"]["Plugged in"] : pmSource.data["AC Adapter"]["Plugged in"] && model["Is Power Supply"]
 +
 +        width: view.width/view.count
 +        height: view.height
@@ -1681,10 +1700,10 @@ index 76fb1ce..4f46834 100644
  }
 diff --git a/plasma/generic/applets/batterymonitor/contents/ui/PowerManagementItem.qml b/plasma/generic/applets/batterymonitor/contents/ui/PowerManagementItem.qml
 new file mode 100644
-index 0000000..c82a86d
+index 0000000..85555ac
 --- /dev/null
 +++ b/plasma/generic/applets/batterymonitor/contents/ui/PowerManagementItem.qml
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,64 @@
 +/*
 + *   Copyright 2012-2013 Daniel Nicoletti <dantti12@gmail.com>
 + *   Copyright 2013 Kai Uwe Broulik <kde@privat.broulik.de>
@@ -1716,9 +1735,7 @@ index 0000000..c82a86d
 +    width: parent.width
 +    height: Math.max(pmCheckBox.height, pmLabel.height) + padding.margins.top + padding.margins.bottom
 +
-+    property alias enabled: pmCheckBox.checked
-+
-+    signal enabledChanged(bool checked)
++    property bool enabled: pmCheckBox.checked
 +
 +    Components.CheckBox {
 +        id: pmCheckBox
@@ -1730,7 +1747,6 @@ index 0000000..c82a86d
 +            bottomMargin: padding.margins.bottom
 +        }
 +        checked: true
-+        onCheckedChanged: enabledChanged(checked)
 +    }
 +
 +    Components.Label {
@@ -1817,7 +1833,7 @@ index 0000000..c3cb818
 +    }
 +}
 diff --git a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
-index a5e1c13..f082c38 100644
+index a5e1c13..357c2dc 100644
 --- a/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
 +++ b/plasma/generic/applets/batterymonitor/contents/ui/batterymonitor.qml
 @@ -1,6 +1,7 @@
@@ -1828,7 +1844,7 @@ index a5e1c13..f082c38 100644
   *
   *   This program is free software; you can redistribute it and/or modify
   *   it under the terms of the GNU Library General Public License as
-@@ -21,128 +22,40 @@
+@@ -21,128 +22,46 @@
  import QtQuick 1.1
  import org.kde.plasma.core 0.1 as PlasmaCore
  import "plasmapackage:/code/logic.js" as Logic
@@ -1847,11 +1863,11 @@ index a5e1c13..f082c38 100644
 +    PlasmaCore.Theme { id: theme }
 +
      Component.onCompleted: {
+-        Logic.updateCumulative();
+-        Logic.updateTooltip();
+-        Logic.updateBrightness();
 +        plasmoid.aspectRatioMode = IgnoreAspectRatio
-         Logic.updateCumulative();
-+        plasmoid.status = Logic.plasmoidStatus();
-         Logic.updateTooltip();
-         Logic.updateBrightness();
++        updateLogic(true);
          plasmoid.addEventListener('ConfigChanged', configChanged);
 +        plasmoid.popupEvent.connect(popupEventSlot);
      }
@@ -1947,7 +1963,15 @@ index a5e1c13..f082c38 100644
 -                    opacity: labelRect.opacity/0.7
 -                }
 -            }
--
++    function updateLogic(updateBrightness) {
++        Logic.updateCumulative();
++        plasmoid.status = Logic.plasmoidStatus();
++        Logic.updateTooltip();
++        if (updateBrightness) {
++            Logic.updateBrightness();
++        }
++    }
+ 
 -            MouseArea {
 -                id: mouseArea
 -                anchors.fill: parent
@@ -1973,14 +1997,13 @@ index a5e1c13..f082c38 100644
      }
  
      property QtObject pmSource: PlasmaCore.DataSource {
-@@ -150,12 +63,14 @@ Item {
+@@ -150,12 +69,11 @@ Item {
          engine: "powermanagement"
          connectedSources: sources
          onDataChanged: {
-+            Logic.updateCumulative();
-+            plasmoid.status = Logic.plasmoidStatus();
-             Logic.updateTooltip();
-             Logic.updateBrightness();
+-            Logic.updateTooltip();
+-            Logic.updateBrightness();
++            updateLogic(true);
          }
          onSourceAdded: {
              if (source == "Battery0") {
@@ -1989,10 +2012,11 @@ index a5e1c13..f082c38 100644
                  connectSource(source);
              }
          }
-@@ -173,44 +88,31 @@ Item {
+@@ -172,45 +90,31 @@ Item {
+         sourceFilter: "Battery[0-9]+"
  
          onDataChanged: {
-             Logic.updateCumulative();
+-            Logic.updateCumulative();
 -
 -            var status = "PassiveStatus";
 -            if (batteries.cumulativePluggedin) {
@@ -2003,7 +2027,7 @@ index a5e1c13..f082c38 100644
 -                }
 -            }
 -            plasmoid.status = status;
-+            plasmoid.status = Logic.plasmoidStatus();
++            updateLogic()
          }
  
          property int cumulativePercent
@@ -2044,7 +2068,7 @@ index a5e1c13..f082c38 100644
          onBrightnessChanged: {
              if (disableBrightnessUpdate) {
                  return;
-@@ -220,6 +122,15 @@ Item {
+@@ -220,6 +124,15 @@ Item {
              operation.brightness = screenBrightness;
              service.startOperationCall(operation);
          }
@@ -2060,6 +2084,15 @@ index a5e1c13..f082c38 100644
          property int cookie1: -1
          property int cookie2: -1
          onPowermanagementChanged: {
+@@ -256,6 +169,8 @@ Item {
+                     cookie2 = job.result;
+                 });
+             }
++            Logic.powermanagementDisabled = !checked;
++            updateLogic();
+         }
+     }
+ }
 diff --git a/plasma/generic/applets/batterymonitor/contents/ui/config.ui b/plasma/generic/applets/batterymonitor/contents/ui/config.ui
 deleted file mode 100644
 index 3df38e2..0000000
