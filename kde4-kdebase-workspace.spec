@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.11.1
-Release:	2
+Version:	4.11.3
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	4cf6d42500385272e1b84fca508fa2e4
+# Source0-md5:	7eb7c769dd2b0fe2269d56fbf7ead35a
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -45,7 +45,6 @@ BuildRequires:	cmake >= 2.8.0
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-style-xsl
 BuildRequires:	eet-devel
-BuildRequires:	google-gadgets-qt >= 0.11.0
 BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kactivities-devel >= %{version}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
@@ -54,7 +53,6 @@ BuildRequires:	kde4-nepomuk-core-devel >= %{version}
 BuildRequires:	libcaptury-devel
 BuildRequires:	libdbusmenu-qt-devel >= 0.6.0
 BuildRequires:	libdmtx-devel
-BuildRequires:	libggadget-qt-devel >= 0.11.0
 BuildRequires:	libqalculate-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libtirpc-devel
@@ -230,7 +228,6 @@ Group:		X11/Applications
 Requires:	%{name}-solid = %{version}-%{release}
 Requires:	%{name}-ksysguard = %{version}-%{release}
 Requires:	libdbusmenu-qt >= 0.6.0
-Suggests:	google-gadgets-qt >= 0.10.4
 
 %description plasma
 Plasma - KDE 4 panels and desktop work area.
