@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.10.5
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
@@ -543,6 +543,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 install -d build
 cd build
 %cmake \
+	-DFREETYPE_INCLUDE_DIRS=%{_includedir}/freetype2 \
 	-DLIBEXEC_INSTALL_DIR=%{_libdir}/kde4/libexec \
 	-DKDE4_KDM_PAM_SERVICE=kdm \
 	-DKDE4_KCHECKPASS_PAM_SERVICE=kcheckpass \
