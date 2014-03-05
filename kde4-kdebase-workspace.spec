@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.11.5
-Release:	2
+Version:	4.11.7
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/%{version}/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	2bed3dcf2860ceba4609ae64a8bac923
+Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/4.12.3/src/%{orgname}-%{version}.tar.xz
+# Source0-md5:	ff6a9b56343b1f40112139abdf0aae31
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
@@ -1307,10 +1307,12 @@ fi
 
 %dir %{_libdir}/kde4/imports/org/kde/kwin
 %dir %{_libdir}/kde4/imports/org/kde/kwin/decoration
+%{_libdir}/kde4/imports/org/kde/kwin/decoration/qmldir
 %{_libdir}/kde4/imports/org/kde/kwin/decoration/*.qml
 %attr(755,root,root) %{_libdir}/kde4/imports/org/kde/kwin/decoration/libdecorationplugin.so
 %dir %{_libdir}/kde4/imports/org/kde/kwin/decorations
 %dir %{_libdir}/kde4/imports/org/kde/kwin/decorations/plastik
+%{_libdir}/kde4/imports/org/kde/kwin/decorations/plastik/qmldir
 %attr(755,root,root) %{_libdir}/kde4/imports/org/kde/kwin/decorations/plastik/libplastikplugin.so
 %{_datadir}/apps/kwin/decorations/kwin4_decoration_qml_plastik
 
