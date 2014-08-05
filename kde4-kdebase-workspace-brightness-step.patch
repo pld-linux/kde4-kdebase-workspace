@@ -5,7 +5,7 @@
      float currentBrightness = brightness(controlType);
  
 -    int step = 10;
-+    int step = 5;
++    int step = 2;
      if (controlType == Keyboard) {
          // In case the keyboard backlight has only 5 or less possible values,
          // 10% are not enough to hit the next value. Lets use 30% because
