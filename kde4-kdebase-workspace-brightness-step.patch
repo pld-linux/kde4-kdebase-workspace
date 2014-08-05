@@ -1,0 +1,11 @@
+--- kde-workspace-4.11.10/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp~	2014-06-08 12:55:49.000000000 +0200
++++ kde-workspace-4.11.10/powerdevil/daemon/backends/upower/powerdevilupowerbackend.cpp	2014-08-05 20:09:46.321671397 +0200
+@@ -321,7 +321,7 @@
+ 
+     float currentBrightness = brightness(controlType);
+ 
+-    int step = 10;
++    int step = 5;
+     if (controlType == Keyboard) {
+         // In case the keyboard backlight has only 5 or less possible values,
+         // 10% are not enough to hit the next value. Lets use 30% because

@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.10
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/4.13.2/src/%{orgname}-%{version}.tar.xz
@@ -31,6 +31,7 @@ Patch0:		%{name}-rootprivs.patch
 Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-kdm_revertcrashlogic.patch
 Patch3:		kde4-kdebase-workspace-brightness.patch
+Patch4:		kde4-kdebase-workspace-brightness-step.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	Mesa-libGLES-devel
@@ -518,7 +519,9 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch1 -p1
 # https://bugs.kde.org/show_bug.cgi?id=281862
 #%patch2 -p1
+# https://bugs.kde.org/show_bug.cgi?id=276482
 #%patch3 -p1
+%patch4 -p1
 
 %build
 install -d build
