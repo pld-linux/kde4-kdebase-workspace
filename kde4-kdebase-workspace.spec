@@ -7,12 +7,12 @@
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
-Version:	4.11.11
+Version:	4.11.13
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	ftp://ftp.kde.org/pub/kde/%{_state}/4.13.3/src/%{orgname}-%{version}.tar.xz
-# Source0-md5:	cbd3311713b42d4856c66281fbe7a212
+Source0:	http://download.kde.org/%{_state}/4.14.2/src/%{orgname}-%{version}.tar.xz
+# Source0-md5:	64dc4f44a7df7bcde32633a4ad036edb
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
 Source3:	kdebase-kdm-np.pam
