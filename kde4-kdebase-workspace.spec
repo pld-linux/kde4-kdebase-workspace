@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.21
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/applications/15.04.3/src/%{orgname}-%{version}.tar.xz
@@ -32,6 +32,10 @@ Patch1:		%{name}-kdmconfig.patch
 Patch2:		%{name}-kdm_revertcrashlogic.patch
 Patch3:		kde4-kdebase-workspace-brightness.patch
 Patch4:		kde4-kdebase-workspace-brightness-step.patch
+Patch5:		%{name}-xsession_errors_O_APPEND.patch
+Patch6:		%{name}-kdm_plymouth081.patch
+Patch7:		%{name}-kdm-logind-multiseat.patch
+Patch8:		%{name}-bug796969.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	Mesa-libGLES-devel
@@ -78,6 +82,7 @@ BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	shared-desktop-ontologies-devel >= 0.5
 BuildRequires:	soprano-devel >= 2.4.64
 BuildRequires:	strigi-devel >= 0.7.0
+BuildRequires:	systemd-devel
 BuildRequires:	utempter-devel
 BuildRequires:	xcb-util-devel
 BuildRequires:	xcb-util-image-devel
@@ -522,6 +527,10 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 # https://bugs.kde.org/show_bug.cgi?id=276482
 #%patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %build
 install -d build
