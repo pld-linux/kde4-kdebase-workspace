@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.22
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
@@ -554,7 +554,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,sysconfig}
 install -d $RPM_BUILD_ROOT/etc/{X11/kdm,pam.d,security}
-install -d $RPM_BUILD_ROOT%{_datadir}/config/kdm \
+install -d $RPM_BUILD_ROOT{/var/lib,%{_datadir}/config}/kdm \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol \
 	$RPM_BUILD_ROOT%{_datadir}/apps/kcontrol/pics \
 	$RPM_BUILD_ROOT%{_datadir}/apps/konqsidebartng \
@@ -1856,6 +1856,7 @@ fi
 %{_sysconfdir}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
 %lang(en) %{_kdedocdir}/en/kdm
 %{systemdunitdir}/kdm.service
+%attr(750,kdm,root) %dir /var/lib/kdm
 
 %files svg-icons
 %defattr(644,root,root,755)
