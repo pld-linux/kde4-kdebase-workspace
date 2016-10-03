@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.22
-Release:	3
+Release:	4
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
@@ -1577,7 +1577,6 @@ fi
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_desktoptoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_nettoolbox.so
 %attr(755,root,root) %{_libdir}/kde4/plasma_toolbox_paneltoolbox.so
-%dir %{_datadir}/
 %attr(755,root,root) %ghost %{_libdir}/libplasma-geolocation-interface.so.?
 %attr(755,root,root) %{_libdir}/libplasma-geolocation-interface.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libplasma_applet-system-monitor.so.?
