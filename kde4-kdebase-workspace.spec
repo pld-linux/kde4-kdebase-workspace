@@ -70,7 +70,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	polkit-qt-1-gui-devel >= 0.99.0
 BuildRequires:	prison-devel
 BuildRequires:	python-sip-devel
-BuildRequires:	qedje-devel >= 0.4.0
 BuildRequires:	qimageblitz-devel >= 0.0.6
 BuildRequires:	qjson-devel
 BuildRequires:	qt4-build >= %{qtver}
