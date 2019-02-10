@@ -49,7 +49,6 @@ BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.8.0
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-style-xsl
-BuildRequires:	eet-devel
 BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kactivities-devel >= %{version}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
