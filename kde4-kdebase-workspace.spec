@@ -531,6 +531,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch8 -p1
 
 %build
+export CXXFLAGS="%{rpmcxxflags} -fpermissive"
 install -d build
 cd build
 %cmake \
