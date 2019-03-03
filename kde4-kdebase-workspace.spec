@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.22
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
@@ -532,6 +532,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 
 %build
 export CXXFLAGS="%{rpmcxxflags} -fpermissive"
+export CFLAGS="%{rpmcflags} -std=c99"
 install -d build
 cd build
 %cmake \
