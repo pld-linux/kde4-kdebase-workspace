@@ -8,7 +8,7 @@ Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
 Name:		kde4-kdebase-workspace
 Version:	4.11.22
-Release:	9
+Release:	10
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://download.kde.org/%{_state}/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
@@ -36,6 +36,7 @@ Patch5:		%{name}-xsession_errors_O_APPEND.patch
 Patch6:		%{name}-kdm_plymouth081.patch
 Patch7:		%{name}-kdm-logind-multiseat.patch
 Patch8:		%{name}-bug796969.patch
+Patch9:		gpsd.patch
 URL:		http://www.kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	Mesa-libGLES-devel
@@ -529,6 +530,7 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 export CXXFLAGS="%{rpmcxxflags} -fpermissive"
