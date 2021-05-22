@@ -483,12 +483,16 @@ Motyw ikon do KDE - oxygen. Ten pakiet zawiera ikony SVG.
 
 %package -n python-plasma
 Summary:	Python plasma for KDE
+Summary(pl.UTF-8):	Plasma w Pythonie dla KDE
 Group:		Libraries/Python
 Requires:	%{name}-plasma = %{version}-%{release}
 Requires:	python-PyKDE4
 
 %description -n python-plasma
 Python plasma for KDE.
+
+%description -n python-plasma -l pl.UTF-8
+Plasma w Pythonie dla KDE.
 
 %package -n kde4-style-oxygen
 Summary:	KDE Oxygen Style
