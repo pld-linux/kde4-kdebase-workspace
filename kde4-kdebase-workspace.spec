@@ -37,26 +37,37 @@ Patch7:		%{name}-kdm-logind-multiseat.patch
 Patch8:		%{name}-bug796969.patch
 Patch9:		gpsd.patch
 URL:		https://kde.org/
+BuildRequires:	EGL-devel
 BuildRequires:	ConsoleKit-devel
-BuildRequires:	Mesa-libGLES-devel
 BuildRequires:	NetworkManager-devel >= 0.8.999
 BuildRequires:	OpenGL-devel
-BuildRequires:	QtXmlPatterns-devel
+BuildRequires:	OpenGLESv2-devel
+BuildRequires:	QtCore-devel >= %{qt4_ver}
+BuildRequires:	QtDBus-devel >= %{qt4_ver}
+BuildRequires:	QtDeclarative-devel >= %{qt4_ver}
+BuildRequires:	QtGui-devel >= %{qt4_ver}
+BuildRequires:	QtNetwork-devel >= %{qt4_ver}
+BuildRequires:	QtOpenGL-devel >= %{qt4_ver}
+BuildRequires:	QtScript-devel >= %{qt4_ver}
+BuildRequires:	QtTest-devel >= %{qt4_ver}
+BuildRequires:	QtWebKit-devel >= %{qt4_ver}
+BuildRequires:	QtXml-devel >= %{qt4_ver}
 BuildRequires:	akonadi-devel >= 1.3.80
 BuildRequires:	automoc4 >= 0.9.88
-BuildRequires:	bluez-libs-devel
-BuildRequires:	boost-devel
-BuildRequires:	cmake >= 2.8.0
+BuildRequires:	boost-devel >= 1.34.0
+BuildRequires:	cmake >= 2.8.6
 BuildRequires:	docbook-dtd42-xml
 BuildRequires:	docbook-style-xsl
+BuildRequires:	fontconfig-devel
+BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	gpsd-devel
 BuildRequires:	kde4-kactivities-devel >= %{version}
 BuildRequires:	kde4-kdelibs-devel >= %{version}
 BuildRequires:	kde4-kdepimlibs-devel >= %{version}
 BuildRequires:	kde4-nepomuk-core-devel >= %{version}
-BuildRequires:	libcaptury-devel
 BuildRequires:	libdbusmenu-qt-devel >= 0.6.0
-BuildRequires:	libdmtx-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libqalculate-devel
 BuildRequires:	libraw1394-devel
 BuildRequires:	libtirpc-devel
@@ -74,24 +85,34 @@ BuildRequires:	qimageblitz-devel >= 0.0.6
 BuildRequires:	qjson-devel
 BuildRequires:	qt4-build >= %{qt_ver}
 BuildRequires:	qt4-qmake >= %{qt_ver}
-BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	shared-desktop-ontologies-devel >= 0.5
-BuildRequires:	soprano-devel >= 2.4.64
+BuildRequires:	soprano-devel >= 2.7.56
 BuildRequires:	strigi-devel >= 0.7.0
 BuildRequires:	systemd-devel
+BuildRequires:	udev-devel
 BuildRequires:	utempter-devel
+BuildRequires:	wayland-devel
 BuildRequires:	xcb-util-devel
 BuildRequires:	xcb-util-image-devel
 BuildRequires:	xcb-util-keysyms-devel
 BuildRequires:	xcb-util-renderutil-devel
 BuildRequires:	xmms-devel
+BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXScrnSaver-devel
+BuildRequires:	xorg-lib-libXau-devel
 BuildRequires:	xorg-lib-libXcomposite-devel
+BuildRequires:	xorg-lib-libXcursor-devel
+BuildRequires:	xorg-lib-libXdmcp-devel
 BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXft-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-lib-libXrender-devel
 BuildRequires:	xorg-lib-libXtst-devel
+BuildRequires:	zlib-devel
 Requires(post,preun):	/sbin/chkconfig
 Requires:	kde4-icons-oxygen >= %{version}
 Requires:	kde4-kdebase-workspace-solid >= %{version}
