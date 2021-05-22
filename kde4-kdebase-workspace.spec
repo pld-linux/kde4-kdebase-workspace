@@ -104,12 +104,12 @@ Requires:	xorg-app-xsetroot
 Suggests:	fontconfig
 Suggests:	kde4-decoration-oxygen >= %{version}
 Suggests:	kde4-style-oxygen >= %{version}
-Obsoletes:	kde4-decoration-ozone
-Obsoletes:	kde4-kdebase-workspace-core
-Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs
-Obsoletes:	kde4-kdebase-workspace-wallpapers
-Obsoletes:	kdebase-desktop
-Obsoletes:	kdebase4-workspace
+Obsoletes:	kde4-decoration-ozone < 4.4.0
+Obsoletes:	kde4-kdebase-workspace-core < 4.2.0
+Obsoletes:	kde4-kdebase-workspace-kde4-decoration-libs < 4.2.0
+Obsoletes:	kde4-kdebase-workspace-wallpapers < 4.7.0
+Obsoletes:	kdebase-desktop < 4.0.0
+Obsoletes:	kdebase4-workspace < 4.0.0
 Conflicts:	kdebase-core
 Conflicts:	kdebase-desktop
 Conflicts:	kdebase4-workspace
@@ -169,7 +169,7 @@ Summary(pl.UTF-8):	Centrum informacji o systemie dla KDE
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 #Requires:	pciutils
-Obsoletes:	kde4-kdebase-infocenter
+Obsoletes:	kde4-kdebase-infocenter < 4.5.0
 
 %description infocenter
 Application for displaying information about your system.
@@ -273,7 +273,7 @@ Summary:	KDE write messaging daemon
 Summary(pl.UTF-8):	Demon do KDE obsługujący wymianę wiadomości za pomocą write
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Obsoletes:	kde4-kdebase-kwrited
+Obsoletes:	kde4-kdebase-kwrited < 4.2.0
 
 %description kwrited
 A kde daemon that watches for messages from local users sent with
@@ -302,7 +302,7 @@ Requires:	systemd-units >= 0.38
 Requires:	xinitrc-ng >= 1.0
 Provides:	XDM
 Provides:	user(kdm)
-Obsoletes:	kde4-kdm-systemd
+Obsoletes:	kde4-kdm-systemd < 4.8.0-5
 Obsoletes:	kdm < 9:3.0.0
 Obsoletes:	kdm >= 4.0.0
 
@@ -494,7 +494,7 @@ Python plasma for KDE.
 Summary:	KDE Oxygen Style
 Summary(pl.UTF-8):	Styl Oxygen dla KDE
 Group:		Themes
-Obsoletes:	kde-style-oxygen
+Obsoletes:	kde-style-oxygen < 4.0.0
 
 %description -n kde4-style-oxygen
 KDE Oxygen Style.
