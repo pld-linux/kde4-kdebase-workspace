@@ -1,8 +1,7 @@
 # TODO:
 # - subpackage PolicyKit-kde and O: PolicyKit-kde
 %define		orgname		kde-workspace
-%define		_state		stable
-%define		qtver		4.8.3
+%define		qt_ver		4.8.3
 
 Summary:	KDE 4 base workspace components
 Summary(pl.UTF-8):	Podstawowe komponenty środowiska KDE 4
@@ -11,7 +10,7 @@ Version:	4.11.22
 Release:	10
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://download.kde.org/%{_state}/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
+Source0:	https://download.kde.org/Attic/applications/15.08.0/src/%{orgname}-%{version}.tar.xz
 # Source0-md5:	872d7119701643620c0442b0ce63e9a9
 Source1:	kdebase-kdesktop.pam
 Source2:	kdebase-kdm.pam
@@ -37,7 +36,7 @@ Patch6:		%{name}-kdm_plymouth081.patch
 Patch7:		%{name}-kdm-logind-multiseat.patch
 Patch8:		%{name}-bug796969.patch
 Patch9:		gpsd.patch
-URL:		http://www.kde.org/
+URL:		https://kde.org/
 BuildRequires:	ConsoleKit-devel
 BuildRequires:	Mesa-libGLES-devel
 BuildRequires:	NetworkManager-devel >= 0.8.999
@@ -73,8 +72,8 @@ BuildRequires:	prison-devel
 BuildRequires:	python-sip-devel
 BuildRequires:	qimageblitz-devel >= 0.0.6
 BuildRequires:	qjson-devel
-BuildRequires:	qt4-build >= %{qtver}
-BuildRequires:	qt4-qmake >= %{qtver}
+BuildRequires:	qt4-build >= %{qt_ver}
+BuildRequires:	qt4-qmake >= %{qt_ver}
 BuildRequires:	qzion-devel >= 0.4.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
