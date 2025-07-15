@@ -546,9 +546,9 @@ dialogowych mających na celu rozszerzenie przywilejów użytkownika.
 %patch -P0 -p1
 %patch -P1 -p1
 # https://bugs.kde.org/show_bug.cgi?id=281862
-#%patch2 -p1
+#%%patch2 -p1
 # https://bugs.kde.org/show_bug.cgi?id=276482
-#%patch3 -p1
+#%%patch3 -p1
 %patch -P4 -p1
 %patch -P5 -p1
 %patch -P6 -p1
